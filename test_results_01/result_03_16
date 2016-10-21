@@ -1,0 +1,47 @@
+p_idx=3	q_idx=16
+p=3	q=47	p*q=N=141
+sqrt of N = 12
+size of factor base size_B=2.703628
+smooth numbers
+2
+5
+7
+11
+23
+The sieving interval M=18
+
+X = 12	Y = 3	
+X = 13	Y = 28	
+X = 14	Y = 55	
+X = 15	Y = 84	
+X = 16	Y = 115	
+X = 17	Y = 148	
+X = 18	Y = 183	
+X = 19	Y = 220	
+X = 20	Y = 259	
+X = 21	Y = 300	
+X = 22	Y = 343	
+X = 23	Y = 388	
+X = 24	Y = 435	
+X = 25	Y = 484	
+X = 26	Y = 535	
+X = 27	Y = 588	
+X = 28	Y = 643	
+X = 29	Y = 700	
+X = 30	Y = 759	
+2	0	1	0	0	28
+0	1	0	1	0	55
+0	1	0	0	1	115
+2	1	0	1	0	220
+0	0	3	0	0	343
+2	0	0	2	0	484
+2	2	1	0	0	700
+
+Euclidean algorithm----
+X 25	Y 484
+sqrt Y 22
+firtst attept Y + X = 47
+tmp1 47	tmp2 141
+tmp1 47	tmp2 0
+solution candidate 47
+find p = 47

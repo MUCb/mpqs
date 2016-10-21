@@ -1,0 +1,41 @@
+p_idx=3	q_idx=11
+p=3	q=29	p*q=N=87
+sqrt of N = 10
+size of factor base size_B=2.494270
+smooth numbers
+2
+13
+17
+19
+23
+The sieving interval M=15
+
+X = 10	Y = 13	
+X = 11	Y = 34	
+X = 12	Y = 57	
+X = 13	Y = 82	
+X = 14	Y = 109	
+X = 15	Y = 138	
+X = 16	Y = 169	
+X = 17	Y = 202	
+X = 18	Y = 237	
+X = 19	Y = 274	
+X = 20	Y = 313	
+X = 21	Y = 354	
+X = 22	Y = 397	
+X = 23	Y = 442	
+X = 24	Y = 489	
+X = 25	Y = 538	
+0	1	0	0	0	13
+1	0	1	0	0	34
+0	2	0	0	0	169
+1	1	1	0	0	442
+
+Euclidean algorithm----
+X 16	Y 169
+sqrt Y 13
+firtst attept Y + X = 29
+tmp1 29	tmp2 87
+tmp1 29	tmp2 0
+solution candidate 29
+find p = 29

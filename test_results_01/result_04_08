@@ -1,0 +1,42 @@
+p_idx=4	q_idx=8
+p=5	q=17	p*q=N=85
+sqrt of N = 10
+size of factor base size_B=2.484375
+smooth numbers
+2
+3
+7
+19
+23
+The sieving interval M=15
+
+X = 10	Y = 15	
+X = 11	Y = 36	
+X = 12	Y = 59	
+X = 13	Y = 84	
+X = 14	Y = 111	
+X = 15	Y = 140	
+X = 16	Y = 171	
+X = 17	Y = 204	
+X = 18	Y = 239	
+X = 19	Y = 276	
+X = 20	Y = 315	
+X = 21	Y = 356	
+X = 22	Y = 399	
+X = 23	Y = 444	
+X = 24	Y = 491	
+X = 25	Y = 540	
+2	2	0	0	0	36
+2	1	1	0	0	84
+0	2	0	1	0	171
+2	1	0	0	1	276
+0	1	1	1	0	399
+
+Euclidean algorithm----
+X 11	Y 36
+sqrt Y 6
+firtst attept Y + X = 17
+tmp1 17	tmp2 85
+tmp1 17	tmp2 0
+solution candidate 17
+find p = 17

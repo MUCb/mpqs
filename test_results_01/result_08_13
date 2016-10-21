@@ -1,0 +1,67 @@
+p_idx=8	q_idx=13
+p=17	q=37	p*q=N=629
+sqrt of N = 26
+size of factor base size_B=3.404429
+smooth numbers
+2
+5
+23
+29
+31
+47
+The sieving interval M=38
+
+X = 26	Y = 47	
+X = 27	Y = 100	
+X = 28	Y = 155	
+X = 29	Y = 212	
+X = 30	Y = 271	
+X = 31	Y = 332	
+X = 32	Y = 395	
+X = 33	Y = 460	
+X = 34	Y = 527	
+X = 35	Y = 596	
+X = 36	Y = 667	
+X = 37	Y = 740	
+X = 38	Y = 815	
+X = 39	Y = 892	
+X = 40	Y = 971	
+X = 41	Y = 1052	
+X = 42	Y = 1135	
+X = 43	Y = 1220	
+X = 44	Y = 1307	
+X = 45	Y = 1396	
+X = 46	Y = 1487	
+X = 47	Y = 1580	
+X = 48	Y = 1675	
+X = 49	Y = 1772	
+X = 50	Y = 1871	
+X = 51	Y = 1972	
+X = 52	Y = 2075	
+X = 53	Y = 2180	
+X = 54	Y = 2287	
+X = 55	Y = 2396	
+X = 56	Y = 2507	
+X = 57	Y = 2620	
+X = 58	Y = 2735	
+X = 59	Y = 2852	
+X = 60	Y = 2971	
+X = 61	Y = 3092	
+X = 62	Y = 3215	
+X = 63	Y = 3340	
+X = 64	Y = 3467	
+0	0	0	0	0	1	47
+2	2	0	0	0	0	100
+0	1	0	0	1	0	155
+2	1	1	0	0	0	460
+0	0	1	1	0	0	667
+2	0	1	0	1	0	2852
+
+Euclidean algorithm----
+X 27	Y 100
+sqrt Y 10
+firtst attept Y + X = 37
+tmp1 37	tmp2 629
+tmp1 37	tmp2 0
+solution candidate 37
+find p = 37

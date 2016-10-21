@@ -1,0 +1,65 @@
+p_idx=25	q_idx=4
+p=89	q=5	p*q=N=445
+sqrt of N = 22
+size of factor base size_B=3.234725
+smooth numbers
+2
+3
+7
+11
+13
+23
+The sieving interval M=32
+
+X = 22	Y = 39	
+X = 23	Y = 84	
+X = 24	Y = 131	
+X = 25	Y = 180	
+X = 26	Y = 231	
+X = 27	Y = 284	
+X = 28	Y = 339	
+X = 29	Y = 396	
+X = 30	Y = 455	
+X = 31	Y = 516	
+X = 32	Y = 579	
+X = 33	Y = 644	
+X = 34	Y = 711	
+X = 35	Y = 780	
+X = 36	Y = 851	
+X = 37	Y = 924	
+X = 38	Y = 999	
+X = 39	Y = 1076	
+X = 40	Y = 1155	
+X = 41	Y = 1236	
+X = 42	Y = 1319	
+X = 43	Y = 1404	
+X = 44	Y = 1491	
+X = 45	Y = 1580	
+X = 46	Y = 1671	
+X = 47	Y = 1764	
+X = 48	Y = 1859	
+X = 49	Y = 1956	
+X = 50	Y = 2055	
+X = 51	Y = 2156	
+X = 52	Y = 2259	
+X = 53	Y = 2364	
+X = 54	Y = 2471	
+0	1	0	0	1	0	39
+2	1	1	0	0	0	84
+0	1	1	1	0	0	231
+2	2	0	1	0	0	396
+2	0	1	0	0	1	644
+2	1	1	1	0	0	924
+2	3	0	0	1	0	1404
+2	2	2	0	0	0	1764
+0	0	0	1	2	0	1859
+2	0	2	1	0	0	2156
+
+Euclidean algorithm----
+X 47	Y 1764
+sqrt Y 42
+firtst attept Y + X = 89
+tmp1 89	tmp2 445
+tmp1 89	tmp2 0
+solution candidate 89
+find p = 89

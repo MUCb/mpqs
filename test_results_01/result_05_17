@@ -1,0 +1,59 @@
+p_idx=5	q_idx=17
+p=7	q=53	p*q=N=371
+sqrt of N = 20
+size of factor base size_B=3.147416
+smooth numbers
+2
+5
+23
+29
+37
+41
+The sieving interval M=30
+
+X = 20	Y = 29	
+X = 21	Y = 70	
+X = 22	Y = 113	
+X = 23	Y = 158	
+X = 24	Y = 205	
+X = 25	Y = 254	
+X = 26	Y = 305	
+X = 27	Y = 358	
+X = 28	Y = 413	
+X = 29	Y = 470	
+X = 30	Y = 529	
+X = 31	Y = 590	
+X = 32	Y = 653	
+X = 33	Y = 718	
+X = 34	Y = 785	
+X = 35	Y = 854	
+X = 36	Y = 925	
+X = 37	Y = 998	
+X = 38	Y = 1073	
+X = 39	Y = 1150	
+X = 40	Y = 1229	
+X = 41	Y = 1310	
+X = 42	Y = 1393	
+X = 43	Y = 1478	
+X = 44	Y = 1565	
+X = 45	Y = 1654	
+X = 46	Y = 1745	
+X = 47	Y = 1838	
+X = 48	Y = 1933	
+X = 49	Y = 2030	
+X = 50	Y = 2129	
+0	0	0	1	0	0	29
+0	1	0	0	0	1	205
+0	0	2	0	0	0	529
+0	2	0	0	1	0	925
+0	0	0	1	1	0	1073
+1	2	1	0	0	0	1150
+
+Euclidean algorithm----
+X 30	Y 529
+sqrt Y 23
+firtst attept Y + X = 53
+tmp1 53	tmp2 371
+tmp1 53	tmp2 0
+solution candidate 53
+find p = 53

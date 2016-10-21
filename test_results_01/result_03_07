@@ -1,0 +1,33 @@
+p_idx=3	q_idx=7
+p=3	q=13	p*q=N=39
+sqrt of N = 7
+size of factor base size_B=2.162167
+smooth numbers
+2
+5
+7
+19
+23
+The sieving interval M=9
+
+X = 7	Y = 10	
+X = 8	Y = 25	
+X = 9	Y = 42	
+X = 10	Y = 61	
+X = 11	Y = 82	
+X = 12	Y = 105	
+X = 13	Y = 130	
+X = 14	Y = 157	
+X = 15	Y = 186	
+X = 16	Y = 217	
+1	1	0	0	0	10
+0	2	0	0	0	25
+
+Euclidean algorithm----
+X 8	Y 25
+sqrt Y 5
+firtst attept Y + X = 13
+tmp1 13	tmp2 39
+tmp1 13	tmp2 0
+solution candidate 13
+find p = 13

@@ -1,0 +1,41 @@
+p_idx=3	q_idx=12
+p=3	q=31	p*q=N=93
+sqrt of N = 10
+size of factor base size_B=2.522737
+smooth numbers
+2
+7
+11
+17
+19
+The sieving interval M=15
+
+X = 10	Y = 7	
+X = 11	Y = 28	
+X = 12	Y = 51	
+X = 13	Y = 76	
+X = 14	Y = 103	
+X = 15	Y = 132	
+X = 16	Y = 163	
+X = 17	Y = 196	
+X = 18	Y = 231	
+X = 19	Y = 268	
+X = 20	Y = 307	
+X = 21	Y = 348	
+X = 22	Y = 391	
+X = 23	Y = 436	
+X = 24	Y = 483	
+X = 25	Y = 532	
+0	1	0	0	0	7
+2	1	0	0	0	28
+2	0	0	0	1	76
+2	2	0	0	0	196
+
+Euclidean algorithm----
+X 17	Y 196
+sqrt Y 14
+firtst attept Y + X = 31
+tmp1 31	tmp2 93
+tmp1 31	tmp2 0
+solution candidate 31
+find p = 31

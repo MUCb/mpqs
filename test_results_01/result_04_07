@@ -1,0 +1,39 @@
+p_idx=4	q_idx=7
+p=5	q=13	p*q=N=65
+sqrt of N = 9
+size of factor base size_B=2.371447
+smooth numbers
+2
+7
+29
+37
+47
+The sieving interval M=12
+
+X = 9	Y = 16	
+X = 10	Y = 35	
+X = 11	Y = 56	
+X = 12	Y = 79	
+X = 13	Y = 104	
+X = 14	Y = 131	
+X = 15	Y = 160	
+X = 16	Y = 191	
+X = 17	Y = 224	
+X = 18	Y = 259	
+X = 19	Y = 296	
+X = 20	Y = 335	
+X = 21	Y = 376	
+4	0	0	0	0	16
+3	1	0	0	0	56
+5	1	0	0	0	224
+0	1	0	1	0	259
+3	0	0	1	0	296
+
+Euclidean algorithm----
+X 9	Y 16
+sqrt Y 4
+firtst attept Y + X = 13
+tmp1 13	tmp2 65
+tmp1 13	tmp2 0
+solution candidate 13
+find p = 13

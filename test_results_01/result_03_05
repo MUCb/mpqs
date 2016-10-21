@@ -1,0 +1,28 @@
+p_idx=3	q_idx=5
+p=3	q=7	p*q=N=21
+sqrt of N = 5
+size of factor base size_B=1.917309
+smooth numbers
+2
+5
+17
+37
+The sieving interval M=6
+
+X = 5	Y = 4	
+X = 6	Y = 15	
+X = 7	Y = 28	
+X = 8	Y = 43	
+X = 9	Y = 60	
+X = 10	Y = 79	
+X = 11	Y = 100	
+2	0	0	0	4
+
+Euclidean algorithm----
+X 5	Y 4
+sqrt Y 2
+firtst attept Y + X = 7
+tmp1 7	tmp2 21
+tmp1 7	tmp2 0
+solution candidate 7
+find p = 7

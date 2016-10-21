@@ -1,0 +1,46 @@
+p_idx=5	q_idx=9
+p=7	q=19	p*q=N=133
+sqrt of N = 12
+size of factor base size_B=2.677892
+smooth numbers
+2
+3
+11
+13
+23
+The sieving interval M=18
+
+X = 12	Y = 11	
+X = 13	Y = 36	
+X = 14	Y = 63	
+X = 15	Y = 92	
+X = 16	Y = 123	
+X = 17	Y = 156	
+X = 18	Y = 191	
+X = 19	Y = 228	
+X = 20	Y = 267	
+X = 21	Y = 308	
+X = 22	Y = 351	
+X = 23	Y = 396	
+X = 24	Y = 443	
+X = 25	Y = 492	
+X = 26	Y = 543	
+X = 27	Y = 596	
+X = 28	Y = 651	
+X = 29	Y = 708	
+X = 30	Y = 767	
+0	0	1	0	0	11
+2	2	0	0	0	36
+2	0	0	0	1	92
+2	1	0	1	0	156
+0	3	0	1	0	351
+2	2	1	0	0	396
+
+Euclidean algorithm----
+X 13	Y 36
+sqrt Y 6
+firtst attept Y + X = 19
+tmp1 19	tmp2 133
+tmp1 19	tmp2 0
+solution candidate 19
+find p = 19

@@ -1,0 +1,37 @@
+p_idx=4	q_idx=6
+p=5	q=11	p*q=N=55
+sqrt of N = 8
+size of factor base size_B=2.302206
+smooth numbers
+2
+3
+13
+17
+19
+The sieving interval M=11
+
+X = 8	Y = 9	
+X = 9	Y = 26	
+X = 10	Y = 45	
+X = 11	Y = 66	
+X = 12	Y = 89	
+X = 13	Y = 114	
+X = 14	Y = 141	
+X = 15	Y = 170	
+X = 16	Y = 201	
+X = 17	Y = 234	
+X = 18	Y = 269	
+X = 19	Y = 306	
+0	2	0	0	0	9
+1	0	1	0	0	26
+1	1	0	0	1	114
+1	2	1	0	0	234
+
+Euclidean algorithm----
+X 8	Y 9
+sqrt Y 3
+firtst attept Y + X = 11
+tmp1 11	tmp2 55
+tmp1 11	tmp2 0
+solution candidate 11
+find p = 11

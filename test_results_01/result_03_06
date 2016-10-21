@@ -1,0 +1,34 @@
+p_idx=3	q_idx=6
+p=3	q=11	p*q=N=33
+sqrt of N = 6
+size of factor base size_B=2.095228
+smooth numbers
+2
+17
+29
+31
+37
+The sieving interval M=9
+
+X = 6	Y = 3	
+X = 7	Y = 16	
+X = 8	Y = 31	
+X = 9	Y = 48	
+X = 10	Y = 67	
+X = 11	Y = 88	
+X = 12	Y = 111	
+X = 13	Y = 136	
+X = 14	Y = 163	
+X = 15	Y = 192	
+4	0	0	0	0	16
+0	0	0	1	0	31
+3	1	0	0	0	136
+
+Euclidean algorithm----
+X 7	Y 16
+sqrt Y 4
+firtst attept Y + X = 11
+tmp1 11	tmp2 33
+tmp1 11	tmp2 0
+solution candidate 11
+find p = 11

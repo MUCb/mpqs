@@ -1,0 +1,50 @@
+p_idx=4	q_idx=13
+p=5	q=37	p*q=N=185
+sqrt of N = 14
+size of factor base size_B=2.824827
+smooth numbers
+2
+11
+13
+17
+23
+The sieving interval M=21
+
+X = 14	Y = 11	
+X = 15	Y = 40	
+X = 16	Y = 71	
+X = 17	Y = 104	
+X = 18	Y = 139	
+X = 19	Y = 176	
+X = 20	Y = 215	
+X = 21	Y = 256	
+X = 22	Y = 299	
+X = 23	Y = 344	
+X = 24	Y = 391	
+X = 25	Y = 440	
+X = 26	Y = 491	
+X = 27	Y = 544	
+X = 28	Y = 599	
+X = 29	Y = 656	
+X = 30	Y = 715	
+X = 31	Y = 776	
+X = 32	Y = 839	
+X = 33	Y = 904	
+X = 34	Y = 971	
+X = 35	Y = 1040	
+0	1	0	0	0	11
+3	0	1	0	0	104
+4	1	0	0	0	176
+8	0	0	0	0	256
+0	0	1	0	1	299
+0	0	0	1	1	391
+5	0	0	1	0	544
+
+Euclidean algorithm----
+X 21	Y 256
+sqrt Y 16
+firtst attept Y + X = 37
+tmp1 37	tmp2 185
+tmp1 37	tmp2 0
+solution candidate 37
+find p = 37

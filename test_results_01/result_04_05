@@ -1,0 +1,32 @@
+p_idx=4	q_idx=5
+p=5	q=7	p*q=N=35
+sqrt of N = 6
+size of factor base size_B=2.118727
+smooth numbers
+2
+13
+17
+19
+23
+The sieving interval M=9
+
+X = 6	Y = 1	
+X = 7	Y = 14	
+X = 8	Y = 29	
+X = 9	Y = 46	
+X = 10	Y = 65	
+X = 11	Y = 86	
+X = 12	Y = 109	
+X = 13	Y = 134	
+X = 14	Y = 161	
+X = 15	Y = 190	
+0	0	0	0	0	1
+1	0	0	0	1	46
+
+Euclidean algorithm----
+X 6	Y 1
+firtst attept Y + X = 7
+tmp1 7	tmp2 35
+tmp1 7	tmp2 0
+solution candidate 7
+find p = 7

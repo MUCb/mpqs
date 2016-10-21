@@ -1,0 +1,57 @@
+p_idx=4	q_idx=20
+p=5	q=67	p*q=N=335
+sqrt of N = 19
+size of factor base size_B=3.098972
+smooth numbers
+2
+11
+13
+23
+29
+31
+The sieving interval M=29
+
+X = 19	Y = 26	
+X = 20	Y = 65	
+X = 21	Y = 106	
+X = 22	Y = 149	
+X = 23	Y = 194	
+X = 24	Y = 241	
+X = 25	Y = 290	
+X = 26	Y = 341	
+X = 27	Y = 394	
+X = 28	Y = 449	
+X = 29	Y = 506	
+X = 30	Y = 565	
+X = 31	Y = 626	
+X = 32	Y = 689	
+X = 33	Y = 754	
+X = 34	Y = 821	
+X = 35	Y = 890	
+X = 36	Y = 961	
+X = 37	Y = 1034	
+X = 38	Y = 1109	
+X = 39	Y = 1186	
+X = 40	Y = 1265	
+X = 41	Y = 1346	
+X = 42	Y = 1429	
+X = 43	Y = 1514	
+X = 44	Y = 1601	
+X = 45	Y = 1690	
+X = 46	Y = 1781	
+X = 47	Y = 1874	
+X = 48	Y = 1969	
+1	0	1	0	0	0	26
+0	1	0	0	0	1	341
+1	1	0	1	0	0	506
+1	0	1	0	1	0	754
+0	0	0	0	0	2	961
+
+Euclidean algorithm----
+X 36	Y 961
+sqrt Y 31
+firtst attept Y + X = 67
+tmp1 67	tmp2 335
+tmp1 67	tmp2 0
+solution candidate 67
+find p = 67

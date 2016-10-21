@@ -1,0 +1,51 @@
+p_idx=5	q_idx=10
+p=7	q=23	p*q=N=161
+sqrt of N = 13
+size of factor base size_B=2.762501
+smooth numbers
+2
+5
+17
+19
+29
+The sieving interval M=20
+
+X = 13	Y = 8	
+X = 14	Y = 35	
+X = 15	Y = 64	
+X = 16	Y = 95	
+X = 17	Y = 128	
+X = 18	Y = 163	
+X = 19	Y = 200	
+X = 20	Y = 239	
+X = 21	Y = 280	
+X = 22	Y = 323	
+X = 23	Y = 368	
+X = 24	Y = 415	
+X = 25	Y = 464	
+X = 26	Y = 515	
+X = 27	Y = 568	
+X = 28	Y = 623	
+X = 29	Y = 680	
+X = 30	Y = 739	
+X = 31	Y = 800	
+X = 32	Y = 863	
+X = 33	Y = 928	
+3	0	0	0	0	8
+6	0	0	0	0	64
+0	1	0	1	0	95
+7	0	0	0	0	128
+3	2	0	0	0	200
+0	0	1	1	0	323
+4	0	0	0	1	464
+3	1	1	0	0	680
+5	2	0	0	0	800
+
+Euclidean algorithm----
+X 15	Y 64
+sqrt Y 8
+firtst attept Y + X = 23
+tmp1 23	tmp2 161
+tmp1 23	tmp2 0
+solution candidate 23
+find p = 23
