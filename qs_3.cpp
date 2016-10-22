@@ -514,8 +514,8 @@ int find_solution (bin_matrix_t m2,
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,
-                    const std::vector<int64_t>& X,
-                    const std::vector<int64_t>& Y,
+                    const std::vector<long>& X,
+                    const std::vector<long>& Y,
                     const uint64_t &p,
                     const uint64_t &q,
                     const uint64_t &N)
@@ -537,6 +537,7 @@ int find_solution (bin_matrix_t m2,
     int null_line = m1.resolve_matrix();
     // m1.show();
     // return 0;
+
 
     if (null_line != -1)
     {
@@ -651,12 +652,12 @@ int main (int argc, char *argv[])
     //*********  test1  **************
     //********************************
     //*********  test2  **************
-    size_B = size_B + 2;
+    // size_B = size_B + 2;
     // size_B = size_B +1;
     //********************************
 
     // selecting smooth primes 
-    std::vector<int64_t> p_smooth;
+    std::vector<long> p_smooth;
     DEBUG (2,"smooth numbers\n");
 
     //prime is 2 - special case 
@@ -698,7 +699,7 @@ int main (int argc, char *argv[])
 
 
     // *** construct our sieve *** //
-    std::vector<int64_t> X;
+    std::vector<long> X;
 
     for (uint64_t i = M/2; i > 0; i = i - 1)
     {
@@ -733,7 +734,15 @@ int main (int argc, char *argv[])
     // simple sieve 
     std::vector<long> V;
     V = Y;
-    std::vector< std::vector<long> > v_exp(Y.size(), std::vector<long> (p_smooth.size())) ;
+    std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
+
+    // add sign to exponent matrix
+    for (int i = 0; i < v_exp.size(); ++i)
+    {
+        if(Y[i] < 0 )
+            v_exp[i][0] = 1;
+    }
+
     for (int j = 0; j < p_smooth.size(); ++j)
     {
         for (int i = 0; i < M; ++i)
@@ -753,7 +762,7 @@ int main (int argc, char *argv[])
                 // }
                 if(tmp == 0){
                     V[i] = V[i] / p_smooth[j];
-                    v_exp[i][j] += 1; 
+                    v_exp[i][j + 1] += 1; 
                 }
             } while (tmp == 0);
         }
@@ -769,7 +778,7 @@ int main (int argc, char *argv[])
         // printf("V = %"PRIu64"\t",V[i]);
         if(V[i] == 1 || V[i] == -1)
         {
-            for (int j = 0; j < p_smooth.size(); ++j)
+            for (int j = 0; j < (p_smooth.size() + 1); ++j)
             {
                 DEBUG (3,"%ld\t", v_exp[i][j]);
                 if ((v_exp[i][j] % 2 )!= 0)
@@ -781,6 +790,8 @@ int main (int argc, char *argv[])
             }
             else
             {
+                // we don;t need to check the sign because all odd value 
+                // have 1 value in the begining so nul_flag will be set
                 P1.push_back(i);
             }
         }
@@ -795,25 +806,24 @@ int main (int argc, char *argv[])
         for (int i = 0; i <  P1.size(); ++i)
         {
             DEBUG (3,"check %"PRIu64"\n", Y[P1[i]]);
+
             if ( Y[P1[i]] > 0 ){
 
                 std::vector<int64_t> tmp;
                 tmp.push_back(P1[i]);
-    return 0;
                 found = euclid_gcd( X, Y, tmp, p, q, N);
                 if (found)
                     break;
             }
         }
     }
-
-/*
-    
     P1.clear();
     if (found)
     {
         return 0;
     }
+
+    
 
 
     if (smooth_num.size()  < size_B + 1)
@@ -821,7 +831,6 @@ int main (int argc, char *argv[])
         ERROR( "to small number of smooth numbbers\n");
         return 0; 
     }
-    
 
     // just print exponent array
     // for (int i = 0; i < V.size(); ++i)
@@ -867,6 +876,9 @@ int main (int argc, char *argv[])
     exit (0);
 
     return 0;
+    
+    return 0;
+/*
 */
 }
 
