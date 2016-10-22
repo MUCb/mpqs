@@ -721,7 +721,7 @@ int main (int argc, char *argv[])
 
 
     DEBUG (2,"\n");
-    std::vector<int64_t> Y;
+    std::vector<long> Y;
     // fill in  (Xi)^2 - N 
     for (uint64_t i = 0; i < X.size(); ++i)
     {
@@ -731,21 +731,21 @@ int main (int argc, char *argv[])
         DEBUG (2,"\n");
     }
     // simple sieve 
-    std::vector<int64_t> V;
+    std::vector<long> V;
     V = Y;
-    std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size())) ;
+    std::vector< std::vector<long> > v_exp(Y.size(), std::vector<long> (p_smooth.size())) ;
     for (int j = 0; j < p_smooth.size(); ++j)
     {
         for (int i = 0; i < M; ++i)
         {
-            if(V[i] == 1)
+            if(V[i] == -1 || V[i] == 1)
                 continue;
 
-            int64_t tmp;
+            long int tmp;
             do{
                 tmp = V[i] % p_smooth[j];
-                DEBUG (2,"v = %li\t",V[i]);
-                DEBUG (2,"p_smooth = %li\t",p_smooth[i]);
+                DEBUG (2,"v = %10li\t",V[i]);
+                DEBUG (2,"p_smooth = %li\t",p_smooth[j]);
                 DEBUG (2,"tmp = %li\n",tmp);
                 // if (tmp < 0 )
                 // {
@@ -760,23 +760,22 @@ int main (int argc, char *argv[])
         // break;
     }
 
-    return 0;
     std::vector<int> smooth_num;
-    std::vector<uint64_t> P1;
+    std::vector<long> P1;
     // std::vector<uint64_t> P11;
     for (int i = 0; i < V.size(); ++i)
     {
         int nul_flag = 0;
         // printf("V = %"PRIu64"\t",V[i]);
-        if(V[i] == 1)
+        if(V[i] == 1 || V[i] == -1)
         {
             for (int j = 0; j < p_smooth.size(); ++j)
             {
-                DEBUG (3,"%"PRIu64"\t", v_exp[i][j]);
+                DEBUG (3,"%ld\t", v_exp[i][j]);
                 if ((v_exp[i][j] % 2 )!= 0)
                     nul_flag = 1;
             }
-            DEBUG (3,"%"PRIu64"\n", Y[i]);
+            DEBUG (3,"%ld\n", Y[i]);
             if (nul_flag){
                 smooth_num.push_back(i);
             }
@@ -800,6 +799,7 @@ int main (int argc, char *argv[])
 
                 std::vector<int64_t> tmp;
                 tmp.push_back(P1[i]);
+    return 0;
                 found = euclid_gcd( X, Y, tmp, p, q, N);
                 if (found)
                     break;
