@@ -6,10 +6,42 @@ smooth numbers
 2
 19
 23
-37
-41
 The sieving interval M=23
+X11 =4
+X10 =5
+X9 =6
+X8 =7
+X7 =8
+X6 =9
+X5 =10
+X4 =11
+X3 =12
+X2 =13
+X1 =14
+X0 =15
+X1 =16
+X2 =17
+X3 =18
+X4 =19
+X5 =20
+X6 =21
+X7 =22
+X8 =23
+X9 =24
+X10 =25
+X11 =26
 
+X = 4	Y = -199	
+X = 5	Y = -190	
+X = 6	Y = -179	
+X = 7	Y = -166	
+X = 8	Y = -151	
+X = 9	Y = -134	
+X = 10	Y = -115	
+X = 11	Y = -94	
+X = 12	Y = -71	
+X = 13	Y = -46	
+X = 14	Y = -19	
 X = 15	Y = 10	
 X = 16	Y = 41	
 X = 17	Y = 74	
@@ -22,23 +54,96 @@ X = 23	Y = 314
 X = 24	Y = 361	
 X = 25	Y = 410	
 X = 26	Y = 461	
-X = 27	Y = 514	
-X = 28	Y = 569	
-X = 29	Y = 626	
-X = 30	Y = 685	
-X = 31	Y = 746	
-X = 32	Y = 809	
-X = 33	Y = 874	
-X = 34	Y = 941	
-X = 35	Y = 1010	
-X = 36	Y = 1081	
-X = 37	Y = 1154	
-X = 38	Y = 1229	
-0	0	0	0	1	41
-1	0	0	1	0	74
-0	2	0	0	0	361
-1	1	1	0	0	874
+v =       -199	p_smooth = 2	tmp = -1
+v =       -190	p_smooth = 2	tmp = 0
+v =        -95	p_smooth = 2	tmp = -1
+v =       -179	p_smooth = 2	tmp = -1
+v =       -166	p_smooth = 2	tmp = 0
+v =        -83	p_smooth = 2	tmp = -1
+v =       -151	p_smooth = 2	tmp = -1
+v =       -134	p_smooth = 2	tmp = 0
+v =        -67	p_smooth = 2	tmp = -1
+v =       -115	p_smooth = 2	tmp = -1
+v =        -94	p_smooth = 2	tmp = 0
+v =        -47	p_smooth = 2	tmp = -1
+v =        -71	p_smooth = 2	tmp = -1
+v =        -46	p_smooth = 2	tmp = 0
+v =        -23	p_smooth = 2	tmp = -1
+v =        -19	p_smooth = 2	tmp = -1
+v =         10	p_smooth = 2	tmp = 0
+v =          5	p_smooth = 2	tmp = 1
+v =         41	p_smooth = 2	tmp = 1
+v =         74	p_smooth = 2	tmp = 0
+v =         37	p_smooth = 2	tmp = 1
+v =        109	p_smooth = 2	tmp = 1
+v =        146	p_smooth = 2	tmp = 0
+v =         73	p_smooth = 2	tmp = 1
+v =        185	p_smooth = 2	tmp = 1
+v =        226	p_smooth = 2	tmp = 0
+v =        113	p_smooth = 2	tmp = 1
+v =        269	p_smooth = 2	tmp = 1
+v =        314	p_smooth = 2	tmp = 0
+v =        157	p_smooth = 2	tmp = 1
+v =        361	p_smooth = 2	tmp = 1
+v =        410	p_smooth = 2	tmp = 0
+v =        205	p_smooth = 2	tmp = 1
+v =        461	p_smooth = 2	tmp = 1
+v =       -199	p_smooth = 19	tmp = -9
+v =        -95	p_smooth = 19	tmp = 0
+v =         -5	p_smooth = 19	tmp = -5
+v =       -179	p_smooth = 19	tmp = -8
+v =        -83	p_smooth = 19	tmp = -7
+v =       -151	p_smooth = 19	tmp = -18
+v =        -67	p_smooth = 19	tmp = -10
+v =       -115	p_smooth = 19	tmp = -1
+v =        -47	p_smooth = 19	tmp = -9
+v =        -71	p_smooth = 19	tmp = -14
+v =        -23	p_smooth = 19	tmp = -4
+v =        -19	p_smooth = 19	tmp = 0
+v =         -1	p_smooth = 19	tmp = -1
+v =          5	p_smooth = 19	tmp = 5
+v =         41	p_smooth = 19	tmp = 3
+v =         37	p_smooth = 19	tmp = 18
+v =        109	p_smooth = 19	tmp = 14
+v =         73	p_smooth = 19	tmp = 16
+v =        185	p_smooth = 19	tmp = 14
+v =        113	p_smooth = 19	tmp = 18
+v =        269	p_smooth = 19	tmp = 3
+v =        157	p_smooth = 19	tmp = 5
+v =        361	p_smooth = 19	tmp = 0
+v =         19	p_smooth = 19	tmp = 0
+v =          1	p_smooth = 19	tmp = 1
+v =        205	p_smooth = 19	tmp = 15
+v =        461	p_smooth = 19	tmp = 5
+v =       -199	p_smooth = 23	tmp = -15
+v =         -5	p_smooth = 23	tmp = -5
+v =       -179	p_smooth = 23	tmp = -18
+v =        -83	p_smooth = 23	tmp = -14
+v =       -151	p_smooth = 23	tmp = -13
+v =        -67	p_smooth = 23	tmp = -21
+v =       -115	p_smooth = 23	tmp = 0
+v =         -5	p_smooth = 23	tmp = -5
+v =        -47	p_smooth = 23	tmp = -1
+v =        -71	p_smooth = 23	tmp = -2
+v =        -23	p_smooth = 23	tmp = 0
+v =         -1	p_smooth = 23	tmp = -1
+v =          5	p_smooth = 23	tmp = 5
+v =         41	p_smooth = 23	tmp = 18
+v =         37	p_smooth = 23	tmp = 14
+v =        109	p_smooth = 23	tmp = 17
+v =         73	p_smooth = 23	tmp = 4
+v =        185	p_smooth = 23	tmp = 1
+v =        113	p_smooth = 23	tmp = 21
+v =        269	p_smooth = 23	tmp = 16
+v =        157	p_smooth = 23	tmp = 19
+v =        205	p_smooth = 23	tmp = 21
+v =        461	p_smooth = 23	tmp = 1
+1	1	0	1	-46
+1	0	1	0	-19
+0	0	2	0	361
 
+aaa
+check 361
 Euclidean algorithm----
 X 24	Y 361
 sqrt Y 19

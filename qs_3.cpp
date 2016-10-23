@@ -56,8 +56,8 @@ public:
 bin_matrix_t::bin_matrix_t(){
 }
 
-bin_matrix_t::bin_matrix_t(int num) : matrix(num + 1, std::vector<uint64_t> (num)), 
-                                unit_matrix(num + 1, std::vector<uint64_t> (num)),
+bin_matrix_t::bin_matrix_t(int num) : matrix(num , std::vector<uint64_t> (num)), 
+                                unit_matrix(num , std::vector<uint64_t> (num)),
                                 unit_num(num),
                                 size(num),
                                 filled(0)
@@ -72,19 +72,20 @@ int bin_matrix_t::m_size(void)
 
 void bin_matrix_t::init_unit(void)
 {
-    for (int i = 0; i < size + 1; ++i)
+    // don't feel the last raw
+    for (int r = 0; r < size-1; ++r)
     {
-        unit_num[i] = 0;
-        for (int j = 0; j < size; ++j)
+        unit_num[r] = 0;
+        for (int c = 0; c < size; ++c)
         {
-            if(i == j)
-                unit_matrix[i][j] = 1;
+            if(r == c)
+                unit_matrix[r][c] = 1;
             else
-                unit_matrix[i][j] = 0;
+                unit_matrix[r][c] = 0;
 
-            // DEBUG (3,"%"PRIu64"\t", unit_matrix[i][j]);
+            DEBUG (4,"%ld\t", unit_matrix[r][c]);
         }
-        // DEBUG (3,"\n");
+        DEBUG (4,"\n");
     }
 }
 
@@ -92,7 +93,7 @@ void bin_matrix_t::init_unit(void)
 void bin_matrix_t::show(void){
         // just print exponent mod 2 array
     DEBUG (3,"matrix\n");
-    for (int i = 0; i < size + 1; ++i)
+    for (int i = 0; i < size; ++i)
     {
         for (int j = 0; j < size; ++j)
         {
@@ -103,7 +104,7 @@ void bin_matrix_t::show(void){
 
     DEBUG (3,"\n");
     DEBUG (3,"unit matrix\n");
-    for (int j = 0; j < size +1; ++j)
+    for (int j = 0; j < size; ++j)
     {
         for (uint64_t i = 0; i <  size; ++i)
         {
@@ -117,7 +118,7 @@ void bin_matrix_t::show(void){
 void bin_matrix_t::add(std::vector<uint64_t> v1)
 {
     // DEBUG(3, "%s %d \n",__func__, __LINE__);
-    if (filled < size + 1){
+    if (filled < size){
         // DEBUG(3, "%s %d \n",__func__, __LINE__);
         for (int j = 0; j < v1.size() && j < size; ++j)
         {
@@ -134,13 +135,13 @@ void bin_matrix_t::add(std::vector<uint64_t> v1)
 void bin_matrix_t::del(int iter)
 {
     if (filled > 0){
-        // DEBUG(3, "%s %d \n",__func__, __LINE__);
-        for (int i = iter; i < size + 1 ; ++i)
+        DEBUG(4, "%s %d\n",__func__, __LINE__);
+        for (int i = iter; i < size -1  ; ++i)
         {
-            // DEBUG(3, "%s %d \n",__func__, __LINE__);
-            for (int j = 0; j < size && j < size; ++j)
+            DEBUG(4, "%s %d \n",__func__, __LINE__);
+            for (int j = 0; j < size; ++j)
             {
-                // DEBUG(3, "%s %d \n",__func__, __LINE__);
+                DEBUG(4, "%s %d \n",__func__, __LINE__);
                 if (i == (size ))
                     matrix[i][j] = 0;
                 else
@@ -148,9 +149,9 @@ void bin_matrix_t::del(int iter)
             }
             
         }
-        // DEBUG(3, "%s %d \n",__func__, __LINE__);
+        DEBUG(4, "%s %d \n",__func__, __LINE__);
         filled--;
-        DEBUG(3, "%s %d filled %d\n",__func__, __LINE__, filled);
+        DEBUG(4, "%s %d filled %d\n",__func__, __LINE__, filled);
     }
 }
 
@@ -159,77 +160,91 @@ void bin_matrix_t::del(int iter)
 int  bin_matrix_t::make_upper_triangular(void)
 {
     int col = 0;
-    int line = 0;
+    int raw = 0;
     int null_line = -1;
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < size -1 ; ++i)
     {
-        int j;
-        for (j = line; j < size; ++j)
+
+        int r;
+        // find first non zero value. it will be in r.
+        for (r = raw; r < size -1; ++r)
         {
-            if (matrix[j][col] == 1)
+            if (matrix[r][col] == 1)
             {
                 break;
             }
         }
 
-        DEBUG (3,"j=%d line=%d size=%d coll=%d\n", j, line, size, col);
-        if(j == size ){
+        DEBUG (3,"r=%d raw=%d size=%d coll=%d\n", r, raw, (size - 1), col);
+
+        // r should be less then (size -2 ), otherwise all value are zero
+        if(r == (size - 1) ){
             col++;
             continue;
-        }
-        // else if (j < line){
-            // line= j;
-        // }
-        else if( j != line && j < size)
-        {
-            printf("i = %d j = %d\n", i, j);
-            for (int k = 0; k < size; ++k)
+        } else if( r != raw && r < (size - 2)) {
+            DEBUG(3, "i = %d r = %d\n", i, r);
+            for (int c = 0; c < size; ++c)
             {
-
                 // printf("p1 = %d\n", tpp1[i][k]);
                 // printf("p2 = %d\n", tpp1[j][k]);
-                std::swap(matrix[line][k], matrix[j][k]);
-                std::swap(unit_matrix[line][k], unit_matrix[j][k]);
+                std::swap(matrix[raw][c], matrix[r][c]);
+                std::swap(unit_matrix[raw][c], unit_matrix[r][c]);
             }
         }
-        for (int j = line+1; j < size; ++j)
-        {
-            if(matrix[j][col] != 0)
-            {
-                // show();
-                for (int k = 0; k < size; ++k)
-                // for (int k = col; k < v_exp_mod2[0].size(); ++k)
-                {
-                    matrix[j][k] += matrix[line][k];
-                    matrix[j][k] %= 2;
 
-                    unit_matrix[j][k] += unit_matrix[line][k];
+        for (int r = raw + 1; r < (size - 1); ++r) {
+            if(matrix[r][col] != 0) {
+                // DEBUG(3, "CHAECK r = %d raw=%d\n", r, raw);
+                // show();
+                for (int c = 0; c < size; ++c) {
+                    
+                    // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
+                    matrix[r][c] += matrix[raw][c];
+                    matrix[r][c] %= 2;
+                    // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
+
+                    unit_matrix[r][c] += unit_matrix[raw][c];
                     // unit_matrix[j][k] %= 2;
                 }
             }
             // show();
-            if ( std::find(matrix[j].begin(), matrix[j].end(), 1) == matrix[j].end() )
-            {
+            int flag_n = 0;
+            if (matrix[r][size-1] == 1) {
+                flag_n = 1;
+                matrix[r][size-1] = 0;
+            }
 
-                DEBUG (1,"nULLL upper j=%d coll=%d\n", j, col);
-                for (int k = 0; k < size; ++k)
-                {
-                    unit_matrix[size][k] += unit_matrix[j][k];
+            // show();
+            if ( std::find(matrix[r].begin(), matrix[r].end(), 1) == matrix[r].end() ) {
+                if (flag_n == 1) {
+                    DEBUG (1,"zero r=%d\n", r);
+                    matrix[r][size-1] = 1;
+                    flag_n = 0;
+                    null_line = (-r)-10;
+                    break;
+                } else {
+                    DEBUG (1,"nULLL upper j=%d coll=%d\n", r, col);
+                    // for (int c = 0; c < size-1; ++c) {
+                        // unit_matrix[size - 1][c] += unit_matrix[r][c];
+                    // }
+                    DEBUG (3," smooth_num \n");
+                    // P1.push_back(j);
+                    null_line = r;
+                    break;
+                    
                 }
-                // DEBUG (3," smooth_num %"PRIu64"\t", smooth_num[j]);
-                // P1.push_back(j);
-                null_line = j;
-                break;
+            }
+            // show();
+            if (flag_n == 1) {
+                matrix[r][size-1] = 1;
             }
         }
 
         if (null_line != -1)
             break;
-
         show();
-
             col++;
-            line++;
+            raw++;
     
     }
     return null_line;
@@ -237,7 +252,7 @@ int  bin_matrix_t::make_upper_triangular(void)
 
 void bin_matrix_t::count_unit_num( void )
 {
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < (size -1); ++i)
     {
         unit_num[i] = 0;
         for (int j = 0; j < size; ++j)
@@ -276,7 +291,7 @@ int bin_matrix_t::max_unit_num(std::vector<uint64_t> unit_v)
     count_unit_num();
     int max_un = 0;
     int max_iter = 0;
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < (size - 1); ++i)
     {
         printf("%lu\t", unit_v[i]);
         if (unit_v[i] == 1){
@@ -299,7 +314,7 @@ int  bin_matrix_t::make_lower_triangular(void)
     // int col = 0;
     // int line = 0;
     int null_line = -1;
-    for (int i = size -1 ; i >= 0; --i)
+    for (int i = size - 2 ; i >= 1; --i)
     {
 
         // DEBUG (3," =============================== %d\n", i);
@@ -309,31 +324,53 @@ int  bin_matrix_t::make_lower_triangular(void)
             continue;
         }
 
-        for (int j = i-1; j >= 0; --j)
+        for (int r = i-1; r >= 0; --r)
         {
-            if(matrix[j][i] != 0)
+            DEBUG(3, "DEBUG r=%d\n", r);
+            if(matrix[r][i] != 0)
             {
-                for (int k = 0; k < size; ++k)
-                // for (int k = col; k < v_exp_mod2[0].size(); ++k)
-                {
-                    matrix[j][k] += matrix[i][k];
-                    matrix[j][k] %= 2;
+                DEBUG(3, "DEBUG1\n");
+                for (int c = 0; c < size; ++c) {
+                    matrix[r][c] += matrix[i][c];
+                    matrix[r][c] %= 2;
 
-                    unit_matrix[j][k] += unit_matrix[i][k];
-                    unit_matrix[j][k] %= 2;
+                    unit_matrix[r][c] += unit_matrix[i][c];
+                    // unit_matrix[r][c] %= 2;  // ???????
                 }
             }
-            if ( std::find(matrix[j].begin(), matrix[j].end(), 1) == matrix[j].end() )
+
+            int flag_n = 0;
+            if (matrix[r][size-1] == 1) {
+                flag_n = 1;
+                matrix[r][size-1] = 0;
+            }
+
+            if ( std::find(matrix[r].begin(), matrix[r].end(), 1) == matrix[r].end() )
             {
-                DEBUG (3,"nULLL lower %d\n", j);
-                for (int k = 0; k < size; ++k)
+                DEBUG (1,"zzzero\n");
+                // show();
+                if (flag_n == 1)
                 {
-                    unit_matrix[size][k] += unit_matrix[j][k];
+                    DEBUG (1,"zzzero\n");
+                    matrix[r][size-1] = 1;
+                    flag_n = 0;
+                    null_line = (-r)-10;
+                    break;
                 }
-                // printf(" smooth_num %"PRIu64"\t", smooth_num[i]);
-                // P1.push_back(j);
-                null_line = j;
-                break;
+                else{
+                    DEBUG (3,"nULLL lower %d\n", r);
+                    // for (int c = 0; c < size; ++c) {
+                    //     unit_matrix[size -1][c] += unit_matrix[r][c];
+                    // }
+                    DEBUG (3," smooth_num\n");
+                    // P1.push_back(j);
+                    null_line = r;
+                    break;
+                }
+                show();
+            }
+            if (flag_n == 1) {
+                matrix[r][0] = 1;
             }
         }
 
@@ -355,38 +392,42 @@ int bin_matrix_t::resolve_matrix()
 
     show();
     int null_line = make_upper_triangular();
+    DEBUG(2, "upper triangular\n");
     show();
 
 
-    if (null_line != -1)
-    {
+    if (null_line != -1) {
         return null_line;
     }
 
+    exit(0);
+
     null_line = make_lower_triangular();
+    DEBUG(2, "lower triangular\n");
     show();
 
-    if (null_line != -1)
-    {
+    if (null_line != -1) {
         return null_line;
     }
 
     printf(" last \n");
-    for (int k = 0; k < size; ++k)
-    {  
-        if (matrix[size][k]  == 1)
-        {
-            for (int i = 0; i < size; ++i)
-                {
-                    matrix[size][i] += matrix[k][i];
-                    matrix[size][i] %= 2;
+    for (int c = 0; c < size -2; ++c) {
+        if (matrix[size - 1][c]  == 1) {
+            for (int r = 0; r < size; ++r) {
+                matrix[size - 1][r] += matrix[c][r];
+                matrix[size - 1][r] %= 2;
 
-                    unit_matrix[size][k] += unit_matrix[k][i];
-                    unit_matrix[size][k] %= 2;
-                }
+                unit_matrix[size - 1][c] += unit_matrix[c][r];
+                unit_matrix[size - 1][c] %= 2;
+            }
         }
     }
-    null_line = size;
+    if(matrix[size-1][size-1] != 0 ) {
+        ERROR("no resolv\n");
+    } else{
+        null_line = size -1;
+    }
+    printf(" last \n");
     
     return null_line;
 
@@ -394,8 +435,8 @@ int bin_matrix_t::resolve_matrix()
 
 
 //Euclid's Algorithm, Greatest Common Divisor
-uint64_t euclid_gcd(const std::vector<int64_t>& X,
-                    const std::vector<int64_t>& Y,
+uint64_t euclid_gcd(const std::vector<long>& X,
+                    const std::vector<long>& Y,
                     const std::vector<int64_t>& iterator,
                     const uint64_t &p,
                     const uint64_t &q,
@@ -414,7 +455,7 @@ uint64_t euclid_gcd(const std::vector<int64_t>& X,
         // need a message 
         for (int j = 0; j <  iterator.size(); ++j)
         {
-            DEBUG(2, "X %"PRIu64"\tY %"PRIu64"\n", X[iterator[j]], Y[iterator[j]]);
+            DEBUG(2, "X %lu\tY %ld\n", X[iterator[j]], Y[iterator[j]]);
             sumX *= X[iterator[j]];
             sumYY *= Y[iterator[j]];
         }
@@ -438,32 +479,32 @@ uint64_t euclid_gcd(const std::vector<int64_t>& X,
             int64_t tmp1;
             if (j == 0){ 
                 tmp1 = sumY + sumX;
-                DEBUG (3, "firtst attept Y + X = %"PRIu64"\n", tmp1);
+                DEBUG (3, "firtst attept Y + X = %ld\n", tmp1);
             }
             else{
                 tmp1 = abs(sumY - sumX);
-                DEBUG (3, "second attept Y - X = %"PRIu64"\n", tmp1);
+                DEBUG (3, "second attept Y - X = %ld\n", tmp1);
             }
             uint64_t tmp2 = N;
             uint64_t tmp3 = 0;
 
-            DEBUG (2, "tmp1 %"PRIu64"\ttmp2 %"PRIu64"\n", tmp1, tmp2);
+            DEBUG (2, "tmp1 %ld\ttmp2 %ld\n", tmp1, tmp2);
             while (tmp1 && tmp2)
             {
                 tmp1 > tmp2 ? tmp1 = tmp1 % tmp2 : tmp2 = tmp2 % tmp1;
-                DEBUG (3, "tmp1 %"PRIu64"\ttmp2 %"PRIu64"\n", tmp1, tmp2);
+                DEBUG (3, "tmp1 %ld\ttmp2 %ld\n", tmp1, tmp2);
             }
 
             if (tmp1 > 1 ){
-                DEBUG(2, "solution candidate %"PRIu64"\n", tmp1);
+                DEBUG(2, "solution candidate %ld\n", tmp1);
                 if (tmp1 == p || tmp1 == q){
-                    DEBUG(1, "find p = %"PRIu64"\n", tmp1);
+                    DEBUG(1, "find p = %ld\n", tmp1);
                     return tmp1;
                 }
             } else if (tmp2 > 1 ) {
-                DEBUG(2, "solution candidate %"PRIu64"\n", tmp2);
+                DEBUG(2, "solution candidate %ld\n", tmp2);
                 if (tmp2 == p || tmp2 == q){
-                    DEBUG(1, "find p = %"PRIu64"\n", tmp2);
+                    DEBUG(1, "find p = %ld\n", tmp2);
                     return tmp2;
                 }
             }
@@ -488,11 +529,11 @@ int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std
     // DEBUG(3, "%s %d \n",__func__, __LINE__);
     // DEBUG(3, "%s %d filled \n",__func__, m1.filled);
     // DEBUG(3, "%s %d size \n",__func__, m1.size);
-    if ((m1.size + 1) == m1.filled)
+    if ((m1.size) == m1.filled)
         return count;
 
-    DEBUG(3, "%s %d \n",__func__, __LINE__);
-    for (int i = 0; i < smooth_num.size() && ((m1.size + 1) != m1.filled); ++i) {
+    DEBUG(4, "%s %d \n",__func__, __LINE__);
+    for (int i = 0; i < smooth_num.size() && ((m1.size) != m1.filled); ++i) {
         // DEBUG(3, "%s %d iteration\n",__func__, i);
         // DEBUG(3, "%s %d filled \n",__func__, m1.filled);
         // DEBUG(3, "%s %d size \n",__func__, m1.size);
@@ -523,7 +564,7 @@ int find_solution (bin_matrix_t m2,
 
     std::vector<int64_t> P11;
     int retval = fill_matrix(m2, smooth_num_back, v_exp);
-
+    m2.show();
     // for (int i = 0; i < smooth_num_back.size() ; ++i) {
     //  DEBUG(3, "%s %d smooth_num \n",__func__, smooth_num_back[i]);
     // }
@@ -539,16 +580,23 @@ int find_solution (bin_matrix_t m2,
     // return 0;
 
 
-    if (null_line != -1)
+    if (null_line > -1)
     {
         for (uint64_t i = 0; i <  m1.m_size(); ++i)
         {
-            // printf("%"PRIu64"\t", unit_matrix[null_line][i]);
-            if( m1.unit_matrix[null_line][i] == 1)
+            printf("%ld\n", m1.unit_matrix[null_line][i]);
+            if( m1.unit_matrix[null_line][i] > 0)
             {
                 DEBUG (2,"num = %d\t", smooth_num[i]);
-                // DEBUG (2,"Y  = %"PRIu64"\n", Y[smooth_num[i]]);
-                P11.push_back(smooth_num[i]);
+                // if (i == 0 )
+                // {
+                    // DEBUG (1,"Strange\n");
+                    // continue;
+                // } else
+                // {
+                    DEBUG (2,"Y  = %ld\n", Y[smooth_num[i]]);
+                    P11.push_back(smooth_num[i]);
+                // }
             }
         }
         DEBUG (2,"\n");
@@ -578,9 +626,46 @@ int find_solution (bin_matrix_t m2,
             null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == 0)
-                ERROR("no solution");
+                ERROR("failed ");
 
         }
+    }
+    else if (null_line < -1)
+    {
+        int max_i = -(null_line + 10);
+        // m2.show();
+        m2.del(max_i);
+        printf("===== %d \n", smooth_num_back[max_i]);
+        smooth_num_back.erase(smooth_num_back.begin() + max_i);
+        smooth_num.erase(smooth_num.begin() + max_i);
+
+        null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
+            DEBUG(3, "finish %d\n", null_line);
+            if (null_line == 0)
+                ERROR("failed ");
+    }
+    else
+    {
+            int max_i = 0;
+            // printf(" debug\n");
+            // printf(" debug\n");
+            // max_i = m2.max_unit_num(m1.unit_matrix[null_line]);
+            // printf(" debug\n");
+
+            // printf(" iter %d\n",max_i );
+            m2.show();
+            m2.del(max_i);
+            printf("===== %d \n", smooth_num_back[max_i]);
+            smooth_num_back.erase(smooth_num_back.begin() + max_i);
+            smooth_num.erase(smooth_num.begin() + max_i);
+            m2.show();
+
+
+            // return find_solution(m2, smooth_num_back);
+            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
+            DEBUG(3, "finish %d\n", null_line);
+            if (null_line == 0)
+                ERROR("failed ");
     }
 
     return null_line;
@@ -740,7 +825,7 @@ int main (int argc, char *argv[])
     for (int i = 0; i < v_exp.size(); ++i)
     {
         if(Y[i] < 0 )
-            v_exp[i][0] = 1;
+            v_exp[i][v_exp[i].size()-1] = 1;
     }
 
     for (int j = 0; j < p_smooth.size(); ++j)
@@ -762,7 +847,7 @@ int main (int argc, char *argv[])
                 // }
                 if(tmp == 0){
                     V[i] = V[i] / p_smooth[j];
-                    v_exp[i][j + 1] += 1; 
+                    v_exp[i][j] += 1; 
                 }
             } while (tmp == 0);
         }
@@ -778,7 +863,7 @@ int main (int argc, char *argv[])
         // printf("V = %"PRIu64"\t",V[i]);
         if(V[i] == 1 || V[i] == -1)
         {
-            for (int j = 0; j < (p_smooth.size() + 1); ++j)
+            for (int j = 0; j < (p_smooth.size()); ++j)
             {
                 DEBUG (3,"%ld\t", v_exp[i][j]);
                 if ((v_exp[i][j] % 2 )!= 0)
@@ -786,13 +871,13 @@ int main (int argc, char *argv[])
             }
             DEBUG (3,"%ld\n", Y[i]);
             if (nul_flag){
-                smooth_num.push_back(i);
+                    smooth_num.push_back(i);
             }
             else
             {
-                // we don;t need to check the sign because all odd value 
-                // have 1 value in the begining so nul_flag will be set
-                P1.push_back(i);
+            // skip negative value !!!!
+            if (V[i] == 1 )
+                    P1.push_back(i);
             }
         }
     }
@@ -802,10 +887,10 @@ int main (int argc, char *argv[])
     
     if (P1.size() > 0)
     {
-        DEBUG (3,"aaa\n");
+        DEBUG (3,"%s:%d\n", __func__, __LINE__);
         for (int i = 0; i <  P1.size(); ++i)
         {
-            DEBUG (3,"check %"PRIu64"\n", Y[P1[i]]);
+            DEBUG (3,"check %ld\n", Y[P1[i]]);
 
             if ( Y[P1[i]] > 0 ){
 
@@ -843,8 +928,8 @@ int main (int argc, char *argv[])
     // }
 
     std::vector<int> smooth_num_back = smooth_num;
-    bin_matrix_t m1(p_smooth.size());
-
+    bin_matrix_t m1(p_smooth.size() + 1);
+    // m1.show();
     // for (int i = 0; i < m1.m_size() + 1; ++i)
     // {
     //     // unit_num[i] = 0;
@@ -876,9 +961,5 @@ int main (int argc, char *argv[])
     exit (0);
 
     return 0;
-    
-    return 0;
-/*
-*/
 }
 

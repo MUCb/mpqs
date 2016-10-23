@@ -6,10 +6,36 @@ smooth numbers
 2
 3
 11
-13
-23
 The sieving interval M=18
+X9 =3
+X8 =4
+X7 =5
+X6 =6
+X5 =7
+X4 =8
+X3 =9
+X2 =10
+X1 =11
+X0 =12
+X1 =13
+X2 =14
+X3 =15
+X4 =16
+X5 =17
+X6 =18
+X7 =19
+X8 =20
+X9 =21
 
+X = 3	Y = -124	
+X = 4	Y = -117	
+X = 5	Y = -108	
+X = 6	Y = -97	
+X = 7	Y = -84	
+X = 8	Y = -69	
+X = 9	Y = -52	
+X = 10	Y = -33	
+X = 11	Y = -12	
 X = 12	Y = 11	
 X = 13	Y = 36	
 X = 14	Y = 63	
@@ -20,22 +46,102 @@ X = 18	Y = 191
 X = 19	Y = 228	
 X = 20	Y = 267	
 X = 21	Y = 308	
-X = 22	Y = 351	
-X = 23	Y = 396	
-X = 24	Y = 443	
-X = 25	Y = 492	
-X = 26	Y = 543	
-X = 27	Y = 596	
-X = 28	Y = 651	
-X = 29	Y = 708	
-X = 30	Y = 767	
-0	0	1	0	0	11
-2	2	0	0	0	36
-2	0	0	0	1	92
-2	1	0	1	0	156
-0	3	0	1	0	351
-2	2	1	0	0	396
+v =       -124	p_smooth = 2	tmp = 0
+v =        -62	p_smooth = 2	tmp = 0
+v =        -31	p_smooth = 2	tmp = -1
+v =       -117	p_smooth = 2	tmp = -1
+v =       -108	p_smooth = 2	tmp = 0
+v =        -54	p_smooth = 2	tmp = 0
+v =        -27	p_smooth = 2	tmp = -1
+v =        -97	p_smooth = 2	tmp = -1
+v =        -84	p_smooth = 2	tmp = 0
+v =        -42	p_smooth = 2	tmp = 0
+v =        -21	p_smooth = 2	tmp = -1
+v =        -69	p_smooth = 2	tmp = -1
+v =        -52	p_smooth = 2	tmp = 0
+v =        -26	p_smooth = 2	tmp = 0
+v =        -13	p_smooth = 2	tmp = -1
+v =        -33	p_smooth = 2	tmp = -1
+v =        -12	p_smooth = 2	tmp = 0
+v =         -6	p_smooth = 2	tmp = 0
+v =         -3	p_smooth = 2	tmp = -1
+v =         11	p_smooth = 2	tmp = 1
+v =         36	p_smooth = 2	tmp = 0
+v =         18	p_smooth = 2	tmp = 0
+v =          9	p_smooth = 2	tmp = 1
+v =         63	p_smooth = 2	tmp = 1
+v =         92	p_smooth = 2	tmp = 0
+v =         46	p_smooth = 2	tmp = 0
+v =         23	p_smooth = 2	tmp = 1
+v =        123	p_smooth = 2	tmp = 1
+v =        156	p_smooth = 2	tmp = 0
+v =         78	p_smooth = 2	tmp = 0
+v =         39	p_smooth = 2	tmp = 1
+v =        191	p_smooth = 2	tmp = 1
+v =        228	p_smooth = 2	tmp = 0
+v =        114	p_smooth = 2	tmp = 0
+v =         57	p_smooth = 2	tmp = 1
+v =        267	p_smooth = 2	tmp = 1
+v =        -31	p_smooth = 3	tmp = -1
+v =       -117	p_smooth = 3	tmp = 0
+v =        -39	p_smooth = 3	tmp = 0
+v =        -13	p_smooth = 3	tmp = -1
+v =        -27	p_smooth = 3	tmp = 0
+v =         -9	p_smooth = 3	tmp = 0
+v =         -3	p_smooth = 3	tmp = 0
+v =         -1	p_smooth = 3	tmp = -1
+v =        -97	p_smooth = 3	tmp = -1
+v =        -21	p_smooth = 3	tmp = 0
+v =         -7	p_smooth = 3	tmp = -1
+v =        -69	p_smooth = 3	tmp = 0
+v =        -23	p_smooth = 3	tmp = -2
+v =        -13	p_smooth = 3	tmp = -1
+v =        -33	p_smooth = 3	tmp = 0
+v =        -11	p_smooth = 3	tmp = -2
+v =         -3	p_smooth = 3	tmp = 0
+v =         -1	p_smooth = 3	tmp = -1
+v =         11	p_smooth = 3	tmp = 2
+v =          9	p_smooth = 3	tmp = 0
+v =          3	p_smooth = 3	tmp = 0
+v =          1	p_smooth = 3	tmp = 1
+v =         63	p_smooth = 3	tmp = 0
+v =         21	p_smooth = 3	tmp = 0
+v =          7	p_smooth = 3	tmp = 1
+v =         23	p_smooth = 3	tmp = 2
+v =        123	p_smooth = 3	tmp = 0
+v =         41	p_smooth = 3	tmp = 2
+v =         39	p_smooth = 3	tmp = 0
+v =         13	p_smooth = 3	tmp = 1
+v =        191	p_smooth = 3	tmp = 2
+v =         57	p_smooth = 3	tmp = 0
+v =         19	p_smooth = 3	tmp = 1
+v =        267	p_smooth = 3	tmp = 0
+v =         89	p_smooth = 3	tmp = 2
+v =        -31	p_smooth = 11	tmp = -9
+v =        -13	p_smooth = 11	tmp = -2
+v =        -97	p_smooth = 11	tmp = -9
+v =         -7	p_smooth = 11	tmp = -7
+v =        -23	p_smooth = 11	tmp = -1
+v =        -13	p_smooth = 11	tmp = -2
+v =        -11	p_smooth = 11	tmp = 0
+v =         -1	p_smooth = 11	tmp = -1
+v =         11	p_smooth = 11	tmp = 0
+v =          1	p_smooth = 11	tmp = 1
+v =          7	p_smooth = 11	tmp = 7
+v =         23	p_smooth = 11	tmp = 1
+v =         41	p_smooth = 11	tmp = 8
+v =         13	p_smooth = 11	tmp = 2
+v =        191	p_smooth = 11	tmp = 4
+v =         19	p_smooth = 11	tmp = 8
+v =         89	p_smooth = 11	tmp = 1
+1	2	3	0	-108
+1	0	1	1	-33
+1	2	1	0	-12
+0	0	0	1	11
+0	2	2	0	36
 
+aaa
+check 36
 Euclidean algorithm----
 X 13	Y 36
 sqrt Y 6

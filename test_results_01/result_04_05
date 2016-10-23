@@ -6,23 +6,60 @@ smooth numbers
 2
 13
 17
-19
-23
 The sieving interval M=9
+X4 =2
+X3 =3
+X2 =4
+X1 =5
+X0 =6
+X1 =7
+X2 =8
+X3 =9
+X4 =10
 
+X = 2	Y = -31	
+X = 3	Y = -26	
+X = 4	Y = -19	
+X = 5	Y = -10	
 X = 6	Y = 1	
 X = 7	Y = 14	
 X = 8	Y = 29	
 X = 9	Y = 46	
 X = 10	Y = 65	
-X = 11	Y = 86	
-X = 12	Y = 109	
-X = 13	Y = 134	
-X = 14	Y = 161	
-X = 15	Y = 190	
-0	0	0	0	0	1
-1	0	0	0	1	46
+v =        -31	p_smooth = 2	tmp = -1
+v =        -26	p_smooth = 2	tmp = 0
+v =        -13	p_smooth = 2	tmp = -1
+v =        -19	p_smooth = 2	tmp = -1
+v =        -10	p_smooth = 2	tmp = 0
+v =         -5	p_smooth = 2	tmp = -1
+v =         14	p_smooth = 2	tmp = 0
+v =          7	p_smooth = 2	tmp = 1
+v =         29	p_smooth = 2	tmp = 1
+v =         46	p_smooth = 2	tmp = 0
+v =         23	p_smooth = 2	tmp = 1
+v =         65	p_smooth = 2	tmp = 1
+v =        -31	p_smooth = 13	tmp = -5
+v =        -13	p_smooth = 13	tmp = 0
+v =         -1	p_smooth = 13	tmp = -1
+v =        -19	p_smooth = 13	tmp = -6
+v =         -5	p_smooth = 13	tmp = -5
+v =          7	p_smooth = 13	tmp = 7
+v =         29	p_smooth = 13	tmp = 3
+v =         23	p_smooth = 13	tmp = 10
+v =         65	p_smooth = 13	tmp = 0
+v =          5	p_smooth = 13	tmp = 5
+v =        -31	p_smooth = 17	tmp = -14
+v =        -19	p_smooth = 17	tmp = -2
+v =         -5	p_smooth = 17	tmp = -5
+v =          7	p_smooth = 17	tmp = 7
+v =         29	p_smooth = 17	tmp = 12
+v =         23	p_smooth = 17	tmp = 6
+v =          5	p_smooth = 17	tmp = 5
+1	1	1	0	-26
+0	0	0	0	1
 
+aaa
+check 1
 Euclidean algorithm----
 X 6	Y 1
 firtst attept Y + X = 7

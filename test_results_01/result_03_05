@@ -5,19 +5,46 @@ size of factor base size_B=1.917309
 smooth numbers
 2
 5
-17
-37
 The sieving interval M=6
+X3 =2
+X2 =3
+X1 =4
+X0 =5
+X1 =6
+X2 =7
+X3 =8
 
+X = 2	Y = -17	
+X = 3	Y = -12	
+X = 4	Y = -5	
 X = 5	Y = 4	
 X = 6	Y = 15	
 X = 7	Y = 28	
 X = 8	Y = 43	
-X = 9	Y = 60	
-X = 10	Y = 79	
-X = 11	Y = 100	
-2	0	0	0	4
+v =        -17	p_smooth = 2	tmp = -1
+v =        -12	p_smooth = 2	tmp = 0
+v =         -6	p_smooth = 2	tmp = 0
+v =         -3	p_smooth = 2	tmp = -1
+v =         -5	p_smooth = 2	tmp = -1
+v =          4	p_smooth = 2	tmp = 0
+v =          2	p_smooth = 2	tmp = 0
+v =          1	p_smooth = 2	tmp = 1
+v =         15	p_smooth = 2	tmp = 1
+v =         28	p_smooth = 2	tmp = 0
+v =         14	p_smooth = 2	tmp = 0
+v =          7	p_smooth = 2	tmp = 1
+v =        -17	p_smooth = 5	tmp = -2
+v =         -3	p_smooth = 5	tmp = -3
+v =         -5	p_smooth = 5	tmp = 0
+v =         -1	p_smooth = 5	tmp = -1
+v =         15	p_smooth = 5	tmp = 0
+v =          3	p_smooth = 5	tmp = 3
+v =          7	p_smooth = 5	tmp = 2
+1	0	1	-5
+0	2	0	4
 
+aaa
+check 4
 Euclidean algorithm----
 X 5	Y 4
 sqrt Y 2

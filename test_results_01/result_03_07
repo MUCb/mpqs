@@ -6,23 +6,68 @@ smooth numbers
 2
 5
 7
-19
-23
 The sieving interval M=9
+X4 =3
+X3 =4
+X2 =5
+X1 =6
+X0 =7
+X1 =8
+X2 =9
+X3 =10
+X4 =11
 
+X = 3	Y = -30	
+X = 4	Y = -23	
+X = 5	Y = -14	
+X = 6	Y = -3	
 X = 7	Y = 10	
 X = 8	Y = 25	
 X = 9	Y = 42	
 X = 10	Y = 61	
 X = 11	Y = 82	
-X = 12	Y = 105	
-X = 13	Y = 130	
-X = 14	Y = 157	
-X = 15	Y = 186	
-X = 16	Y = 217	
-1	1	0	0	0	10
-0	2	0	0	0	25
+v =        -30	p_smooth = 2	tmp = 0
+v =        -15	p_smooth = 2	tmp = -1
+v =        -23	p_smooth = 2	tmp = -1
+v =        -14	p_smooth = 2	tmp = 0
+v =         -7	p_smooth = 2	tmp = -1
+v =         -3	p_smooth = 2	tmp = -1
+v =         10	p_smooth = 2	tmp = 0
+v =          5	p_smooth = 2	tmp = 1
+v =         25	p_smooth = 2	tmp = 1
+v =         42	p_smooth = 2	tmp = 0
+v =         21	p_smooth = 2	tmp = 1
+v =         61	p_smooth = 2	tmp = 1
+v =         82	p_smooth = 2	tmp = 0
+v =         41	p_smooth = 2	tmp = 1
+v =        -15	p_smooth = 5	tmp = 0
+v =         -3	p_smooth = 5	tmp = -3
+v =        -23	p_smooth = 5	tmp = -3
+v =         -7	p_smooth = 5	tmp = -2
+v =         -3	p_smooth = 5	tmp = -3
+v =          5	p_smooth = 5	tmp = 0
+v =          1	p_smooth = 5	tmp = 1
+v =         25	p_smooth = 5	tmp = 0
+v =          5	p_smooth = 5	tmp = 0
+v =          1	p_smooth = 5	tmp = 1
+v =         21	p_smooth = 5	tmp = 1
+v =         61	p_smooth = 5	tmp = 1
+v =         41	p_smooth = 5	tmp = 1
+v =         -3	p_smooth = 7	tmp = -3
+v =        -23	p_smooth = 7	tmp = -2
+v =         -7	p_smooth = 7	tmp = 0
+v =         -1	p_smooth = 7	tmp = -1
+v =         -3	p_smooth = 7	tmp = -3
+v =         21	p_smooth = 7	tmp = 0
+v =          3	p_smooth = 7	tmp = 3
+v =         61	p_smooth = 7	tmp = 5
+v =         41	p_smooth = 7	tmp = 6
+1	1	0	1	-14
+0	1	1	0	10
+0	0	2	0	25
 
+aaa
+check 25
 Euclidean algorithm----
 X 8	Y 25
 sqrt Y 5

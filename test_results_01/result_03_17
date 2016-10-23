@@ -6,10 +6,39 @@ smooth numbers
 2
 5
 11
-13
-19
 The sieving interval M=20
+X10 =3
+X9 =4
+X8 =5
+X7 =6
+X6 =7
+X5 =8
+X4 =9
+X3 =10
+X2 =11
+X1 =12
+X0 =13
+X1 =14
+X2 =15
+X3 =16
+X4 =17
+X5 =18
+X6 =19
+X7 =20
+X8 =21
+X9 =22
+X10 =23
 
+X = 3	Y = -150	
+X = 4	Y = -143	
+X = 5	Y = -134	
+X = 6	Y = -123	
+X = 7	Y = -110	
+X = 8	Y = -95	
+X = 9	Y = -78	
+X = 10	Y = -59	
+X = 11	Y = -38	
+X = 12	Y = -15	
 X = 13	Y = 10	
 X = 14	Y = 37	
 X = 15	Y = 66	
@@ -21,26 +50,91 @@ X = 20	Y = 241
 X = 21	Y = 282	
 X = 22	Y = 325	
 X = 23	Y = 370	
-X = 24	Y = 417	
-X = 25	Y = 466	
-X = 26	Y = 517	
-X = 27	Y = 570	
-X = 28	Y = 625	
-X = 29	Y = 682	
-X = 30	Y = 741	
-X = 31	Y = 802	
-X = 32	Y = 865	
-X = 33	Y = 930	
-1	1	0	0	0	10
-1	1	0	1	0	130
-0	2	0	1	0	325
-0	4	0	0	0	625
+v =       -150	p_smooth = 2	tmp = 0
+v =        -75	p_smooth = 2	tmp = -1
+v =       -143	p_smooth = 2	tmp = -1
+v =       -134	p_smooth = 2	tmp = 0
+v =        -67	p_smooth = 2	tmp = -1
+v =       -123	p_smooth = 2	tmp = -1
+v =       -110	p_smooth = 2	tmp = 0
+v =        -55	p_smooth = 2	tmp = -1
+v =        -95	p_smooth = 2	tmp = -1
+v =        -78	p_smooth = 2	tmp = 0
+v =        -39	p_smooth = 2	tmp = -1
+v =        -59	p_smooth = 2	tmp = -1
+v =        -38	p_smooth = 2	tmp = 0
+v =        -19	p_smooth = 2	tmp = -1
+v =        -15	p_smooth = 2	tmp = -1
+v =         10	p_smooth = 2	tmp = 0
+v =          5	p_smooth = 2	tmp = 1
+v =         37	p_smooth = 2	tmp = 1
+v =         66	p_smooth = 2	tmp = 0
+v =         33	p_smooth = 2	tmp = 1
+v =         97	p_smooth = 2	tmp = 1
+v =        130	p_smooth = 2	tmp = 0
+v =         65	p_smooth = 2	tmp = 1
+v =        165	p_smooth = 2	tmp = 1
+v =        202	p_smooth = 2	tmp = 0
+v =        101	p_smooth = 2	tmp = 1
+v =        241	p_smooth = 2	tmp = 1
+v =        282	p_smooth = 2	tmp = 0
+v =        141	p_smooth = 2	tmp = 1
+v =        325	p_smooth = 2	tmp = 1
+v =        -75	p_smooth = 5	tmp = 0
+v =        -15	p_smooth = 5	tmp = 0
+v =         -3	p_smooth = 5	tmp = -3
+v =       -143	p_smooth = 5	tmp = -3
+v =        -67	p_smooth = 5	tmp = -2
+v =       -123	p_smooth = 5	tmp = -3
+v =        -55	p_smooth = 5	tmp = 0
+v =        -11	p_smooth = 5	tmp = -1
+v =        -95	p_smooth = 5	tmp = 0
+v =        -19	p_smooth = 5	tmp = -4
+v =        -39	p_smooth = 5	tmp = -4
+v =        -59	p_smooth = 5	tmp = -4
+v =        -19	p_smooth = 5	tmp = -4
+v =        -15	p_smooth = 5	tmp = 0
+v =         -3	p_smooth = 5	tmp = -3
+v =          5	p_smooth = 5	tmp = 0
+v =          1	p_smooth = 5	tmp = 1
+v =         37	p_smooth = 5	tmp = 2
+v =         33	p_smooth = 5	tmp = 3
+v =         97	p_smooth = 5	tmp = 2
+v =         65	p_smooth = 5	tmp = 0
+v =         13	p_smooth = 5	tmp = 3
+v =        165	p_smooth = 5	tmp = 0
+v =         33	p_smooth = 5	tmp = 3
+v =        101	p_smooth = 5	tmp = 1
+v =        241	p_smooth = 5	tmp = 1
+v =        141	p_smooth = 5	tmp = 1
+v =        325	p_smooth = 5	tmp = 0
+v =         65	p_smooth = 5	tmp = 0
+v =         13	p_smooth = 5	tmp = 3
+v =         -3	p_smooth = 11	tmp = -3
+v =       -143	p_smooth = 11	tmp = 0
+v =        -13	p_smooth = 11	tmp = -2
+v =        -67	p_smooth = 11	tmp = -1
+v =       -123	p_smooth = 11	tmp = -2
+v =        -11	p_smooth = 11	tmp = 0
+v =         -1	p_smooth = 11	tmp = -1
+v =        -19	p_smooth = 11	tmp = -8
+v =        -39	p_smooth = 11	tmp = -6
+v =        -59	p_smooth = 11	tmp = -4
+v =        -19	p_smooth = 11	tmp = -8
+v =         -3	p_smooth = 11	tmp = -3
+v =         37	p_smooth = 11	tmp = 4
+v =         33	p_smooth = 11	tmp = 0
+v =          3	p_smooth = 11	tmp = 3
+v =         97	p_smooth = 11	tmp = 9
+v =         13	p_smooth = 11	tmp = 2
+v =         33	p_smooth = 11	tmp = 0
+v =          3	p_smooth = 11	tmp = 3
+v =        101	p_smooth = 11	tmp = 2
+v =        241	p_smooth = 11	tmp = 10
+v =        141	p_smooth = 11	tmp = 9
+v =         13	p_smooth = 11	tmp = 2
+1	1	1	1	-110
+0	1	1	0	10
 
-Euclidean algorithm----
-X 28	Y 625
-sqrt Y 25
-firtst attept Y + X = 53
-tmp1 53	tmp2 159
-tmp1 53	tmp2 0
-solution candidate 53
-find p = 53
+ERROR: to small number of smooth numbbers
+

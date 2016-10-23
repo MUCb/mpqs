@@ -6,10 +6,39 @@ smooth numbers
 2
 7
 11
-19
-23
 The sieving interval M=21
+X10 =4
+X9 =5
+X8 =6
+X7 =7
+X6 =8
+X5 =9
+X4 =10
+X3 =11
+X2 =12
+X1 =13
+X0 =14
+X1 =15
+X2 =16
+X3 =17
+X4 =18
+X5 =19
+X6 =20
+X7 =21
+X8 =22
+X9 =23
+X10 =24
 
+X = 4	Y = -161	
+X = 5	Y = -152	
+X = 6	Y = -141	
+X = 7	Y = -128	
+X = 8	Y = -113	
+X = 9	Y = -96	
+X = 10	Y = -77	
+X = 11	Y = -56	
+X = 12	Y = -33	
+X = 13	Y = -8	
 X = 14	Y = 19	
 X = 15	Y = 48	
 X = 16	Y = 79	
@@ -21,30 +50,372 @@ X = 21	Y = 264
 X = 22	Y = 307	
 X = 23	Y = 352	
 X = 24	Y = 399	
-X = 25	Y = 448	
-X = 26	Y = 499	
-X = 27	Y = 552	
-X = 28	Y = 607	
-X = 29	Y = 664	
-X = 30	Y = 723	
-X = 31	Y = 784	
-X = 32	Y = 847	
-X = 33	Y = 912	
-X = 34	Y = 979	
-X = 35	Y = 1048	
-0	0	0	1	0	19
-4	1	0	0	0	112
-3	0	0	0	1	184
-5	0	1	0	0	352
-6	1	0	0	0	448
-4	2	0	0	0	784
-0	1	2	0	0	847
+v =       -161	p_smooth = 2	tmp = -1
+v =       -152	p_smooth = 2	tmp = 0
+v =        -76	p_smooth = 2	tmp = 0
+v =        -38	p_smooth = 2	tmp = 0
+v =        -19	p_smooth = 2	tmp = -1
+v =       -141	p_smooth = 2	tmp = -1
+v =       -128	p_smooth = 2	tmp = 0
+v =        -64	p_smooth = 2	tmp = 0
+v =        -32	p_smooth = 2	tmp = 0
+v =        -16	p_smooth = 2	tmp = 0
+v =         -8	p_smooth = 2	tmp = 0
+v =         -4	p_smooth = 2	tmp = 0
+v =         -2	p_smooth = 2	tmp = 0
+v =         -1	p_smooth = 2	tmp = -1
+v =       -113	p_smooth = 2	tmp = -1
+v =        -96	p_smooth = 2	tmp = 0
+v =        -48	p_smooth = 2	tmp = 0
+v =        -24	p_smooth = 2	tmp = 0
+v =        -12	p_smooth = 2	tmp = 0
+v =         -6	p_smooth = 2	tmp = 0
+v =         -3	p_smooth = 2	tmp = -1
+v =        -77	p_smooth = 2	tmp = -1
+v =        -56	p_smooth = 2	tmp = 0
+v =        -28	p_smooth = 2	tmp = 0
+v =        -14	p_smooth = 2	tmp = 0
+v =         -7	p_smooth = 2	tmp = -1
+v =        -33	p_smooth = 2	tmp = -1
+v =         -8	p_smooth = 2	tmp = 0
+v =         -4	p_smooth = 2	tmp = 0
+v =         -2	p_smooth = 2	tmp = 0
+v =         -1	p_smooth = 2	tmp = -1
+v =         19	p_smooth = 2	tmp = 1
+v =         48	p_smooth = 2	tmp = 0
+v =         24	p_smooth = 2	tmp = 0
+v =         12	p_smooth = 2	tmp = 0
+v =          6	p_smooth = 2	tmp = 0
+v =          3	p_smooth = 2	tmp = 1
+v =         79	p_smooth = 2	tmp = 1
+v =        112	p_smooth = 2	tmp = 0
+v =         56	p_smooth = 2	tmp = 0
+v =         28	p_smooth = 2	tmp = 0
+v =         14	p_smooth = 2	tmp = 0
+v =          7	p_smooth = 2	tmp = 1
+v =        147	p_smooth = 2	tmp = 1
+v =        184	p_smooth = 2	tmp = 0
+v =         92	p_smooth = 2	tmp = 0
+v =         46	p_smooth = 2	tmp = 0
+v =         23	p_smooth = 2	tmp = 1
+v =        223	p_smooth = 2	tmp = 1
+v =        264	p_smooth = 2	tmp = 0
+v =        132	p_smooth = 2	tmp = 0
+v =         66	p_smooth = 2	tmp = 0
+v =         33	p_smooth = 2	tmp = 1
+v =        307	p_smooth = 2	tmp = 1
+v =        352	p_smooth = 2	tmp = 0
+v =        176	p_smooth = 2	tmp = 0
+v =         88	p_smooth = 2	tmp = 0
+v =         44	p_smooth = 2	tmp = 0
+v =         22	p_smooth = 2	tmp = 0
+v =         11	p_smooth = 2	tmp = 1
+v =        399	p_smooth = 2	tmp = 1
+v =       -161	p_smooth = 7	tmp = 0
+v =        -23	p_smooth = 7	tmp = -2
+v =        -19	p_smooth = 7	tmp = -5
+v =       -141	p_smooth = 7	tmp = -1
+v =       -113	p_smooth = 7	tmp = -1
+v =         -3	p_smooth = 7	tmp = -3
+v =        -77	p_smooth = 7	tmp = 0
+v =        -11	p_smooth = 7	tmp = -4
+v =         -7	p_smooth = 7	tmp = 0
+v =         -1	p_smooth = 7	tmp = -1
+v =        -33	p_smooth = 7	tmp = -5
+v =         19	p_smooth = 7	tmp = 5
+v =          3	p_smooth = 7	tmp = 3
+v =         79	p_smooth = 7	tmp = 2
+v =          7	p_smooth = 7	tmp = 0
+v =          1	p_smooth = 7	tmp = 1
+v =        147	p_smooth = 7	tmp = 0
+v =         21	p_smooth = 7	tmp = 0
+v =          3	p_smooth = 7	tmp = 3
+v =         23	p_smooth = 7	tmp = 2
+v =        223	p_smooth = 7	tmp = 6
+v =         33	p_smooth = 7	tmp = 5
+v =        307	p_smooth = 7	tmp = 6
+v =         11	p_smooth = 7	tmp = 4
+v =        399	p_smooth = 7	tmp = 0
+v =         57	p_smooth = 7	tmp = 1
+v =        -23	p_smooth = 11	tmp = -1
+v =        -19	p_smooth = 11	tmp = -8
+v =       -141	p_smooth = 11	tmp = -9
+v =       -113	p_smooth = 11	tmp = -3
+v =         -3	p_smooth = 11	tmp = -3
+v =        -11	p_smooth = 11	tmp = 0
+v =         -1	p_smooth = 11	tmp = -1
+v =        -33	p_smooth = 11	tmp = 0
+v =         -3	p_smooth = 11	tmp = -3
+v =         19	p_smooth = 11	tmp = 8
+v =          3	p_smooth = 11	tmp = 3
+v =         79	p_smooth = 11	tmp = 2
+v =          3	p_smooth = 11	tmp = 3
+v =         23	p_smooth = 11	tmp = 1
+v =        223	p_smooth = 11	tmp = 3
+v =         33	p_smooth = 11	tmp = 0
+v =          3	p_smooth = 11	tmp = 3
+v =        307	p_smooth = 11	tmp = 10
+v =         11	p_smooth = 11	tmp = 0
+v =          1	p_smooth = 11	tmp = 1
+v =         57	p_smooth = 11	tmp = 2
+1	7	0	0	-128
+1	0	1	1	-77
+1	3	1	0	-56
+1	3	0	0	-8
+0	4	1	0	112
+0	5	0	1	352
+
+fill_matrix 504 
+4 added
+matrix
+1	1	0	0	
+1	0	1	1	
+1	1	1	0	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+0	0	1	0	
+0	0	0	1	
+
+j=0 line=0 size=3 coll=1
+matrix
+1	1	0	0	
+1	0	1	1	
+0	0	1	0	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+1	0	1	0	
+0	0	0	1	
+
+j=1 line=1 size=3 coll=2
+matrix
+1	1	0	0	
+1	0	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+1	1	1	0	
+0	0	0	1	
+
+j=2 line=2 size=3 coll=3
+matrix
+1	1	0	0	
+1	0	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+1	1	1	0	
+0	0	0	1	
+
+matrix
+1	1	0	0	
+1	0	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+1	1	1	0	
+0	0	0	1	
+
+lower triangular
+DEBUG j=1
+DEBUG1
+DEBUG j=0
+matrix
+1	1	0	0	
+0	1	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	1	
+1	1	1	0	
+0	0	0	1	
+
+DEBUG j=0
+matrix
+1	1	0	0	
+0	1	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	1	
+1	1	1	0	
+0	0	0	1	
+
+matrix
+1	1	0	0	
+0	1	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	1	
+1	1	1	0	
+0	0	0	1	
+
+matrix
+1	1	0	0	
+0	1	1	1	
+1	0	0	1	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	1	
+1	1	1	0	
+0	0	0	1	
+
+ last 
+ last 
+0
+0
+1
+num = 7	Y  = -56
+1
+num = 9	Y  = -8
 
 Euclidean algorithm----
-X 31	Y 784
-sqrt Y 28
-firtst attept Y + X = 59
-tmp1 59	tmp2 177
-tmp1 59	tmp2 0
-solution candidate 59
-find p = 59
+X 11	Y -56
+X 13	Y -8
+sqrt Y 21
+firtst attept Y + X = 164
+tmp1 164	tmp2 177
+tmp1 164	tmp2 13
+tmp1 8	tmp2 13
+tmp1 8	tmp2 5
+tmp1 3	tmp2 5
+tmp1 3	tmp2 2
+tmp1 1	tmp2 2
+tmp1 1	tmp2 0
+second attept Y - X = 122
+tmp1 122	tmp2 177
+tmp1 122	tmp2 55
+tmp1 12	tmp2 55
+tmp1 12	tmp2 7
+tmp1 5	tmp2 7
+tmp1 5	tmp2 2
+tmp1 1	tmp2 2
+tmp1 1	tmp2 0
+ERROR: no solution 
+matrix
+1	1	0	0	
+0	1	1	1	
+1	0	0	1	
+0	0	1	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	1	
+1	1	1	0	
+0	0	1	1	
+
+0	0	1	
+ iter 2
+matrix
+1	1	0	0	
+1	0	1	1	
+1	1	1	0	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+0	0	1	0	
+0	0	0	1	
+
+===== -1 
+matrix
+1	1	0	0	
+1	0	1	1	
+1	1	0	0	
+1	1	0	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+0	0	1	0	
+0	0	0	1	
+
+fill_matrix 504 
+1 added
+matrix
+1	1	0	0	
+1	0	1	1	
+1	1	0	0	
+0	0	1	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+0	0	1	0	
+0	0	0	1	
+
+j=0 line=0 size=3 coll=1
+nULLL upper j=2 coll=1
+ smooth_num 
+matrix
+1	1	0	0	
+1	0	1	1	
+0	0	0	0	
+0	0	1	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+1	0	1	0	
+1	0	1	1	
+
+1
+num = 3	Y  = -128
+0
+1
+num = 9	Y  = -8
+0
+
+Euclidean algorithm----
+X 7	Y -128
+X 13	Y -8
+sqrt Y 32
+firtst attept Y + X = 123
+tmp1 123	tmp2 177
+tmp1 123	tmp2 54
+tmp1 15	tmp2 54
+tmp1 15	tmp2 9
+tmp1 6	tmp2 9
+tmp1 6	tmp2 3
+tmp1 0	tmp2 3
+solution candidate 3
+find p = 3
+matrix
+1	1	0	0	
+1	0	1	1	
+0	0	0	0	
+0	0	1	0	
+
+unit matrix
+1	0	0	0	
+0	1	0	0	
+1	0	1	0	
+1	0	1	1	
+
+finish 2
+
+exit

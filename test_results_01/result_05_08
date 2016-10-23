@@ -6,10 +6,33 @@ smooth numbers
 2
 5
 11
-19
-23
 The sieving interval M=17
+X8 =3
+X7 =4
+X6 =5
+X5 =6
+X4 =7
+X3 =8
+X2 =9
+X1 =10
+X0 =11
+X1 =12
+X2 =13
+X3 =14
+X4 =15
+X5 =16
+X6 =17
+X7 =18
+X8 =19
 
+X = 3	Y = -110	
+X = 4	Y = -103	
+X = 5	Y = -94	
+X = 6	Y = -83	
+X = 7	Y = -70	
+X = 8	Y = -55	
+X = 9	Y = -38	
+X = 10	Y = -19	
 X = 11	Y = 2	
 X = 12	Y = 25	
 X = 13	Y = 50	
@@ -19,21 +42,85 @@ X = 16	Y = 137
 X = 17	Y = 170	
 X = 18	Y = 205	
 X = 19	Y = 242	
-X = 20	Y = 281	
-X = 21	Y = 322	
-X = 22	Y = 365	
-X = 23	Y = 410	
-X = 24	Y = 457	
-X = 25	Y = 506	
-X = 26	Y = 557	
-X = 27	Y = 610	
-X = 28	Y = 665	
-1	0	0	0	0	2
-0	2	0	0	0	25
-1	2	0	0	0	50
-1	0	2	0	0	242
-1	0	1	0	1	506
+v =       -110	p_smooth = 2	tmp = 0
+v =        -55	p_smooth = 2	tmp = -1
+v =       -103	p_smooth = 2	tmp = -1
+v =        -94	p_smooth = 2	tmp = 0
+v =        -47	p_smooth = 2	tmp = -1
+v =        -83	p_smooth = 2	tmp = -1
+v =        -70	p_smooth = 2	tmp = 0
+v =        -35	p_smooth = 2	tmp = -1
+v =        -55	p_smooth = 2	tmp = -1
+v =        -38	p_smooth = 2	tmp = 0
+v =        -19	p_smooth = 2	tmp = -1
+v =        -19	p_smooth = 2	tmp = -1
+v =          2	p_smooth = 2	tmp = 0
+v =          1	p_smooth = 2	tmp = 1
+v =         25	p_smooth = 2	tmp = 1
+v =         50	p_smooth = 2	tmp = 0
+v =         25	p_smooth = 2	tmp = 1
+v =         77	p_smooth = 2	tmp = 1
+v =        106	p_smooth = 2	tmp = 0
+v =         53	p_smooth = 2	tmp = 1
+v =        137	p_smooth = 2	tmp = 1
+v =        170	p_smooth = 2	tmp = 0
+v =         85	p_smooth = 2	tmp = 1
+v =        205	p_smooth = 2	tmp = 1
+v =        242	p_smooth = 2	tmp = 0
+v =        121	p_smooth = 2	tmp = 1
+v =        -55	p_smooth = 5	tmp = 0
+v =        -11	p_smooth = 5	tmp = -1
+v =       -103	p_smooth = 5	tmp = -3
+v =        -47	p_smooth = 5	tmp = -2
+v =        -83	p_smooth = 5	tmp = -3
+v =        -35	p_smooth = 5	tmp = 0
+v =         -7	p_smooth = 5	tmp = -2
+v =        -55	p_smooth = 5	tmp = 0
+v =        -11	p_smooth = 5	tmp = -1
+v =        -19	p_smooth = 5	tmp = -4
+v =        -19	p_smooth = 5	tmp = -4
+v =         25	p_smooth = 5	tmp = 0
+v =          5	p_smooth = 5	tmp = 0
+v =          1	p_smooth = 5	tmp = 1
+v =         25	p_smooth = 5	tmp = 0
+v =          5	p_smooth = 5	tmp = 0
+v =          1	p_smooth = 5	tmp = 1
+v =         77	p_smooth = 5	tmp = 2
+v =         53	p_smooth = 5	tmp = 3
+v =        137	p_smooth = 5	tmp = 2
+v =         85	p_smooth = 5	tmp = 0
+v =         17	p_smooth = 5	tmp = 2
+v =        205	p_smooth = 5	tmp = 0
+v =         41	p_smooth = 5	tmp = 1
+v =        121	p_smooth = 5	tmp = 1
+v =        -11	p_smooth = 11	tmp = 0
+v =         -1	p_smooth = 11	tmp = -1
+v =       -103	p_smooth = 11	tmp = -4
+v =        -47	p_smooth = 11	tmp = -3
+v =        -83	p_smooth = 11	tmp = -6
+v =         -7	p_smooth = 11	tmp = -7
+v =        -11	p_smooth = 11	tmp = 0
+v =         -1	p_smooth = 11	tmp = -1
+v =        -19	p_smooth = 11	tmp = -8
+v =        -19	p_smooth = 11	tmp = -8
+v =         77	p_smooth = 11	tmp = 0
+v =          7	p_smooth = 11	tmp = 7
+v =         53	p_smooth = 11	tmp = 9
+v =        137	p_smooth = 11	tmp = 5
+v =         17	p_smooth = 11	tmp = 6
+v =         41	p_smooth = 11	tmp = 8
+v =        121	p_smooth = 11	tmp = 0
+v =         11	p_smooth = 11	tmp = 0
+v =          1	p_smooth = 11	tmp = 1
+1	1	1	1	-110
+1	0	1	1	-55
+0	1	0	0	2
+0	0	2	0	25
+0	1	2	0	50
+0	1	0	2	242
 
+aaa
+check 25
 Euclidean algorithm----
 X 12	Y 25
 sqrt Y 5

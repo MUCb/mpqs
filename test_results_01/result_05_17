@@ -7,10 +7,54 @@ smooth numbers
 5
 23
 29
-37
-41
 The sieving interval M=30
+X15 =5
+X14 =6
+X13 =7
+X12 =8
+X11 =9
+X10 =10
+X9 =11
+X8 =12
+X7 =13
+X6 =14
+X5 =15
+X4 =16
+X3 =17
+X2 =18
+X1 =19
+X0 =20
+X1 =21
+X2 =22
+X3 =23
+X4 =24
+X5 =25
+X6 =26
+X7 =27
+X8 =28
+X9 =29
+X10 =30
+X11 =31
+X12 =32
+X13 =33
+X14 =34
+X15 =35
 
+X = 5	Y = -346	
+X = 6	Y = -335	
+X = 7	Y = -322	
+X = 8	Y = -307	
+X = 9	Y = -290	
+X = 10	Y = -271	
+X = 11	Y = -250	
+X = 12	Y = -227	
+X = 13	Y = -202	
+X = 14	Y = -175	
+X = 15	Y = -146	
+X = 16	Y = -115	
+X = 17	Y = -82	
+X = 18	Y = -47	
+X = 19	Y = -10	
 X = 20	Y = 29	
 X = 21	Y = 70	
 X = 22	Y = 113	
@@ -27,28 +71,165 @@ X = 32	Y = 653
 X = 33	Y = 718	
 X = 34	Y = 785	
 X = 35	Y = 854	
-X = 36	Y = 925	
-X = 37	Y = 998	
-X = 38	Y = 1073	
-X = 39	Y = 1150	
-X = 40	Y = 1229	
-X = 41	Y = 1310	
-X = 42	Y = 1393	
-X = 43	Y = 1478	
-X = 44	Y = 1565	
-X = 45	Y = 1654	
-X = 46	Y = 1745	
-X = 47	Y = 1838	
-X = 48	Y = 1933	
-X = 49	Y = 2030	
-X = 50	Y = 2129	
-0	0	0	1	0	0	29
-0	1	0	0	0	1	205
-0	0	2	0	0	0	529
-0	2	0	0	1	0	925
-0	0	0	1	1	0	1073
-1	2	1	0	0	0	1150
+v =       -346	p_smooth = 2	tmp = 0
+v =       -173	p_smooth = 2	tmp = -1
+v =       -335	p_smooth = 2	tmp = -1
+v =       -322	p_smooth = 2	tmp = 0
+v =       -161	p_smooth = 2	tmp = -1
+v =       -307	p_smooth = 2	tmp = -1
+v =       -290	p_smooth = 2	tmp = 0
+v =       -145	p_smooth = 2	tmp = -1
+v =       -271	p_smooth = 2	tmp = -1
+v =       -250	p_smooth = 2	tmp = 0
+v =       -125	p_smooth = 2	tmp = -1
+v =       -227	p_smooth = 2	tmp = -1
+v =       -202	p_smooth = 2	tmp = 0
+v =       -101	p_smooth = 2	tmp = -1
+v =       -175	p_smooth = 2	tmp = -1
+v =       -146	p_smooth = 2	tmp = 0
+v =        -73	p_smooth = 2	tmp = -1
+v =       -115	p_smooth = 2	tmp = -1
+v =        -82	p_smooth = 2	tmp = 0
+v =        -41	p_smooth = 2	tmp = -1
+v =        -47	p_smooth = 2	tmp = -1
+v =        -10	p_smooth = 2	tmp = 0
+v =         -5	p_smooth = 2	tmp = -1
+v =         29	p_smooth = 2	tmp = 1
+v =         70	p_smooth = 2	tmp = 0
+v =         35	p_smooth = 2	tmp = 1
+v =        113	p_smooth = 2	tmp = 1
+v =        158	p_smooth = 2	tmp = 0
+v =         79	p_smooth = 2	tmp = 1
+v =        205	p_smooth = 2	tmp = 1
+v =        254	p_smooth = 2	tmp = 0
+v =        127	p_smooth = 2	tmp = 1
+v =        305	p_smooth = 2	tmp = 1
+v =        358	p_smooth = 2	tmp = 0
+v =        179	p_smooth = 2	tmp = 1
+v =        413	p_smooth = 2	tmp = 1
+v =        470	p_smooth = 2	tmp = 0
+v =        235	p_smooth = 2	tmp = 1
+v =        529	p_smooth = 2	tmp = 1
+v =        590	p_smooth = 2	tmp = 0
+v =        295	p_smooth = 2	tmp = 1
+v =        653	p_smooth = 2	tmp = 1
+v =        718	p_smooth = 2	tmp = 0
+v =        359	p_smooth = 2	tmp = 1
+v =        785	p_smooth = 2	tmp = 1
+v =       -173	p_smooth = 5	tmp = -3
+v =       -335	p_smooth = 5	tmp = 0
+v =        -67	p_smooth = 5	tmp = -2
+v =       -161	p_smooth = 5	tmp = -1
+v =       -307	p_smooth = 5	tmp = -2
+v =       -145	p_smooth = 5	tmp = 0
+v =        -29	p_smooth = 5	tmp = -4
+v =       -271	p_smooth = 5	tmp = -1
+v =       -125	p_smooth = 5	tmp = 0
+v =        -25	p_smooth = 5	tmp = 0
+v =         -5	p_smooth = 5	tmp = 0
+v =         -1	p_smooth = 5	tmp = -1
+v =       -227	p_smooth = 5	tmp = -2
+v =       -101	p_smooth = 5	tmp = -1
+v =       -175	p_smooth = 5	tmp = 0
+v =        -35	p_smooth = 5	tmp = 0
+v =         -7	p_smooth = 5	tmp = -2
+v =        -73	p_smooth = 5	tmp = -3
+v =       -115	p_smooth = 5	tmp = 0
+v =        -23	p_smooth = 5	tmp = -3
+v =        -41	p_smooth = 5	tmp = -1
+v =        -47	p_smooth = 5	tmp = -2
+v =         -5	p_smooth = 5	tmp = 0
+v =         -1	p_smooth = 5	tmp = -1
+v =         29	p_smooth = 5	tmp = 4
+v =         35	p_smooth = 5	tmp = 0
+v =          7	p_smooth = 5	tmp = 2
+v =        113	p_smooth = 5	tmp = 3
+v =         79	p_smooth = 5	tmp = 4
+v =        205	p_smooth = 5	tmp = 0
+v =         41	p_smooth = 5	tmp = 1
+v =        127	p_smooth = 5	tmp = 2
+v =        305	p_smooth = 5	tmp = 0
+v =         61	p_smooth = 5	tmp = 1
+v =        179	p_smooth = 5	tmp = 4
+v =        413	p_smooth = 5	tmp = 3
+v =        235	p_smooth = 5	tmp = 0
+v =         47	p_smooth = 5	tmp = 2
+v =        529	p_smooth = 5	tmp = 4
+v =        295	p_smooth = 5	tmp = 0
+v =         59	p_smooth = 5	tmp = 4
+v =        653	p_smooth = 5	tmp = 3
+v =        359	p_smooth = 5	tmp = 4
+v =        785	p_smooth = 5	tmp = 0
+v =        157	p_smooth = 5	tmp = 2
+v =       -173	p_smooth = 23	tmp = -12
+v =        -67	p_smooth = 23	tmp = -21
+v =       -161	p_smooth = 23	tmp = 0
+v =         -7	p_smooth = 23	tmp = -7
+v =       -307	p_smooth = 23	tmp = -8
+v =        -29	p_smooth = 23	tmp = -6
+v =       -271	p_smooth = 23	tmp = -18
+v =       -227	p_smooth = 23	tmp = -20
+v =       -101	p_smooth = 23	tmp = -9
+v =         -7	p_smooth = 23	tmp = -7
+v =        -73	p_smooth = 23	tmp = -4
+v =        -23	p_smooth = 23	tmp = 0
+v =         -1	p_smooth = 23	tmp = -1
+v =        -41	p_smooth = 23	tmp = -18
+v =        -47	p_smooth = 23	tmp = -1
+v =         29	p_smooth = 23	tmp = 6
+v =          7	p_smooth = 23	tmp = 7
+v =        113	p_smooth = 23	tmp = 21
+v =         79	p_smooth = 23	tmp = 10
+v =         41	p_smooth = 23	tmp = 18
+v =        127	p_smooth = 23	tmp = 12
+v =         61	p_smooth = 23	tmp = 15
+v =        179	p_smooth = 23	tmp = 18
+v =        413	p_smooth = 23	tmp = 22
+v =         47	p_smooth = 23	tmp = 1
+v =        529	p_smooth = 23	tmp = 0
+v =         23	p_smooth = 23	tmp = 0
+v =          1	p_smooth = 23	tmp = 1
+v =         59	p_smooth = 23	tmp = 13
+v =        653	p_smooth = 23	tmp = 9
+v =        359	p_smooth = 23	tmp = 14
+v =        157	p_smooth = 23	tmp = 19
+v =       -173	p_smooth = 29	tmp = -28
+v =        -67	p_smooth = 29	tmp = -9
+v =         -7	p_smooth = 29	tmp = -7
+v =       -307	p_smooth = 29	tmp = -17
+v =        -29	p_smooth = 29	tmp = 0
+v =         -1	p_smooth = 29	tmp = -1
+v =       -271	p_smooth = 29	tmp = -10
+v =       -227	p_smooth = 29	tmp = -24
+v =       -101	p_smooth = 29	tmp = -14
+v =         -7	p_smooth = 29	tmp = -7
+v =        -73	p_smooth = 29	tmp = -15
+v =        -41	p_smooth = 29	tmp = -12
+v =        -47	p_smooth = 29	tmp = -18
+v =         29	p_smooth = 29	tmp = 0
+v =          1	p_smooth = 29	tmp = 1
+v =          7	p_smooth = 29	tmp = 7
+v =        113	p_smooth = 29	tmp = 26
+v =         79	p_smooth = 29	tmp = 21
+v =         41	p_smooth = 29	tmp = 12
+v =        127	p_smooth = 29	tmp = 11
+v =         61	p_smooth = 29	tmp = 3
+v =        179	p_smooth = 29	tmp = 5
+v =        413	p_smooth = 29	tmp = 7
+v =         47	p_smooth = 29	tmp = 18
+v =         59	p_smooth = 29	tmp = 1
+v =        653	p_smooth = 29	tmp = 15
+v =        359	p_smooth = 29	tmp = 11
+v =        157	p_smooth = 29	tmp = 12
+1	1	1	0	1	-290
+1	1	3	0	0	-250
+1	0	1	1	0	-115
+1	1	1	0	0	-10
+0	0	0	0	1	29
+0	0	0	2	0	529
 
+aaa
+check 529
 Euclidean algorithm----
 X 30	Y 529
 sqrt Y 23
