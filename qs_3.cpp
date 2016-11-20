@@ -20,7 +20,7 @@ const int showDebugMsg = 3;
       181,       191,       193,       197,       199,       211,       223,       227, 
       229,       233,       239,       241,       251,       257,       263,       269, 
       271,       277,       281,       283,       293,       307,       311,       313,    
-      317,       331,       337,       347,       349,       353,       359,       367 };  
+      317,        331,       337,       347,       349,       353,       359,       367 };  
 
 
 #define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: "fmt"\n", ##arg);
@@ -181,7 +181,7 @@ int  bin_matrix_t::make_upper_triangular(void)
             col_number++;
             continue;
         } else if( raw != raw_number && raw < size) {
-            DEBUG(3, "i = %d r = %d\n", i, r);
+            DEBUG(3, "i = %d r = %d\n", i, raw);
             for (int col = 0; col < size; ++col)
             {
                 // printf("p1 = %d\n", tpp1[i][k]);
@@ -232,7 +232,7 @@ int  bin_matrix_t::make_upper_triangular(void)
                     null_line = raw;
                     break;
                     
-                }
+                // }
             }
             // show();
             // if (flag_n == 1) {
