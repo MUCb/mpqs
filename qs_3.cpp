@@ -20,7 +20,7 @@ const int showDebugMsg = 3;
       181,       191,       193,       197,       199,       211,       223,       227, 
       229,       233,       239,       241,       251,       257,       263,       269, 
       271,       277,       281,       283,       293,       307,       311,       313,    
-      317,        331,       337,       347,       349,       353,       359,       367 };  
+      317,       331,       337,       347,       349,       353,       359,       367 };  
 
 
 #define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: "fmt"\n", ##arg);
@@ -37,53 +37,57 @@ public:
     std::vector< std::vector<uint64_t> > matrix;
     std::vector< std::vector<uint64_t> > unit_matrix;
     std::vector<int> unit_num;
-    int size;
+    int collumn_size;
+    int row_size;
+    int unit_matrix_size;
     int filled;
-    bin_matrix_t(int num);
+    bin_matrix_t(int size);
     bin_matrix_t();
     void init_unit(void);
     void show(void);
-    void add(std::vector<uint64_t> v1);
     int  make_upper_triangular(void);
     int  make_lower_triangular(void);
-    int m_size(void);
-    void del(int iter);
+    // int m_size(void);
+    void add_row(std::vector<uint64_t> v1);
+    void delete_row(int iter);
     void count_unit_num( void );
-    int max_unit_num(std::vector<uint64_t> unit_v);
+    int max_unit_num(std::vector<uint64_t> selected_row);
     int resolve_matrix( void);
 };
 
 bin_matrix_t::bin_matrix_t(){
 }
 
-bin_matrix_t::bin_matrix_t(int num) : matrix(num , std::vector<uint64_t> (num)), 
-                                unit_matrix(num , std::vector<uint64_t> (num)),
-                                unit_num(num),
-                                size(num),
+bin_matrix_t::bin_matrix_t(int size) : matrix(size + 1 , std::vector<uint64_t> (size)), 
+                                unit_matrix(size, std::vector<uint64_t> (size)),
+                                unit_num(size + 1),
+                                collumn_size(size),
+                                row_size(size + 1),
+                                unit_matrix_size(size),
                                 filled(0)
 {
     init_unit();
 }
 
-int bin_matrix_t::m_size(void)
-{
-    return size;
-}
+// int bin_matrix_t::m_size(void)
+// {
+//     return rasize;
+// }
 
 void bin_matrix_t::init_unit(void)
 {
-    // don't feel the last raw
-    for (int raw = 0; raw < size; ++raw)
+    // don't feel the last row
+    for (int row = 0; row < unit_matrix_size; ++row)
     {
-        unit_num[raw] = 0;
-        for (int cal = 0; cal < size; ++cal)
+        unit_num[row] = 0;
+        for (int col = 0; col < unit_matrix; ++col)
         {
-            if(raw == cal)
-                unit_matrix[raw][cal] = 1;
+            if(row == col)
+                unit_matrix[row][col] = 1;
             else
-                unit_matrix[raw][cal] = 0;
+                unit_matrix[row][col] = 0;
 
-            DEBUG (4,"%ld\t", unit_matrix[raw][cal]);
+            DEBUG (4,"%ld\t", unit_matrix[row][col]);
         }
         DEBUG (4,"\n");
     }
@@ -93,37 +97,36 @@ void bin_matrix_t::init_unit(void)
 void bin_matrix_t::show(void){
         // just print exponent mod 2 array
     DEBUG (3,"matrix\n");
-    for (int raw = 0; raw < size; ++raw)
+    for (int row = 0; row < row_size; ++row)
     {
-        for (int cal = 0; cal < size; ++cal)
+        for (int col = 0; col < collumn_size; ++col)
         {
-            DEBUG (3,"%lu\t", matrix[raw][cal]);
+            DEBUG (3,"%lu\t", matrix[row][col]);
         }
         printf("\n");
     }
 
     DEBUG (3,"\n");
     DEBUG (3,"unit matrix\n");
-    for (int raw = 0; raw < size; ++raw)
+    for (int row = 0; row < unit_matrix_size; ++row)
     {
-        for (uint64_t cal = 0; cal <  size; ++cal)
+        for (uint64_t col = 0; col <  unit_matrix_size; ++col)
         {
-            DEBUG (3,"%"PRIu64"\t", unit_matrix[raw][cal]);
+            DEBUG (3,"%"PRIu64"\t", unit_matrix[row][col]);
         }
         DEBUG (3,"\n");
     }
     DEBUG (3,"\n");
 }
 
-void bin_matrix_t::add(std::vector<uint64_t> line)
+void bin_matrix_t::add_row(std::vector<uint64_t> row_v)
 {
     // DEBUG(3, "%s %d \n",__func__, __LINE__);
-    if (filled < size){
+    if (filled < row_size){
         // DEBUG(3, "%s %d \n",__func__, __LINE__);
-        for (int cal = 0; cal < line.size() && cal < size; ++cal)
-        {
+        for (int col = 0; col < row_v.size() && col < collumn_size; ++col) {
             // DEBUG(3, "%s %d \n",__func__, __LINE__);
-            matrix[filled][cal] = line[cal] % 2;
+            matrix[filled][col] = row_v[col] % 2;
             // DEBUG(3, "%s %d \n",__func__, __LINE__);
         }
         // DEBUG(3, "%s %d \n",__func__, __LINE__);
@@ -132,20 +135,20 @@ void bin_matrix_t::add(std::vector<uint64_t> line)
     // DEBUG(3, "%s %d filled %d\n",__func__, __LINE__, filled);
 }
 
-void bin_matrix_t::del(int raw_number)
+void bin_matrix_t::delete_row(int row_number)
 {
     if (filled > 0){
         DEBUG(4, "%s %d\n",__func__, __LINE__);
-        for (int raw = raw_number; raw < raw -1  ; ++raw)
+        for (int row = row_number; row < unit_matrix_size  ; ++row)
         {
             DEBUG(4, "%s %d \n",__func__, __LINE__);
-            for (int cal = 0; cal < size; ++cal)
+            for (int col = 0; col < unit_matrix_size; ++col)
             {
                 DEBUG(4, "%s %d \n",__func__, __LINE__);
-                if (raw == (size ))
-                    matrix[raw][cal] = 0;
+                if (row == (size ))
+                    matrix[row][col] = 0;
                 else
-                matrix[raw][cal] = matrix[raw+1][cal];
+                matrix[row][col] = matrix[row+1][col];
             }
             
         }
@@ -159,63 +162,52 @@ void bin_matrix_t::del(int raw_number)
 
 int  bin_matrix_t::make_upper_triangular(void)
 {
-    int col_number = 0;
-    int raw_number = 0;
+    int current_col = 0;
+    int current_row = 0;
     int null_line = -1;
-    for (int i = 0; i < size -1 ; ++i)
+    for (int i = 0; i < unit_matrix_size ; ++i)
     {
 
-        int raw;
-        // find first non zero value. it will be in r.
-        for (raw = raw_number; raw < size; ++raw)
+        int row_nonnull;
+        // find first non zero value. it will be in row.
+        for (row_nonnull = current_row; row_nonnull < unit_matrix_size; ++row_nonnull)
         {
-            if (matrix[raw][col_number] == 1)
+            if (matrix[row_nonnull][current_col] == 1)
                 break;
         }
 
-        DEBUG (3,"raw=%d raw_number=%d size=%d col_number=%d\n", raw, raw_number, (size-1), col_number);
+        DEBUG (3,"row_nonnull=%d current_row=%d size=%d current_col=%d\n", row_nonnull, current_row, (size-1), current_col);
 
-        // raw should be less then (size -2 ), otherwise all value are zero
-        if(raw == size ){
-            ERROR ("We havn't find values in collumn %d \n", col_number);
-            col_number++;
+        // row should be less then unit_matrix_size , otherwise all value are zero
+        if(row_nonnull == unit_matrix_size ){
+            ERROR ("We havn't find values in column %d \n", current_col);
+            current_col++;
             continue;
-        } else if( raw != raw_number && raw < size) {
-            DEBUG(3, "i = %d r = %d\n", i, raw);
-            for (int col = 0; col < size; ++col)
-            {
-                // printf("p1 = %d\n", tpp1[i][k]);
-                // printf("p2 = %d\n", tpp1[j][k]);
-                std::swap(matrix[raw_number][col], matrix[raw][col]);
-                std::swap(unit_matrix[raw_number][col], unit_matrix[raw][col]);
-            }
+        } else if( row_nonnull > current_row && row_nonnull < unit_matrix_size) {
+            DEBUG(3, "i = %d row_nonnull = %d\n", i, row_nonnull);
+            matrix[row_nonnull].swap(matrix[current_row]);
+            unit_matrix[row_nonnull].swap(unit_matrix[current_row]);
         }
 
         // remove all value under the first one
-        for (int raw = raw_number + 1; raw < (size - 1); ++raw) {
-            if(matrix[raw][col_number] != 0) {
-                // DEBUG(3, "CHAECK r = %d raw=%d\n", r, raw);
+        for (int row = current_row + 1; row < unit_matrix_size; ++row) {
+            if(matrix[row][current_col] != 0) {
+                // DEBUG(3, "CHAECK r = %d row=%d\n", r, row);
                 // show();
-                for (int col = 0; col < size; ++col) {
+                for (int col = 0; col < unit_matrix_size; ++col) {
                     
                     // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
-                    matrix[raw][col] += matrix[raw_number][col];
-                    matrix[raw][col] %= 2;
+                    matrix[row][col] += matrix[current_row][col];
+                    matrix[row][col] %= 2;
                     // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
 
-                    unit_matrix[raw][col] += unit_matrix[raw_number][col];
+                    unit_matrix[row][col] += unit_matrix[current_row][col];
                     // unit_matrix[j][k] %= 2;
                 }
             }
-            // show();
-            // int flag_n = 0;
-            // if (matrix[raw][size-1] == 1) {
-            //     flag_n = 1;
-            //     matrix[raw][size-1] = 0;
-            // }
 
             // show();
-            if ( std::find(matrix[raw].begin(), matrix[raw].end(), 1) == matrix[raw].end() ) {
+            if ( std::find(matrix[row].begin(), matrix[row].end(), 1) == matrix[row].end() ) {
                 // if (flag_n == 1) {
                 //     DEBUG (1,"zero r=%d\n", r);
                 //     matrix[r][size-1] = 1;
@@ -223,13 +215,13 @@ int  bin_matrix_t::make_upper_triangular(void)
                 //     null_line = (-r)-10;
                 //     break;
                 // } else {
-                    DEBUG (1,"nULLL upper j=%d coll=%d\n", raw, col_number);
+                    DEBUG (1,"nULLL upper j=%d coll=%d\n", row, current_col);
                     // for (int c = 0; c < size-1; ++c) {
                         // unit_matrix[size - 1][c] += unit_matrix[r][c];
                     // }
                     DEBUG (3," smooth_num \n");
                     // P1.push_back(j);
-                    null_line = raw;
+                    null_line = row;
                     break;
                     
                 // }
@@ -243,8 +235,8 @@ int  bin_matrix_t::make_upper_triangular(void)
         if (null_line != -1)
             break;
         show();
-            col_number++;
-            raw_number++;
+            current_col++;
+            current_row++;
     
     }
     return null_line;
@@ -252,56 +244,34 @@ int  bin_matrix_t::make_upper_triangular(void)
 
 void bin_matrix_t::count_unit_num( void )
 {
-    for (int i = 0; i < (size -1); ++i)
+    for (int row = 0; row < unit_matrix_size; ++row)
     {
-        unit_num[i] = 0;
-        for (int j = 0; j < size; ++j)
+        unit_num[row] = 0;
+        for (int cal = 0; cal < size; ++cal)
         {
-            if (matrix[i][j] == 1){
-                unit_num[i] += 1;
+            if (matrix[row][cal] == 1){
+                unit_num[row] += 1;
             }
         }
     }
 }
 
-int bin_matrix_t::max_unit_num(std::vector<uint64_t> unit_v)
+int bin_matrix_t::max_unit_num(std::vector<uint64_t> selected_row)
 {
-    //  count_unit_num();
-    // int max_un = 0;
-    // int max_iter = 0;
-    // for (int i = 0; i < size; ++i)
-    // {
-    //  printf("%lu\t", unit_v[i]);
-    //  if (unit_v[i] == 1){
-
-    //      if(max_un == 0){
-    //          max_un = unit_num[i];
-    //          max_iter = i;
-    //      } else if (unit_num[i] < max_un){
-    //          max_un = unit_num[i];
-    //          max_iter = i;
-    //      }
-    //  }
-    // }
-    // // printf("max %d\n", max_un);
-    // printf("\n");
-    // return max_iter;
-
-
     count_unit_num();
-    int max_un = 0;
+    int max_unit = 0;
     int max_iter = 0;
-    for (int i = 0; i < (size - 1); ++i)
+    for (int iter = 0; iter < unit_matrix_size; ++iter)
     {
-        printf("%lu\t", unit_v[i]);
-        if (unit_v[i] == 1){
-            if (unit_num[i] > max_un){
-                max_un = unit_num[i];
-                max_iter = i;
+        printf("%lu\t", selected_row[iter]);
+        if (selected_row[iter] == 1){
+            if (unit_num[iter] > max_unit){
+                max_unit = unit_num[iter];
+                max_iter = iter;
             }
         }
     }
-    // printf("max %d\n", max_un);
+    // printf("max %d\n", max_unit);
     printf("\n");
     return max_iter;
 }
@@ -310,31 +280,26 @@ int bin_matrix_t::max_unit_num(std::vector<uint64_t> unit_v)
 
 int  bin_matrix_t::make_lower_triangular(void) 
 {
-        // printf("tpp1 size %d\n", tpp1.size());
-    // int col = 0;
-    // int line = 0;
+    // printf("tpp1 size %d\n", tpp1.size());
     int null_line = -1;
-    for (int i = size - 2 ; i >= 1; --i)
+    for (int i = unit_matrix_size ; i > 0; --i)
     {
-
-        // DEBUG (3," =============================== %d\n", i);
-        if (matrix[i][i] != 1)
-        {
-            ERROR("error %d\n", i);
+        if (matrix[i][i] != 1) {
+            ERROR("we have zero value in main diagonal, line: %d\n", i);
             continue;
         }
 
-        for (int r = i-1; r >= 0; --r)
+        for (int row = i-1; row >= 0; --row)
         {
-            DEBUG(3, "DEBUG r=%d\n", r);
-            if(matrix[r][i] != 0)
+            DEBUG(3, "DEBUG row=%d\n", row);
+            if(matrix[row][i] != 0)
             {
                 DEBUG(3, "DEBUG1\n");
-                for (int c = 0; c < size; ++c) {
-                    matrix[r][c] += matrix[i][c];
-                    matrix[r][c] %= 2;
+                for (int col = 0; col < size; ++col) {
+                    matrix[row][col] += matrix[i][col];
+                    matrix[row][col] %= 2;
 
-                    unit_matrix[r][c] += unit_matrix[i][c];
+                    unit_matrix[row][col] += unit_matrix[i][col];
                     // unit_matrix[r][c] %= 2;  // ???????
                 }
             }
@@ -360,7 +325,7 @@ int  bin_matrix_t::make_lower_triangular(void)
                 else{
                     DEBUG (3,"nULLL lower %d\n", r);
                     // for (int c = 0; c < size; ++c) {
-                    //     unit_matrix[size -1][c] += unit_matrix[r][c];
+                    /   /     unit_matrix[size -1][c] += unit_matrix[r][c];
                     // }
                     DEBUG (3," smooth_num\n");
                     // P1.push_back(j);
@@ -540,7 +505,7 @@ int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std
         // DEBUG(3, "%s %d smooth_num \n",__func__, smooth_num[i]);
         if (smooth_num[i] != -1) {
             // DEBUG(3, "%s %d added\n",__func__, smooth_num[i]);
-            m1.add(v_exp[ smooth_num[i]]);
+            m1.add_row(v_exp[ smooth_num[i]]);
             smooth_num[i] = -1;
             // DEBUG(3, "%s %d =added\n",__func__, smooth_num[i]);
             count++;
@@ -615,7 +580,7 @@ int find_solution (bin_matrix_t m2,
 
             printf(" iter %d\n",max_i );
             m2.show();
-            m2.del(max_i);
+            m2.delete_row(max_i);
             printf("===== %d \n", smooth_num_back[max_i]);
             smooth_num_back.erase(smooth_num_back.begin() + max_i);
             smooth_num.erase(smooth_num.begin() + max_i);
@@ -634,7 +599,7 @@ int find_solution (bin_matrix_t m2,
     {
         int max_i = -(null_line + 10);
         // m2.show();
-        m2.del(max_i);
+        m2.delete_row(max_i);
         printf("===== %d \n", smooth_num_back[max_i]);
         smooth_num_back.erase(smooth_num_back.begin() + max_i);
         smooth_num.erase(smooth_num.begin() + max_i);
@@ -654,7 +619,7 @@ int find_solution (bin_matrix_t m2,
 
             // printf(" iter %d\n",max_i );
             m2.show();
-            m2.del(max_i);
+            m2.delete_row(max_i);
             printf("===== %d \n", smooth_num_back[max_i]);
             smooth_num_back.erase(smooth_num_back.begin() + max_i);
             smooth_num.erase(smooth_num.begin() + max_i);
@@ -822,13 +787,13 @@ int main (int argc, char *argv[])
     std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
 
     // add sign to exponent matrix
-    #define SIGN    0 // need to change the sign name !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #define NEGATIVE_SIGN    0 // need to change the sign name !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     #define FIRST_VALUE    1
     // v_exp[i].size()-1
     for (int y_number = 0; y_number < v_exp.size(); ++y_number)
     {
         if(Y[y_number] < 0 )
-            v_exp[y_number][SIGN] = 1;
+            v_exp[y_number][NEGATIVE_SIGN] = 1;
     }
 
     for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
