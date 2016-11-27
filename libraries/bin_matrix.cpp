@@ -1,30 +1,20 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <math.h>
+#include <inttypes.h>
+#include <vector>
+#include <algorithm>
 
 
-class bin_matrix_t {
-public: 
-    std::vector< std::vector<uint64_t> > matrix;
-    std::vector< std::vector<uint64_t> > unit_matrix;
-    std::vector<int> unit_num;
-    int collumn_size;
-    int row_size;
-    int unit_matrix_size;
-    int filled;
-    bin_matrix_t(int size);
-    bin_matrix_t();
-    void init_unit(void);
-    void show(void);
-    int  make_upper_triangular(void);
-    int  make_lower_triangular(void);
-    // int m_size(void);
-    void add_row(std::vector<uint64_t> v1);
-    void delete_row(int iter);
-    void count_unit_num( void );
-    int max_unit_num(std::vector<uint64_t> selected_row);
-    int resolve_matrix( void);
-};
+#include <unistd.h>
 
-bin_matrix_t::bin_matrix_t(){
-}
+
+#include "bin_matrix.h"
+
+
+
+
+bin_matrix_t::bin_matrix_t(){}
 
 bin_matrix_t::bin_matrix_t(int size) : matrix(size + 1 , std::vector<uint64_t> (size)), 
                                 unit_matrix(size, std::vector<uint64_t> (size)),
@@ -48,7 +38,7 @@ void bin_matrix_t::init_unit(void)
     for (int row = 0; row < unit_matrix_size; ++row)
     {
         unit_num[row] = 0;
-        for (int col = 0; col < unit_matrix; ++col)
+        for (int col = 0; col < unit_matrix_size; ++col)
         {
             if(row == col)
                 unit_matrix[row][col] = 1;
@@ -105,15 +95,15 @@ void bin_matrix_t::add_row(std::vector<uint64_t> row_v)
 
 void bin_matrix_t::delete_row(int row_number)
 {
-    if (filled > 0){
+    if (filled > row_number){
         DEBUG(4, "%s %d\n",__func__, __LINE__);
-        for (int row = row_number; row < unit_matrix_size  ; ++row)
+        for (int row = row_number; row < filled  ; ++row)
         {
             DEBUG(4, "%s %d \n",__func__, __LINE__);
             for (int col = 0; col < unit_matrix_size; ++col)
             {
                 DEBUG(4, "%s %d \n",__func__, __LINE__);
-                if (row == (size ))
+                if (row == filled)
                     matrix[row][col] = 0;
                 else
                 matrix[row][col] = matrix[row+1][col];
@@ -144,7 +134,7 @@ int  bin_matrix_t::make_upper_triangular(void)
                 break;
         }
 
-        DEBUG (3,"row_nonnull=%d current_row=%d size=%d current_col=%d\n", row_nonnull, current_row, (size-1), current_col);
+        DEBUG (3,"row_nonnull=%d current_row=%d unit_matrix_size=%d current_col=%d\n", row_nonnull, current_row, unit_matrix_size, current_col);
 
         // row should be less then unit_matrix_size , otherwise all value are zero
         if(row_nonnull == unit_matrix_size ){
@@ -167,7 +157,7 @@ int  bin_matrix_t::make_upper_triangular(void)
                     // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
                     matrix[row][col] += matrix[current_row][col];
                     matrix[row][col] %= 2;
-                    DEBUG(4, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
+                    DEBUG(4, "matrix row = %d col=%d m=%ld\n", row, col, matrix[row][col]);
 
                     unit_matrix[row][col] += unit_matrix[current_row][col];
                     // unit_matrix[j][k] %= 2;
@@ -212,10 +202,10 @@ int  bin_matrix_t::make_upper_triangular(void)
 
 void bin_matrix_t::count_unit_num( void )
 {
-    for (int row = 0; row < unit_matrix_size; ++row)
+    for (int row = 0; row < row_size; ++row)
     {
         unit_num[row] = 0;
-        for (int cal = 0; cal < size; ++cal)
+        for (int cal = 0; cal < collumn_size; ++cal)
         {
             if (matrix[row][cal] == 1){
                 unit_num[row] += 1;
@@ -263,7 +253,7 @@ int  bin_matrix_t::make_lower_triangular(void)
             if(matrix[row][i] != 0)
             {
                 DEBUG(3, "DEBUG1\n");
-                for (int col = 0; col < size; ++col) {
+                for (int col = 0; col < collumn_size; ++col) {
                     matrix[row][col] += matrix[i][col];
                     matrix[row][col] %= 2;
 
@@ -272,39 +262,39 @@ int  bin_matrix_t::make_lower_triangular(void)
                 }
             }
 
-            int flag_n = 0;
-            if (matrix[r][size-1] == 1) {
-                flag_n = 1;
-                matrix[r][size-1] = 0;
-            }
+            // int flag_n = 0;
+            // if (matrix[row][size-1] == 1) {
+            //     flag_n = 1;
+            //     matrix[row][size-1] = 0;
+            // }
 
-            if ( std::find(matrix[r].begin(), matrix[r].end(), 1) == matrix[r].end() )
+            if ( std::find(matrix[row].begin(), matrix[row].end(), 1) == matrix[row].end() )
             {
-                DEBUG (1,"zzzero\n");
+                // DEBUG (1,"zzzero\n");
                 // show();
-                if (flag_n == 1)
-                {
-                    DEBUG (1,"zzzero\n");
-                    matrix[r][size-1] = 1;
-                    flag_n = 0;
-                    null_line = (-r)-10;
-                    break;
-                }
-                else{
-                    DEBUG (3,"nULLL lower %d\n", r);
+                // if (flag_n == 1)
+                // {
+                //     DEBUG (1,"zzzero\n");
+                //     matrix[r][size-1] = 1;
+                //     flag_n = 0;
+                //     null_line = (-r)-10;
+                //     break;
+                // }
+                // else{
+                    DEBUG (3,"nULLL lower %d\n", row);
                     // for (int c = 0; c < size; ++c) {
-                    /   /     unit_matrix[size -1][c] += unit_matrix[r][c];
+                        // unit_matrix[size -1][c] += unit_matrix[r][c];
                     // }
-                    DEBUG (3," smooth_num\n");
+                    // DEBUG (3," smooth_num\n");
                     // P1.push_back(j);
-                    null_line = r;
+                    null_line = row;
                     break;
-                }
-                show();
+                // }
+                // show();
             }
-            if (flag_n == 1) {
-                matrix[r][0] = 1;
-            }
+            // if (flag_n == 1) {
+            //     matrix[r][0] = 1;
+            // }
         }
 
     if (null_line != -1)
@@ -344,21 +334,21 @@ int bin_matrix_t::resolve_matrix()
     }
 
     printf(" last \n");
-    for (int c = 0; c < size -2; ++c) {
-        if (matrix[size - 1][c]  == 1) {
-            for (int r = 0; r < size; ++r) {
-                matrix[size - 1][r] += matrix[c][r];
-                matrix[size - 1][r] %= 2;
+    for (int c = 0; c < unit_matrix_size; ++c) {
+        if (matrix[row_size - 1][c]  == 1) {
+            for (int r = 0; r < row_size; ++r) {
+                matrix[row_size - 1][r] += matrix[c][r];
+                matrix[row_size - 1][r] %= 2;
 
-                unit_matrix[size - 1][c] += unit_matrix[c][r];
-                unit_matrix[size - 1][c] %= 2;
+                unit_matrix[row_size - 1][c] += unit_matrix[c][r];
+                unit_matrix[row_size - 1][c] %= 2;
             }
         }
     }
-    if(matrix[size-1][size-1] != 0 ) {
+    if(matrix[row_size-1][row_size-1] != 0 ) {
         ERROR("no resolv\n");
     } else{
-        null_line = size -1;
+        null_line = row_size -1;
     }
     printf(" last \n");
     
