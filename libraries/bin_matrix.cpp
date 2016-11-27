@@ -4,15 +4,9 @@
 #include <inttypes.h>
 #include <vector>
 #include <algorithm>
-
-
 #include <unistd.h>
 
-
 #include "bin_matrix.h"
-
-
-
 
 bin_matrix_t::bin_matrix_t(){}
 
