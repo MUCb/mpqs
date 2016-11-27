@@ -1,0 +1,50 @@
+p_idx=26	q_idx=3
+p=97	q=3	p*q=N=291
+sqrt of N = 18
+size of factor base size_B=3.032789
+smooth numbers
+2
+5
+7
+11
+17
+19
+The sieving interval M=27
+
+X = 18	Y = 33	
+X = 19	Y = 70	
+X = 20	Y = 109	
+X = 21	Y = 150	
+X = 22	Y = 193	
+X = 23	Y = 238	
+X = 24	Y = 285	
+X = 25	Y = 334	
+X = 26	Y = 385	
+X = 27	Y = 438	
+X = 28	Y = 493	
+X = 29	Y = 550	
+X = 30	Y = 609	
+X = 31	Y = 670	
+X = 32	Y = 733	
+X = 33	Y = 798	
+X = 34	Y = 865	
+X = 35	Y = 934	
+X = 36	Y = 1005	
+X = 37	Y = 1078	
+X = 38	Y = 1153	
+X = 39	Y = 1230	
+X = 40	Y = 1309	
+X = 41	Y = 1390	
+X = 42	Y = 1473	
+X = 43	Y = 1558	
+X = 44	Y = 1645	
+X = 45	Y = 1734	
+1	1	1	0	0	0	70
+1	0	1	0	1	0	238
+0	1	1	1	0	0	385
+1	2	0	1	0	0	550
+1	0	2	1	0	0	1078
+0	0	1	1	1	0	1309
+
+ERROR: to small number of smooth numbbers
+
