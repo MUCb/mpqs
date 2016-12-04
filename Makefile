@@ -1,6 +1,6 @@
 
-test1:
-	g++ -Iinclude/ -I../soft/boost_1_61_0/  -L../soft/boost_1_61_0/ \
+test1: bin_matrix
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
 				libraries/bin_matrix.o test.cpp -o test.out
     # g++ -I../soft/boost_1_61_0/  -L../soft/boost_1_61_0/ test1.cpp -o test1
 

@@ -1,7 +1,7 @@
 #ifndef BIN_MATRIX
 #define BIN_MATRIX
 
-const int showDebugMsg = 3;
+const int showDebugMsg = 4;
 
 #define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: "fmt"\n", ##arg);
 
@@ -28,8 +28,8 @@ public:
     int  make_upper_triangular(void);
     int  make_lower_triangular(void);
     // int m_size(void);
-    void add_row(std::vector<uint64_t> v1);
-    void delete_row(int iter);
+    int add_row(std::vector<uint64_t> v1);
+    int delete_row(unsigned int iter);
     void count_unit_num( void );
     int max_unit_num(std::vector<uint64_t> selected_row);
     int resolve_matrix( void);

@@ -71,27 +71,30 @@ void bin_matrix_t::show(void){
     DEBUG (3,"\n");
 }
 
-void bin_matrix_t::add_row(std::vector<uint64_t> row_v)
+int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
 {
-    // DEBUG(3, "%s %d \n",__func__, __LINE__);
+    DEBUG(4, "%s %d \n",__func__, __LINE__);
     if (filled < row_size){
-        // DEBUG(3, "%s %d \n",__func__, __LINE__);
+        DEBUG(4, "%s %d \n",__func__, __LINE__);
         for (int col = 0; col < row_v.size() && col < collumn_size; ++col) {
-            // DEBUG(3, "%s %d \n",__func__, __LINE__);
+            DEBUG(4, "%s %d \n",__func__, __LINE__);
             matrix[filled][col] = row_v[col] % 2;
-            // DEBUG(3, "%s %d \n",__func__, __LINE__);
+            DEBUG(4, "%s %d \n",__func__, __LINE__);
         }
-        // DEBUG(3, "%s %d \n",__func__, __LINE__);
+        DEBUG(4, "%s %d \n",__func__, __LINE__);
         filled++;
+        return 1;
     }
-    // DEBUG(3, "%s %d filled %d\n",__func__, __LINE__, filled);
+    else
+        return 0;
+    DEBUG(4, "%s %d filled %d\n",__func__, __LINE__, filled);
 }
 
-void bin_matrix_t::delete_row(int row_number)
+int bin_matrix_t::delete_row(unsigned int row_number)
 {
     if (filled > row_number){
-        DEBUG(4, "%s %d\n",__func__, __LINE__);
-        for (int row = row_number; row < filled  ; ++row)
+        DEBUG(4, "%s %d row_number: %d\n",__func__, __LINE__, row_number);
+        for (int row = row_number; row <= filled  ; ++row)
         {
             DEBUG(4, "%s %d \n",__func__, __LINE__);
             for (int col = 0; col < unit_matrix_size; ++col)
@@ -100,14 +103,16 @@ void bin_matrix_t::delete_row(int row_number)
                 if (row == filled)
                     matrix[row][col] = 0;
                 else
-                matrix[row][col] = matrix[row+1][col];
+                    matrix[row][col] = matrix[row+1][col];
             }
             
         }
         DEBUG(4, "%s %d \n",__func__, __LINE__);
         filled--;
         DEBUG(4, "%s %d filled %d\n",__func__, __LINE__, filled);
-    }
+        return 1;
+    } else 
+        return 0;
 }
 
 
