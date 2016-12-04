@@ -1,7 +1,7 @@
 #ifndef BIN_MATRIX
 #define BIN_MATRIX
 
-const int showDebugMsg = 4;
+const int showDebugMsg = 3;
 
 #define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: "fmt"\n", ##arg);
 

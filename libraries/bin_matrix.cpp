@@ -86,21 +86,21 @@ int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
         return 1;
     }
     else
-        return 0;
+        return 0;   
     DEBUG(4, "%s %d filled %d\n",__func__, __LINE__, filled);
 }
 
 int bin_matrix_t::delete_row(unsigned int row_number)
 {
     if (filled > row_number){
-        DEBUG(4, "%s %d row_number: %d\n",__func__, __LINE__, row_number);
-        for (int row = row_number; row <= filled  ; ++row)
+        DEBUG(4, "%s %d row_number: %d filled: %d\n",__func__, __LINE__, row_number, filled);
+        for (int row = row_number; row < filled  ; ++row)
         {
             DEBUG(4, "%s %d \n",__func__, __LINE__);
             for (int col = 0; col < unit_matrix_size; ++col)
             {
-                DEBUG(4, "%s %d \n",__func__, __LINE__);
-                if (row == filled)
+                DEBUG(4, "%s %d row=|%d| col=|%d|\n",__func__, __LINE__, row, col);
+                if (row == (filled - 1))
                     matrix[row][col] = 0;
                 else
                     matrix[row][col] = matrix[row+1][col];
