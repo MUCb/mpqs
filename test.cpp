@@ -18,6 +18,8 @@ BOOST_AUTO_TEST_CASE(test_2)
     bin_matrix_t m1(5);
     BOOST_TEST(m1.collumn_size == 5); 
     BOOST_TEST(m1.row_size == 6);
+    BOOST_TEST(m1.unit_matrix_size == 5);
+    BOOST_TEST(m1.filled == 0);
 }
 
 
