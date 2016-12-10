@@ -55,7 +55,7 @@ void bin_matrix_t::show(void){
         {
             DEBUG (3,"%lu\t", matrix[row][col]);
         }
-        printf("\n");
+        DEBUG(3, "\n");
     }
 
     DEBUG (3,"\n");
@@ -127,17 +127,18 @@ int  bin_matrix_t::make_upper_triangular(void)
 
         int row_nonnull;
         // find first non zero value. it will be in row.
-        for (row_nonnull = current_row; row_nonnull < unit_matrix_size; ++row_nonnull)
+        for (row_nonnull = current_row; row_nonnull < unit_matrix_size; ++row_nonnull) 
         {
             if (matrix[row_nonnull][current_col] == 1)
                 break;
         }
 
-        DEBUG (3,"row_nonnull=%d current_row=%d unit_matrix_size=%d current_col=%d\n", row_nonnull, current_row, unit_matrix_size, current_col);
+        DEBUG (3,"row_nonnull=%d current_row=%d unit_matrix_size=%d current_col=%d\n", 
+        row_nonnull, current_row, unit_matrix_size, current_col);
 
         // row should be less then unit_matrix_size , otherwise all value are zero
         if(row_nonnull == unit_matrix_size ){
-            ERROR ("We havn't find values in column %d \n", current_col);
+            WARN (1, "We havn't find values in column %d \n", current_col);
             current_col++;
             continue;
         } else if( row_nonnull > current_row && row_nonnull < unit_matrix_size) {
@@ -162,39 +163,22 @@ int  bin_matrix_t::make_upper_triangular(void)
                     // unit_matrix[j][k] %= 2;
                 }
             }
-
             // show();
             if ( std::find(matrix[row].begin(), matrix[row].end(), 1) == matrix[row].end() ) {
-                // if (flag_n == 1) {
-                //     DEBUG (1,"zero r=%d\n", r);
-                //     matrix[r][size-1] = 1;
-                //     flag_n = 0;
-                //     null_line = (-r)-10;
-                //     break;
-                // } else {
                     DEBUG (1,"nULLL upper j=%d coll=%d\n", row, current_col);
-                    // for (int c = 0; c < size-1; ++c) {
-                        // unit_matrix[size - 1][c] += unit_matrix[r][c];
-                    // }
                     DEBUG (3," smooth_num \n");
-                    // P1.push_back(j);
                     null_line = row;
                     break;
-                    
-                // }
             }
             // show();
-            // if (flag_n == 1) {
-                // matrix[r][size-1] = 1;
-            // }
         }
 
         if (null_line != -1)
             break;
+
         show();
-            current_col++;
-            current_row++;
-    
+        current_col++;
+        current_row++;
     }
     return null_line;
 }

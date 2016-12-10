@@ -1,7 +1,7 @@
 #ifndef BIN_MATRIX
 #define BIN_MATRIX
 
-const int showDebugMsg = 3;
+extern int showDebugMsg;
 
 #define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: "fmt"\n", ##arg);
 
@@ -11,6 +11,11 @@ const int showDebugMsg = 3;
     } }
         // fprintf(stdout, "DEBUG: "fmt"", ##arg);       \
 
+
+#define WARN(level, fmt, arg...)                       \
+    { if(showDebugMsg>=level) {                         \
+        fprintf(stdout, "WARN: "fmt" ", ##arg);       \
+    } }
 
 class bin_matrix_t {
 public: 
