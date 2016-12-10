@@ -204,7 +204,7 @@ int bin_matrix_t::max_unit_num(std::vector<uint64_t> selected_row)
     int max_iter = 0;
     for (int iter = 0; iter < unit_matrix_size; ++iter)
     {
-        printf("%lu\t", selected_row[iter]);
+        DEBUG(3, "%lu\t", selected_row[iter]);
         if (selected_row[iter] == 1){
             if (unit_num[iter] > max_unit){
                 max_unit = unit_num[iter];
@@ -213,7 +213,7 @@ int bin_matrix_t::max_unit_num(std::vector<uint64_t> selected_row)
         }
     }
     // printf("max %d\n", max_unit);
-    printf("\n");
+    DEBUG(3, "\n");
     return max_iter;
 }
 
@@ -223,19 +223,19 @@ int  bin_matrix_t::make_lower_triangular(void)
 {
     // printf("tpp1 size %d\n", tpp1.size());
     int null_line = -1;
-    for (int i = unit_matrix_size ; i > 0; --i)
+    for (int i = (unit_matrix_size -1) ; i > 0; --i)
     {
         if (matrix[i][i] != 1) {
-            ERROR("we have zero value in main diagonal, line: %d\n", i);
+            WARN(1, "we have zero value in main diagonal, line: %d\n", i);
             continue;
         }
 
         for (int row = i-1; row >= 0; --row)
         {
-            DEBUG(3, "DEBUG row=%d\n", row);
+            DEBUG(3, "check row=%d\n", row);
             if(matrix[row][i] != 0)
             {
-                DEBUG(3, "DEBUG1\n");
+                DEBUG(2, "change row=%d\n", row);
                 for (int col = 0; col < collumn_size; ++col) {
                     matrix[row][col] += matrix[i][col];
                     matrix[row][col] %= 2;
@@ -245,43 +245,14 @@ int  bin_matrix_t::make_lower_triangular(void)
                 }
             }
 
-            // int flag_n = 0;
-            // if (matrix[row][size-1] == 1) {
-            //     flag_n = 1;
-            //     matrix[row][size-1] = 0;
-            // }
-
-            if ( std::find(matrix[row].begin(), matrix[row].end(), 1) == matrix[row].end() )
-            {
-                // DEBUG (1,"zzzero\n");
-                // show();
-                // if (flag_n == 1)
-                // {
-                //     DEBUG (1,"zzzero\n");
-                //     matrix[r][size-1] = 1;
-                //     flag_n = 0;
-                //     null_line = (-r)-10;
-                //     break;
-                // }
-                // else{
+            if ( std::find(matrix[row].begin(), matrix[row].end(), 1) == matrix[row].end() ) {
                     DEBUG (3,"nULLL lower %d\n", row);
-                    // for (int c = 0; c < size; ++c) {
-                        // unit_matrix[size -1][c] += unit_matrix[r][c];
-                    // }
-                    // DEBUG (3," smooth_num\n");
-                    // P1.push_back(j);
                     null_line = row;
-                    break;
-                // }
-                // show();
             }
-            // if (flag_n == 1) {
-            //     matrix[r][0] = 1;
-            // }
         }
 
-    if (null_line != -1)
-        break;
+        if (null_line != -1)
+            break;
 
     show();
 
@@ -316,7 +287,7 @@ int bin_matrix_t::resolve_matrix()
         return null_line;
     }
 
-    printf(" last \n");
+    DEBUG(1, " last \n");
     for (int c = 0; c < unit_matrix_size; ++c) {
         if (matrix[row_size - 1][c]  == 1) {
             for (int r = 0; r < row_size; ++r) {
@@ -333,7 +304,7 @@ int bin_matrix_t::resolve_matrix()
     } else{
         null_line = row_size -1;
     }
-    printf(" last \n");
+    DEBUG(3, " last \n");
     
     return null_line;
 
