@@ -67,7 +67,7 @@ int find_solution (bin_matrix_t m2,
     {
         for (uint64_t i = 0; i <  m1.row_size; ++i)
         {
-            printf("%ld\n", m1.unit_matrix[null_line][i]);
+            DEBUG (2,"%ld\n", m1.unit_matrix[null_line][i]);
             if( m1.unit_matrix[null_line][i] > 0)
             {
                 DEBUG (2,"num = %d\t", smooth_num[i]);
@@ -96,10 +96,10 @@ int find_solution (bin_matrix_t m2,
             int max_i = 0;
             max_i = m2.max_unit_num(m1.unit_matrix[null_line]);
 
-            printf(" iter %d\n",max_i );
+            DEBUG (3," iter %d\n",max_i );
             m2.show();
             m2.delete_row(max_i);
-            printf("===== %d \n", smooth_num_back[max_i]);
+            DEBUG (4,"===== %d \n", smooth_num_back[max_i]);
             smooth_num_back.erase(smooth_num_back.begin() + max_i);
             smooth_num.erase(smooth_num.begin() + max_i);
             m2.show();
@@ -118,7 +118,7 @@ int find_solution (bin_matrix_t m2,
         int max_i = -(null_line + 10);
         // m2.show();
         m2.delete_row(max_i);
-        printf("===== %d \n", smooth_num_back[max_i]);
+        DEBUG (4,"===== %d \n", smooth_num_back[max_i]);
         smooth_num_back.erase(smooth_num_back.begin() + max_i);
         smooth_num.erase(smooth_num.begin() + max_i);
 
@@ -130,15 +130,9 @@ int find_solution (bin_matrix_t m2,
     else
     {
             int max_i = 0;
-            // printf(" debug\n");
-            // printf(" debug\n");
-            // max_i = m2.max_unit_num(m1.unit_matrix[null_line]);
-            // printf(" debug\n");
-
-            // printf(" iter %d\n",max_i );
             m2.show();
             m2.delete_row(max_i);
-            printf("===== %d \n", smooth_num_back[max_i]);
+            DEBUG (4,"===== %d \n", smooth_num_back[max_i]);
             smooth_num_back.erase(smooth_num_back.begin() + max_i);
             smooth_num.erase(smooth_num.begin() + max_i);
             m2.show();

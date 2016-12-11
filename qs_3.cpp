@@ -176,7 +176,7 @@ int main (int argc, char *argv[])
     std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
 
     // add sign to exponent matrix
-    #define NEGATIVE_SIGN    0 // need to change the sign name !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #define NEGATIVE_SIGN    0 
     #define FIRST_VALUE    1
     // v_exp[i].size()-1
     for (int y_number = 0; y_number < v_exp.size(); ++y_number)
@@ -197,9 +197,9 @@ int main (int argc, char *argv[])
             long int tmp;
             do{
                 tmp = V[y_num] % p_smooth[smooth_iter];
-                DEBUG (2,"v = %10li\t",V[y_num]);
-                DEBUG (2,"p_smooth = %li\t",p_smooth[smooth_iter]);
-                DEBUG (2,"tmp = %li\n",tmp);
+                DEBUG (3,"v = %10li\t",V[y_num]);
+                DEBUG (3,"p_smooth = %li\t",p_smooth[smooth_iter]);
+                DEBUG (3,"tmp = %li\n",tmp);
                 if(tmp == 0){
                     V[y_num] = V[y_num] / p_smooth[smooth_iter];
                     v_exp[y_num][exponent_num] += 1; 

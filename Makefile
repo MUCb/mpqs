@@ -10,6 +10,12 @@ gcd_test: greatest_common_divisor
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
 				libraries/greatest_common_divisor.o tests/gcd_test.cpp \
 				-o tests/gcd_test.out
+
+qs_test: quadratic_sieve
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+				libraries/quadratic_sieve.o libraries/bin_matrix.o \
+				libraries/greatest_common_divisor.o tests/qs_test.cpp \
+				-o tests/qs_test.out
 #####################################################
 
 
