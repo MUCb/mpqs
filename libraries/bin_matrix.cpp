@@ -277,7 +277,7 @@ int bin_matrix_t::resolve_matrix()
         return null_line;
     }
 
-    exit(0);
+    // exit(0);
 
     null_line = make_lower_triangular();
     DEBUG(2, "lower triangular\n");

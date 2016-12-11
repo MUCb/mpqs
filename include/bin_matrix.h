@@ -1,21 +1,7 @@
 #ifndef BIN_MATRIX
 #define BIN_MATRIX
 
-extern int showDebugMsg;
-
-#define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: "fmt"\n", ##arg);
-
-#define DEBUG(level, fmt, arg...)                       \
-    { if(showDebugMsg>=level) {                         \
-        fprintf(stdout, fmt"", ##arg);       \
-    } }
-        // fprintf(stdout, "DEBUG: "fmt"", ##arg);       \
-
-
-#define WARN(level, fmt, arg...)                       \
-    { if(showDebugMsg>=level) {                         \
-        fprintf(stdout, "WARN: "fmt" ", ##arg);       \
-    } }
+#include "log.h"
 
 class bin_matrix_t {
 public: 
