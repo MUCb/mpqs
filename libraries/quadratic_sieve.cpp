@@ -109,7 +109,7 @@ int find_solution (bin_matrix_t m2,
             null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == 0)
-                ERROR("failed ");
+                WARN(1, "failed\n");
 
         }
     }
@@ -125,7 +125,7 @@ int find_solution (bin_matrix_t m2,
         null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == 0)
-                ERROR("failed ");
+                WARN(1, "failed\n");
     }
     else
     {
@@ -142,7 +142,7 @@ int find_solution (bin_matrix_t m2,
             null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == 0)
-                ERROR("failed ");
+                WARN(1, "failed\n");
     }
 
     return null_line;

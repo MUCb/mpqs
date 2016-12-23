@@ -84,7 +84,7 @@ uint64_t euclid_gcd(const std::vector<long>& X,
                 }
             }
         }
-        WARN (1, "no solution ")
+        WARN (1, "no solution\n")
         return 0;
 
     } else {

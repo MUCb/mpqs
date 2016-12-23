@@ -11,7 +11,7 @@
 #include <inttypes.h>
 
 
-int showDebugMsg = 0;
+int showDebugMsg = 4;
 
 BOOST_AUTO_TEST_CASE(test_1) 
 {
@@ -109,6 +109,11 @@ BOOST_AUTO_TEST_CASE(test_1)
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
         }
 
+        // for (int y_number = 0; y_number < v_exp.size(); ++y_number)
+        // {
+        //     DEBUG(1, "V=%10li\texp=%li\n", V[y_number], v_exp[y_number][NEGATIVE_SIGN]);
+        // }
+
         for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
                     smooth_iter < p_smooth.size(); 
                     smooth_iter++, exponent_num++)
@@ -132,6 +137,13 @@ BOOST_AUTO_TEST_CASE(test_1)
             }
             // break;
         }
+
+
+        for (int y_number = 0; y_number < v_exp.size(); ++y_number)
+        {
+            DEBUG(3, "V=%10li\tY=%10li\texp=%li\n", V[y_number], Y[y_number], v_exp[y_number][NEGATIVE_SIGN]);
+        }
+
         std::vector<int> smooth_num;
         // std::vector<long> solution_candidates_number;
         // std::vector<uint64_t> P11;
@@ -141,7 +153,7 @@ BOOST_AUTO_TEST_CASE(test_1)
             // printf("V = %" PRIu64 "\t",V[i]);
             if(V[y_num] == 1 || V[y_num] == -1)
             {
-                for (   int exponent_num = FIRST_VALUE;
+                for (   int exponent_num = 0;
                             exponent_num < v_exp[y_num].size(); 
                             exponent_num++ )
                 {
