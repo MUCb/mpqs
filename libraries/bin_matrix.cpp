@@ -48,7 +48,7 @@ void bin_matrix_t::init_unit(void)
 
 void bin_matrix_t::show(void){
         // just print exponent mod 2 array
-    DEBUG (3,"matrix\n");
+    DEBUG (3,"matrix \n");
     for (int row = 0; row < row_size; ++row)
     {
         for (int col = 0; col < collumn_size; ++col)
@@ -73,27 +73,27 @@ void bin_matrix_t::show(void){
 
 int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
 {
-    DEBUG(4, "%s %d \n",__func__, __LINE__);
+    // DEBUG(4, "%s %d \n",__func__, __LINE__);
     if (filled < row_size){
-        DEBUG(4, "%s %d \n",__func__, __LINE__);
+        DEBUG(3, "%s %d \n",__func__, __LINE__);
         for (int col = 0; col < row_v.size() && col < collumn_size; ++col) {
             DEBUG(4, "%s %d \n",__func__, __LINE__);
             matrix[filled][col] = row_v[col] % 2;
             DEBUG(4, "%s %d \n",__func__, __LINE__);
         }
-        DEBUG(4, "%s %d \n",__func__, __LINE__);
+        // DEBUG(4, "%s %d \n",__func__, __LINE__);
         filled++;
         return 1;
     }
     else
-        return 0;   
-    DEBUG(4, "%s %d filled %d\n",__func__, __LINE__, filled);
+        return 0;
+    // DEBUG(4, "%s %d filled %d\n",__func__, __LINE__, filled);
 }
 
 int bin_matrix_t::delete_row(unsigned int row_number)
 {
     if (filled > row_number){
-        DEBUG(4, "%s %d row_number: %d filled: %d\n",__func__, __LINE__, row_number, filled);
+        DEBUG(3, "%s %d row_number: %d filled: %d\n",__func__, __LINE__, row_number, filled);
         for (int row = row_number; row < filled  ; ++row)
         {
             DEBUG(4, "%s %d \n",__func__, __LINE__);
@@ -160,13 +160,14 @@ int  bin_matrix_t::make_upper_triangular(void)
                     DEBUG(4, "matrix row = %d col=%d m=%ld\n", row, col, matrix[row][col]);
 
                     unit_matrix[row][col] += unit_matrix[current_row][col];
-                    // unit_matrix[j][k] %= 2;
+                    unit_matrix[row][col] %= 2; // remove unnecessary moves
+                                            // if we use two the same lines they remove each other.
                 }
             }
             // show();
             if ( std::find(matrix[row].begin(), matrix[row].end(), 1) == matrix[row].end() ) {
                     DEBUG (1,"nULLL upper j=%d coll=%d\n", row, current_col);
-                    DEBUG (3," smooth_num \n");
+                    // DEBUG (3," smooth_num \n");
                     null_line = row;
                     break;
             }
@@ -180,6 +181,7 @@ int  bin_matrix_t::make_upper_triangular(void)
         current_col++;
         current_row++;
     }
+    show();
     return null_line;
 }
 
@@ -270,7 +272,7 @@ int bin_matrix_t::resolve_matrix()
     show();
     int null_line = make_upper_triangular();
     DEBUG(2, "upper triangular\n");
-    show();
+    // show();
 
 
     if (null_line != -1) {
