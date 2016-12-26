@@ -41,10 +41,10 @@ uint64_t euclid_gcd(const std::vector<long>& X,
             sumY = sqrt(sumYY);
             if(sumY != trunc(sumY)) 
             {
-                ERROR(" %"PRIu64" is not a square", sumYY);
+                ERROR(" %" PRIu64 " is not a square", sumYY);
                 return 0;
             }
-            DEBUG(2, "sqrt Y %"PRIu32"\n", sumY);
+            DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
         }
         
         // make two attempts to find a solution 

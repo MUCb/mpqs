@@ -15,7 +15,7 @@ extern int showDebugMsg;
 
 #define WARN(level, fmt, arg...)                       \
     { if(showDebugMsg>=level) {                         \
-        fprintf(stdout, "WARN: "fmt" ", ##arg);       \
+        fprintf(stdout, fmt" WARN:", ##arg);       \
     } }
 
 #endif

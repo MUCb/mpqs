@@ -4,7 +4,162 @@
 
 #include "bin_matrix.h"
 #include "greatest_common_divisor.h"
+#include "quadratic_sieve.h"
 
+
+int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> V, std::vector<long> &p_smooth, double size_B, uint32_t M)
+{
+
+        // add sign to exponent matrix
+        #define NEGATIVE_SIGN    0 
+        #define FIRST_VALUE    1
+        // v_exp[i].size()-1
+        for (int y_number = 0; y_number < v_exp.size(); ++y_number)
+        {
+            if(V[y_number] < 0 )
+                v_exp[y_number][NEGATIVE_SIGN] = 1;
+        }
+
+        for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
+                    smooth_iter < p_smooth.size(); 
+                    smooth_iter++, exponent_num++)
+        {
+            for (int y_num = 0; y_num < M; ++y_num)
+            {
+                if(V[y_num] == -1 || V[y_num] == 1)
+                    continue;
+
+                long int tmp;
+                do{
+                    tmp = V[y_num] % p_smooth[smooth_iter];
+                    DEBUG (4, "v = %10li\t",V[y_num]);
+                    DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
+                    DEBUG (4, "tmp = %li\n",tmp);
+                    if(tmp == 0){
+                        V[y_num] = V[y_num] / p_smooth[smooth_iter];
+                        v_exp[y_num][exponent_num] += 1; 
+                    }
+                } while (tmp == 0);
+            }
+            // break;
+        }
+
+        // std::vector<int> smooth_num;
+        // std::vector<long> solution_candidates_number;
+        // std::vector<uint64_t> P11;
+        for (int y_num = 0; y_num < V.size(); ++y_num)
+        {
+            int null_flag = 1;
+            // printf("V = %" PRIu64 "\t",V[i]);
+            if(V[y_num] == 1 || V[y_num] == -1)
+            {
+                for (   int exponent_num = 0;
+                            exponent_num < v_exp[y_num].size(); 
+                            exponent_num++ )
+                {
+                    DEBUG (3, "%ld\t", v_exp[y_num][exponent_num]);
+                    if ((v_exp[y_num][exponent_num] % 2 )!= 0)
+                        null_flag = 0;
+                }
+                DEBUG (3, "%ld\n", V[y_num]);
+                // skip negative value !!!!
+                if (null_flag && V[y_num] > 0) {
+                    // solution_candidates_number.push_back(y_num);
+                } else {
+                    smooth_num.push_back(y_num);
+                }
+            }
+        }
+        DEBUG (3, "\n");
+        // solution_candidates_number.clear();
+
+
+        //######################### removing null exponent #####################
+        std::vector<int> deleted;
+        for (   int exponent_num = 1;
+                exponent_num < v_exp[0].size(); 
+                exponent_num++ )
+        {
+            int null_flag = 1;
+            for (int i = 0; i < smooth_num.size(); ++i)
+            {
+                if ((v_exp[smooth_num[i]][exponent_num] % 2 )!= 0)
+                    null_flag = 0;
+            }
+
+            if (null_flag)
+            {
+                deleted.push_back(exponent_num);
+            }
+        }
+
+        for (int i = 0; i < deleted.size(); ++i)
+        {
+            for (int j = 0; j < smooth_num.size(); ++j)
+            {
+                v_exp[smooth_num[j]].erase(v_exp[smooth_num[j]].begin() + deleted[i]);
+            }
+            p_smooth.erase(p_smooth.begin()+ deleted[i]);
+        }
+        //######################################################################
+        
+        if (smooth_num.size()  < size_B + 1)
+        {
+            ERROR( "to small number of smooth numbbers\n");
+            return 0; 
+        }
+    return 1;
+}
+
+void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, uint64_t N, uint32_t M)
+{
+        for (uint64_t i = M/2; i > 0; i = i - 1)
+        {
+            X.push_back(sqrt_N - i);
+            DEBUG (4, "X%ll =%ll\n",i, sqrt_N - i );
+        }
+
+        for (uint64_t i = 0; i <= M/2; ++i)
+        {
+            X.push_back(sqrt_N + i);
+            DEBUG (4, "X%ll =%ll\n",i, sqrt_N + i );
+        }
+        
+
+        DEBUG (2,"\n");
+        // fill in  (Xi)^2 - N 
+        for (uint64_t i = 0; i < X.size(); ++i)
+        {
+            DEBUG (2, "X = %ll\t",X[i]);
+            Y.push_back(X[i]*X[i] - N);
+            DEBUG (2, "Y = %li\t",Y[i]);
+            DEBUG (2, "\n");
+        }
+
+}
+
+void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
+{
+    //prime is 2 - special case 
+    // Modulo 2, every integer is a quadratic residue.
+    p_smooth.push_back(prime[2]);
+
+    for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
+    {
+        uint64_t tmp = N;
+        for (int j = 1; j < (prime[i]-1)/2; ++j)
+        {
+            tmp = (tmp * N) % prime[i];
+        }
+        tmp %= prime[i];
+
+        if( tmp == 1)
+        {
+            p_smooth.push_back(prime[i]);
+            DEBUG(2, "%ll\n", prime[i]);
+        }
+    }
+}
 
 int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std::vector<uint64_t> > &v_exp)
 {

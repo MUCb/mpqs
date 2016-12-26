@@ -13,9 +13,9 @@ gcd_test: greatest_common_divisor
 
 qs_test: quadratic_sieve
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	tests/qs_test.cpp -o tests/qs_test.out \
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
-				libraries/greatest_common_divisor.o tests/qs_test.cpp \
-				-o tests/qs_test.out
+				libraries/greatest_common_divisor.o 
 #####################################################
 
 
@@ -26,14 +26,14 @@ quadratic_sieve: bin_matrix \
 				libraries/quadratic_sieve.cpp \
 				include/quadratic_sieve.h \
 				include/log.h
-	g++ -Iinclude/ -c libraries/quadratic_sieve.cpp \
+	g++ -std=c++11 -Iinclude/ -c libraries/quadratic_sieve.cpp \
 				-o libraries/quadratic_sieve.o
 
 
 greatest_common_divisor: libraries/greatest_common_divisor.cpp \
 						include/greatest_common_divisor.h \
 						include/log.h
-	g++ -Iinclude/ -c libraries/greatest_common_divisor.cpp \
+	g++  -std=c++11 -Iinclude/ -c libraries/greatest_common_divisor.cpp \
 				-o libraries/greatest_common_divisor.o
 
 

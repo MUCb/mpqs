@@ -261,6 +261,37 @@ int main (int argc, char *argv[])
         return 0;
     }
 
+
+        //######################### removing null exponent #####################
+        std::vector<int> deleted;
+        for (   int exponent_num = 1;
+                exponent_num < v_exp[0].size(); 
+                exponent_num++ )
+        {
+            int null_flag = 1;
+            for (int i = 0; i < smooth_num.size(); ++i)
+            {
+                if ((v_exp[smooth_num[i]][exponent_num] % 2 )!= 0)
+                    null_flag = 0;
+            }
+
+            if (null_flag)
+            {
+                deleted.push_back(exponent_num);
+            }
+        }
+
+        for (int i = 0; i < deleted.size(); ++i)
+        {
+            for (int j = 0; j < smooth_num.size(); ++j)
+            {
+                v_exp[smooth_num[j]].erase(v_exp[smooth_num[j]].begin() + deleted[i]);
+            }
+            p_smooth.erase(p_smooth.begin()+ deleted[i]);
+        }
+        //######################################################################
+
+
     return 0;
     
 
