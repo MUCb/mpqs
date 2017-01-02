@@ -7,7 +7,8 @@
 #include "quadratic_sieve.h"
 
 
-int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M)
+int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
+    std::vector<long> &solution_candidates_number)
 {
 
         std::vector<long> V;
@@ -66,14 +67,13 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
                 DEBUG (3, "%ld\n", Y[y_num]);
                 // skip negative value !!!!
                 if (null_flag && V[y_num] > 0) {
-                    // solution_candidates_number.push_back(y_num);
+                    solution_candidates_number.push_back(y_num);
                 } else {
                     smooth_num.push_back(y_num);
                 }
             }
         }
         DEBUG (3, "\n");
-        // solution_candidates_number.clear();
 
 
         //######################### removing null exponent #####################

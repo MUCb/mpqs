@@ -43,5 +43,8 @@ bin_matrix: libraries/bin_matrix.cpp include/bin_matrix.h include/log.h
 #####################################################
 
 qs_3: bin_matrix qs_3.cpp
-	g++ -Iinclude/  libraries/bin_matrix.o qs_3.cpp -o qs_3.out
+	g++ -std=c++11 -Iinclude/ \
+		libraries/quadratic_sieve.o libraries/bin_matrix.o \
+		libraries/greatest_common_divisor.o \
+	qs_3.cpp -o qs_3.out
     # g++ -I../soft/boost_1_61_0/  -L../soft/boost_1_61_0/ test1.cpp -o test1

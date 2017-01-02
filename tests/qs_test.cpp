@@ -57,12 +57,13 @@ BOOST_AUTO_TEST_CASE(test_1)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers 111");
+            ERROR( "exit make_exp_array");
             exit; 
         }
 
@@ -121,12 +122,13 @@ BOOST_AUTO_TEST_CASE(test_2)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
         
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            ERROR( "exit make_exp_array");
             exit; 
         }
 
@@ -189,12 +191,13 @@ BOOST_AUTO_TEST_CASE(test_3)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
         
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            ERROR( "exit make_exp_array");
             exit; 
         }
 
@@ -255,12 +258,13 @@ BOOST_AUTO_TEST_CASE(test_4)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
         
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            ERROR( "exit make_exp_array");
             exit; 
         }
 
@@ -319,12 +323,13 @@ BOOST_AUTO_TEST_CASE(test_5)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            ERROR( "exit make_exp_array");
             exit; 
         }
         std::vector<int> smooth_num_back = smooth_num;
@@ -381,12 +386,13 @@ BOOST_AUTO_TEST_CASE(test_6)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            ERROR( "exit make_exp_array");
             exit; 
         }
 
@@ -446,12 +452,13 @@ BOOST_AUTO_TEST_CASE(test_7)
         // simple sieve 
         // std::vector<long> V;
         // V = Y;
+        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            ERROR( "exit make_exp_array");
             exit; 
         }
 
