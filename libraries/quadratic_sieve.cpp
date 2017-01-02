@@ -7,9 +7,11 @@
 #include "quadratic_sieve.h"
 
 
-int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> V, std::vector<long> &p_smooth, double size_B, uint32_t M)
+int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M)
 {
 
+        std::vector<long> V;
+        V = Y;
         // add sign to exponent matrix
         #define NEGATIVE_SIGN    0 
         #define FIRST_VALUE    1
@@ -61,7 +63,7 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
                     if ((v_exp[y_num][exponent_num] % 2 )!= 0)
                         null_flag = 0;
                 }
-                DEBUG (3, "%ld\n", V[y_num]);
+                DEBUG (3, "%ld\n", Y[y_num]);
                 // skip negative value !!!!
                 if (null_flag && V[y_num] > 0) {
                     // solution_candidates_number.push_back(y_num);
@@ -116,13 +118,13 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, u
         for (uint64_t i = M/2; i > 0; i = i - 1)
         {
             X.push_back(sqrt_N - i);
-            DEBUG (4, "X%ll =%ll\n",i, sqrt_N - i );
+            DEBUG (4, "X%llu =%llu\n",i, sqrt_N - i );
         }
 
         for (uint64_t i = 0; i <= M/2; ++i)
         {
             X.push_back(sqrt_N + i);
-            DEBUG (4, "X%ll =%ll\n",i, sqrt_N + i );
+            DEBUG (4, "X%llu =%llu\n",i, sqrt_N + i );
         }
         
 
@@ -130,7 +132,7 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, u
         // fill in  (Xi)^2 - N 
         for (uint64_t i = 0; i < X.size(); ++i)
         {
-            DEBUG (2, "X = %ll\t",X[i]);
+            DEBUG (2, "X = %llu\t",X[i]);
             Y.push_back(X[i]*X[i] - N);
             DEBUG (2, "Y = %li\t",Y[i]);
             DEBUG (2, "\n");
@@ -156,7 +158,7 @@ void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
         if( tmp == 1)
         {
             p_smooth.push_back(prime[i]);
-            DEBUG(2, "%ll\n", prime[i]);
+            DEBUG(2, "%llu\n", prime[i]);
         }
     }
 }
