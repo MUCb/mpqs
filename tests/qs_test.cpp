@@ -55,12 +55,12 @@ BOOST_AUTO_TEST_CASE(test_1)
         construct_xy(X, Y, sqrt_N, N, M);
 
         // simple sieve 
-        std::vector<long> V;
-        V = Y;
+        // std::vector<long> V;
+        // V = Y;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, V, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
         {
             ERROR( "to small number of smooth numbbers 111");
             exit; 
@@ -317,12 +317,12 @@ BOOST_AUTO_TEST_CASE(test_5)
         construct_xy(X, Y, sqrt_N, N, M);
 
         // simple sieve 
-        std::vector<long> V;
-        V = Y;
+        // std::vector<long> V;
+        // V = Y;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, V, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
         {
             ERROR( "to small number of smooth numbbers\n");
             exit; 
@@ -379,12 +379,12 @@ BOOST_AUTO_TEST_CASE(test_6)
         construct_xy(X, Y, sqrt_N, N, M);
 
         // simple sieve 
-        std::vector<long> V;
-        V = Y;
+        // std::vector<long> V;
+        // V = Y;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, V, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
         {
             ERROR( "to small number of smooth numbbers\n");
             exit; 
@@ -444,12 +444,12 @@ BOOST_AUTO_TEST_CASE(test_7)
 
 
         // simple sieve 
-        std::vector<long> V;
-        V = Y;
+        // std::vector<long> V;
+        // V = Y;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array(v_exp, smooth_num, V, p_smooth, size_B, M) == 0)
+        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M) == 0)
         {
             ERROR( "to small number of smooth numbbers\n");
             exit; 

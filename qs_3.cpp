@@ -87,40 +87,12 @@ int main (int argc, char *argv[])
     size_B = exp (sqrt (log(N) * log(log(N))) );
     size_B = pow(size_B , sqrt(2)/4);
     DEBUG (2,"size of factor base size_B=%f\n", size_B);
-    // case for test 2 
-    //*********  test1  **************
-    //********************************
-    //*********  test2  **************
-    // size_B = size_B + 2;
-    // size_B = size_B +1;
-    //********************************
 
     // selecting smooth primes 
     std::vector<long> p_smooth;
     DEBUG (2,"smooth numbers\n");
 
-    //prime is 2 - special case 
-    // Modulo 2, every integer is a quadratic residue.
-    p_smooth.push_back(prime[2]);
-    DEBUG (2,"%"PRIu64"\n", prime[2]);
-
-    for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < PRIME_SIZE); ++i)
-    {
-        uint64_t tmp = N;
-        for (int j = 1; j < (prime[i]-1)/2; ++j)
-        {
-            tmp = (tmp * N) % prime[i];
-        }
-        tmp %= prime[i];
-        // printf("tmp %"PRIu64"\n", tmp);
-
-        if( tmp == 1)
-        {
-            p_smooth.push_back(prime[i]);
-            DEBUG (2,"%"PRIu64"\n", prime[i]);
-        }
-        // break;
-    }
+    make_smooth_numbers(p_smooth, size_B, N);
 
     if ((p_smooth.size() < size_B))
     {
@@ -132,44 +104,15 @@ int main (int argc, char *argv[])
     uint32_t M;
     M = exp (sqrt (log(N) * log(log(N))) );
     M = pow(M , 3*sqrt(2)/4);
-    // M *= 2;
-    // M += 20;
     DEBUG (1,"The sieving interval M=%"PRIu32"\n", M);
 
 
     // *** construct our sieve *** //
     std::vector<long> X;
-
-    for (uint64_t i = M/2; i > 0; i = i - 1)
-    {
-        // if ((sqrt_N+i) == 180)
-            // continue;
-        X.push_back(sqrt_N - i);
-        DEBUG (3,"X%"PRIu64" =%"PRIu64"\n",i, sqrt_N - i );
-        // sleep(1000);
-    }
-
-    /* fill in  sqrt(N) + 1 sqrt(N) + 2  sqrt(N) + 3 .....*/
-    for (uint64_t i = 0; i <= M/2; ++i)
-    {
-        // if ((sqrt_N+i) == 180)
-            // continue;
-        X.push_back(sqrt_N + i);
-        DEBUG (3,"X%"PRIu64" =%"PRIu64"\n",i, sqrt_N + i );
-    }
-
-
-
-    DEBUG (2,"\n");
     std::vector<long> Y;
-    // fill in  (Xi)^2 - N 
-    for (uint64_t i = 0; i < X.size(); ++i)
-    {
-        DEBUG (2,"X = %"PRIu64"\t",X[i]);
-        Y.push_back(X[i]*X[i] - N);
-        DEBUG (2,"Y = %li\t",Y[i]);
-        DEBUG (2,"\n");
-    }
+
+    construct_xy(X, Y, sqrt_N, N, M);
+
     // simple sieve 
     std::vector<long> V;
     V = Y;
