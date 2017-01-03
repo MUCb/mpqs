@@ -128,6 +128,7 @@ int main (int argc, char *argv[])
     
     if (solution_candidates_number.size() > 0)
     {
+        // to check functionality use  ./qs_3.out 27 10
         DEBUG (3,"%s:%d\n", __func__, __LINE__);
         for (int i = 0; i <  solution_candidates_number.size(); ++i)
         {
