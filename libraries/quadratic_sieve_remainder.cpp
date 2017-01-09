@@ -27,7 +27,7 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
                     smooth_iter < p_smooth.size(); 
                     smooth_iter++, exponent_num++)
         {
-            for (int y_num = 0; y_num < M; ++y_num)
+            for (int y_num = 0; y_num < V.size(); ++y_num)
             {
                 if(V[y_num] == -1 || V[y_num] == 1)
                     continue;
@@ -91,22 +91,48 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
 
             if (null_flag)
             {
+                DEBUG (3, "deleted =  %d\n", exponent_num);
                 deleted.push_back(exponent_num);
             }
         }
 
         for (int i = deleted.size() - 1 ; i >= 0 ; --i)
-        // for (int i = 0; i < deleted.size(); ++i)
         {
+            DEBUG (3, "deleted[i] %d\n", deleted[i]);
             for (int j = 0; j < smooth_num.size(); ++j)
             {
+                DEBUG (3, "smooth_num[j] %d\n", smooth_num[j]);
                 v_exp[smooth_num[j]].erase(v_exp[smooth_num[j]].begin() + deleted[i]);
+                // DEBUG (3, "%d\n", __LINE__);
             }
+                // DEBUG (3, "%d\n", __LINE__);
             if (deleted[i] > 0)
-                p_smooth.erase(p_smooth.begin()+ deleted[i] - 1);
+                p_smooth.erase(p_smooth.begin()+ deleted[i] -1 );
         }
         //######################################################################
         
+        for (int i = 0; i < smooth_num.size(); ++i)
+        {
+            // printf("V = %" PRIu64 "\t",V[i]);
+            if(V[smooth_num[i]] == 1 || V[smooth_num[i]] == -1)
+            {
+                for (   int exponent_num = 0;
+                            exponent_num < v_exp[smooth_num[i]].size(); 
+                            exponent_num++ )
+                {
+                    DEBUG (3, "%ld\t", v_exp[smooth_num[i]][exponent_num]);
+                    
+                }
+                DEBUG (3, "%ld\n", Y[smooth_num[i]]);
+            }
+        }
+        DEBUG (3, "\n");
+
+        return 0; //addddddddddddddddddddd
+
+
+
+
         if (smooth_num.size()  < size_B + 1)
         {
             ERROR( "to small number of smooth numbbers\n");
@@ -134,10 +160,10 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, u
         // fill in  (Xi)^2 - N 
         for (uint64_t i = 0; i < X.size(); ++i)
         {
-            DEBUG (2, "X = %llu\t",X[i]);
+        //     DEBUG (2, "X = %llu\t",X[i]);
             Y.push_back(X[i]*X[i] - N);
-            DEBUG (2, "Y = %li\t",Y[i]);
-            DEBUG (2, "\n");
+        //     DEBUG (2, "Y = %li\t",Y[i]);
+        //     DEBUG (2, "\n");
         }
 
 }
