@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(test_1)
         std::vector<long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
-        for (int i = 2; p_smooth.size() < 20; ++i)
+        for (int i = 2; p_smooth.size() < 10; ++i)
         {
             p_smooth.push_back(prime[i]);
         }
@@ -93,9 +93,9 @@ BOOST_AUTO_TEST_CASE(test_1)
             exit; 
         }
 
-        // std::vector<int> smooth_num_back = smooth_num;
-        // bin_matrix_t m1(p_smooth.size() + 1);
+        std::vector<int> smooth_num_back = smooth_num;
+        bin_matrix_t m1(p_smooth.size() + 1);
 
-        // BOOST_TEST( find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
+        BOOST_TEST( find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
     }
 }

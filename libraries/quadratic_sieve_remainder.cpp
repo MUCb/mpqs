@@ -91,17 +91,17 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
 
             if (null_flag)
             {
-                DEBUG (3, "deleted =  %d\n", exponent_num);
+                // DEBUG (3, "deleted =  %d\n", exponent_num);
                 deleted.push_back(exponent_num);
             }
         }
 
         for (int i = deleted.size() - 1 ; i >= 0 ; --i)
         {
-            DEBUG (3, "deleted[i] %d\n", deleted[i]);
+            // DEBUG (3, "deleted[i] %d\n", deleted[i]);
             for (int j = 0; j < smooth_num.size(); ++j)
             {
-                DEBUG (3, "smooth_num[j] %d\n", smooth_num[j]);
+                // DEBUG (3, "smooth_num[j] %d\n", smooth_num[j]);
                 v_exp[smooth_num[j]].erase(v_exp[smooth_num[j]].begin() + deleted[i]);
                 // DEBUG (3, "%d\n", __LINE__);
             }
@@ -127,10 +127,6 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
             }
         }
         DEBUG (3, "\n");
-
-        return 0; //addddddddddddddddddddd
-
-
 
 
         if (smooth_num.size()  < size_B + 1)
