@@ -1,6 +1,12 @@
 
 
 ##################   BOOST TESTS   ##################
+dynamic_bin_matrix_test: dynamic_bin_matrix
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+				libraries/dynamic_bin_matrix.o tests/dynamic_bin_matrix_test.cpp \
+				-o tests/dynamic_bin_matrix_test.out
+
+
 bin_matrix_test: bin_matrix
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
 				libraries/bin_matrix.o tests/bin_matrix_test.cpp \
@@ -36,6 +42,9 @@ quadratic_sieve_remainder: bin_matrix \
 	g++ -std=c++11 -Iinclude/ -c libraries/quadratic_sieve_remainder.cpp \
 				-o libraries/quadratic_sieve_remainder.o
 
+dynamic_bin_matrix: libraries/dynamic_bin_matrix.cpp include/dynamic_bin_matrix.h include/log.h
+	g++ -Iinclude/ -c libraries/dynamic_bin_matrix.cpp -o libraries/dynamic_bin_matrix.o
+
 
 
 quadratic_sieve: bin_matrix \
@@ -56,6 +65,7 @@ greatest_common_divisor: libraries/greatest_common_divisor.cpp \
 
 bin_matrix: libraries/bin_matrix.cpp include/bin_matrix.h include/log.h
 	g++ -Iinclude/ -c libraries/bin_matrix.cpp -o libraries/bin_matrix.o
+
 
 #####################################################
 

@@ -7,7 +7,7 @@
 #include "quadratic_sieve.h"
 
 
-int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
+int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number)
 {
 
