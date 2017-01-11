@@ -56,29 +56,35 @@ BOOST_AUTO_TEST_CASE(test_4)
     m1.show();
 }
 
-// const int matrix_size = 5;
-// bin_matrix_t m1(matrix_size);
+const int matrix_size = 5;
+bin_matrix_t m1(matrix_size);
 
-// BOOST_AUTO_TEST_CASE(test_5) 
-// {
-//     std::vector< std::vector<uint64_t> > v_exp(matrix_size + 2, std::vector<uint64_t> (matrix_size));
+BOOST_AUTO_TEST_CASE(test_5) 
+{
+    std::vector< std::vector<uint64_t> > v_exp(matrix_size + 4, std::vector<uint64_t> (matrix_size));
+    std::vector< std::vector<uint64_t> > v_exp1(1, std::vector<uint64_t> (matrix_size + 1));
 
-//     v_exp[0] = {1,1,1,1,1};
-//     v_exp[1] = {0,0,0,1,1};
-//     v_exp[2] = {1,1,1,1,0};
-//     v_exp[3] = {0,0,1,1,1};
-//     v_exp[4] = {1,1,0,1,1};
-//     v_exp[5] = {1,1,0,1,0};
-//     v_exp[6] = {1,1,0,0,0};
+    v_exp[0] = {1,1,1,1,1};
+    v_exp[1] = {0,0,0,1,1};
+    v_exp[2] = {1,1,1,1,0};
+    v_exp[3] = {0,0,1,1,1};
+    v_exp[4] = {1,1,0,1,1};
+    v_exp[5] = {1,1,0,1,0};
+    v_exp[6] = {1,1,0,0,0};
+    v_exp[7] = {1,1,0,0,0};
+    v_exp[8] = {1,1,0,0,0};
 
-//     for (int i = 0; i < matrix_size+2; ++i) {
-//         if(i == matrix_size + 1)
-//             BOOST_TEST(m1.add_row(v_exp[i]) == 0);
-//         else
-//             BOOST_TEST(m1.add_row(v_exp[i]) == 1);
-//     }
-//     BOOST_TEST(m1.filled == 6);
-// }
+    v_exp1[0] = {1,1,1,1,1,1};
+
+    for (int i = 0; i < matrix_size+4; ++i) {
+        if(i == matrix_size + 1)
+            BOOST_TEST(m1.add_row(v_exp1[i]) == 0);
+        else
+            BOOST_TEST(m1.add_row(v_exp[i]) == 1);
+    }
+    BOOST_TEST(m1.filled == 8);
+    m1.show();
+}
 
 // BOOST_AUTO_TEST_CASE(test_6) 
 // {
