@@ -177,7 +177,7 @@ int  bin_matrix_t::make_upper_triangular(void)
         if (null_line != -1)
             break;
 
-        show();
+        // show();
         current_col++;
         current_row++;
     }

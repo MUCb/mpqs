@@ -7,6 +7,14 @@ dynamic_bin_matrix_test: dynamic_bin_matrix
 				-o tests/dynamic_bin_matrix_test.out
 
 
+qs_remainder_test: quadratic_sieve_remainder dynamic_bin_matrix
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	tests/qs_remainder_test.cpp -o tests/qs_remainder_test.out \
+				libraries/quadratic_sieve_remainder.o libraries/dynamic_bin_matrix.o \
+				libraries/greatest_common_divisor.o 
+
+
+
 bin_matrix_test: bin_matrix
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
 				libraries/bin_matrix.o tests/bin_matrix_test.cpp \
@@ -23,21 +31,16 @@ qs_test: quadratic_sieve
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
 				libraries/greatest_common_divisor.o 
 
-
-qs_remainder_test: quadratic_sieve_remainder
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
-	tests/qs_remainder_test.cpp -o tests/qs_remainder_test.out \
-				libraries/quadratic_sieve_remainder.o libraries/bin_matrix.o \
-				libraries/greatest_common_divisor.o 
 #####################################################
 
 
 
 #################### LIBRARIES ######################
-quadratic_sieve_remainder: bin_matrix \
+quadratic_sieve_remainder: dynamic_bin_matrix \
 				greatest_common_divisor \
 				libraries/quadratic_sieve_remainder.cpp \
 				include/quadratic_sieve_remainder.h \
+				include/dynamic_bin_matrix.h \
 				include/log.h
 	g++ -std=c++11 -Iinclude/ -c libraries/quadratic_sieve_remainder.cpp \
 				-o libraries/quadratic_sieve_remainder.o

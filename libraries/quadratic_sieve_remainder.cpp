@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "bin_matrix.h"
+#include "dynamic_bin_matrix.h"
 #include "greatest_common_divisor.h"
-#include "quadratic_sieve.h"
+#include "quadratic_sieve_remainder.h"
 
 
 int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
@@ -17,11 +17,87 @@ int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp,
         #define NEGATIVE_SIGN    0 
         #define FIRST_VALUE    1
         // v_exp[i].size()-1
-        for (int y_number = 0; y_number < v_exp.size(); ++y_number)
+        for (int y_number = 0; y_number < V.size(); ++y_number)
         {
             if(V[y_number] < 0 )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
+
+            for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
+                        smooth_iter < p_smooth.size(); 
+                        smooth_iter++, exponent_num++)
+            {
+                // if(V[y_num] == -1 || V[y_num] == 1)
+                //     continue;
+
+                long int tmp;
+                do{
+                    tmp = V[y_number] % p_smooth[smooth_iter];
+                    DEBUG (4, "v = %10li\t",V[y_number]);
+                    DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
+                    DEBUG (4, "tmp = %li\n",tmp);
+                    if(tmp == 0){
+                        V[y_number] = V[y_number] / p_smooth[smooth_iter];
+                        v_exp[y_number][exponent_num] += 1; 
+                    }
+                } while (tmp == 0);
+
+                if(V[y_number] == -1 || V[y_number] == 1){
+
+                    // for (int i = 0; i < v_exp[y_number].size(); ++i)
+                    // {
+                    //     DEBUG (3, "%li\t",v_exp[y_number][i]);
+                        
+                    // }
+                    DEBUG (3, "Y = %li\n",Y[y_number]);
+
+                    int null_flag = 1;
+                    for (   int exponent_num = 0;
+                                exponent_num < v_exp[y_number].size(); 
+                                exponent_num++ )
+                    {
+                        DEBUG (3, "%ld\t", v_exp[y_number][exponent_num]);
+                        if ((v_exp[y_number][exponent_num] % 2 )!= 0)
+                            null_flag = 0;
+                    }
+                    DEBUG (3, "%ld\n", Y[y_number]);
+                    // skip negative value !!!!
+                    if (null_flag && V[y_number] > 0) {
+                        solution_candidates_number.push_back(y_number);
+
+                        // std::vector<int64_t> tmp;
+                        // tmp.push_back(solution_candidates_number[i]);
+                        // found = euclid_gcd( X, Y, tmp, p, q, N);
+                        // if (found)
+                        //     break;
+
+
+                    } else {
+                        smooth_num.push_back(y_number);
+
+
+                        ERROR("filled1 %d\n", m2.filled);
+                        if (m2.add_row(v_exp[y_number]) == 1){
+                            ERROR("%s %d\n", __func__, __LINE__);
+                            m2.show();
+                            ERROR("%s %d\n", __func__, __LINE__);
+                            // m2.make_upper_triangular();
+                            int null_line = m2.make_upper_triangular();
+                            if (null_line != -1)
+                                return null_line;
+                        }
+                    }
+
+                    
+                    break;
+                }
+            }
         }
+        m2.show();
+        return 0; ///DEBUG  ////////////////////////////////////////////////////////////////////
+
+        // for (int y_num = 0; y_num < V.size(); ++y_num)
+        // {
+        // }
 
         for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
                     smooth_iter < p_smooth.size(); 

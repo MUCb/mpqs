@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE Bin Matrix Test
 #include <boost/test/included/unit_test.hpp> 
 
-#include "bin_matrix.h"
+#include "dynamic_bin_matrix.h"
 
 int showDebugMsg = 4;
 
@@ -78,13 +78,28 @@ BOOST_AUTO_TEST_CASE(test_5)
 
     for (int i = 0; i < matrix_size+4; ++i) {
         if(i == matrix_size + 1)
-            BOOST_TEST(m1.add_row(v_exp1[i]) == 0);
+            BOOST_TEST(m1.add_row(v_exp1[0]) == 0);
         else
             BOOST_TEST(m1.add_row(v_exp[i]) == 1);
     }
     BOOST_TEST(m1.filled == 8);
     m1.show();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // BOOST_AUTO_TEST_CASE(test_6) 
 // {
@@ -120,22 +135,22 @@ BOOST_AUTO_TEST_CASE(test_5)
 //     }
 // }
 
-// // BOOST_AUTO_TEST_CASE(test_9) 
-// // {
-// //     std::vector< std::vector<uint64_t> > v_exp(matrix_size + 2, std::vector<uint64_t> (matrix_size));
-// //     v_exp[0] = {1,1,1,1,1};
-// //     v_exp[1] = {0,0,0,1,1};
-// //     v_exp[2] = {1,1,1,1,0};
-// //     v_exp[3] = {0,0,1,1,1};
-// //     v_exp[4] = {1,1,0,1,1};
-// //     v_exp[5] = {1,1,0,1,0};
+// BOOST_AUTO_TEST_CASE(test_9) 
+// {
+//     // std::vector< std::vector<uint64_t> > v_exp(matrix_size + 2, std::vector<uint64_t> (matrix_size));
+//     // v_exp[0] = {1,1,1,1,1};
+//     // v_exp[1] = {0,0,0,1,1};
+//     // v_exp[2] = {1,1,1,1,0};
+//     // v_exp[3] = {0,0,1,1,1};
+//     // v_exp[4] = {1,1,0,1,1};
+//     // v_exp[5] = {1,1,0,1,0};
 
-// //     for (int i = 0; i < matrix_size+1; ++i) {
-// //         BOOST_TEST(m1.add_row(v_exp[i]) == 1);
-// //     }
+//     // for (int i = 0; i < matrix_size+1; ++i) {
+//     //     BOOST_TEST(m1.add_row(v_exp[i]) == 1);
+//     // }
 
-// //     m1.make_upper_triangular();
-// // }
+//     m1.make_upper_triangular();
+// }
 
 
 // // BOOST_AUTO_TEST_CASE(test_10) 

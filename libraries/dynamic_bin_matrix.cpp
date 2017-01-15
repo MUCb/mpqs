@@ -6,13 +6,13 @@
 #include <algorithm>
 #include <unistd.h>
 
-#include "bin_matrix.h"
+#include "dynamic_bin_matrix.h"
 
-bin_matrix_t::bin_matrix_t(){}
+bin_matrix_t::bin_matrix_t(){
+    // printf("bin_matrix_t empty\n");
+}
 
-bin_matrix_t::bin_matrix_t(int size) : collumn_size(size), filled(0)
-{
-    // init_unit();
+bin_matrix_t::bin_matrix_t(int size) : collumn_size(size), filled(0) {
 }
 
 // int bin_matrix_t::m_size(void)
@@ -42,23 +42,29 @@ bin_matrix_t::bin_matrix_t(int size) : collumn_size(size), filled(0)
 int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
 {
     if (row_v.size() == collumn_size){
+
         matrix.push_back(std::vector<uint64_t>() );
         matrix[filled].insert(matrix[filled].end(), row_v.begin(), row_v.end());
 
-
+        ERROR("%s %d\n", __func__, __LINE__);
         for (int col = 0; col < collumn_size; ++col) {
             matrix[filled][col] %= 2;
         }
+        ERROR("%s %d\n", __func__, __LINE__);
+        ERROR("filled  %d\n", filled);
+
+        // show();
 
         unit_matrix.push_back(std::vector<uint64_t>(filled) );
         
+        ERROR("%s %d\n", __func__, __LINE__);
         filled++;
         for (int i = 0; i < filled; ++i)
         {
             unit_matrix[i].push_back(0);
         }
         unit_matrix[filled -1][filled -1] = 1;
-        
+
         return 1;
     }
     else {
@@ -126,43 +132,48 @@ int  bin_matrix_t::make_upper_triangular(void)
     int current_col = 0;
     int current_row = 0;
     int null_line = -1;
-    for (int i = 0; i < unit_matrix_size ; ++i)
+    if (filled == 0 || filled == 1 )
+        return null_line;
+
+    for (int i = 0; i < filled ; ++i)
     {
 
         int row_nonnull;
         // find first non zero value. it will be in row.
-        for (row_nonnull = current_row; row_nonnull < unit_matrix_size; ++row_nonnull) 
+        for (row_nonnull = current_row; row_nonnull < filled; ++row_nonnull) 
         {
             if (matrix[row_nonnull][current_col] == 1)
                 break;
         }
 
-        DEBUG (3,"row_nonnull=%d current_row=%d unit_matrix_size=%d current_col=%d\n", 
-        row_nonnull, current_row, unit_matrix_size, current_col);
+        DEBUG (3,"row_nonnull=%d current_row=%d filled=%d current_col=%d\n", 
+        row_nonnull, current_row, filled, current_col);
 
         // row should be less then unit_matrix_size , otherwise all value are zero
-        if(row_nonnull == unit_matrix_size ){
+        if(row_nonnull == filled ){
             WARN (1, "We havn't find values in column %d \n", current_col);
             current_col++;
             continue;
-        } else if( row_nonnull > current_row && row_nonnull < unit_matrix_size) {
+        } else if( row_nonnull > current_row && row_nonnull < filled) {
             DEBUG(3, "i = %d row_nonnull = %d\n", i, row_nonnull);
             matrix[row_nonnull].swap(matrix[current_row]);
             unit_matrix[row_nonnull].swap(unit_matrix[current_row]);
         }
 
         // remove all value under the first one
-        for (int row = current_row + 1; row < unit_matrix_size; ++row) {
+        for (int row = current_row + 1; row < filled; ++row) {
             if(matrix[row][current_col] != 0) {
-                // DEBUG(3, "CHAECK r = %d row=%d\n", r, row);
+                DEBUG(3, "CHAECK  %d \n", collumn_size);
                 // show();
-                for (int col = 0; col < unit_matrix_size; ++col) {
+                for (int col = 0; col < collumn_size; ++col) {
                     
-                    // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[r][c]);
+                    // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[row][col]);
                     matrix[row][col] += matrix[current_row][col];
                     matrix[row][col] %= 2;
                     DEBUG(4, "matrix row = %d col=%d m=%ld\n", row, col, matrix[row][col]);
 
+                }
+                for (int col = 0; col < filled; ++col) {
                     unit_matrix[row][col] += unit_matrix[current_row][col];
                     unit_matrix[row][col] %= 2; // remove unnecessary moves
                                             // if we use two the same lines they remove each other.
