@@ -243,7 +243,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                         tmp.push_back(y_number);
                         found = euclid_gcd( X, Y, tmp, p, q, N);
                         if (found)
-                            break;
+                            exit(0);
 
                         
                     } else {
