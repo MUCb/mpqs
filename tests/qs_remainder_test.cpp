@@ -293,6 +293,32 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     }
                                     m3.show();
                                     int null_line = m3.make_upper_triangular();
+                                    std::vector<int64_t> P11;
+
+                                    if (null_line > -1)
+                                    {
+                                        // DEBUG(2, "collumn size %d\n", m1.collumn_size);
+                                        for (uint64_t col = 0; col <  m1.collumn_size; ++col)
+                                        {
+                                            DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m3.unit_matrix[null_line][col]);
+                                            if( m3.unit_matrix[null_line][col] > 0)
+                                            {
+                                                DEBUG (2,"num = %d\t", smooth_num3[col]);
+                                                DEBUG (2,"Y  = %ld\n", Y[smooth_num3[col]]);
+                                                P11.push_back(smooth_num3[col]);
+                                            }
+                                        }
+                                        DEBUG (2,"\n");
+
+                                        int found = 0;
+                                        found = euclid_gcd( X, Y, P11, p, q, N);
+                                        // printf("found %lu\n", found);
+                                        m3.show();
+                                        if (found) {
+                                            exit( null_line);
+                                        }
+                                    }
+
                                     exit(0);
                                 }
                             }
