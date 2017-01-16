@@ -46,18 +46,18 @@ int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
         matrix.push_back(std::vector<uint64_t>() );
         matrix[filled].insert(matrix[filled].end(), row_v.begin(), row_v.end());
 
-        ERROR("%s %d\n", __func__, __LINE__);
+        // ERROR("%s %d\n", __func__, __LINE__);
         for (int col = 0; col < collumn_size; ++col) {
             matrix[filled][col] %= 2;
         }
-        ERROR("%s %d\n", __func__, __LINE__);
-        ERROR("filled  %d\n", filled);
+        // ERROR("%s %d\n", __func__, __LINE__);
+        // ERROR("filled  %d\n", filled);
 
         // show();
 
         unit_matrix.push_back(std::vector<uint64_t>(filled) );
         
-        ERROR("%s %d\n", __func__, __LINE__);
+        // ERROR("%s %d\n", __func__, __LINE__);
         filled++;
         for (int i = 0; i < filled; ++i)
         {

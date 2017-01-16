@@ -177,9 +177,13 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
+        std::vector<int> smooth_num3;
         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
         bin_matrix_t m1(p_smooth.size() + 1);
+        bin_matrix_t m2(p_smooth.size() + 1);
+        bin_matrix_t m3(p_smooth.size() + 1);
+        std::vector<uint64_t> counter(p_smooth.size() + 1);
         // DEBUG(1, "smooth %d\n", p_smooth.size());
         // DEBUG(1, "size ========= %d\n", m1.collumn_size);
         // break;
@@ -231,35 +235,81 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 exponent_num++ )
                     {
                         DEBUG (3, "%ld\t", v_exp[y_number][exponent_num]);
-                        if ((v_exp[y_number][exponent_num] % 2 )!= 0)
+                        v_exp[y_number][exponent_num] %= 2;
+                        if (v_exp[y_number][exponent_num] != 0)
                             null_flag = 0;
                     }
                     DEBUG (3, "%ld\n", Y[y_number]);
                     // skip negative value !!!!
                     if (null_flag && V[y_number] > 0) {
-                        solution_candidates_number.push_back(y_number);
-                        uint64_t found = 0;
-                        std::vector<int64_t> tmp;
-                        tmp.push_back(y_number);
-                        found = euclid_gcd( X, Y, tmp, p, q, N);
-                        if (found)
-                            exit(0);
+                        // solution_candidates_number.push_back(y_number);
+
+                        //    will be added later  ##########################
+                        // uint64_t found = 0;
+                        // std::vector<int64_t> tmp;
+                        // tmp.push_back(y_number);
+                        // found = euclid_gcd( X, Y, tmp, p, q, N);
+                        // if (found)
+                        //     exit(0);
+                        //##########################
 
                         
                     } else {
                         smooth_num.push_back(y_number);
 
 
-                        ERROR("filled1 %d\n", m1.filled);
+                        // ERROR("filled1 %d\n", m1.filled);
                         if (m1.add_row(v_exp[y_number]) == 1){
-                            ERROR("%s %d\n", __func__, __LINE__);
-                            m1.show();
-                            ERROR("%s %d\n", __func__, __LINE__);
-                            // m2.make_upper_triangular();
-                            int null_line = m1.make_upper_triangular();
-                            if (null_line != -1){
+
+                            int exponent_num = (v_exp[y_number].size() - 1);
+                            ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
+                            while (v_exp[y_number][exponent_num] == 0 && exponent_num >= 0){
+                                exponent_num--;
+                            }
+
+                            if (exponent_num >= 0)
+                            {
+                                std::vector<uint64_t> tmp(v_exp[y_number].size());
+                                for (int i = exponent_num; i < v_exp[y_number].size(); ++i)
+                                {
+                                    tmp[i] = 1;
+                                    counter[i]++;
+                                }
+                                m2.add_row(tmp);
+                                ERROR("added num %d\n", exponent_num);
+
+                                if (counter[exponent_num] == exponent_num + 2)
+                                {
+                                    ERROR("find limit %d", exponent_num);
+                                    m2.show();
+                                    m1.show();
+                                    for (int i = 0; i < m2.matrix.size(); ++i)
+                                    {
+                                        if (m2.matrix[i][exponent_num] == 1)
+                                        {
+                                            m3.add_row(m1.matrix[i]);
+                                            smooth_num3.push_back(smooth_num[i]);
+                                        }
+                                    }
+                                    m3.show();
+                                    int null_line = m3.make_upper_triangular();
+                                    exit(0);
+                                }
+                            }
+                            else{
+                                ERROR( "empty string \n");
                                 exit(0);
                             }
+
+                            // ERROR("%s %d\n", __func__, __LINE__);
+                            // m1.show();
+                            // ERROR("%s %d\n", __func__, __LINE__);
+
+                            //  make_upper_triangular will be added later 
+                            // int null_line = m1.make_upper_triangular();
+                            // if (null_line != -1){
+                            //     exit(0);
+                            // }
                         }
                     }
 
@@ -269,6 +319,7 @@ BOOST_AUTO_TEST_CASE(test_2)
             }
         }
         m1.show();
+        m2.show();
         exit(0); ///DEBUG  ////////////////////////////////////////////////////////////////////
 
 
