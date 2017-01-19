@@ -107,8 +107,11 @@ int showDebugMsg = 3;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
-    for (int iter = 15; iter < 16 ; iter++) {
-        uint64_t p = prime[iter];
+    // for (int iter = 15; iter < 16 ; iter++) {
+        // uint64_t p = prime[15];
+        // uint64_t q = prime[31];
+
+        uint64_t p = prime[16];
         uint64_t q = prime[31];
 
         uint64_t N = p * q;
@@ -182,7 +185,6 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         bin_matrix_t m1(p_smooth.size() + 1);
         bin_matrix_t m2(p_smooth.size() + 1);
-        bin_matrix_t m3(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);
         // DEBUG(1, "smooth %d\n", p_smooth.size());
         // DEBUG(1, "size ========= %d\n", m1.collumn_size);
@@ -280,6 +282,9 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                                 if (counter[exponent_num] == exponent_num + 2)
                                 {
+                                    bin_matrix_t m3(p_smooth.size() + 1);
+                                    bin_matrix_t m4(p_smooth.size() + 1);
+
                                     ERROR("find limit %d", exponent_num);
                                     m2.show();
                                     m1.show();
@@ -292,6 +297,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         }
                                     }
                                     m3.show();
+                                    m4 = m3;
                                     int null_line = m3.make_upper_triangular();
                                     std::vector<int64_t> P11;
 
@@ -316,6 +322,19 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         m3.show();
                                         if (found) {
                                             exit( null_line);
+                                        } else {
+                                            int max_i = 0;
+                                            DEBUG (3," null_line %d\n",null_line );
+                                            m4.show();
+                                            max_i = m4.max_unit_num(m3.unit_matrix[null_line]);
+                                            DEBUG (3," iter %d\n",max_i );
+
+                                            // m4.show();
+                                            // m4.delete_row(max_i);
+                                            // DEBUG (4,"===== %d \n", smooth_num_back[max_i]);
+                                            // smooth_num_back.erase(smooth_num_back.begin() + max_i);
+                                            // smooth_num3.erase(smooth_num3.begin() + max_i);
+                                            // m2.show();
                                         }
                                     }
 
@@ -373,5 +392,5 @@ BOOST_AUTO_TEST_CASE(test_2)
         // std::vector<int> smooth_num_back = smooth_num;
 
         // BOOST_TEST( find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
-    }
+    // }
 }

@@ -64,6 +64,7 @@ int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
             unit_matrix[i].push_back(0);
         }
         unit_matrix[filled -1][filled -1] = 1;
+        unit_num.push_back(0);
 
         return 1;
     }
@@ -202,7 +203,7 @@ int  bin_matrix_t::make_upper_triangular(void)
 
 void bin_matrix_t::count_unit_num( void )
 {
-    for (int row = 0; row < row_size; ++row)
+    for (int row = 0; row < filled; ++row)
     {
         unit_num[row] = 0;
         for (int cal = 0; cal < collumn_size; ++cal)
@@ -219,7 +220,7 @@ int bin_matrix_t::max_unit_num(std::vector<uint64_t> selected_row)
     count_unit_num();
     int max_unit = 0;
     int max_iter = 0;
-    for (int iter = 0; iter < unit_matrix_size; ++iter)
+    for (int iter = 0; iter < filled; ++iter)
     {
         DEBUG(3, "%lu\t", selected_row[iter]);
         if (selected_row[iter] == 1){
