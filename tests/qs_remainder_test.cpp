@@ -354,7 +354,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         }
                                     }
 
-                                    exit(0);
+                                    // exit(0);
                                 }
                             }
                             else{
