@@ -12,6 +12,11 @@ public:
     std::vector< std::vector<uint64_t> > matrix;
     std::vector< std::vector<uint64_t> > unit_matrix;
 
+    int  make_upper_triangular(void);
+    void count_unit_num( void );
+    int max_unit_num(std::vector<uint64_t> selected_row);
+    int delete_row(unsigned int iter);
+    
 
     std::vector<int> unit_num;
     int row_size;
@@ -19,12 +24,8 @@ public:
     int filled;
     void init_unit(void);
     void show(void);
-    int  make_upper_triangular(void);
     int  make_lower_triangular(void);
     // int m_size(void);
-    int delete_row(unsigned int iter);
-    void count_unit_num( void );
-    int max_unit_num(std::vector<uint64_t> selected_row);
     int resolve_matrix( void);
 };
 

@@ -180,7 +180,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
-        std::vector<int> smooth_num3;
         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
         bin_matrix_t m1(p_smooth.size() + 1);
@@ -284,6 +283,8 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 {
                                     bin_matrix_t m3(p_smooth.size() + 1);
                                     bin_matrix_t m4(p_smooth.size() + 1);
+                                    std::vector<int> smooth_num3;
+                                    std::vector<int> smooth_num3_1;
 
                                     ERROR("find limit %d", exponent_num);
                                     m2.show();
@@ -294,6 +295,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         {
                                             m3.add_row(m1.matrix[i]);
                                             smooth_num3.push_back(smooth_num[i]);
+                                            smooth_num3_1.push_back(i);
                                         }
                                     }
                                     m3.show();
@@ -329,7 +331,21 @@ BOOST_AUTO_TEST_CASE(test_2)
                                             max_i = m4.max_unit_num(m3.unit_matrix[null_line]);
                                             DEBUG (3," iter %d\n",max_i );
 
-                                            // m4.show();
+                                            DEBUG (3," line %d\n",smooth_num3_1[max_i]);
+
+                                            m1.delete_row( smooth_num3_1[max_i] );
+                                            m1.show();
+                                            m2.delete_row( smooth_num3_1[max_i] );
+                                            m2.show();
+
+                                            for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
+                                                counter[i]--;
+                                            }
+
+                                            smooth_num.erase(smooth_num.begin() + smooth_num3_1[max_i]);
+
+
+
                                             // m4.delete_row(max_i);
                                             // DEBUG (4,"===== %d \n", smooth_num_back[max_i]);
                                             // smooth_num_back.erase(smooth_num_back.begin() + max_i);
