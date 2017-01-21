@@ -111,7 +111,13 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[15];
         // uint64_t q = prime[31];
 
-        uint64_t p = prime[16];
+        // uint64_t p = prime[16];
+        // uint64_t q = prime[31];
+
+        // uint64_t p = prime[17];
+        // uint64_t q = prime[31];
+
+        uint64_t p = prime[18];
         uint64_t q = prime[31];
 
         uint64_t N = p * q;
@@ -222,6 +228,10 @@ BOOST_AUTO_TEST_CASE(test_2)
                     }
                 } while (tmp == 0);
 
+                if(V[y_number] == -1 || V[y_number] == 1)
+                    break;
+            }
+
                 if(V[y_number] == -1 || V[y_number] == 1){
 
                     // for (int i = 0; i < v_exp[y_number].size(); ++i)
@@ -259,11 +269,11 @@ BOOST_AUTO_TEST_CASE(test_2)
                         smooth_num.push_back(y_number);
 
 
-                        // ERROR("filled1 %d\n", m1.filled);
+                        ERROR("filled1 %d\n", m1.filled);
                         if (m1.add_row(v_exp[y_number]) == 1){
 
                             int exponent_num = (v_exp[y_number].size() - 1);
-                            ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
+                            // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
                             while (v_exp[y_number][exponent_num] == 0 && exponent_num >= 0){
                                 exponent_num--;
                             }
@@ -277,9 +287,19 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     counter[i]++;
                                 }
                                 m2.add_row(tmp);
-                                ERROR("added num %d\n", exponent_num);
+                                // ERROR("added num %d\n", exponent_num);
 
-                                if (counter[exponent_num] == exponent_num + 2)
+                                int count_flag = 0;
+                                for (exponent_num = 1; exponent_num < counter.size(); ++exponent_num)
+                                {
+                                    if (counter[exponent_num] == exponent_num + 2)
+                                    {
+                                        count_flag = 1;
+                                        break;
+                                    }
+                                }
+
+                                if (count_flag)
                                 {
                                     bin_matrix_t m3(p_smooth.size() + 1);
                                     bin_matrix_t m4(p_smooth.size() + 1);
@@ -306,7 +326,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     if (null_line > -1)
                                     {
                                         // DEBUG(2, "collumn size %d\n", m1.collumn_size);
-                                        for (uint64_t col = 0; col <  m1.collumn_size; ++col)
+                                        for (uint64_t col = 0; col <  m3.filled; ++col)
                                         {
                                             DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m3.unit_matrix[null_line][col]);
                                             if( m3.unit_matrix[null_line][col] > 0)
@@ -372,12 +392,15 @@ BOOST_AUTO_TEST_CASE(test_2)
                             //     exit(0);
                             // }
                         }
+                        else
+                        {
+                            ERROR("cant add aaaaa\n");
+                            exit(0);
+                        }
                     }
 
                     
-                    break;
                 }
-            }
         }
         m1.show();
         m2.show();
