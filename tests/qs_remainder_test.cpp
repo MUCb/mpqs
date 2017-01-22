@@ -114,11 +114,26 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[16];
         // uint64_t q = prime[31];
 
-        // uint64_t p = prime[17];
+        // uint64_t p = prime[17]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
-        uint64_t p = prime[18];
+        // uint64_t p = prime[18]; // k = 10 p = 12
+        // uint64_t q = prime[31];
+
+
+        // uint64_t p = prime[19]; // k = 10 p = 15
+        // uint64_t q = prime[31];
+
+        // uint64_t p = prime[20]; // k = 10 p = 12
+        // uint64_t q = prime[31];
+
+        // uint64_t p = prime[21]; // k = 10 p = 12
+        // uint64_t q = prime[31];
+
+        uint64_t p = prime[22]; // k = 10 p = 12
         uint64_t q = prime[31];
+
+
 
         uint64_t N = p * q;
         uint64_t sqrt_N = 0;
@@ -138,7 +153,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
-        for (int i = 2; p_smooth.size() < 10; ++i) // 2 log n
+        for (int i = 2; p_smooth.size() < 12; ++i) // 2 log n
         {
             p_smooth.push_back(prime[i]);
         }
@@ -163,7 +178,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
         std::vector<long> X;
         std::vector<long> Y;
-        for (k = 1; k < 3; ++k)
+        for (k = 1; k < 10; ++k)
         {
             std::vector<long> X1;
             std::vector<long> Y1;
@@ -234,6 +249,8 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                 if(V[y_number] == -1 || V[y_number] == 1){
 
+
+
                     // for (int i = 0; i < v_exp[y_number].size(); ++i)
                     // {
                     //     DEBUG (3, "%li\t",v_exp[y_number][i]);
@@ -266,6 +283,22 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                         
                     } else {
+
+                        // we can find the same Y in different k
+                        int duplication_flag = 0;
+                        for (int i = 0; i < smooth_num.size(); ++i)
+                        {
+                            if(Y[smooth_num[i]] == Y[y_number] ){
+                                duplication_flag = 1;
+                                DEBUG(3, "duplication flag was set %d %d |%d %d \n",Y[smooth_num[i]], Y[y_number] , smooth_num[i], y_number);
+                                break;
+                            }
+                        }
+
+                        if (duplication_flag)
+                            continue;
+
+
                         smooth_num.push_back(y_number);
 
 
@@ -353,9 +386,15 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                                             DEBUG (3," line %d\n",smooth_num3_1[max_i]);
 
-                                            m1.delete_row( smooth_num3_1[max_i] );
+                                            DEBUG (3," delete before \n");
                                             m1.show();
+                                            m1.delete_row( smooth_num3_1[max_i] );
+                                            DEBUG (3," delete after \n");
+                                            m1.show();
+                                            DEBUG (3," delete before \n");
+                                            m2.show();
                                             m2.delete_row( smooth_num3_1[max_i] );
+                                            DEBUG (3," delete after \n");
                                             m2.show();
 
                                             for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
@@ -433,3 +472,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         // BOOST_TEST( find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
     // }
 }
+
+
+
