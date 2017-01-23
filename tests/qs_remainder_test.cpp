@@ -121,8 +121,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t q = prime[31];
 
 
-        // uint64_t p = prime[19]; // k = 10 p = 15
-        // uint64_t q = prime[31];
+        uint64_t p = prime[19]; // k = 10 p = 15
+        uint64_t q = prime[31];
 
         // uint64_t p = prime[20]; // k = 10 p = 12
         // uint64_t q = prime[31];
@@ -130,8 +130,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[21]; // k = 10 p = 12
         // uint64_t q = prime[31];
 
-        uint64_t p = prime[22]; // k = 10 p = 12
-        uint64_t q = prime[31];
+        // uint64_t p = prime[22]; // k = 10 p = 12
+        // uint64_t q = prime[31];
 
 
 
@@ -284,19 +284,19 @@ BOOST_AUTO_TEST_CASE(test_2)
                         
                     } else {
 
-                        // we can find the same Y in different k
-                        int duplication_flag = 0;
-                        for (int i = 0; i < smooth_num.size(); ++i)
-                        {
-                            if(Y[smooth_num[i]] == Y[y_number] ){
-                                duplication_flag = 1;
-                                DEBUG(3, "duplication flag was set %d %d |%d %d \n",Y[smooth_num[i]], Y[y_number] , smooth_num[i], y_number);
-                                break;
-                            }
-                        }
+                        // // we can find the same Y in different k
+                        // int duplication_flag = 0;
+                        // for (int i = 0; i < smooth_num.size(); ++i)
+                        // {
+                        //     if(Y[smooth_num[i]] == Y[y_number] ){
+                        //         duplication_flag = 1;
+                        //         DEBUG(3, "duplication flag was set %d %d |%d %d \n",Y[smooth_num[i]], Y[y_number] , smooth_num[i], y_number);
+                        //         break;
+                        //     }
+                        // }
 
-                        if (duplication_flag)
-                            continue;
+                        // if (duplication_flag)
+                        //     continue;
 
 
                         smooth_num.push_back(y_number);
