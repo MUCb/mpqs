@@ -22,4 +22,7 @@ void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, uint64_t N, uint32_t M);
 int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> V, std::vector<long> &p_smooth, double size_B, uint32_t M,  std::vector<long> &solution_candidates_number);
+
+
+void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp);
 #endif

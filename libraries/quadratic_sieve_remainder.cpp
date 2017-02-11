@@ -7,6 +7,32 @@
 #include "quadratic_sieve_remainder.h"
 
 
+#define FIRST_VALUE    1
+
+
+void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp)
+{
+    for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
+                        smooth_iter < p_smooth.size(); 
+                        smooth_iter++, exponent_num++)
+    {
+        long int tmp;
+        do{
+            tmp = V % p_smooth[smooth_iter];
+            DEBUG (4, "v = %10li\t",V);
+            DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
+            DEBUG (4, "tmp = %li\n",tmp);
+            if(tmp == 0){
+                V = V / p_smooth[smooth_iter];
+                v_exp[exponent_num] += 1; 
+            }
+        } while (tmp == 0);
+
+        if(V == -1 || V == 1)
+            break;
+    }
+}
+
 int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number)
 {
