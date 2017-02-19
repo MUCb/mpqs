@@ -14,13 +14,64 @@
 #include <inttypes.h>
 #include "primes.h"
 
+ #include <math.h>
+
 int showDebugMsg = 3;
 
 // BOOST_AUTO_TEST_CASE(test_1) 
 // {
-//     for (int iter = 15; iter < 16 ; iter++) {
-//         uint64_t p = prime[iter];
+//     // for (int iter = 15; iter < 30 ; iter++) 
+//     {
+//         uint64_t p = prime[20];
 //         uint64_t q = prime[31];
+
+//         // uint64_t p = prime[15];
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[16];
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[17]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[18]; // k = 3 p = 12
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[19]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[20]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[21]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[22]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[23]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[24]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[25]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[26]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[27]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[28]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[29]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
+
+//         // uint64_t p = prime[30]; // k = 3 p = 10
+//         // uint64_t q = prime[31];
 
 //         uint64_t N = p * q;
 //         uint64_t sqrt_N = 0;
@@ -73,7 +124,6 @@ int showDebugMsg = 3;
 //             construct_xy(X1, Y1, sqrt_Nk, N, M);
 //             X.insert(X.end(), X1.begin(), X1.end());
 //             Y.insert(Y.end(), Y1.begin(), Y1.end());
-            
 //         }
 
 //         for (uint64_t i = 0; i < X.size(); ++i)
@@ -90,32 +140,99 @@ int showDebugMsg = 3;
 //         std::vector<int> smooth_num;
 //         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
-//         if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
-//         {
-//             ERROR( "exit make_exp_array");
-//             exit; 
+//         bin_matrix_t m_all(p_smooth.size() + 1);
+//         bin_matrix_t m_counter(p_smooth.size() + 1);
+//         std::vector<uint64_t> counter(p_smooth.size() + 1);
+//         // DEBUG(1, "smooth %d\n", p_smooth.size());
+//         // DEBUG(1, "size ========= %d\n", m_all.collumn_size);
+//         // break;
+
+//         std::vector<long> V;
+//         V = Y;
+//         // add sign to exponent matrix
+//         #define NEGATIVE_SIGN    0 
+        
+//         // v_exp[i].size()-1
+//         for (int y_number = 0; y_number < V.size(); ++y_number) {
+//             if(V[y_number] < 0 )
+//                 v_exp[y_number][NEGATIVE_SIGN] = 1;
+
+//             prime_factorisation(V[y_number], p_smooth, v_exp[y_number]);
+//             if(V[y_number] < 0 )
+//                 V[y_number] *= -1;
+//             if(V[y_number] != 1){
+//                 double res = sqrt(V[y_number]);
+//                 if(res == trunc(res)) {
+//                     DEBUG (0, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
+//                     DEBUG (0, "found  ========================================= %f\n",res);
+//                     // DEBUG (0, "iter %d\n",iter);
+//                 }
+                
+//             }
+                
+
 //         }
-
-//         std::vector<int> smooth_num_back = smooth_num;
-//         bin_matrix_t m1(p_smooth.size() + 1);
-
-//         BOOST_TEST( find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
 //     }
+
 // }
+
+
+// Y = 13454   V = 961
+// found  ========================================= 31.000000
+// iter 20
+// Y = -6727   V = 961
+// found  ========================================= 31.000000
+// iter 21
+// Y = 21218   V = 10609
+// found  ========================================= 103.000000
+// iter 21
+// Y = -1849   V = 1849
+// found  ========================================= 43.000000
+// iter 22
+// Y = -1849   V = 1849
+// found  ========================================= 43.000000
+// iter 22
+// Y = 17672   V = 2209
+// found  ========================================= 47.000000
+// iter 22
+// Y = -961    V = 961
+// found  ========================================= 31.000000
+// iter 26
+// Y = -961    V = 961
+// found  ========================================= 31.000000
+// iter 26
+// Y = 27848   V = 3481
+// found  ========================================= 59.000000
+// iter 26
+// Y = -5329   V = 5329
+// found  ========================================= 73.000000
+// iter 27
+// Y = -3844   V = 961
+// found  ========================================= 31.000000
+// iter 27
+// Y = 20402   V = 10201
+// found  ========================================= 101.000000
+// iter 28
+
+
+
+
+
 
 
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
-    // for (int iter = 15; iter < 16 ; iter++) {
-        // uint64_t p = prime[15];
+    // for (int iter = 15; iter < 30 ; iter++) 
+    {
+        // uint64_t p = prime[iter];
         // uint64_t q = prime[31];
 
         // uint64_t p = prime[16];
         // uint64_t q = prime[31];
 
-        uint64_t p = prime[17]; // k = 3 p = 10
-        uint64_t q = prime[31];
+        // uint64_t p = prime[17]; // k = 3 p = 10
+        // uint64_t q = prime[31];
 
         // uint64_t p = prime[18]; // k = 3 p = 12
         // uint64_t q = prime[31];
@@ -126,8 +243,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[20]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
-        // uint64_t p = prime[21]; // k = 3 p = 10
-        // uint64_t q = prime[31];
+        uint64_t p = prime[21]; // k = 3 p = 10
+        uint64_t q = prime[31];
 
         // uint64_t p = prime[22]; // k = 3 p = 10
         // uint64_t q = prime[31];
@@ -242,6 +359,25 @@ BOOST_AUTO_TEST_CASE(test_2)
 
             prime_factorisation(V[y_number], p_smooth, v_exp[y_number]);
             
+
+            int sign_flag = 0;
+            if(V[y_number] < 0 ){
+                sign_flag = 1;
+                V[y_number] *= -1;
+            }
+            if(V[y_number] != 1){
+                double res = sqrt(V[y_number]);
+                if(res == trunc(res)) {
+                    V[y_number] = 1;
+                    DEBUG (0, "found  ========================================= %f\n",res);
+                    DEBUG (0, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
+                    // DEBUG (0, "iter %d\n",iter);
+                }
+                
+            }
+            if(sign_flag)
+                V[y_number] *= -1;
+
             if(V[y_number] == -1 || V[y_number] == 1){
                 
                 DEBUG (3, "Y = %li\n",Y[y_number]);
@@ -262,7 +398,8 @@ BOOST_AUTO_TEST_CASE(test_2)
                     tmp.push_back(y_number);
                     found = euclid_gcd( X, Y, tmp, p, q, N);
                     if (found)
-                        exit(0);
+                        break;
+                        // exit(0);
                     //##########################
                 } else {
                     smooth_num.push_back(y_number);
@@ -325,7 +462,8 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found) {
-                                        exit( null_line);
+                                        break;
+                                        // exit( null_line);
                                     } else {
                                         int max_i = 0;
                                         DEBUG (3," null_line %d\n",null_line );
@@ -382,7 +520,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         }
         m_all.show();
         m_counter.show();
-        exit(0); ///DEBUG  ////////////////////////////////////////////////////////////////////
+        // exit(0); ///DEBUG  ////////////////////////////////////////////////////////////////////
 
         // if (make_exp_array(m_all, v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
         // {
@@ -393,7 +531,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         // std::vector<int> smooth_num_back = smooth_num;
 
         // BOOST_TEST( find_solution(m_all, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
-    // }
+    }
 }
 
 

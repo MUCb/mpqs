@@ -33,6 +33,45 @@ void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint6
     }
 }
 
+
+void vec_mod2(std::vector<uint64_t> &v_exp, int &null_flag) {
+    // modulo-2 division 
+    null_flag = 1;
+    for (   int exponent_num = 0;
+                exponent_num < v_exp.size(); 
+                exponent_num++ )
+    {
+        DEBUG (3, "%ld\t", v_exp[exponent_num]);
+        v_exp[exponent_num] %= 2;
+        if (v_exp[exponent_num] != 0)
+            null_flag = 0;
+    }
+}
+
+int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int &exponent_num)
+{
+    std::vector<uint64_t> tmp(counter.size());
+    // for (int i = exponent_num; i < v_exp[y_number].size(); ++i)
+    for (int i = exponent_num; i < counter.size(); ++i)
+    {
+        tmp[i] = 1;
+        counter[i]++;
+    }
+    m2.add_row(tmp);
+    // ERROR("added num %d\n", exponent_num);
+
+    int count_flag = 0;
+    for (exponent_num = 1; exponent_num < counter.size(); ++exponent_num)
+    {
+        if (counter[exponent_num] == exponent_num + 2)
+        {
+            count_flag = 1;
+            break;
+        }
+    }
+    return count_flag;
+}
+
 int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number)
 {

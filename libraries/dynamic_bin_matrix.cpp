@@ -167,7 +167,7 @@ int  bin_matrix_t::make_upper_triangular(void)
         // remove all value under the first one
         for (int row = current_row + 1; row < filled; ++row) {
             if(matrix[row][current_col] != 0) {
-                DEBUG(3, "CHAECK  %d \n", collumn_size);
+                // DEBUG(3, "CHAECK  %d \n", collumn_size);
                 // show();
                 for (int col = 0; col < collumn_size; ++col) {
                     

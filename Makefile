@@ -13,6 +13,12 @@ qs_remainder_test: quadratic_sieve_remainder dynamic_bin_matrix
 				libraries/quadratic_sieve_remainder.o libraries/dynamic_bin_matrix.o \
 				libraries/greatest_common_divisor.o 
 
+qs_early_exp_test: quadratic_sieve_remainder dynamic_bin_matrix
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/ -lm  -L../soft/boost_1_62_0/ \
+	tests/qs_early_exp_test.cpp -o tests/qs_early_exp_test.out \
+				libraries/quadratic_sieve_remainder.o libraries/dynamic_bin_matrix.o \
+				libraries/greatest_common_divisor.o 
+
 
 
 bin_matrix_test: bin_matrix
