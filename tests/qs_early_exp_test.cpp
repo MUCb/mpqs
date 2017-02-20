@@ -16,7 +16,7 @@
 
  #include <math.h>
 
-int showDebugMsg = 3;
+int showDebugMsg = 1;
 
 // BOOST_AUTO_TEST_CASE(test_1) 
 // {
@@ -223,13 +223,14 @@ int showDebugMsg = 3;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
-    // for (int iter = 15; iter < 30 ; iter++) 
+// for (int iter1 = 5; iter1 < 70 ; iter1++) {
+    // for (int iter = iter1 + 1; iter < 70 ; iter++) 
     {
         // uint64_t p = prime[iter];
-        // uint64_t q = prime[31];
+        // uint64_t q = prime[iter1];
 
-        // uint64_t p = prime[16];
-        // uint64_t q = prime[31];
+        // uint64_t p = prime[5]; // k = 5 p = 10
+        // uint64_t q = prime[42];
 
         // uint64_t p = prime[17]; // k = 3 p = 10
         // uint64_t q = prime[31];
@@ -243,8 +244,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[20]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
-        uint64_t p = prime[21]; // k = 3 p = 10
-        uint64_t q = prime[31];
+        // uint64_t p = prime[21]; // k = 3 p = 10
+        // uint64_t q = prime[31];
 
         // uint64_t p = prime[22]; // k = 3 p = 10
         // uint64_t q = prime[31];
@@ -272,6 +273,9 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         // uint64_t p = prime[30]; // k = 3 p = 10
         // uint64_t q = prime[31];
+
+        uint64_t p = prime[300]; // k = 3 p = 10
+        uint64_t q = prime[500];
 
         uint64_t N = p * q;
         uint64_t sqrt_N = 0;
@@ -354,6 +358,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
         // v_exp[i].size()-1
         for (int y_number = 0; y_number < V.size(); ++y_number) {
+
             if(V[y_number] < 0 )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
 
@@ -518,8 +523,10 @@ BOOST_AUTO_TEST_CASE(test_2)
                 }
             }
         }
-        m_all.show();
-        m_counter.show();
+        // m_all.show();
+        // m_counter.show();
+
+
         // exit(0); ///DEBUG  ////////////////////////////////////////////////////////////////////
 
         // if (make_exp_array(m_all, v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
@@ -536,3 +543,4 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 
 
+// }

@@ -84,3 +84,9 @@ qs_basic: bin_matrix qs_basic.cpp
 		libraries/greatest_common_divisor.o \
 	qs_basic.cpp -o qs_basic.out
     # g++ -I../soft/boost_1_61_0/  -L../soft/boost_1_61_0/ test1.cpp -o test1
+
+
+clean:
+	rm  -f libraries/*.o
+	rm  -f tests/*.out
+	rm -f ./*.out
