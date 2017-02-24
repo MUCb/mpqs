@@ -298,7 +298,11 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, u
         for (uint64_t i = 0; i < X.size(); ++i)
         {
         //     DEBUG (2, "X = %llu\t",X[i]);
-            Y.push_back(X[i]*X[i] - N);
+            long long tmp = X[i]*X[i];
+            if(X[i]*X[i] < N)
+                Y.push_back(tmp - N);
+            else
+                Y.push_back(tmp % N);
         //     DEBUG (2, "Y = %li\t",Y[i]);
         //     DEBUG (2, "\n");
         }
@@ -360,6 +364,7 @@ int find_solution (bin_matrix_t m2,
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,
+                    std::vector<long> p_smooth,
                     const std::vector<long>& X,
                     const std::vector<long>& Y,
                     const uint64_t &p,
@@ -410,7 +415,8 @@ int find_solution (bin_matrix_t m2,
         DEBUG (2,"\n");
 
         int found = 0;
-        found = euclid_gcd( X, Y, P11, p, q, N);
+        // found = euclid_gcd( X, Y, P11, p, q, N);
+        found = euclid_gcd( X, Y, P11, p, q, N, v_exp,p_smooth );
         // printf("found %lu\n", found);
         m1.show();
         if (found) {
@@ -431,7 +437,7 @@ int find_solution (bin_matrix_t m2,
 
 
             // return find_solution(m2, smooth_num_back);
-            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
+            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == -1)
                 WARN(1, "failed\n");
@@ -448,7 +454,7 @@ int find_solution (bin_matrix_t m2,
 
 
             // return find_solution(m2, smooth_num_back);
-            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
+            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == -1)
                 WARN(1, "failed\n");

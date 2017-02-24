@@ -88,6 +88,7 @@ int main (int argc, char *argv[])
     double size_B;
     size_B = exp (sqrt (log(N) * log(log(N))) );
     size_B = pow(size_B , sqrt(2)/4);
+    size_B += 10;
     DEBUG (2,"size of factor base size_B=%f\n", size_B);
 
     // selecting smooth primes 
@@ -102,10 +103,13 @@ int main (int argc, char *argv[])
         return 0;
     }
 
+    std::vector<long> p_smooth_copy = p_smooth;
+    
     // selecting the sieving interval
     uint32_t M;
     M = exp (sqrt (log(N) * log(log(N))) );
     M = pow(M , 3*sqrt(2)/4);
+    M *= 5;
     DEBUG (1,"The sieving interval M=%llu\n", M);
 
 
@@ -138,7 +142,7 @@ int main (int argc, char *argv[])
 
                 std::vector<int64_t> tmp;
                 tmp.push_back(solution_candidates_number[i]);
-                found = euclid_gcd( X, Y, tmp, p, q, N);
+                found = euclid_gcd( X, Y, tmp, p, q, N, v_exp, p_smooth);
                 if (found)
                     break;
             }
@@ -153,7 +157,7 @@ int main (int argc, char *argv[])
     if (ret == 0)
     {
         ERROR( "exit make_exp_array");
-        exit; 
+        exit (0); 
     }
 
     // // add sign to exponent matrix
@@ -293,7 +297,7 @@ int main (int argc, char *argv[])
     std::vector<int> smooth_num_back = smooth_num;
     bin_matrix_t m1(p_smooth.size() + 1);
 
-    if (find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N) >= 0)
+    if (find_solution(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy ,X, Y, p, q, N) >= 0)
     {
         printf("Success\n");
         return 1;

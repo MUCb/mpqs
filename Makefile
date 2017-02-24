@@ -37,6 +37,12 @@ qs_test: quadratic_sieve
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
 				libraries/greatest_common_divisor.o 
 
+qs_basic_extra_exp_test: quadratic_sieve
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	tests/qs_basic_extra_exp_test.cpp -o tests/qs_basic_extra_exp_test.out \
+				libraries/quadratic_sieve.o libraries/bin_matrix.o \
+				libraries/greatest_common_divisor.o 
+
 #####################################################
 
 
@@ -78,7 +84,7 @@ bin_matrix: libraries/bin_matrix.cpp include/bin_matrix.h include/log.h
 
 #####################################################
 
-qs_basic: bin_matrix qs_basic.cpp
+qs_basic: bin_matrix quadratic_sieve qs_basic.cpp
 	g++ -std=c++11 -Iinclude/ \
 		libraries/quadratic_sieve.o libraries/bin_matrix.o \
 		libraries/greatest_common_divisor.o \

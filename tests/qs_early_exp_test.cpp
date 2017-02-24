@@ -16,163 +16,10 @@
 
  #include <math.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 3;
 
 // BOOST_AUTO_TEST_CASE(test_1) 
 // {
-//     // for (int iter = 15; iter < 30 ; iter++) 
-//     {
-//         uint64_t p = prime[20];
-//         uint64_t q = prime[31];
-
-//         // uint64_t p = prime[15];
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[16];
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[17]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[18]; // k = 3 p = 12
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[19]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[20]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[21]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[22]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[23]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[24]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[25]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[26]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[27]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[28]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[29]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         // uint64_t p = prime[30]; // k = 3 p = 10
-//         // uint64_t q = prime[31];
-
-//         uint64_t N = p * q;
-//         uint64_t sqrt_N = 0;
-//         uint64_t sqrt_Nk = 0;
-//         uint64_t k = 1;
-//         DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
-        
-//         sqrt_N = trunc(sqrt(N)) + 1;
-
-//         // selecting the size of the factor base
-//         double size_B;
-//         size_B = exp (sqrt (log(N) * log(log(N))) );
-//         size_B = pow(size_B , sqrt(2)/4);
-//         DEBUG (2,"size of factor base size_B=%f\n", size_B);
-
-//         // selecting smooth primes 
-//         std::vector<long> p_smooth;
-//         DEBUG (2, "smooth numbers\n");
-
-//         for (int i = 2; p_smooth.size() < 10; ++i) // 2 log n
-//         {
-//             p_smooth.push_back(prime[i]);
-//         }
-//         DEBUG(2, "p_smooth size %d\n", p_smooth.size());
-
-//         // make_smooth_numbers(p_smooth, size_B, N);
-
-//         if ((p_smooth.size() < size_B))
-//         {
-//             ERROR ("to small primes \n");
-//             exit;
-//         }
-
-//         // selecting the sieving interval
-//         uint32_t M;
-//         M = exp (sqrt (log(N) * log(log(N))) );
-//         M = pow(M , 3*sqrt(2)/4);
-
-//         DEBUG (2, "The sieving interval M=%" PRIu32 "\n", M);
-        
-//         // *** construct our sieve *** //
-        
-//         std::vector<long> X;
-//         std::vector<long> Y;
-//         for (k = 1; k < 3; ++k)
-//         {
-//             std::vector<long> X1;
-//             std::vector<long> Y1;
-//             sqrt_Nk = trunc(sqrt(N * k)) + 1;
-//             construct_xy(X1, Y1, sqrt_Nk, N, M);
-//             X.insert(X.end(), X1.begin(), X1.end());
-//             Y.insert(Y.end(), Y1.begin(), Y1.end());
-//         }
-
-//         for (uint64_t i = 0; i < X.size(); ++i)
-//         {
-//             DEBUG (2, "X = %llu\t",X[i]);
-//             DEBUG (2, "Y = %li\t",Y[i]);
-//             DEBUG (2, "\n");
-//         }
-        
-//         DEBUG (2, "X size  = %d\n",X.size());
-//         // simple sieve 
-//         std::vector<long> solution_candidates_number;
-//         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
-//         std::vector<int> smooth_num;
-//         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
-
-//         bin_matrix_t m_all(p_smooth.size() + 1);
-//         bin_matrix_t m_counter(p_smooth.size() + 1);
-//         std::vector<uint64_t> counter(p_smooth.size() + 1);
-//         // DEBUG(1, "smooth %d\n", p_smooth.size());
-//         // DEBUG(1, "size ========= %d\n", m_all.collumn_size);
-//         // break;
-
-//         std::vector<long> V;
-//         V = Y;
-//         // add sign to exponent matrix
-//         #define NEGATIVE_SIGN    0 
-        
-//         // v_exp[i].size()-1
-//         for (int y_number = 0; y_number < V.size(); ++y_number) {
-//             if(V[y_number] < 0 )
-//                 v_exp[y_number][NEGATIVE_SIGN] = 1;
-
-//             prime_factorisation(V[y_number], p_smooth, v_exp[y_number]);
-//             if(V[y_number] < 0 )
-//                 V[y_number] *= -1;
-//             if(V[y_number] != 1){
-//                 double res = sqrt(V[y_number]);
-//                 if(res == trunc(res)) {
-//                     DEBUG (0, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
-//                     DEBUG (0, "found  ========================================= %f\n",res);
-//                     // DEBUG (0, "iter %d\n",iter);
-//                 }
-                
-//             }
-                
-
-//         }
-//     }
 
 // }
 
@@ -217,6 +64,10 @@ int showDebugMsg = 1;
 
 
 
+
+
+//  Latest testss
+//
 
 
 
@@ -274,8 +125,14 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[30]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
-        uint64_t p = prime[300]; // k = 3 p = 10
+
+
+        uint64_t p = prime[900]; // k = 3 p = 10
         uint64_t q = prime[500];
+
+        // uint64_t p = prime[1200]; // k = 3 p = 10
+        // uint64_t q = prime[1450];
+
 
         uint64_t N = p * q;
         uint64_t sqrt_N = 0;
@@ -295,7 +152,10 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
-        for (int i = 2; p_smooth.size() < 10; ++i) // 2 log n
+        int p_size = 2* log(N);
+        // int p_size = 12;
+
+        for (int i = 2; p_smooth.size() < p_size; ++i) // 2 log n
         {
             p_smooth.push_back(prime[i]);
         }
@@ -306,7 +166,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         if ((p_smooth.size() < size_B))
         {
             ERROR ("to small primes \n");
-            exit;
+            exit (0);
         }
 
         // selecting the sieving interval
@@ -341,6 +201,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         // simple sieve 
         std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
+        std::vector< std::vector<uint64_t> > v_exp_copy(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
+        std::vector<uint64_t> v_extra_exp(Y.size()) ;
         std::vector<int> smooth_num;
         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
@@ -364,6 +226,15 @@ BOOST_AUTO_TEST_CASE(test_2)
 
             prime_factorisation(V[y_number], p_smooth, v_exp[y_number]);
             
+            // DEBUG (0, "=============   copy\n");
+            v_exp_copy[y_number] = v_exp[y_number];
+                // for (int j = 0; j < v_exp[y_number].size(); ++j)
+                // {
+                //     // v_exp_copy[i][j] = v_exp[i][j];
+                //     DEBUG (0, "%d\t",v_exp_copy[y_number][j]);
+                // }
+                // DEBUG (0, "\n");
+            
 
             int sign_flag = 0;
             if(V[y_number] < 0 ){
@@ -373,6 +244,7 @@ BOOST_AUTO_TEST_CASE(test_2)
             if(V[y_number] != 1){
                 double res = sqrt(V[y_number]);
                 if(res == trunc(res)) {
+                    v_extra_exp[y_number] = res;
                     V[y_number] = 1;
                     DEBUG (0, "found  ========================================= %f\n",res);
                     DEBUG (0, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
@@ -401,7 +273,8 @@ BOOST_AUTO_TEST_CASE(test_2)
                     uint64_t found = 0;
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
-                    found = euclid_gcd( X, Y, tmp, p, q, N);
+                    found = euclid_gcd_m( X, Y, tmp, p, q, N,v_exp_copy, p_smooth, v_extra_exp);
+                    // found = euclid_gcd( X, Y, tmp, p, q, N);
                     if (found)
                         break;
                         // exit(0);
@@ -463,7 +336,8 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     DEBUG (2,"\n");
 
                                     int found = 0;
-                                    found = euclid_gcd( X, Y, P11, p, q, N);
+                                    // found = euclid_gcd( X, Y, P11, p, q, N);
+                                    found = euclid_gcd_m( X, Y, P11, p, q, N, v_exp_copy, p_smooth, v_extra_exp);
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found) {
