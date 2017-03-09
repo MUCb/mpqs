@@ -20,8 +20,10 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
         #define FIRST_VALUE    1
         // v_exp[i].size()-1
 
+        int print_flag = 1;
         for (int y_number = 0; y_number < v_exp.size(); ++y_number)
         {
+
             if(V[y_number] < 0 )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
 
@@ -77,8 +79,11 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
                 if(res == trunc(res)) {
                     v_extra_exp[y_number] = res;
                     V[y_number] = 1;
-                    DEBUG (0, "found  ========================================= %f  number %d\n",res, y_number);
-                    DEBUG (0, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
+                    if(print_flag){
+                        DEBUG (0, "found  ========================================= %f  number %d\n",res, y_number);
+                        print_flag = 0;
+                    }
+                    DEBUG (2, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
                     // DEBUG (0, "iter %d\n",iter);
                     smooth_num.push_back(y_number);
                 }
@@ -280,6 +285,10 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, u
 
 }
 
+
+// uint64_t max value  10^19
+//  N max 10^9
+// p max 10^4
 void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
 {
     //prime is 2 - special case 
@@ -290,9 +299,11 @@ void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
     for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
         uint64_t tmp = N;
+        uint64_t N_mod = N % prime[i];
+        tmp %= prime[i];
         for (int j = 1; j < (prime[i]-1)/2; ++j)
         {
-            tmp = (tmp * N) % prime[i];
+            tmp = (tmp * N_mod) % prime[i];
         }
         tmp %= prime[i];
 
@@ -347,16 +358,19 @@ int find_solution (bin_matrix_t m2,
     std::vector<int64_t> P11;
     int retval = fill_matrix(m2, smooth_num_back, v_exp);
     m2.show();
-    DEBUG(2, "%d added\n", retval);
-    if (retval == 0 )
+    DEBUG(2, "%d 1added\n", retval);
+    if (retval == 0 || m2.filled != m2.row_size)
         return -1;
+
+    // if()
 
     // for (int i = 0; i < smooth_num_back.size() ; ++i) {
     //  DEBUG(3, "%s %d smooth_num \n",__func__, smooth_num_back[i]);
     // }
 
     bin_matrix_t m1 = m2;
-
+    // m2.show();
+    // DEBUG(1, "----------------");
 
     int null_line = m1.resolve_matrix();
     // m1.show();
@@ -454,8 +468,8 @@ int find_solution_extra (bin_matrix_t m2,
     std::vector<int64_t> P11;
     int retval = fill_matrix(m2, smooth_num_back, v_exp);
     m2.show();
-    DEBUG(2, "%d added\n", retval);
-    if (retval == 0 )
+    DEBUG(2, "%d 1added\n", retval);
+    if (retval == 0 || m2.filled != m2.row_size)
         return -1;
 
     // for (int i = 0; i < smooth_num_back.size() ; ++i) {
@@ -464,7 +478,7 @@ int find_solution_extra (bin_matrix_t m2,
 
     bin_matrix_t m1 = m2;
 
-
+    // DEBUG(1, "--------------------------");
     int null_line = m1.resolve_matrix();
     // m1.show();
     // return 0;
