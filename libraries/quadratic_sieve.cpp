@@ -78,13 +78,13 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
                 double res = sqrt(V[y_number]);
                 if(res == trunc(res)) {
                     v_extra_exp[y_number] = res;
-                    V[y_number] = 1;
-                    if(print_flag){
+                    V[y_number] /= V[y_number];
+                    // if(print_flag){
                         DEBUG (0, "found  ========================================= %f  number %d\n",res, y_number);
                         print_flag = 0;
-                    }
+                    // }
                     DEBUG (2, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
-                    // DEBUG (0, "iter %d\n",iter);
+                    // DEBUG (0, "iter %d\n",);
 
                     int null_flag = 1;
                     // printf("V = %" PRIu64 "\t",V[i]);
@@ -96,9 +96,11 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
                         if ((v_exp[y_number][exp_num] % 2 )!= 0)
                             null_flag = 0;
                     }
+                    DEBUG (3, "\n");
 
                     if (null_flag && V[y_number] > 0) {
                         solution_candidates_number.push_back(y_number);
+                        // DEBUG (2, "sol cand %d\n",solution_candidates_number.size() );
                     } else {
                         smooth_num.push_back(y_number);
                     }

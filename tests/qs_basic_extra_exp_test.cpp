@@ -94,9 +94,9 @@ BOOST_AUTO_TEST_CASE(test_0)
         std::vector<uint64_t> v_extra_exp(Y.size()) ;
         std::vector<int> smooth_num;
 
-        if (make_exp_array_extra(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number, v_extra_exp) == 0)
-        {
-            uint64_t found = 0;
+        int array_res = make_exp_array_extra(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number, v_extra_exp);
+
+        uint64_t found = 0;
             if (solution_candidates_number.size() > 0)
             {
                 // to check functionality use  ./qs_3.out 27 10
@@ -122,6 +122,8 @@ BOOST_AUTO_TEST_CASE(test_0)
                 continue;
             }
 
+        if (array_res == 0)
+        {
             ERROR( "exit make_exp_array_extra");
             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
             continue;
