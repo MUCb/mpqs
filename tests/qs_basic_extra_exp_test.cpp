@@ -12,17 +12,17 @@
 #include <inttypes.h>
 #include "primes.h"
 
-int showDebugMsg = 0;
+int showDebugMsg = 3;
 
 BOOST_AUTO_TEST_CASE(test_0) 
 {
     int first_flag = 1;
-    // for (int iter_1 = 10; iter_1 < 11; iter_1++) 
-    for (int iter_1 = 3; iter_1 < 500 ; iter_1++) 
+    for (int iter_1 = 10; iter_1 < 11; iter_1++) 
+    // for (int iter_1 = 3; iter_1 < 500 ; iter_1++) 
     {
 
-    for (int iter = iter_1+1; iter < 500 ; iter++) 
-    // for (int iter = 13; iter < 14 ; iter++) 
+    // for (int iter = iter_1+1; iter < 500 ; iter++) 
+    for (int iter = 13; iter < 14 ; iter++) 
     {
         // uint64_t p = prime[461];
         // uint64_t q = prime[15];
@@ -37,8 +37,8 @@ BOOST_AUTO_TEST_CASE(test_0)
         //     iter_1 = 3905;
         // }
 
-            // iter = 311;
-            // iter_1 = 4;
+            iter = 28;
+            iter_1 = 80;
         uint64_t p = prime[iter_1];
         uint64_t q = prime[iter];
 
@@ -141,9 +141,9 @@ BOOST_AUTO_TEST_CASE(test_0)
         } else {
             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
         }
-        // break;
+        break;
     }
-    // break;
+    break;
     }
 }
 

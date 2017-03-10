@@ -85,7 +85,24 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
                     }
                     DEBUG (2, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
                     // DEBUG (0, "iter %d\n",iter);
-                    smooth_num.push_back(y_number);
+
+                    int null_flag = 1;
+                    // printf("V = %" PRIu64 "\t",V[i]);
+                    for (   int exp_num = 0;
+                                exp_num < v_exp[y_number].size(); 
+                                exp_num++ )
+                    {
+                        DEBUG (3, "%ld\t", v_exp[y_number][exp_num]);
+                        if ((v_exp[y_number][exp_num] % 2 )!= 0)
+                            null_flag = 0;
+                    }
+
+                    if (null_flag && V[y_number] > 0) {
+                        solution_candidates_number.push_back(y_number);
+                    } else {
+                        smooth_num.push_back(y_number);
+                    }
+                    // smooth_num.push_back(y_number);
                 }
                 
                 if(sign_flag)
