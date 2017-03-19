@@ -38,12 +38,6 @@ qs_test: quadratic_sieve
 				libraries/greatest_common_divisor.o 
 
 
-qs_test1: quadratic_sieve
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
-	tests/qs_test.cpp -o tests/qs_test1.out \
-				libraries/quadratic_sieve.o libraries/bin_matrix.o \
-				libraries/greatest_common_divisor.o 
-
 qs_basic_extra_exp_test: quadratic_sieve
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
 	tests/qs_basic_extra_exp_test.cpp -o tests/qs_basic_extra_exp_test.out \
