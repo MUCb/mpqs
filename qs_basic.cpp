@@ -88,7 +88,7 @@ int main (int argc, char *argv[])
     double size_B;
     size_B = exp (sqrt (log(N) * log(log(N))) );
     size_B = pow(size_B , sqrt(2)/4);
-    size_B += 10;
+    // size_B += 10;
     DEBUG (2,"size of factor base size_B=%f\n", size_B);
 
     // selecting smooth primes 
@@ -100,16 +100,18 @@ int main (int argc, char *argv[])
     if ((p_smooth.size() < size_B))
     {
         ERROR ("to small primes \n");
+        DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", p_idx, q_idx, p, q);
         return 0;
     }
 
     std::vector<long> p_smooth_copy = p_smooth;
     
+
     // selecting the sieving interval
     uint32_t M;
     M = exp (sqrt (log(N) * log(log(N))) );
     M = pow(M , 3*sqrt(2)/4);
-    M *= 5;
+    // M *= 5;
     DEBUG (1,"The sieving interval M=%llu\n", M);
 
 
@@ -126,173 +128,41 @@ int main (int argc, char *argv[])
     std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
     std::vector<int> smooth_num;
 
-    int ret = make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number); 
-
-    uint64_t found = 0;
-    
-    if (solution_candidates_number.size() > 0)
+    if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
     {
-        // to check functionality use  ./qs_3.out 27 10
-        DEBUG (3,"%s:%d\n", __func__, __LINE__);
-        for (int i = 0; i <  solution_candidates_number.size(); ++i)
+        uint64_t found = 0;
+        if (solution_candidates_number.size() > 0)
         {
-            DEBUG (3,"check %ld\n", Y[solution_candidates_number[i]]);
+            // to check functionality use  ./qs_3.out 27 10
+            DEBUG (3,"%s:%d\n", __func__, __LINE__);
+            for (int i = 0; i <  solution_candidates_number.size(); ++i)
+            {
+                DEBUG (3,"check %ld\n", Y[solution_candidates_number[i]]);
 
-            if ( Y[solution_candidates_number[i]] > 0 ){
+                if ( Y[solution_candidates_number[i]] > 0 ){
 
-                std::vector<int64_t> tmp;
-                tmp.push_back(solution_candidates_number[i]);
-                found = euclid_gcd( X, Y, tmp, p, q, N, v_exp, p_smooth);
-                if (found)
-                    break;
+                    std::vector<int64_t> tmp;
+                    tmp.push_back(solution_candidates_number[i]);
+                    found = euclid_gcd( X, Y, tmp, p, q, N, v_exp, p_smooth);
+                    if (found)
+                        break;
+                }
             }
         }
-    }
-    solution_candidates_number.clear();
-    if (found)
-    {
+        solution_candidates_number.clear();
+        if (found)
+        {
+            DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", p_idx, q_idx, p, q);
+            return 0;
+        }
+
+        ERROR( "exit make_exp_array");
+        DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", p_idx, q_idx, p, q);
+        // exit (0); 
         return 0;
     }
 
-    if (ret == 0)
-    {
-        ERROR( "exit make_exp_array");
-        exit (0); 
-    }
 
-    // // add sign to exponent matrix
-    // #define NEGATIVE_SIGN    0 
-    // #define FIRST_VALUE    1
-    // // v_exp[i].size()-1
-    // for (int y_number = 0; y_number < v_exp.size(); ++y_number)
-    // {
-    //     if(Y[y_number] < 0 )
-    //         v_exp[y_number][NEGATIVE_SIGN] = 1;
-    // }
-
-    // for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
-    //             smooth_iter < p_smooth.size(); 
-    //             smooth_iter++, exponent_num++)
-    // {
-    //     for (int y_num = 0; y_num < M; ++y_num)
-    //     {
-    //         if(V[y_num] == -1 || V[y_num] == 1)
-    //             continue;
-
-    //         long int tmp;
-    //         do{
-    //             tmp = V[y_num] % p_smooth[smooth_iter];
-    //             DEBUG (3,"v = %10li\t",V[y_num]);
-    //             DEBUG (3,"p_smooth = %li\t",p_smooth[smooth_iter]);
-    //             DEBUG (3,"tmp = %li\n",tmp);
-    //             if(tmp == 0){
-    //                 V[y_num] = V[y_num] / p_smooth[smooth_iter];
-    //                 v_exp[y_num][exponent_num] += 1; 
-    //             }
-    //         } while (tmp == 0);
-    //     }
-    //     // break;
-    // }
-    // std::vector<int> smooth_num;
-    // std::vector<long> solution_candidates_number;
-    // // std::vector<uint64_t> P11;
-    // for (int y_num = 0; y_num < V.size(); ++y_num)
-    // {
-    //     int null_flag = 1;
-    //     // printf("V = %"PRIu64"\t",V[i]);
-    //     if(V[y_num] == 1 || V[y_num] == -1)
-    //     {
-    //         for (   int exponent_num = FIRST_VALUE;
-    //                     exponent_num < v_exp[y_num].size(); 
-    //                     exponent_num++ )
-    //         {
-    //             DEBUG (3,"%ld\t", v_exp[y_num][exponent_num]);
-    //             if ((v_exp[y_num][exponent_num] % 2 )!= 0)
-    //                 null_flag = 0;
-    //         }
-    //         DEBUG (3,"%ld\n", Y[y_num]);
-    //         // skip negative value !!!!
-    //         if (null_flag && V[y_num] > 0) {
-    //             solution_candidates_number.push_back(y_num);
-    //         } else {
-    //             smooth_num.push_back(y_num);
-    //         }
-    //     }
-    // }
-    // DEBUG (3,"\n");
-
-    // uint64_t found = 0;
-    
-    // if (solution_candidates_number.size() > 0)
-    // {
-    //     DEBUG (3,"%s:%d\n", __func__, __LINE__);
-    //     for (int i = 0; i <  solution_candidates_number.size(); ++i)
-    //     {
-    //         DEBUG (3,"check %ld\n", Y[solution_candidates_number[i]]);
-
-    //         if ( Y[solution_candidates_number[i]] > 0 ){
-
-    //             std::vector<int64_t> tmp;
-    //             tmp.push_back(solution_candidates_number[i]);
-    //             found = euclid_gcd( X, Y, tmp, p, q, N);
-    //             if (found)
-    //                 break;
-    //         }
-    //     }
-    // }
-    // solution_candidates_number.clear();
-    // if (found)
-    // {
-    //     return 0;
-    // }
-
-
-    //     //######################### removing null exponent #####################
-    //     std::vector<int> deleted;
-    //     for (   int exponent_num = 1;
-    //             exponent_num < v_exp[0].size(); 
-    //             exponent_num++ )
-    //     {
-    //         int null_flag = 1;
-    //         for (int i = 0; i < smooth_num.size(); ++i)
-    //         {
-    //             if ((v_exp[smooth_num[i]][exponent_num] % 2 )!= 0)
-    //                 null_flag = 0;
-    //         }
-
-    //         if (null_flag)
-    //         {
-    //             deleted.push_back(exponent_num);
-    //         }
-    //     }
-
-    //     for (int i = 0; i < deleted.size(); ++i)
-    //     {
-    //         for (int j = 0; j < smooth_num.size(); ++j)
-    //         {
-    //             v_exp[smooth_num[j]].erase(v_exp[smooth_num[j]].begin() + deleted[i]);
-    //         }
-    //         p_smooth.erase(p_smooth.begin()+ deleted[i]);
-    //     }
-    //     //######################################################################
-
-
-
-    // if (smooth_num.size()  < size_B + 1)
-    // {
-    //     ERROR( "to small number of smooth numbbers\n");
-    //     return 0; 
-    // }
-
-    // just print exponent array
-    // for (int i = 0; i < V.size(); ++i)
-    // {
-    //  for (int j = 0; j < p_smooth.size(); ++j)
-    //  {
-    //      printf("%"PRIu64"\t", v_exp[i][j]);
-    //  }
-    //  printf("\n");
-    // }
 
     std::vector<int> smooth_num_back = smooth_num;
     bin_matrix_t m1(p_smooth.size() + 1);
@@ -300,42 +170,15 @@ int main (int argc, char *argv[])
     if (find_solution(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy ,X, Y, p, q, N) >= 0)
     {
         printf("Success\n");
+        DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", p_idx, q_idx, p, q);
         return 1;
     }
     else
     {
         printf("ERROR \n");
+        DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", p_idx, q_idx, p, q);
         return 0;
     }
-    // m1.show();
-    // for (int i = 0; i < m1.m_size() + 1; ++i)
-    // {
-    //     // unit_num[i] = 0;
-    //     m1.filled++;
-    //     for (int j = 0; j < m1.m_size(); ++j)
-    //     {
-    //         if(i == j)
-    //             m1.matrix[i][j] = 1;
-    //         else
-    //             m1.matrix[i][j] = 0;
 
-    //         // DEBUG (3,"%"PRIu64"\t", unit_matrix[i][j]);
-    //     }
-    //     // DEBUG (3,"\n");
-    // }
-    // m1.filled++;
-    // m1.matrix[6][1] = 1;
-    // m1.matrix[6][4] = 1;
-    // m1.show();
-    // int null_line = m1.resolve_matrix();
-    // m1.show();
-    // printf("null_line %d\n",null_line );
-    // m1.show();
-
-    // find_solution(m1, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N);
-
-    // printf("\n");
-    // printf("exit\n");
-    // exit (0);
 
 }
