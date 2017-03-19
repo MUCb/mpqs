@@ -79,10 +79,10 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
                 if(res == trunc(res)) {
                     v_extra_exp[y_number] = res;
                     V[y_number] /= V[y_number];
-                    // if(print_flag){
+                    if(print_flag){
                         DEBUG (0, "found  ========================================= %f  number %d\n",res, y_number);
                         print_flag = 0;
-                    // }
+                    }
                     DEBUG (2, "Y = %li\tV = %li\n",Y[y_number], V[y_number]);
                     // DEBUG (0, "iter %d\n",);
 
