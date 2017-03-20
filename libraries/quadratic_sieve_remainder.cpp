@@ -34,7 +34,7 @@ void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint6
 }
 
 
-void vec_mod2(std::vector<uint64_t> &v_exp, int &null_flag) {
+void vec_mod2(std::vector<uint64_t> v_exp, int &null_flag) {
     // modulo-2 division 
     null_flag = 1;
     for (   int exponent_num = 0;

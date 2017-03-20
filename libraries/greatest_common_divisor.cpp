@@ -36,7 +36,6 @@ uint64_t euclid_gcd(const std::vector<long>& X,
             for (int i = 0; i < tmp_v.size(); ++i)
             {
                 tmp_v[i] = tmp_v[i] + v_exp[iterator[j]][i];
-                
             }
 
             DEBUG(2, "X %lu\tY %ld\n", X[iterator[j]], Y[iterator[j]]); 
