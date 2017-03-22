@@ -63,6 +63,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         DEBUG (2, "smooth numbers\n");
 
         int p_size = 2* log(N);
+        // int p_size = 12;
+
         for (int i = 2; p_smooth.size() < p_size; ++i) // 2 log n
         {
             p_smooth.push_back(prime[i]);
@@ -136,6 +138,8 @@ BOOST_AUTO_TEST_CASE(test_2)
             
             if(V[y_number] == -1 || V[y_number] == 1){
                 
+
+
                 DEBUG (3, "Y = %li\n",Y[y_number]);
 
                 // modulo-2 division 
@@ -160,6 +164,19 @@ BOOST_AUTO_TEST_CASE(test_2)
                     }
                     //##########################
                 } else {
+                    int break_flag = 0;
+                    for (int i = 0; i < smooth_num.size(); ++i)
+                    {
+                        if (Y[smooth_num[i]] == Y[y_number])
+                        {
+                            break_flag = 1;
+                            break;
+                        }
+                    }
+
+                    if(break_flag)
+                        continue;
+
                     smooth_num.push_back(y_number);
                     // ERROR("filled1 %d\n", m_all.filled);
                     if (m_all.add_row(v_exp[y_number]) == 1){

@@ -163,11 +163,13 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         // make_smooth_numbers(p_smooth, size_B, N);
 
-        if ((p_smooth.size() < size_B))
-        {
-            ERROR ("to small primes \n");
-            exit (0);
-        }
+        // if ((p_smooth.size() < size_B))
+        // {
+        //     ERROR ("to small primes \n");
+        //     exit (0);
+        // }
+
+
 
         // selecting the sieving interval
         uint32_t M;
@@ -219,8 +221,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         #define NEGATIVE_SIGN    0 
         
         // v_exp[i].size()-1
+        uint64_t found = 0;
         for (int y_number = 0; y_number < V.size(); ++y_number) {
-
             if(V[y_number] < 0 )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
 
