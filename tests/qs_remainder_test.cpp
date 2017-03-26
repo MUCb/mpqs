@@ -451,7 +451,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         V = Y;
         // add sign to exponent matrix
         #define NEGATIVE_SIGN    0 
-        
         // v_exp[i].size()-1
         uint64_t found = 0;
         for (int y_number = 0; y_number < V.size(); ++y_number) {
@@ -465,7 +464,6 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 
                 DEBUG (3, "Y = %li\n",Y[y_number]);
-
                 // modulo-2 division 
                 int null_flag = 1;
                 vec_mod2(v_exp[y_number], null_flag);
@@ -501,8 +499,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                     if(break_flag)
                         continue;
 
-
-
                     smooth_num.push_back(y_number);
                     // ERROR("filled1 %d\n", m_all.filled);
                     if (m_all.add_row(v_exp[y_number]) == 1){
@@ -512,7 +508,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                         std::vector<int64_t> P111;
                         if (null_line > -1)
                         {
-                            DEBUG(2, "NUll line  %d=============", null_line);
+                            DEBUG(2, "line %d NUll line  %d=============", __LINE__ , null_line);
 
 
                             for (uint64_t col = 0; col <  m_all_copy.filled; ++col)
@@ -537,22 +533,26 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 break;
                             } else {
                                 int max_i = 0;
-                                DEBUG (3," null_line %d\n",null_line );
+                                DEBUG (3,"line %d null_line %d\n",__LINE__, null_line );
                                 m_all.show();
                                 max_i = m_all.max_unit_num(m_all_copy.unit_matrix[null_line]);
                                 DEBUG (3," iter %d\n",max_i );
 
-                                DEBUG (3," line %d\n",smooth_num[max_i]);
+                                DEBUG (3," smooth num %d\n",smooth_num[max_i]);
+                                DEBUG (3," Y %d\n",Y[smooth_num[max_i]]);
 
                                 DEBUG (3," delete before \n");
                                 m_all.show();
-                                m_all.delete_row( smooth_num[max_i] );
+                                m_all.delete_row( max_i );
                                 DEBUG (3," delete after \n");
                                 m_all.show();
                                 DEBUG (3," delete before \n");
                                 m_all_copy.show();
-                                m_all_copy.delete_row( smooth_num[max_i] );
-                                DEBUG (3," delete after \n");
+                                m_all_copy.delete_row( max_i );
+                                m_all_copy = m_all;
+                                // m_all_copy.matrix = m_all.matrix;
+                                // m_all_copy.unit_matrix = m_all.unit_matrix;
+                                DEBUG (3," delete after ====\n");
                                 m_all_copy.show();
 
 

@@ -88,29 +88,20 @@ BOOST_AUTO_TEST_CASE(test_5)
 
 
 
+BOOST_AUTO_TEST_CASE(test_6) 
+{
+    // for (int i = matrix_size; i >= 0; i--) {
+    //     if(i == matrix_size + 1)
+    //         BOOST_TEST(m1.delete_row(i) == 0);
+    //     else
+    //         BOOST_TEST(m1.delete_row(i) == 1);
+    // }
+    m1.show();
+    BOOST_TEST(m1.delete_row(3) == 1);
+    m1.show();
 
-
-
-
-
-
-
-
-
-
-
-
-
-// BOOST_AUTO_TEST_CASE(test_6) 
-// {
-//     for (int i = matrix_size; i >= 0; i--) {
-//         if(i == matrix_size + 1)
-//             BOOST_TEST(m1.delete_row(i) == 0);
-//         else
-//             BOOST_TEST(m1.delete_row(i) == 1);
-//     }
-//     BOOST_TEST(m1.filled == 0);
-// }
+    // BOOST_TEST(m1.filled == 0);
+}
 
 // BOOST_AUTO_TEST_CASE(test_7) 
 // {
