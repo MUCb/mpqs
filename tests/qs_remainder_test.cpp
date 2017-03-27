@@ -14,7 +14,7 @@
 #include <inttypes.h>
 #include "primes.h"
 
-int showDebugMsg = 3;
+int showDebugMsg = 0;
 
 // BOOST_AUTO_TEST_CASE(test_1) 
 // {
@@ -341,13 +341,13 @@ int showDebugMsg = 3;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
-    for (int iter_1 = 10; iter_1 < 11 ; iter_1++) 
-    // for (int iter_1 = 3; iter_1 < 200 ; iter_1++) 
+    // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
+    for (int iter_1 = 3; iter_1 < 200 ; iter_1++) 
     {
 
     // for (int iter = 7000; iter < 7200 ; iter++) 
-    // for (int iter = iter_1 + 1; iter < 200 ; iter++) 
-    for (int iter = 10; iter < 11 ; iter++) 
+    for (int iter = iter_1 + 1; iter < 200 ; iter++) 
+    // for (int iter = 3; iter < 4 ; iter++) 
     {
 
     // for (int iter = 15; iter < 16 ; iter++) {
@@ -360,8 +360,8 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[235]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
-        iter = 98;
-        iter_1 = 15;
+        // iter = 17;
+        // iter_1 = 3;
 
         uint64_t p = prime[iter_1];  // 10^8
         uint64_t q = prime[iter];
@@ -437,12 +437,13 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
+        std::vector<int> smooth_num_all;
         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
         bin_matrix_t m_all(p_smooth.size() + 1);
         bin_matrix_t m_all_copy(p_smooth.size() + 1);
         bin_matrix_t m_counter(p_smooth.size() + 1);
-        std::vector<uint64_t> counter(p_smooth.size() + 1);
+        std::vector<uint64_t> v_counter(p_smooth.size() + 1);
         // DEBUG(1, "smooth %d\n", p_smooth.size());
         // DEBUG(1, "size ========= %d\n", m_all.collumn_size);
         // break;
@@ -487,9 +488,9 @@ BOOST_AUTO_TEST_CASE(test_2)
                     //##########################
                 } else {
                     int break_flag = 0;
-                    for (int i = 0; i < smooth_num.size(); ++i)
+                    for (int i = 0; i < smooth_num_all.size(); ++i)
                     {
-                        if (Y[smooth_num[i]] == Y[y_number])
+                        if (Y[smooth_num_all[i]] == Y[y_number])
                         {
                             break_flag = 1;
                             break;
@@ -500,9 +501,44 @@ BOOST_AUTO_TEST_CASE(test_2)
                         continue;
 
                     smooth_num.push_back(y_number);
+                    smooth_num_all.push_back(y_number);
                     // ERROR("filled1 %d\n", m_all.filled);
                     if (m_all.add_row(v_exp[y_number]) == 1){
                         m_all_copy.add_row(v_exp[y_number]);
+
+                        int exponent_num = (v_exp[y_number].size() - 1);
+                        int count_flag = -2;
+                        // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
+
+                        while (v_exp[y_number][exponent_num] == 0 && exponent_num >= 0){
+                            exponent_num--;
+                        }
+                        DEBUG (2,"%s %d exponent_num %d\n", __func__, __LINE__, exponent_num);
+                        if (exponent_num >= 0)
+                        {
+                            count_flag = add_counter_row(m_counter ,v_counter ,exponent_num);
+
+                            DEBUG (2,"counter== \n");
+                            for (int i = 0; i < v_counter.size(); ++i) {
+                                DEBUG (2,"%d\t", v_counter[i]);
+                                
+                            }
+                            DEBUG (2,"\n");
+                            DEBUG(2, "%s %d\n", __func__, __LINE__);
+                            m_counter.show();
+                            m_all.show();
+                            DEBUG(2, "%s %d\n", __func__, __LINE__);
+                        }
+                        else
+                        {
+                            ERROR("exponent_num error %s %d\n", __func__,__LINE__);
+                            exit (0);
+                        }
+                        DEBUG (2,"%s %d count_flag = %d\n", __func__, __LINE__, count_flag);
+                        
+
+                        
+                        DEBUG (2,"size num = %d\t", smooth_num.size());
                         int null_line = m_all_copy.make_upper_triangular();
 
                         std::vector<int64_t> P111;
@@ -516,6 +552,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m_all_copy.unit_matrix[null_line][col]);
                                 if( m_all_copy.unit_matrix[null_line][col] > 0)
                                 {
+                                    DEBUG (2,"size num = %d\t", smooth_num.size());
                                     DEBUG (2,"num = %d\t", smooth_num[col]);
                                     DEBUG (2,"Y  = %ld\n", Y[smooth_num[col]]);
                                     P111.push_back(smooth_num[col]);
@@ -546,8 +583,8 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 m_all.delete_row( max_i );
                                 DEBUG (3," delete after \n");
                                 m_all.show();
-                                DEBUG (3," delete before \n");
-                                m_all_copy.show();
+                                // DEBUG (3," delete before \n");
+                                // m_all_copy.show();
                                 m_all_copy.delete_row( max_i );
                                 m_all_copy = m_all;
                                 // m_all_copy.matrix = m_all.matrix;
@@ -556,7 +593,26 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 m_all_copy.show();
 
 
+                                DEBUG (3," delete before m_counter\n");
+                                m_counter.show();
+                                m_counter.delete_row( max_i );
+                                DEBUG (3," delete after m_counter\n");
+                                m_counter.show();
+
+                                DEBUG (2,"%s %d counter\n", __func__, __LINE__);
+                                DEBUG (2,"%s %d exponent_num %d\n", __func__, __LINE__, exponent_num);
+                                DEBUG (2,"%s %d v_counter size %d\n", __func__, __LINE__, v_counter.size());
+                                for (int i = exponent_num; i < v_counter.size(); ++i) {
+                                    v_counter[i]--;
+                                    DEBUG (2,"%d\t", v_counter[i]);
+                                    
+                                }
+                                DEBUG (2,"\n");
+
+
+
                                 smooth_num.erase(smooth_num.begin() + max_i);
+                                DEBUG (2,"size num = %d\t", smooth_num.size());
                                 continue;
                             }
                         }
@@ -564,31 +620,30 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 
 
-                        int exponent_num = (v_exp[y_number].size() - 1);
-                        // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
-
-                        while (v_exp[y_number][exponent_num] == 0 && exponent_num >= 0){
-                            exponent_num--;
-                        }
+                            DEBUG(2, "%s %d\n", __func__, __LINE__);
 
                         if (exponent_num >= 0)
                         {
-                            int count_flag = 0;
-                            count_flag = add_counter_row(m_counter ,counter ,exponent_num);
-
-                            if (count_flag)
+                            // int count_flag = 0;
+                            // count_flag = add_counter_row(m_counter ,counter ,exponent_num);
+                            DEBUG(2, "%s %d\n", __func__, __LINE__);
+                            // m_counter.show();
+                            // m_all.show();
+                            // DEBUG(2, "%s %d\n", __func__, __LINE__);
+                            
+                            if (count_flag > -1)
                             {
                                 bin_matrix_t m_selected(p_smooth.size() + 1);
                                 bin_matrix_t m_selected_copy(p_smooth.size() + 1);
                                 std::vector<int> smooth_num_selected;
                                 std::vector<int> smooth_num_selected_iter;
 
-                                DEBUG(2, "find limit %d", exponent_num);
+                                DEBUG(2, "find limit %d\n", count_flag);
                                 m_counter.show();
                                 m_all.show();
                                 for (int i = 0; i < m_counter.matrix.size(); ++i)
                                 {
-                                    if (m_counter.matrix[i][exponent_num] == 1)
+                                    if (m_counter.matrix[i][count_flag] == 1)
                                     {
                                         m_selected.add_row(m_all.matrix[i]);
                                         smooth_num_selected.push_back(smooth_num[i]);
@@ -598,6 +653,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 m_selected.show();
                                 m_selected_copy= m_selected;
                                 null_line = m_selected.resolve_matrix();
+                                // exit (0);
                                 // int null_line = m_selected.make_upper_triangular();
                                 std::vector<int64_t> P11;
 
@@ -638,18 +694,24 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         m_all.delete_row( smooth_num_selected_iter[max_i] );
                                         DEBUG (3," delete after \n");
                                         m_all.show();
-                                        DEBUG (3," delete before \n");
+                                        DEBUG (3," delete before m_counter\n");
                                         m_counter.show();
                                         m_counter.delete_row( smooth_num_selected_iter[max_i] );
-                                        DEBUG (3," delete after \n");
+                                        DEBUG (3," delete after m_counter\n");
                                         m_counter.show();
 
-                                        for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
-                                            counter[i]--;
+                                        for (int i = exponent_num; i < v_counter.size(); ++i) {
+                                            v_counter[i]--;
                                         }
+
+                                        m_all_copy.delete_row( smooth_num_selected_iter[max_i]);
+                                        m_all_copy = m_all;
 
                                         smooth_num.erase(smooth_num.begin() + smooth_num_selected_iter[max_i]);
                                     }
+                                } else
+                                {
+                                    ERROR ("reslove matrix failed\n");
                                 }
 
                                 // exit(0);

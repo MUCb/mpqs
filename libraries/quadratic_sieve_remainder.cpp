@@ -48,7 +48,7 @@ void vec_mod2(std::vector<uint64_t> v_exp, int &null_flag) {
     }
 }
 
-int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int &exponent_num)
+int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num)
 {
     std::vector<uint64_t> tmp(counter.size());
     // for (int i = exponent_num; i < v_exp[y_number].size(); ++i)
@@ -69,7 +69,10 @@ int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int &expon
             break;
         }
     }
-    return count_flag;
+    if (count_flag)
+        return exponent_num;
+    else
+        return -1;
 }
 
 int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
