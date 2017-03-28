@@ -25,6 +25,7 @@ int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp,
 
 
 long prime_factorisation(long  Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp);
+int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int max_exponent_num, int max_i);
 int zero_vector_mod2_check(std::vector<uint64_t> v_exp);
 int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num);
 #endif

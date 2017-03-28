@@ -77,6 +77,39 @@ int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int expone
         return -1;
 }
 
+
+int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int max_exponent_num, int max_i)
+{
+    DEBUG (3," delete before m2\n");
+    m2.show();
+    int ret = m2.delete_row( max_i );
+    DEBUG (3," delete after m2\n");
+    m2.show();
+    if(!ret){
+        ERROR("delete matrix row");
+        return ret;
+    }
+
+    DEBUG (3,"%s %d max_exponent_num %d\n", __func__, __LINE__, max_exponent_num);
+    DEBUG (3,"%s %d counter size %d\n", __func__, __LINE__, counter.size());
+    if (max_exponent_num < counter.size())
+    {
+        for (int i = max_exponent_num; i < counter.size(); ++i) {
+            counter[i]--;
+            DEBUG (3,"%d\t", counter[i]);
+            
+        }
+        DEBUG (3,"\n");
+        
+    }
+    else
+    {
+        ERROR("max_exponent_num too smal\n");
+        ret = 0;
+    }
+    return ret;
+}
+
 int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number)
 {
