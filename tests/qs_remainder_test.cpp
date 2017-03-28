@@ -448,19 +448,19 @@ BOOST_AUTO_TEST_CASE(test_2)
         // DEBUG(1, "size ========= %d\n", m_all.collumn_size);
         // break;
 
-        std::vector<long> V;
-        V = Y;
+        std::vector<long> Y_factored(Y.size());
+        // Y_factored = Y;
         // add sign to exponent matrix
         #define NEGATIVE_SIGN    0 
         // v_exp[i].size()-1
         uint64_t found = 0;
-        for (int y_number = 0; y_number < V.size(); ++y_number) {
-            if(V[y_number] < 0 )
+        for (int y_number = 0; y_number < Y.size(); ++y_number) {
+            if(Y[y_number] < 0 )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
 
-            prime_factorisation(V[y_number], p_smooth, v_exp[y_number]);
+            Y_factored[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
             
-            if(V[y_number] == -1 || V[y_number] == 1){
+            if(Y_factored[y_number] == -1 || Y_factored[y_number] == 1){
                 
                 DEBUG (3, "Y = %li\n",Y[y_number]);
                 
@@ -472,7 +472,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                 // check if we alredy have null vector
                 // skip negative value !!!!
-                if (null_flag && V[y_number] > 0) {
+                if (null_flag && Y_factored[y_number] > 0) {
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
                     found = euclid_gcd( X, Y, tmp, p, q, N, v_exp, p_smooth);

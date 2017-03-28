@@ -10,7 +10,7 @@
 #define FIRST_VALUE    1
 
 
-void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp)
+long prime_factorisation(long  Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp)
 {
     for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
                         smooth_iter < p_smooth.size(); 
@@ -18,19 +18,20 @@ void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint6
     {
         long int tmp;
         do{
-            tmp = V % p_smooth[smooth_iter];
-            DEBUG (4, "v = %10li\t",V);
+            tmp = Y % p_smooth[smooth_iter];
+            DEBUG (4, "y = %10li\t",Y);
             DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
             DEBUG (4, "tmp = %li\n",tmp);
             if(tmp == 0){
-                V = V / p_smooth[smooth_iter];
+                Y = Y / p_smooth[smooth_iter];
                 v_exp[exponent_num] += 1; 
             }
         } while (tmp == 0);
 
-        if(V == -1 || V == 1)
+        if(Y == -1 || Y == 1)
             break;
     }
+    return Y;
 }
 
 
