@@ -190,10 +190,10 @@ int showDebugMsg = 0;
 
 //                         if (exponent_num >= 0)
 //                         {
-//                             int count_flag = 0;
-//                             count_flag = add_counter_row(m_counter ,counter ,exponent_num);
+//                             int count_limit = 0;
+//                             count_limit = add_counter_row(m_counter ,counter ,exponent_num);
 
-//                             if (count_flag)
+//                             if (count_limit)
 //                             {
 //                                 bin_matrix_t m_selected(p_smooth.size() + 1);
 //                                 bin_matrix_t m_selected_copy(p_smooth.size() + 1);
@@ -506,7 +506,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                         m_all_copy.add_row(v_exp[y_number]);
 
                         int max_exponent_num = (v_exp[y_number].size() - 1);
-                        int count_flag = -2;
+                        int count_limit = -2;
                         // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
 
                         while (v_exp[y_number][max_exponent_num] == 0 && max_exponent_num >= 0){
@@ -515,9 +515,9 @@ BOOST_AUTO_TEST_CASE(test_2)
                         if (max_exponent_num >= 0)
                         {
                             DEBUG (2,"%s %d max_exponent_num %d\n", __func__, __LINE__, max_exponent_num);
-                            count_flag = add_counter_row(m_counter ,v_counter ,max_exponent_num);
+                            count_limit = add_counter_row(m_counter ,v_counter ,max_exponent_num);
 
-                            DEBUG (2,"%s %d count_flag = %d\n", __func__, __LINE__, count_flag);
+                            DEBUG (2,"%s %d count_limit = %d\n", __func__, __LINE__, count_limit);
                             // DEBUG (2,"counter== \n");
                             // for (int i = 0; i < v_counter.size(); ++i) {
                             //     DEBUG (2,"%d\t", v_counter[i]);
@@ -560,7 +560,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             // int found = 0;
                             found = euclid_gcd( X, Y, P111, p, q, N, v_exp, p_smooth);
                             // printf("found %lu\n", found);
-                            m_all_copy.show();
+                            // m_all_copy.show();
                             if (found) {
                                 DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
                                 // exit( null_line);
@@ -568,7 +568,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             } else {
                                 int max_i = 0;
                                 DEBUG (3,"line %d null_line %d\n",__LINE__, null_line );
-                                m_all.show();
+                                // m_all.show();
                                 max_i = m_all.max_unit_num(m_all_copy.unit_matrix[null_line]);
                                 DEBUG (3," iter %d\n",max_i );
 
@@ -605,26 +605,20 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                         if (max_exponent_num >= 0)
                         {
-                            // int count_flag = 0;
-                            // count_flag = add_counter_row(m_counter ,counter ,exponent_num);
-                            DEBUG(2, "%s %d\n", __func__, __LINE__);
-                            // m_counter.show();
-                            // m_all.show();
-                            // DEBUG(2, "%s %d\n", __func__, __LINE__);
                             
-                            if (count_flag > -1)
+                            if (count_limit > -1)
                             {
                                 bin_matrix_t m_selected(p_smooth.size() + 1);
                                 bin_matrix_t m_selected_copy(p_smooth.size() + 1);
                                 std::vector<int> smooth_num_selected;
                                 std::vector<int> smooth_num_selected_iter;
 
-                                DEBUG(2, "find limit %d\n", count_flag);
+                                DEBUG(2, "find limit %d\n", count_limit);
                                 m_counter.show();
                                 m_all.show();
                                 for (int i = 0; i < m_counter.matrix.size(); ++i)
                                 {
-                                    if (m_counter.matrix[i][count_flag] == 1)
+                                    if (m_counter.matrix[i][count_limit] == 1)
                                     {
                                         m_selected.add_row(m_all.matrix[i]);
                                         smooth_num_selected.push_back(smooth_num[i]);
