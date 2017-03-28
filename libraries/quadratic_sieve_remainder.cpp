@@ -34,9 +34,9 @@ void prime_factorisation(long  &V, std::vector<long> p_smooth, std::vector<uint6
 }
 
 
-void vec_mod2(std::vector<uint64_t> v_exp, int &null_flag) {
+int zero_vector_mod2_check(std::vector<uint64_t> v_exp) {
     // modulo-2 division 
-    null_flag = 1;
+    int null_flag = 1;
     for (   int exponent_num = 0;
                 exponent_num < v_exp.size(); 
                 exponent_num++ )
@@ -46,6 +46,7 @@ void vec_mod2(std::vector<uint64_t> v_exp, int &null_flag) {
         if (v_exp[exponent_num] != 0)
             null_flag = 0;
     }
+    return null_flag;
 }
 
 int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num)

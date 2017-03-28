@@ -462,20 +462,17 @@ BOOST_AUTO_TEST_CASE(test_2)
             
             if(V[y_number] == -1 || V[y_number] == 1){
                 
-
-
                 DEBUG (3, "Y = %li\n",Y[y_number]);
+                
                 // modulo-2 division 
                 int null_flag = 1;
-                vec_mod2(v_exp[y_number], null_flag);
+                null_flag = zero_vector_mod2_check(v_exp[y_number]);
                 
                 DEBUG (3, "%ld\n", Y[y_number]);
+
                 // check if we alredy have null vector
                 // skip negative value !!!!
-                if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
-                    // solution_candidates_number.push_back(y_number);
-
-                    //    will be added later  ##########################
+                if (null_flag && V[y_number] > 0) {
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
                     found = euclid_gcd( X, Y, tmp, p, q, N, v_exp, p_smooth);
@@ -485,7 +482,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                         break;
                         // exit(0);
                     }
-                    //##########################
                 } else {
                     int break_flag = 0;
                     for (int i = 0; i < smooth_num_all.size(); ++i)
