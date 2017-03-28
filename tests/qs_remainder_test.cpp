@@ -567,6 +567,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 break;
                             } else {
                                 int max_i = 0;
+                                int ret = 0;
                                 DEBUG (3,"line %d null_line %d\n",__LINE__, null_line );
                                 // m_all.show();
                                 max_i = m_all.max_unit_num(m_all_copy.unit_matrix[null_line]);
@@ -575,29 +576,20 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 DEBUG (3," smooth num %d\n",smooth_num[max_i]);
                                 DEBUG (3," Y %d\n",Y[smooth_num[max_i]]);
 
-                                DEBUG (3," delete before \n");
-                                m_all.show();
-                                m_all.delete_row( max_i );
-                                DEBUG (3," delete after \n");
-                                m_all.show();
-                                // DEBUG (3," delete before \n");
-                                // m_all_copy.show();
-                                m_all_copy.delete_row( max_i );
-                                m_all_copy = m_all;
-                                // m_all_copy.matrix = m_all.matrix;
-                                // m_all_copy.unit_matrix = m_all.unit_matrix;
-                                DEBUG (3," delete after ====\n");
-                                m_all_copy.show();
+                                ret = clean_matrix(m_all, m_all_copy,smooth_num, max_i);
+                                if (!ret )
+                                {
+                                    ERROR("clean_matrix");
+                                    exit(0);
+                                }
 
-                                int ret =  delete_counter_row(m_counter, v_counter, max_exponent_num, max_i);
+                                ret =  delete_counter_row(m_counter, v_counter, max_exponent_num, max_i);
                                 if (!ret )
                                 {
                                     ERROR("delete_counter_row");
                                     exit(0);
                                 }
 
-                                smooth_num.erase(smooth_num.begin() + max_i);
-                                DEBUG (3,"size num = %d\t", smooth_num.size());
                                 continue;
                             }
                         }
@@ -657,6 +649,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         break;
                                     } else {
                                         int max_i = 0;
+                                        int ret = 0;
                                         DEBUG (3," null_line %d\n",null_line );
                                         m_selected_copy.show();
                                         max_i = m_selected_copy.max_unit_num(m_selected.unit_matrix[null_line]);
@@ -664,30 +657,24 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                                         DEBUG (3," line %d\n",smooth_num_selected_iter[max_i]);
 
-                                        DEBUG (3," delete before \n");
-                                        m_all.show();
-                                        m_all.delete_row( smooth_num_selected_iter[max_i] );
-                                        DEBUG (3," delete after \n");
-                                        m_all.show();
+                                        ret = clean_matrix(m_all, m_all_copy,smooth_num, smooth_num_selected_iter[max_i]);
+                                        if (!ret )
+                                        {
+                                            ERROR("clean_matrix");
+                                            exit(0);
+                                        }
 
-                                        int ret =  delete_counter_row(m_counter, v_counter, max_exponent_num, smooth_num_selected_iter[max_i]);
+                                        ret =  delete_counter_row(m_counter, v_counter, max_exponent_num, smooth_num_selected_iter[max_i]);
                                         if (!ret )
                                         {
                                             ERROR("delete_counter_row");
                                             exit(0);
                                         }
 
-                                        m_all_copy.delete_row( smooth_num_selected_iter[max_i]);
-                                        m_all_copy = m_all;
-
-                                        smooth_num.erase(smooth_num.begin() + smooth_num_selected_iter[max_i]);
                                     }
-                                } else
-                                {
+                                } else {
                                     ERROR ("reslove matrix failed\n");
                                 }
-
-                                // exit(0);
                             }
                         }
                         else{
@@ -696,22 +683,11 @@ BOOST_AUTO_TEST_CASE(test_2)
                             // exit(0);
                             break;
                         }
-
-                        // ERROR("%s %d\n", __func__, __LINE__);
-                        // m_all.show();
-                        // ERROR("%s %d\n", __func__, __LINE__);
-
-                        //  make_upper_triangular will be added later 
-                        // int null_line = m_all.make_upper_triangular();
-                        // if (null_line != -1){
-                        //     exit(0);
-                        // }
                     }
                     else
                     {
                         ERROR("cant add aaaaa\n");
                         DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
-                        // exit(0);
                         break;
                     }
                 }
@@ -721,9 +697,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         if (!found)
         {
             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
-            // DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
             continue;
-            // exit(0);
         }
     }
     }

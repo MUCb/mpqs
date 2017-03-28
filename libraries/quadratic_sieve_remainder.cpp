@@ -77,6 +77,36 @@ int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int expone
         return -1;
 }
 
+int clean_matrix(bin_matrix_t &m_all, bin_matrix_t &m_all_copy, std::vector<int> &smooth_num, int max_i)
+{
+    int ret = 0;
+    DEBUG (3," delete before \n");
+    m_all.show();
+    ret = m_all.delete_row( max_i);
+    if(!ret){
+        ERROR("%s %d delete matrix row\n", __func__, __LINE__);
+        return ret;
+    }
+    DEBUG (3," delete after \n");
+    m_all.show();
+
+    ret = m_all_copy.delete_row( max_i);
+    if(!ret){
+        ERROR("%s %d delete matrix row\n", __func__, __LINE__);
+        return ret;
+    }
+    m_all_copy = m_all;
+
+    if (max_i <= smooth_num.size()){
+        smooth_num.erase(smooth_num.begin() + max_i);
+    }
+    else
+    {
+        ERROR("%s %d max_i too smal\n", __func__, __LINE__);
+        ret = 0;
+    }
+    return ret;
+}
 
 int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int max_exponent_num, int max_i)
 {
@@ -86,7 +116,7 @@ int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int max
     DEBUG (3," delete after m2\n");
     m2.show();
     if(!ret){
-        ERROR("delete matrix row");
+        ERROR("%s %d delete matrix row\n", __func__, __LINE__);
         return ret;
     }
 
@@ -104,7 +134,7 @@ int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int max
     }
     else
     {
-        ERROR("max_exponent_num too smal\n");
+        ERROR("%s %d max_exponent_num too smal\n", __func__, __LINE__);
         ret = 0;
     }
     return ret;
