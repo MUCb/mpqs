@@ -434,7 +434,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         
         DEBUG (2, "X size  = %d\n",X.size());
         // simple sieve 
-        std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
         std::vector<int> smooth_num_history;
@@ -540,7 +539,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                         if (null_line > -1)
                         {
-                            std::vector<int64_t> P111;
+                            std::vector<int64_t> XYiters;
                             DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);
                             for (uint64_t col = 0; col <  m_all.filled; ++col)
                             {
@@ -550,13 +549,13 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     DEBUG (3,"size num = %d\t", smooth_num.size());
                                     DEBUG (3,"num = %d\t", smooth_num[col]);
                                     DEBUG (3,"Y  = %ld\n", Y[smooth_num[col]]);
-                                    P111.push_back(smooth_num[col]);
+                                    XYiters.push_back(smooth_num[col]);
                                 }
                             }
                             DEBUG (2,"\n");
 
                             // int found = 0;
-                            found = euclid_gcd( X, Y, P111, p, q, N, v_exp, p_smooth);
+                            found = euclid_gcd( X, Y, XYiters, p, q, N, v_exp, p_smooth);
                             // printf("found %lu\n", found);
                             // m_all.show();
                             if (found) {
@@ -567,7 +566,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 int max_i = 0;
                                 int ret = 0;
                                 DEBUG (3,"line %d null_line %d\n",__LINE__, null_line );
-                                // count_limit.show();
+
                                 max_i = m_all_unchanged.max_unit_num(m_all.unit_matrix[null_line]);
                                 DEBUG (3," iter %d\n",max_i );
 
@@ -620,7 +619,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 null_line = m_selected.resolve_matrix();
                                 // exit (0);
                                 // int null_line = m_selected.make_upper_triangular();
-                                std::vector<int64_t> P11;
+                                std::vector<int64_t> XYiters;
 
                                 if (null_line > -1)
                                 {
@@ -632,13 +631,13 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         {
                                             DEBUG (2,"num = %d\t", smooth_num_selected[col]);
                                             DEBUG (2,"Y  = %ld\n", Y[smooth_num_selected[col]]);
-                                            P11.push_back(smooth_num_selected[col]);
+                                            XYiters.push_back(smooth_num_selected[col]);
                                         }
                                     }
                                     DEBUG (2,"\n");
 
                                     // int found = 0;
-                                    found = euclid_gcd( X, Y, P11, p, q, N, v_exp, p_smooth);
+                                    found = euclid_gcd( X, Y, XYiters, p, q, N, v_exp, p_smooth);
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found) {
