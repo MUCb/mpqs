@@ -440,12 +440,12 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<int> smooth_num_history;
         DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
+        bin_matrix_t m_all_unchanged(p_smooth.size() + 1);
         bin_matrix_t m_all(p_smooth.size() + 1);
-        bin_matrix_t m_all_copy(p_smooth.size() + 1);
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> v_counter(p_smooth.size() + 1);
         // DEBUG(1, "smooth %d\n", p_smooth.size());
-        // DEBUG(1, "size ========= %d\n", m_all.collumn_size);
+        // DEBUG(1, "size ========= %d\n", m_all_unchanged.collumn_size);
         // break;
 
         std::vector<long> Y_factored(Y.size());
@@ -501,9 +501,9 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                     smooth_num.push_back(y_number);
                     smooth_num_history.push_back(y_number);
-                    // ERROR("filled1 %d\n", m_all.filled);
-                    if (m_all.add_row(v_exp[y_number]) == 1){
-                        m_all_copy.add_row(v_exp[y_number]);
+                    // ERROR("filled1 %d\n", m_all_unchanged.filled);
+                    if (m_all_unchanged.add_row(v_exp[y_number]) == 1){
+                        m_all.add_row(v_exp[y_number]);
 
                         int max_exponent_num = (v_exp[y_number].size() - 1);
                         int count_limit = -2;
@@ -526,7 +526,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             // DEBUG (2,"\n");
                             // DEBUG(2, "%s %d\n", __func__, __LINE__);
                             // m_counter.show();
-                            // m_all.show();
+                            // m_all_unchanged.show();
                             // DEBUG(2, "%s %d\n", __func__, __LINE__);
                         }
                         else
@@ -536,22 +536,20 @@ BOOST_AUTO_TEST_CASE(test_2)
                         }
                         
                         // DEBUG (2,"size num = %d\t", smooth_num.size());
-                        int null_line = m_all_copy.make_upper_triangular();
+                        int null_line = m_all.make_upper_triangular();
 
                         if (null_line > -1)
                         {
                             std::vector<int64_t> P111;
-                            DEBUG(2, "line %d NUll line  %d=============", __LINE__ , null_line);
-
-
-                            for (uint64_t col = 0; col <  m_all_copy.filled; ++col)
+                            DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);
+                            for (uint64_t col = 0; col <  m_all.filled; ++col)
                             {
-                                DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m_all_copy.unit_matrix[null_line][col]);
-                                if( m_all_copy.unit_matrix[null_line][col] > 0)
+                                DEBUG (3,"matrix[%d][%d] = %ld\n",null_line,col, m_all.unit_matrix[null_line][col]);
+                                if( m_all.unit_matrix[null_line][col] > 0)
                                 {
-                                    DEBUG (2,"size num = %d\t", smooth_num.size());
-                                    DEBUG (2,"num = %d\t", smooth_num[col]);
-                                    DEBUG (2,"Y  = %ld\n", Y[smooth_num[col]]);
+                                    DEBUG (3,"size num = %d\t", smooth_num.size());
+                                    DEBUG (3,"num = %d\t", smooth_num[col]);
+                                    DEBUG (3,"Y  = %ld\n", Y[smooth_num[col]]);
                                     P111.push_back(smooth_num[col]);
                                 }
                             }
@@ -560,7 +558,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             // int found = 0;
                             found = euclid_gcd( X, Y, P111, p, q, N, v_exp, p_smooth);
                             // printf("found %lu\n", found);
-                            // m_all_copy.show();
+                            // m_all.show();
                             if (found) {
                                 DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
                                 // exit( null_line);
@@ -569,14 +567,14 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 int max_i = 0;
                                 int ret = 0;
                                 DEBUG (3,"line %d null_line %d\n",__LINE__, null_line );
-                                // m_all.show();
-                                max_i = m_all.max_unit_num(m_all_copy.unit_matrix[null_line]);
+                                // count_limit.show();
+                                max_i = m_all_unchanged.max_unit_num(m_all.unit_matrix[null_line]);
                                 DEBUG (3," iter %d\n",max_i );
 
-                                DEBUG (3," smooth num %d\n",smooth_num[max_i]);
-                                DEBUG (3," Y %d\n",Y[smooth_num[max_i]]);
+                                // DEBUG (3," smooth num %d\n",smooth_num[max_i]);
+                                // DEBUG (3," Y %d\n",Y[smooth_num[max_i]]);
 
-                                ret = clean_matrix(m_all, m_all_copy,smooth_num, max_i);
+                                ret = clean_matrix(m_all_unchanged, m_all,smooth_num, max_i);
                                 if (!ret )
                                 {
                                     ERROR("clean_matrix");
@@ -601,24 +599,24 @@ BOOST_AUTO_TEST_CASE(test_2)
                             if (count_limit > -1)
                             {
                                 bin_matrix_t m_selected(p_smooth.size() + 1);
-                                bin_matrix_t m_selected_copy(p_smooth.size() + 1);
+                                bin_matrix_t m_selected_unchanged(p_smooth.size() + 1);
                                 std::vector<int> smooth_num_selected;
                                 std::vector<int> smooth_num_selected_iter;
 
                                 DEBUG(2, "find limit %d\n", count_limit);
                                 m_counter.show();
-                                m_all.show();
+                                m_all_unchanged.show();
                                 for (int i = 0; i < m_counter.matrix.size(); ++i)
                                 {
                                     if (m_counter.matrix[i][count_limit] == 1)
                                     {
-                                        m_selected.add_row(m_all.matrix[i]);
+                                        m_selected.add_row(m_all_unchanged.matrix[i]);
                                         smooth_num_selected.push_back(smooth_num[i]);
                                         smooth_num_selected_iter.push_back(i);
                                     }
                                 }
                                 m_selected.show();
-                                m_selected_copy= m_selected;
+                                m_selected_unchanged= m_selected;
                                 null_line = m_selected.resolve_matrix();
                                 // exit (0);
                                 // int null_line = m_selected.make_upper_triangular();
@@ -626,7 +624,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                                 if (null_line > -1)
                                 {
-                                    // DEBUG(2, "collumn size %d\n", m_all.collumn_size);
+                                    // DEBUG(2, "collumn size %d\n", m_all_unchanged.collumn_size);
                                     for (uint64_t col = 0; col <  m_selected.filled; ++col)
                                     {
                                         DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m_selected.unit_matrix[null_line][col]);
@@ -651,13 +649,12 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         int max_i = 0;
                                         int ret = 0;
                                         DEBUG (3," null_line %d\n",null_line );
-                                        m_selected_copy.show();
-                                        max_i = m_selected_copy.max_unit_num(m_selected.unit_matrix[null_line]);
+                                        m_selected_unchanged.show();
+                                        max_i = m_selected_unchanged.max_unit_num(m_selected.unit_matrix[null_line]);
                                         DEBUG (3," iter %d\n",max_i );
+                                        // DEBUG (3," line %d\n",smooth_num_selected_iter[max_i]);
 
-                                        DEBUG (3," line %d\n",smooth_num_selected_iter[max_i]);
-
-                                        ret = clean_matrix(m_all, m_all_copy,smooth_num, smooth_num_selected_iter[max_i]);
+                                        ret = clean_matrix(m_all_unchanged, m_all,smooth_num, smooth_num_selected_iter[max_i]);
                                         if (!ret )
                                         {
                                             ERROR("clean_matrix");
