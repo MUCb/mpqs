@@ -146,7 +146,8 @@ int  bin_matrix_t::make_upper_triangular(void)
     if (filled == 0 || filled == 1 )
         return null_line;
 
-    for (int i = 0; i < filled ; ++i)
+    // for (int i = 0; i < filled ; ++i)
+    while(current_row < filled && current_col < collumn_size)
     {
 
         int row_nonnull;
@@ -161,12 +162,12 @@ int  bin_matrix_t::make_upper_triangular(void)
         row_nonnull, current_row, filled, current_col);
 
         // row should be less then unit_matrix_size , otherwise all value are zero
-        if(row_nonnull == filled ){
+        if(row_nonnull == filled){
             WARN (1, "We havn't find values in column %d \n", current_col);
             current_col++;
             continue;
         } else if( row_nonnull > current_row && row_nonnull < filled) {
-            DEBUG(3, "i = %d row_nonnull = %d\n", i, row_nonnull);
+            DEBUG(3, "row_nonnull = %d\n", row_nonnull);
             matrix[row_nonnull].swap(matrix[current_row]);
             unit_matrix[row_nonnull].swap(unit_matrix[current_row]);
         }

@@ -90,58 +90,42 @@ BOOST_AUTO_TEST_CASE(test_5)
 
 BOOST_AUTO_TEST_CASE(test_6) 
 {
-    // for (int i = matrix_size; i >= 0; i--) {
-    //     if(i == matrix_size + 1)
-    //         BOOST_TEST(m1.delete_row(i) == 0);
-    //     else
-    //         BOOST_TEST(m1.delete_row(i) == 1);
-    // }
-    m1.show();
+    // m1.show();
     BOOST_TEST(m1.delete_row(3) == 1);
-    m1.show();
-
-    // BOOST_TEST(m1.filled == 0);
+    // m1.show();
 }
 
-// BOOST_AUTO_TEST_CASE(test_7) 
-// {
-//     std::vector< std::vector<uint64_t> > v_exp(matrix_size + 2, std::vector<uint64_t> (matrix_size));
-//     v_exp[0] = {1,1,1,1,1};
-//     v_exp[1] = {0,0,0,1,1};
-//     v_exp[2] = {1,1,1,1,0};
-//     v_exp[3] = {0,0,1,1,1};
-//     v_exp[4] = {1,1,0,1,1};
-//     v_exp[5] = {1,1,0,1,0};
+BOOST_AUTO_TEST_CASE(test_7) 
+{
 
-//     for (int i = 0; i < matrix_size+1; ++i) {
-//         BOOST_TEST(m1.add_row(v_exp[i]) == 1);
-//     }
-//     m1.show();
-//     // 4-th line should be a solution
-//     BOOST_TEST(m1.make_upper_triangular() == 4 );
-//     m1.show();
+    for (int i = matrix_size +1; i >= 0; i--) {
+        BOOST_TEST(m1.delete_row(i) == 1);
+    }
+    BOOST_TEST(m1.delete_row(1) == 0);
+}
 
-//     for (int i = matrix_size; i >= 0; i--) {
-//         BOOST_TEST(m1.delete_row(i) == 1);
-//     }
-// }
+const int matrix_size_10 = 10;
+bin_matrix_t m2(matrix_size_10);
 
-// BOOST_AUTO_TEST_CASE(test_9) 
-// {
-//     // std::vector< std::vector<uint64_t> > v_exp(matrix_size + 2, std::vector<uint64_t> (matrix_size));
-//     // v_exp[0] = {1,1,1,1,1};
-//     // v_exp[1] = {0,0,0,1,1};
-//     // v_exp[2] = {1,1,1,1,0};
-//     // v_exp[3] = {0,0,1,1,1};
-//     // v_exp[4] = {1,1,0,1,1};
-//     // v_exp[5] = {1,1,0,1,0};
+BOOST_AUTO_TEST_CASE(test_8) 
+{
+    std::vector< std::vector<uint64_t> > v_exp(4, std::vector<uint64_t> (matrix_size_10));
+    v_exp[0] = {1,1,1,1,1,1,1,1,1,1};
+    v_exp[1] = {0,0,0,0,0,0,0,0,1,0};
+    v_exp[2] = {0,0,0,0,0,0,0,0,1,1};
+    v_exp[3] = {0,0,1,1,1};
+    // v_exp[4] = {1,1,0,1,1};
+    // v_exp[5] = {1,1,0,1,0};
 
-//     // for (int i = 0; i < matrix_size+1; ++i) {
-//     //     BOOST_TEST(m1.add_row(v_exp[i]) == 1);
-//     // }
 
-//     m1.make_upper_triangular();
-// }
+
+    for (int i = 0; i < 3; ++i) {
+        BOOST_TEST(m2.add_row(v_exp[i]) == 1);
+    }
+
+    m2.make_upper_triangular();
+    BOOST_TEST(m2.matrix[2][8] == 0);
+}
 
 
 // // BOOST_AUTO_TEST_CASE(test_10) 

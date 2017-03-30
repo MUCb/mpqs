@@ -6,6 +6,7 @@
 class bin_matrix_t {
 public: 
     int collumn_size;
+    int filled;
     bin_matrix_t();
     bin_matrix_t(int size);
     int add_row(std::vector<uint64_t> v1);
@@ -21,7 +22,6 @@ public:
     std::vector<int> unit_num;
     int row_size;
     int unit_matrix_size;
-    int filled;
     void init_unit(void);
     void show(void);
     int  make_lower_triangular(void);

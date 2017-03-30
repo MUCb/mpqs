@@ -12,9 +12,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include "primes.h"
+#include "primes_10_8.h"
 
-int showDebugMsg = 0;
+int showDebugMsg = 3;
 
 // BOOST_AUTO_TEST_CASE(test_1) 
 // {
@@ -341,13 +341,13 @@ int showDebugMsg = 0;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
-    // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
-    for (int iter_1 = 3; iter_1 < 200 ; iter_1++) 
+    for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
+    // for (int iter_1 = 3; iter_1 < 200 ; iter_1++) 
     {
 
     // for (int iter = 7000; iter < 7200 ; iter++) 
-    for (int iter = iter_1 + 1; iter < 200 ; iter++) 
-    // for (int iter = 3; iter < 4 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 200 ; iter++) 
+    for (int iter = 3; iter < 4 ; iter++) 
     {
 
     // for (int iter = 15; iter < 16 ; iter++) {
@@ -360,20 +360,21 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[235]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
-        // iter = 17;
-        // iter_1 = 3;
+        // 5761456
+        iter = 3243;
+        iter_1 = 2332;
 
         uint64_t p = prime[iter_1];  // 10^8
         uint64_t q = prime[iter];
 
 
         uint64_t N = p * q;
-        uint64_t sqrt_N = 0;
+        // uint64_t sqrt_N = 0;
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
         DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         
-        sqrt_N = trunc(sqrt(N)) + 1;
+        // sqrt_N = trunc(sqrt(N)) + 1;
 
         // selecting the size of the factor base
         double size_B;
@@ -386,6 +387,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         DEBUG (2, "smooth numbers\n");
 
         int p_size = 2* log(N);
+        // int p_size = 2* log(N);
         // int p_size = 12;
 
         for (int i = 2; p_smooth.size() < p_size; ++i) // 2 log n
@@ -405,9 +407,10 @@ BOOST_AUTO_TEST_CASE(test_2)
         // }
 
         // selecting the sieving interval
-        uint32_t M;
+        long M;
         M = exp (sqrt (log(N) * log(log(N))) );
         M = pow(M , 3*sqrt(2)/4);
+        M += 10;
 
         DEBUG (2, "The sieving interval M=%" PRIu32 "\n", M);
         
@@ -415,29 +418,29 @@ BOOST_AUTO_TEST_CASE(test_2)
         
         std::vector<long> X;
         std::vector<long> Y;
-        for (k = 1; k < 3; ++k)
-        {
-            std::vector<long> X1;
-            std::vector<long> Y1;
-            sqrt_Nk = trunc(sqrt(N * k)) + 1;
-            construct_xy(X1, Y1, sqrt_Nk, N, M);
-            X.insert(X.end(), X1.begin(), X1.end());
-            Y.insert(Y.end(), Y1.begin(), Y1.end());
-        }
+        // for (k = 1; k < 6; ++k)
+        // {
+            // std::vector<long> X1;
+            // std::vector<long> Y1;
+            // sqrt_Nk = trunc(sqrt(N * k)) + 1;
+            // construct_xy(X1, Y1, sqrt_Nk, N, M);
+            // X.insert(X.end(), X1.begin(), X1.end());
+            // Y.insert(Y.end(), Y1.begin(), Y1.end());
+        // }
 
-        for (uint64_t i = 0; i < X.size(); ++i)
-        {
-            DEBUG (2, "X = %llu\t",X[i]);
-            DEBUG (2, "Y = %li\t",Y[i]);
-            DEBUG (2, "\n");
-        }
+        // for (uint64_t i = 0; i < X.size(); ++i)
+        // {
+        //     DEBUG (2, "X = %llu\t",X[i]);
+        //     DEBUG (2, "Y = %li\t",Y[i]);
+        //     DEBUG (2, "\n");
+        // }
         
-        DEBUG (2, "X size  = %d\n",X.size());
+        // DEBUG (2, "X size  = %d\n",X.size());
         // simple sieve 
-        std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
+        std::vector< std::vector<uint64_t> > v_exp(0, std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<int> smooth_num;
-        std::vector<int> smooth_num_history;
-        DEBUG (2, "v_exp size  = %d\n",v_exp.size());
+        // std::vector<int> smooth_num_history;
+        // DEBUG (2, "v_exp size  = %d\n",v_exp.size());
 
         bin_matrix_t m_all_unchanged(p_smooth.size() + 1);
         bin_matrix_t m_all(p_smooth.size() + 1);
@@ -447,27 +450,61 @@ BOOST_AUTO_TEST_CASE(test_2)
         // DEBUG(1, "size ========= %d\n", m_all_unchanged.collumn_size);
         // break;
 
-        std::vector<long> Y_factored(Y.size());
+        std::vector<long> Y_factored;
         // Y_factored = Y;
         // add sign to exponent matrix
         #define NEGATIVE_SIGN    0 
         // v_exp[i].size()-1
         uint64_t found = 0;
-        for (int y_number = 0; y_number < Y.size(); ++y_number) {
+        // for (int y_number = 0; y_number < Y.size(); ++y_number) {
+
+        // k = 1;
+    int break_flag = 0;
+    for (k = 1; k < 5; ++k)
+    {
+        sqrt_Nk = trunc(sqrt(N * k)) + 1;
+        int y_number = 0;
+        for (long y_iter = -M/2; y_iter <= M/2; ++y_iter, y_number++)
+        {
+            long long x_current = sqrt_Nk + y_iter;
+            X.push_back(x_current);
+            long long tmp = x_current*x_current;
+            if(tmp < N){
+                Y.push_back(tmp - N);
+            }
+            else{
+                Y.push_back(tmp % N);
+            }
+            Y_factored.push_back(0);
+            v_exp.push_back(std::vector<uint64_t> (p_smooth.size() + 1));
+
+            // DEBUG (3, "X = %llu\t",x_current);
+            // DEBUG (3, "Y = %li\n",Y[y_number]);
+            // DEBUG (3, "y_number = %li\n",y_number);
 
             // We don't want use the same values for multiple times
-            int break_flag = 0;
-            for (int i = 0; i < smooth_num_history.size(); ++i)
+            int continue_flag = 0;
+            for (int i = 0; i < Y.size() - 1; ++i)
             {
-                if (Y[smooth_num_history[i]] == Y[y_number])
-                {
-                    break_flag = 1;
-                    break;
-                }
+                if (Y[i] == Y[y_number])
+                    continue_flag = 1;
             }
-            if(break_flag)
+            if(continue_flag)
                 continue;
+            // for (int i = 0; i < smooth_num_history.size(); ++i)
+            // {
+            //     if (Y[smooth_num_history[i]] == Y[y_number])
+            //     {
+            //         continue_flag = 1;
+            //         break;
+            //     }
+            // }
+            // if(continue_flag)
+            //     continue;
             // #######################################################
+                DEBUG (3, "X = %llu\t",x_current);
+                DEBUG (3, "Y = %li\n",Y[y_number]);
+                DEBUG (3, "y_number = %li\n",y_number);
 
             if(Y[y_number] < 0 )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
@@ -493,13 +530,14 @@ BOOST_AUTO_TEST_CASE(test_2)
                     if (found)
                     {
                         DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
+                        break_flag = 1;
                         break;
                         // exit(0);
                     }
                 } else {
 
                     smooth_num.push_back(y_number);
-                    smooth_num_history.push_back(y_number);
+                    // smooth_num_history.push_back(y_number);
                     // ERROR("filled1 %d\n", m_all_unchanged.filled);
                     if (m_all_unchanged.add_row(v_exp[y_number]) == 1){
                         m_all.add_row(v_exp[y_number]);
@@ -513,10 +551,10 @@ BOOST_AUTO_TEST_CASE(test_2)
                         }
                         if (max_exponent_num >= 0)
                         {
-                            DEBUG (2,"%s %d max_exponent_num %d\n", __func__, __LINE__, max_exponent_num);
+                            // DEBUG (2,"%s %d max_exponent_num %d\n", __func__, __LINE__, max_exponent_num);
                             count_limit = add_counter_row(m_counter ,v_counter ,max_exponent_num);
 
-                            DEBUG (2,"%s %d count_limit = %d\n", __func__, __LINE__, count_limit);
+                            // DEBUG (2,"%s %d count_limit = %d\n", __func__, __LINE__, count_limit);
                             // DEBUG (2,"counter== \n");
                             // for (int i = 0; i < v_counter.size(); ++i) {
                             //     DEBUG (2,"%d\t", v_counter[i]);
@@ -561,6 +599,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             if (found) {
                                 DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
                                 // exit( null_line);
+                                break_flag = 1;
                                 break;
                             } else {
                                 int max_i = 0;
@@ -643,6 +682,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     if (found) {
                                         DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
                                         // exit( null_line);
+                                        break_flag = 1;
                                         break;
                                     } else {
                                         int max_i = 0;
@@ -677,6 +717,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             ERROR( "empty string \n");
                             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
                             // exit(0);
+                            break_flag = 1;
                             break;
                         }
                     }
@@ -684,17 +725,24 @@ BOOST_AUTO_TEST_CASE(test_2)
                     {
                         ERROR("cant add aaaaa\n");
                         DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+                        break_flag = 1;
                         break;
                     }
                 }
             }
         }
 
+        if(break_flag)
+            break;
+    }
+
         if (!found)
         {
             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
             continue;
         }
+
+
     }
     }
 }
