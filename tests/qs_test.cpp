@@ -300,18 +300,19 @@ BOOST_AUTO_TEST_CASE(test_5)
     // for (int iter_1 = 5760000; iter_1 < 5760030 ; iter_1++) 
     // for (int iter_1 = 3; iter_1 < 1000 ; iter_1++) 
     // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
-    int iter_1 = 52000;
+    // int iter_1 = 52000;
     // int iter_1 = 78000;
-    // int iter_1 = 3;
-    while (iter_1 < 52400 ) 
+    int iter_1 = 3000;
+    while (iter_1 < 5000 ) 
     // while (iter_1 < 78400 ) 
     {
-        iter_1 += 10;
+        iter_1 += 1;
+        // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
     // int iter = 52000;
     int iter = iter_1 + 1;
-    while (iter < 52400 )
+    while (iter < 5000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -321,7 +322,8 @@ BOOST_AUTO_TEST_CASE(test_5)
     // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
     // for (int iter = 10; iter < 11 ; iter++) 
     {
-        iter += 10;
+        iter += 1;
+        // iter += 10;
         // iter = ceil(it1* (double)iter);
         // if(first_flag)
         // {
@@ -364,7 +366,7 @@ BOOST_AUTO_TEST_CASE(test_5)
         std::vector<long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
-        make_smooth_numbers_big(p_smooth, size_B, N);
+        make_smooth_numbers(p_smooth, size_B, N);
 
         if ((p_smooth.size() < size_B))
         {
