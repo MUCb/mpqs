@@ -251,8 +251,9 @@ int bin_matrix_t::max_unit_num(std::vector<uint64_t> selected_row)
 int  bin_matrix_t::make_lower_triangular(void) 
 {
     // printf("tpp1 size %d\n", tpp1.size());
+    printf("%s %d size %d\n", __func__, __LINE__, filled);
     int null_line = -1;
-    for (int i = (unit_matrix_size -1) ; i > 0; --i)
+    for (int i = (filled -1) ; i > 0; --i)
     {
         if (matrix[i][i] != 1) {
             WARN(1, "we have zero value in main diagonal, line: %d\n", i);
@@ -316,24 +317,24 @@ int bin_matrix_t::resolve_matrix()
         return null_line;
     }
 
-    DEBUG(1, " last \n");
-    for (int c = 0; c < unit_matrix_size; ++c) {
-        if (matrix[row_size - 1][c]  == 1) {
-            for (int r = 0; r < row_size; ++r) {
-                matrix[row_size - 1][r] += matrix[c][r];
-                matrix[row_size - 1][r] %= 2;
+    // DEBUG(1, " last \n");
+    // for (int c = 0; c < filled; ++c) { // !!!!!
+    //     if (matrix[row_size - 1][c]  == 1) {
+    //         for (int r = 0; r < row_size; ++r) {
+    //             matrix[row_size - 1][r] += matrix[c][r];
+    //             matrix[row_size - 1][r] %= 2;
 
-                unit_matrix[row_size - 1][c] += unit_matrix[c][r];
-                unit_matrix[row_size - 1][c] %= 2;
-            }
-        }
-    }
-    if(matrix[row_size-1][row_size-1] != 0 ) {
-        ERROR("no resolv\n");
-    } else{
-        null_line = row_size -1;
-    }
-    DEBUG(3, " last \n");
+    //             unit_matrix[row_size - 1][c] += unit_matrix[c][r];
+    //             unit_matrix[row_size - 1][c] %= 2;
+    //         }
+    //     }
+    // }
+    // if(matrix[row_size-1][row_size-1] != 0 ) {
+    //     ERROR("no resolv\n");
+    // } else{
+    //     null_line = row_size -1;
+    // }
+    // DEBUG(3, " last \n");
     
     return null_line;
 

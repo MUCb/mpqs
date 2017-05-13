@@ -10,7 +10,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include "primes.h"
+#include <time.h>
+// #include "primes.h"
+#include "primes_10_8.h"
 
 int showDebugMsg = 0;
 
@@ -292,13 +294,35 @@ BOOST_AUTO_TEST_CASE(test_5)
 {
 
     int first_flag = 1;
+    double it1 = 1.1;
     // for (int iter_1 = 10; iter_1 < 11 ; iter_1++) 
-    for (int iter_1 = 3; iter_1 < 5000 ; iter_1++) 
+    // for (int iter_1 = 1000; iter_1 < 1200 ; iter_1++) 
+    // for (int iter_1 = 5760000; iter_1 < 5760030 ; iter_1++) 
+    // for (int iter_1 = 3; iter_1 < 1000 ; iter_1++) 
+    // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
+    int iter_1 = 52000;
+    // int iter_1 = 78000;
+    // int iter_1 = 3;
+    while (iter_1 < 52400 ) 
+    // while (iter_1 < 78400 ) 
     {
+        iter_1 += 10;
+        // iter_1 = ceil(it1* (double)iter_1);
+        
+    // int iter = 52000;
+    int iter = iter_1 + 1;
+    while (iter < 52400 )
 
-    for (int iter = iter_1 + 1; iter < 5000 ; iter++) 
+    // for (int iter = 3; iter < 1000 ; iter++) 
+    // for (int iter = 3; iter < 4 ; iter++) 
+    // for (int iter = 10000; iter < 10200 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 10200 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 5760030 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
     // for (int iter = 10; iter < 11 ; iter++) 
     {
+        iter += 10;
+        // iter = ceil(it1* (double)iter);
         // if(first_flag)
         // {
         //     first_flag = 0;
@@ -306,13 +330,18 @@ BOOST_AUTO_TEST_CASE(test_5)
         //     iter_1 = 4532;
         // }
 
+        time_t start;
+        time_t finish;
+        start = clock();
+
+
         // Special test case size_B wa changed
         // uint64_t p = prime[100];
         // iter = 40;
         // iter_1 = 14;
         
-        // iter = 111;
-        // iter_1 = 6;
+        // iter = 3243;
+        // iter_1 = 2332;
         uint64_t p = prime[iter_1];  // 10^8
         uint64_t q = prime[iter];
         // uint64_t q = prime[147];
@@ -328,19 +357,21 @@ BOOST_AUTO_TEST_CASE(test_5)
         double size_B;
         size_B = exp (sqrt (log(N) * log(log(N))) );
         size_B = pow(size_B , sqrt(2)/4);
-        // size_B += 1;
+        // size_B *= 2;
         DEBUG (2,"size of factor base size_B=%f\n", size_B);
 
         // selecting smooth primes 
         std::vector<long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
-        make_smooth_numbers(p_smooth, size_B, N);
+        make_smooth_numbers_big(p_smooth, size_B, N);
 
         if ((p_smooth.size() < size_B))
         {
             ERROR ("to small primes \n");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+                    finish = clock();
+        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
             // exit(0);
             continue ;
             // exit (0);
@@ -391,12 +422,16 @@ BOOST_AUTO_TEST_CASE(test_5)
             solution_candidates_number.clear();
             if (found)
             {
-                DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
+                DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+                        finish = clock();
+        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
                 continue;
             }
 
             ERROR( "exit make_exp_array");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+                    finish = clock();
+        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
             // exit (0); 
             continue;
         }
@@ -412,11 +447,16 @@ BOOST_AUTO_TEST_CASE(test_5)
         BOOST_TEST(find_res   >= 0);
         if(find_res >= 0)
         {
-            DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t %d\n", iter, iter_1, p, q,find_res);
+            DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+        finish = clock();
+        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         } else {
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+                    finish = clock();
+        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         }
         // exit(0);
+
     }
     }
 }

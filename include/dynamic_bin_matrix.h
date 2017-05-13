@@ -21,7 +21,7 @@ public:
 
     std::vector<int> unit_num;
     int row_size;
-    int unit_matrix_size;
+    // int unit_matrix_size;
     void init_unit(void);
     void show(void);
     int  make_lower_triangular(void);

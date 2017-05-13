@@ -108,8 +108,18 @@ int clean_matrix(bin_matrix_t &m_all, bin_matrix_t &m_all_copy, std::vector<int>
     return ret;
 }
 
-int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int max_exponent_num, int max_i)
+int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter , int max_i)
 {
+    int max_exponent_num = 0;
+    for (int i = 0; i < m2.collumn_size; ++i)
+    {
+        if (m2.matrix[max_i][i] == 0)
+        {
+            max_exponent_num = i;
+            break;
+        }
+    }
+    DEBUG (3," max_exponent_num %d\n", max_exponent_num);
     DEBUG (3," delete before m2\n");
     m2.show();
     int ret = m2.delete_row( max_i );

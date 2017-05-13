@@ -10,9 +10,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include "primes.h"
+// #include "primes.h"
+#include "primes_10_8.h"
+#include <time.h>
 
-int showDebugMsg = 0;
+int showDebugMsg = 3;
 
 
 //   5k - 6k
@@ -73,19 +75,49 @@ int showDebugMsg = 0;
 // 6535149
 // 14.08
 
-
+#include <math.h> 
 
 
 BOOST_AUTO_TEST_CASE(test_0) 
 {
     int first_flag = 1;
     // for (int iter_1 = 10; iter_1 < 11; iter_1++) 
-    for (int iter_1 = 3; iter_1 < 5000 ; iter_1++) 
-    {
+    double it1 = 1.1;
+    // double it2 = 3;
+    // int res = 3;
 
-    for (int iter = iter_1+1; iter < 5000 ; iter++) 
+    // for (int iter_1 = 3; iter_1 < 10 ; iter_1++) 
+    // for (int iter_1 = 5755000; iter_1 < 5760030 ; iter_1++) 
+    int iter_1 = 3;
+    // int iter_1 = 52000;
+    // int iter_1 = 78000;
+    // while (iter_1 < 52400 ) 
+    while (iter_1 < 78400 ) 
+    {
+        iter_1 += 400;
+        // iter_1 = ceil(it1* (double)iter_1);
+        
+    int iter = iter_1 + 1;
+    // while (iter < 52400 )
+    while (iter < 78400 )
+    // for (int iter = 5755000; iter < 5760030 ; iter++) 
+    // for (int iter = iter_1+1; iter < 10 ; iter++) 
     // for (int iter = 13; iter < 14 ; iter++) 
     {
+        // iter += 10;
+        iter += 400;
+        // iter = ceil(it1* (double)iter);
+        // res = ceil(it1* (double)res);
+        // printf("%d\n", res);
+
+        // continue;
+
+        iter = 5701457;
+        iter_1 = 5760457;
+        time_t start;
+        time_t finish;
+        start = clock();
+
         // uint64_t p = prime[461];
         // uint64_t q = prime[15];
         // uint64_t p = prime[147];
@@ -99,8 +131,8 @@ BOOST_AUTO_TEST_CASE(test_0)
         //     iter_1 = 3905;
         // }
 
-            // iter = 5100;
-            // iter_1 = 5000;
+            // iter = 50100;
+            // iter_1 = 78490;
         uint64_t p = prime[iter_1];
         uint64_t q = prime[iter];
 
@@ -127,7 +159,9 @@ BOOST_AUTO_TEST_CASE(test_0)
         if ((p_smooth.size() < size_B))
         {
             ERROR ("to small primes \n");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+            finish = clock();
+            DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
             continue;
             // exit (0);
         }
@@ -171,7 +205,7 @@ BOOST_AUTO_TEST_CASE(test_0)
 
                         std::vector<int64_t> tmp;
                         tmp.push_back(solution_candidates_number[i]);
-                        found = euclid_gcd_m( X, Y, tmp, p, q, N, v_exp, p_smooth, v_extra_exp);
+                        found = euclid_gcd_m_big( X, Y, tmp, p, q, N, v_exp, p_smooth, v_extra_exp);
                         if (found)
                             break;
                     }
@@ -180,14 +214,18 @@ BOOST_AUTO_TEST_CASE(test_0)
             solution_candidates_number.clear();
             if (found)
             {
-                DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
+                DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+                finish = clock();
+                DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
                 continue;
             }
 
         if (array_res == 0)
         {
-            ERROR( "exit make_exp_array_extra");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+            // ERROR( "exit make_exp_array_extra");
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+            finish = clock();
+            DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
             continue;
             // exit (0); 
         }
@@ -201,13 +239,17 @@ BOOST_AUTO_TEST_CASE(test_0)
         BOOST_TEST( find_res  >= 0);
         if(find_res >= 0)
         {
-            DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t %d\n", iter, iter_1, p, q,find_res);
+            DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t %d\t", iter, iter_1, p, q,find_res);
         } else {
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \n", iter, iter_1, p, q);
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
         }
+            finish = clock();
+            DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         // break;
+        
     }
     // break;
+    
     }
 }
 
