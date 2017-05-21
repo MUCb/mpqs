@@ -302,16 +302,16 @@ BOOST_AUTO_TEST_CASE(test_5)
     // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
     // int iter_1 = 52000;
     // int iter_1 = 78000;
-    int iter_1 = 3000;
-    while (iter_1 < 5000 ) 
+    int iter_1 = 3;
+    while (iter_1 < 1000 ) 
     // while (iter_1 < 78400 ) 
     {
         iter_1 += 1;
         // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
-    // int iter = 52000;
-    int iter = iter_1 + 1;
+    int iter = 4000;
+    // int iter = iter_1 + 1;
     while (iter < 5000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 

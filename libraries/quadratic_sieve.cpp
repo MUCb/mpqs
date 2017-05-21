@@ -9,7 +9,7 @@
 
 
 
-int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
+int make_exp_array_condBsmooth(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp)
 {
 
@@ -121,7 +121,7 @@ int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vecto
     return 1;
 }
 
-int make_exp_array_extra_1(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
+int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp)
 {
 
@@ -588,7 +588,7 @@ int find_solution (bin_matrix_t m2,
 
 
 
-int find_solution_extra (bin_matrix_t m2, 
+int find_solution_condBsmooth (bin_matrix_t m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,
@@ -665,7 +665,7 @@ int find_solution_extra (bin_matrix_t m2,
 
 
             // return find_solution(m2, smooth_num_back);
-            null_line = find_solution_extra(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N, v_extra_exp);
+            null_line = find_solution_condBsmooth(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N, v_extra_exp);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == -1)
                 WARN(1, "failed\n");
@@ -682,7 +682,7 @@ int find_solution_extra (bin_matrix_t m2,
 
 
             // return find_solution(m2, smooth_num_back);
-            null_line = find_solution_extra(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N, v_extra_exp);
+            null_line = find_solution_condBsmooth(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N, v_extra_exp);
             DEBUG(3, "finish %d\n", null_line);
             if (null_line == -1)
                 WARN(1, "failed\n");

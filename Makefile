@@ -38,9 +38,9 @@ qs_test: quadratic_sieve
 				libraries/greatest_common_divisor.o 
 
 
-qs_basic_extra_exp_test: quadratic_sieve
+qs_basic_condBsmooth_test: quadratic_sieve
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/  -lgmp \
-	tests/qs_basic_extra_exp_test.cpp -o tests/qs_basic_extra_exp_test.out \
+	tests/qs_basic_condBsmooth_test.cpp -o tests/qs_basic_condBsmooth_test.out \
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
 				libraries/greatest_common_divisor.o 
 

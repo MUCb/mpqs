@@ -19,7 +19,7 @@ int find_solution (bin_matrix_t m2,
                     const uint64_t &q,
                     const uint64_t &N);
 
-int find_solution_extra (bin_matrix_t m2, 
+int find_solution_condBsmooth (bin_matrix_t m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,
@@ -35,8 +35,8 @@ void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long long N, long M);
 int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> V, std::vector<long> &p_smooth, double size_B, uint32_t M,  std::vector<long> &solution_candidates_number);
-int make_exp_array_extra(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
+int make_exp_array_condBsmooth(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp);
-int make_exp_array_extra_1(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
+int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp);
 #endif

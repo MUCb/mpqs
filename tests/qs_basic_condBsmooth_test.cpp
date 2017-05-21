@@ -89,31 +89,34 @@ BOOST_AUTO_TEST_CASE(test_0)
     // for (int iter_1 = 3; iter_1 < 10 ; iter_1++) 
     // for (int iter_1 = 5755000; iter_1 < 5760030 ; iter_1++) 
     int iter_1 = 3;
-    // int iter_1 = 52000;
+    // int iter_1 = 3000;
     // int iter_1 = 78000;
     // while (iter_1 < 52400 ) 
-    while (iter_1 < 78400 ) 
+    while (iter_1 < 5 ) 
     {
-        iter_1 += 400;
+        iter_1 += 1;
+        // iter_1 += 400;
         // iter_1 = ceil(it1* (double)iter_1);
         
-    int iter = iter_1 + 1;
+    // int iter = iter_1 + 1;
+    int iter = 3;
+    // int iter = 4000;
     // while (iter < 52400 )
-    while (iter < 78400 )
+    while (iter <  5)
     // for (int iter = 5755000; iter < 5760030 ; iter++) 
     // for (int iter = iter_1+1; iter < 10 ; iter++) 
     // for (int iter = 13; iter < 14 ; iter++) 
     {
         // iter += 10;
-        iter += 400;
+        iter += 1;
         // iter = ceil(it1* (double)iter);
         // res = ceil(it1* (double)res);
         // printf("%d\n", res);
 
         // continue;
 
-        iter = 5701457;
-        iter_1 = 5760457;
+        iter = 4501;
+        iter_1 = 829;
         time_t start;
         time_t finish;
         start = clock();
@@ -190,7 +193,7 @@ BOOST_AUTO_TEST_CASE(test_0)
         std::vector<uint64_t> v_extra_exp(Y.size()) ;
         std::vector<int> smooth_num;
 
-        int array_res = make_exp_array_extra(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number, v_extra_exp);
+        int array_res = make_exp_array_condBsmooth(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number, v_extra_exp);
 
         uint64_t found = 0;
             if (solution_candidates_number.size() > 0)
@@ -234,7 +237,7 @@ BOOST_AUTO_TEST_CASE(test_0)
         bin_matrix_t m1(p_smooth.size() + 1);
 
         // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
-        int find_res = find_solution_extra(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy,  X, Y, p, q, N, v_extra_exp);
+        int find_res = find_solution_condBsmooth(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy,  X, Y, p, q, N, v_extra_exp);
         // int find_res = find_solution(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy,  X, Y, p, q, N);
         BOOST_TEST( find_res  >= 0);
         if(find_res >= 0)
