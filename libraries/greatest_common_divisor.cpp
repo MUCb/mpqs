@@ -148,6 +148,7 @@ uint64_t euclid_gcd(const std::vector<long>& X,
 // restrixt is N < 10^19
 // p max 10^8
 //Euclid's Algorithm, Greatest Common Divisor
+// we get y by multiplying exponents values.
 uint64_t euclid_gcd_m_big(const std::vector<long>& X,
                     const std::vector<long>& Y,
                     const std::vector<int64_t>& iterator,
@@ -296,6 +297,7 @@ uint64_t euclid_gcd_m_big(const std::vector<long>& X,
 //  N max 10^12
 // p max 10^6
 //Euclid's Algorithm, Greatest Common Divisor
+// we get y by multiplying exponents values.
 uint64_t euclid_gcd_m(const std::vector<long>& X,
                     const std::vector<long>& Y,
                     const std::vector<int64_t>& iterator,

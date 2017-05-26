@@ -2,19 +2,19 @@
 
 ##################   BOOST TESTS   ##################
 dynamic_bin_matrix_test: dynamic_bin_matrix
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/ \
 				libraries/dynamic_bin_matrix.o tests/dynamic_bin_matrix_test.cpp \
 				-o tests/dynamic_bin_matrix_test.out
 
 
 qs_remainder_test: quadratic_sieve_remainder dynamic_bin_matrix
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/ \
 	tests/qs_remainder_test.cpp -o tests/qs_remainder_test.out \
 				libraries/quadratic_sieve_remainder.o libraries/dynamic_bin_matrix.o \
 				libraries/greatest_common_divisor.o 
 
 qs_early_exp_test: quadratic_sieve_remainder dynamic_bin_matrix
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/ -lm  -L../soft/boost_1_62_0/ \
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/ -lm  -L../soft/boost_1_64_0/ \
 	tests/qs_early_exp_test.cpp -o tests/qs_early_exp_test.out \
 				libraries/quadratic_sieve_remainder.o libraries/dynamic_bin_matrix.o \
 				libraries/greatest_common_divisor.o 
@@ -22,27 +22,27 @@ qs_early_exp_test: quadratic_sieve_remainder dynamic_bin_matrix
 
 
 bin_matrix_test: bin_matrix
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/ \
 				libraries/bin_matrix.o tests/bin_matrix_test.cpp \
 				-o tests/bin_matrix_test.out
 
 gcd_test: greatest_common_divisor
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/ \
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/ \
 				libraries/greatest_common_divisor.o tests/gcd_test.cpp \
 				-o tests/gcd_test.out
 
 qs_test: quadratic_sieve
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/  -lgmp \
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/  -lgmp \
 	tests/qs_test.cpp -o tests/qs_test.out \
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
 				libraries/greatest_common_divisor.o 
 
 
-qs_basic_condBsmooth_test: quadratic_sieve
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_62_0/  -L../soft/boost_1_62_0/  -lgmp \
-	tests/qs_basic_condBsmooth_test.cpp -o tests/qs_basic_condBsmooth_test.out \
+qs_basic_condBsmooth_test: quadratic_sieve greatest_common_divisor bin_matrix
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/   \
+	tests/qs_basic_condBsmooth_test.cpp  -o tests/qs_basic_condBsmooth_test.out \
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
-				libraries/greatest_common_divisor.o 
+				libraries/greatest_common_divisor.o  -lgmp
 
 #####################################################
 

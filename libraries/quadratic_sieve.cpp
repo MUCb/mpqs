@@ -394,8 +394,8 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long long N, long M)
 {
-        // for (long  i = 0; i < M; i++)
-        for (long  i = -M/2; i < M/2; i++)
+        for (long  i = 0; i < M; i++)
+        // for (long  i = -M/2; i < M/2; i++)
         // for (long  i = -M*3/10; i < M*7/10; i++)
         {
             X.push_back(sqrt_N + i);

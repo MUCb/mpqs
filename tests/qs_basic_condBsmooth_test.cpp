@@ -14,7 +14,7 @@
 #include "primes_10_8.h"
 #include <time.h>
 
-int showDebugMsg = 3;
+int showDebugMsg = 0;
 
 
 //   5k - 6k
@@ -87,36 +87,42 @@ BOOST_AUTO_TEST_CASE(test_0)
     // int res = 3;
 
     // for (int iter_1 = 3; iter_1 < 10 ; iter_1++) 
-    // for (int iter_1 = 5755000; iter_1 < 5760030 ; iter_1++) 
-    int iter_1 = 3;
+    for (int iter_1 = 4750030; iter_1 < 4760030 ; iter_1++) 
+    // for (int iter_1 = 3; iter_1 < 5760030 ; iter_1 = ceil(it1* (double)iter_1)) 
+    // int iter_1 = 3;
     // int iter_1 = 3000;
-    // int iter_1 = 78000;
-    // while (iter_1 < 52400 ) 
-    while (iter_1 < 5 ) 
+    // int iter_1 = 5745000;
+    // int iter_1 = 5755000;
+    // while (iter_1 < 5760030 ) 
+    // while (iter_1 < 5 ) 
     {
-        iter_1 += 1;
+        // iter_1 += 1;
+        // iter_1 *= 1.1;
         // iter_1 += 400;
         // iter_1 = ceil(it1* (double)iter_1);
+
         
     // int iter = iter_1 + 1;
-    int iter = 3;
+    // int iter = 4906472;
     // int iter = 4000;
-    // while (iter < 52400 )
-    while (iter <  5)
+    // while (iter < 5760030 )
+    // while (iter <  5)
     // for (int iter = 5755000; iter < 5760030 ; iter++) 
-    // for (int iter = iter_1+1; iter < 10 ; iter++) 
+    for (int iter = 5750030; iter < 5760030 ; iter++) 
+    // for (int iter = iter_1+1; iter < 5760030 ; iter = ceil(it1* (double)iter)) 
     // for (int iter = 13; iter < 14 ; iter++) 
     {
-        // iter += 10;
-        iter += 1;
         // iter = ceil(it1* (double)iter);
+        // iter += 200;
+        // iter += 1;
+        
         // res = ceil(it1* (double)res);
         // printf("%d\n", res);
 
         // continue;
 
-        iter = 4501;
-        iter_1 = 829;
+        // iter = 4501;
+        // iter_1 = 829;
         time_t start;
         time_t finish;
         start = clock();
@@ -136,8 +142,10 @@ BOOST_AUTO_TEST_CASE(test_0)
 
             // iter = 50100;
             // iter_1 = 78490;
+        // DEBUG (1, "1 iter %d iter_1 %d\n", iter, iter_1);
         uint64_t p = prime[iter_1];
         uint64_t q = prime[iter];
+        // DEBUG (1, "2 iter %d iter_1 %d\n", iter, iter_1);
 
         uint64_t N = p * q;
         uint64_t sqrt_N = 0;
@@ -193,7 +201,7 @@ BOOST_AUTO_TEST_CASE(test_0)
         std::vector<uint64_t> v_extra_exp(Y.size()) ;
         std::vector<int> smooth_num;
 
-        int array_res = make_exp_array_condBsmooth(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number, v_extra_exp);
+        int array_res = make_exp_array_condBsmooth_1(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number, v_extra_exp);
 
         uint64_t found = 0;
             if (solution_candidates_number.size() > 0)
@@ -250,9 +258,10 @@ BOOST_AUTO_TEST_CASE(test_0)
             DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         // break;
         
+            // iter *= 1.1;
+            
     }
     // break;
-    
     }
 }
 
