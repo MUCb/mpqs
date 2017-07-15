@@ -95,6 +95,10 @@ qs_basic: bin_matrix quadratic_sieve qs_basic.cpp
 	qs_basic.cpp -o qs_basic.out
     # g++ -I../soft/boost_1_61_0/  -L../soft/boost_1_61_0/ test1.cpp -o test1
 
+prime_gen_gmp:
+	g++ -std=c++11 -Iinclude/ \
+	prime_gen_gmp.cpp  -o prime_gen_gmp.out \
+				-lgmp
 
 clean:
 	rm  -f libraries/*.o

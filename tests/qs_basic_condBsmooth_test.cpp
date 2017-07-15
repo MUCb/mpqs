@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(test_0)
     // int res = 3;
 
     // for (int iter_1 = 3; iter_1 < 10 ; iter_1++) 
-    for (int iter_1 = 4750030; iter_1 < 4760030 ; iter_1++) 
+    for (int iter_1 = 3758030; iter_1 < 3760030 ; iter_1=iter_1+100) 
     // for (int iter_1 = 3; iter_1 < 5760030 ; iter_1 = ceil(it1* (double)iter_1)) 
     // int iter_1 = 3;
     // int iter_1 = 3000;
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(test_0)
     // while (iter < 5760030 )
     // while (iter <  5)
     // for (int iter = 5755000; iter < 5760030 ; iter++) 
-    for (int iter = 5750030; iter < 5760030 ; iter++) 
+    for (int iter = 5758030; iter < 5760030 ; iter=iter+100) 
     // for (int iter = iter_1+1; iter < 5760030 ; iter = ceil(it1* (double)iter)) 
     // for (int iter = 13; iter < 14 ; iter++) 
     {
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(test_0)
 
         uint64_t N = p * q;
         uint64_t sqrt_N = 0;
-        DEBUG (1, "i=%d\tj=%d\n", 147, iter_1 );
+        DEBUG (1, "i=%d\tj=%d\n", iter, iter_1 );
         // DEBUG (1, "i=%d\tj=%d\n", iter, iter);
         DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         

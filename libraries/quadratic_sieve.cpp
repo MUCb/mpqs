@@ -121,6 +121,7 @@ int make_exp_array_condBsmooth(std::vector< std::vector<uint64_t> > &v_exp, std:
     return 1;
 }
 
+// additional check by mod 8
 int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp)
 {
@@ -394,8 +395,9 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long long N, long M)
 {
-        for (long  i = 0; i < M; i++)
+        // for (long  i = 0; i < M; i++)
         // for (long  i = -M/2; i < M/2; i++)
+        for (long  i = -M*7/10; i < M*3/10; i++)
         // for (long  i = -M*3/10; i < M*7/10; i++)
         {
             X.push_back(sqrt_N + i);
