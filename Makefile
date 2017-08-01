@@ -100,6 +100,11 @@ prime_gen_gmp:
 	prime_gen_gmp.cpp  -o prime_gen_gmp.out \
 				-lgmp
 
+prime_gen_gmp_prob:
+	g++ -std=c++11 -g -Iinclude/ \
+	prime_gen_gmp_prob.cpp  -o prime_gen_gmp_prob.out \
+				-lgmp
+
 clean:
 	rm  -f libraries/*.o
 	rm  -f tests/*.out

@@ -30,8 +30,8 @@ int main (){
 	// gmp_printf ("%Zd,\n",primes[1]);
 	char file_name[30];
 	int exp = 9;
-	mpz_set_str (m,  "99999999999999999999", 10);
-	mpz_set_str (m1, "100000000000000000100", 10);
+	mpz_set_str (m,  "999999999999999999999999999999", 10);
+	mpz_set_str (m1, "1000000000000000000000000000100", 10);
 	// mpz_ui_pow_ui(m,10, exp);
 	// sprintf(file_name, "primes/10x%d.txt", exp);
 	// printf("%s %d\n", __func__, __LINE__);
@@ -62,7 +62,7 @@ int main (){
 		bool not_prime = false;
 		bool finish = false;
 
-		// gmp_printf ("checking %Zd,\n",m);
+		gmp_printf ("checking %Zd,\n",m);
 		mpz_sqrt(i_sqrt, m);
 		mpz_add_ui(i_sqrt, i_sqrt, 1);
 
