@@ -30,7 +30,8 @@ int main (){
 	// gmp_printf ("%Zd,\n",primes[1]);
 	char file_name[30];
 	int exp = 9;
-	mpz_set_str (m,  "999999999999999999999999999999", 10);
+	// mpz_set_str (m,  "999999999999999999999999999999", 10);
+	mpz_set_str (m,  "1000000000000000000000000000038", 10);
 	mpz_set_str (m1, "1000000000000000000000000000100", 10);
 	// mpz_ui_pow_ui(m,10, exp);
 	// sprintf(file_name, "primes/10x%d.txt", exp);
@@ -66,7 +67,14 @@ int main (){
 		mpz_sqrt(i_sqrt, m);
 		mpz_add_ui(i_sqrt, i_sqrt, 1);
 
-		for (mpz_set_ui(i,2) ; mpz_cmp(i,m) < 0; mpz_add_ui(i, i, 1))
+
+		mpz_set_ui(i,2);
+		if(mpz_divisible_p(m, i) != 0){
+			// gmp_printf ("prime %Zd,\n",m);
+			continue;
+		}
+
+		for (mpz_set_ui(i,3) ; mpz_cmp(i,i_sqrt) < 0; mpz_add_ui(i, i, 2))
 		// // // for (mpz_init_set_ui(i, 4); mpz_cmp(i,m) < 0; mpz_add_ui(i, i, 1))
 	    {
 	    	if(mpz_divisible_p(m, i) != 0){
