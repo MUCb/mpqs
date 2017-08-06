@@ -71,8 +71,8 @@ uint64_t euclid_gcd(const std::vector<long>& X,
         }
         DEBUG(2, " \n"); 
         // DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
-        DEBUG(2, "sqrt Y mod n %" PRIu32 "\n", sumY);
-        DEBUG(2, "sqrt X mod n %" PRIu32 "\n", sumX);
+        DEBUG(2, "sqrt Y mod n %lu\n", sumY);
+        DEBUG(2, "sqrt X mod n %lu\n", sumX);
         if(sumX == sumY)
         {
             WARN (1, "Fail solution\n")
@@ -220,8 +220,8 @@ uint64_t euclid_gcd_m_big(const std::vector<long>& X,
         }
         DEBUG(2, " \n"); 
         // DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
-        DEBUG(2, "sqrt Y mod n %llu\n", sumY);
-        DEBUG(2, "sqrt X mod n %llu\n", sumX);
+        DEBUG(2, "sqrt Y mod n %lu\n", sumY);
+        DEBUG(2, "sqrt X mod n %lu\n", sumX);
         if(sumX == sumY)
         {
             WARN (1, "Fail solution\n")
@@ -249,11 +249,11 @@ uint64_t euclid_gcd_m_big(const std::vector<long>& X,
             uint64_t tmp1;
             if (j == 0){ 
                 tmp1 = sumY + sumX;
-                DEBUG (3, "firtst attept Y + X = %llu\n", tmp1);
+                DEBUG (3, "firtst attept Y + X = %lu\n", tmp1);
             }
             else{
                 tmp1 = abs(sumY - sumX);
-                DEBUG (3, "second attept Y - X = %llu\n", tmp1);
+                DEBUG (3, "second attept Y - X = %lu\n", tmp1);
             }
             uint64_t tmp2 = N;
             uint64_t tmp3 = 0;
@@ -363,8 +363,8 @@ uint64_t euclid_gcd_m(const std::vector<long>& X,
         }
         DEBUG(2, " \n"); 
         // DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
-        DEBUG(2, "sqrt Y mod n %" PRIu32 "\n", sumY);
-        DEBUG(2, "sqrt X mod n %" PRIu32 "\n", sumX);
+        DEBUG(2, "sqrt Y mod n %lu\n", sumY);
+        DEBUG(2, "sqrt X mod n %lu\n", sumX);
         if(sumX == sumY)
         {
             WARN (1, "Fail solution\n")

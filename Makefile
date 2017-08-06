@@ -38,6 +38,15 @@ qs_test: quadratic_sieve
 				libraries/greatest_common_divisor.o 
 
 
+qs_gmp_test: quadratic_sieve
+	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/  -lgmp  -lmpfr 
+	# tests/qs_gmp_test.cpp -o tests/qs_gmp_test.out \
+				libraries/quadratic_sieve.o libraries/bin_matrix.o \
+				libraries/greatest_common_divisor.o 
+
+				 
+
+
 qs_basic_condBsmooth_test: quadratic_sieve greatest_common_divisor bin_matrix
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/   \
 	tests/qs_basic_condBsmooth_test.cpp  -o tests/qs_basic_condBsmooth_test.out \

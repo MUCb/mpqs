@@ -401,7 +401,7 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long 
         // for (long  i = -M*3/10; i < M*7/10; i++)
         {
             X.push_back(sqrt_N + i);
-            DEBUG (4, "X%llu =%llu\n",i, sqrt_N - i );
+            DEBUG (4, "X%lu =%lu\n",i, sqrt_N - i );
         }
 
         // for (uint64_t i = 0; i <= M/2; ++i)
@@ -415,7 +415,7 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long 
         // fill in  (Xi)^2 - N 
         for (uint64_t i = 0; i < X.size(); ++i)
         {
-            DEBUG (2, "X = %llu\t",X[i]);
+            DEBUG (2, "X = %lu\t",X[i]);
             Y.push_back(X[i]*X[i] - N);
             DEBUG (2, "Y = %li\t",Y[i]);
             DEBUG (2, "\n");
@@ -521,7 +521,7 @@ int find_solution (bin_matrix_t m2,
         // DEBUG(2, "collumn size %d\n", m1.collumn_size);
         for (uint64_t col = 0; col <  m1.collumn_size; ++col)
         {
-            DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m1.unit_matrix[null_line][col]);
+            DEBUG (2,"matrix[%d][%lu] = %lu\n",null_line,col, m1.unit_matrix[null_line][col]);
             if( m1.unit_matrix[null_line][col] > 0)
             {
                 DEBUG (2,"num = %d\t", smooth_num[col]);
@@ -628,7 +628,7 @@ int find_solution_condBsmooth (bin_matrix_t m2,
         // DEBUG(2, "collumn size %d\n", m1.collumn_size);
         for (uint64_t col = 0; col <  m1.collumn_size; ++col)
         {
-            DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m1.unit_matrix[null_line][col]);
+            DEBUG (2,"matrix[%d][%lu] = %ld\n",null_line,col, m1.unit_matrix[null_line][col]);
             if( m1.unit_matrix[null_line][col] > 0)
             {
                 DEBUG (2,"num = %d\t", smooth_num[col]);
