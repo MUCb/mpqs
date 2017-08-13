@@ -1,53 +1,73 @@
-#define BOOST_TEST_MODULE QS Test
-#include <boost/test/included/unit_test.hpp> 
+// #define BOOST_TEST_MODULE QS Test
+// #include <boost/test/included/unit_test.hpp> 
 
 
 // #include "bin_matrix.h"
-// #include "quadratic_sieve.h"
-// #include "log.h"
+#include "quadratic_sieve_remainder_gmp.h"
+#include "dynamic_bin_matrix.h"
+#include "log.h"
 // #include "greatest_common_divisor.h"
 
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-// #include "primes.h"
+#include <vector>
+#include "primes.h"
 // #include "primes_10_8.h"
 #include <time.h>
 
-int showDebugMsg = 0;
+int showDebugMsg = 2;
 
 #include <math.h> 
 
+#include <gmp.h>
+#include <gmpxx.h>
+#include <mpfr.h>
 
 //-----------------------------------------------------------
 // base <- exp((1/2) sqrt(ln(n) ln(ln(n))))
 //-----------------------------------------------------------
 void get_smoothness_base(mpz_t base, mpz_t n) {
-    mpfr_t fN, lnN, lnlnN;
-    mpfr_init(fN), mpfr_init(lnN), mpfr_init(lnlnN);
+    mpfr_t fN, lnN, lnlnN, pow;
+    mpfr_init(fN), mpfr_init(lnN), mpfr_init(lnlnN), mpfr_init(pow);
+
+    mpfr_set_si(pow, 2, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", pow);
+    mpfr_sqrt(pow, pow, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", pow);
+    mpfr_div_ui(pow, pow, 4, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", pow);
+
+    mpfr_sqrt(fN, fN, MPFR_RNDU);
 
     mpfr_set_z(fN, n, MPFR_RNDU);
-        (lnN, fN, MPFR_RNDU);
+    mpfr_log(lnN, fN, MPFR_RNDU);
+        // mpfr_printf ("%.128Rf\n", fN);
     mpfr_log(lnlnN, lnN, MPFR_RNDU);
 
     mpfr_mul(fN, lnN, lnlnN, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
     mpfr_sqrt(fN, fN, MPFR_RNDU);
-    mpfr_div_ui(fN, fN, 2, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
+    // mpfr_div_ui(fN, fN, 2, MPFR_RNDU);
     mpfr_exp(fN, fN, MPFR_RNDU);
-
+    // mpfr_printf ("%.128Rf\n", fN);
+    mpfr_pow(fN, fN, pow, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
     mpfr_get_z(base, fN, MPFR_RNDU);
-
-    mpfr_clears(fN, lnN, lnlnN, NULL);
+    // mpfr_printf ("%.128Rf\n", fN);
+    mpfr_clears(fN, lnN, lnlnN, pow, NULL);
 }
 
 
 
-BOOST_AUTO_TEST_CASE(test_0) 
+// BOOST_AUTO_TEST_CASE(test_0) 
+int main ()
 {
-    int first_flag = 1;
-    double it1 = 1.1;
-    {
-    {
+    // int first_flag = 1;
+    // double it1 = 1.1;
+    // {
+    // {
         time_t start;
         time_t finish;
         start = clock();
@@ -71,23 +91,21 @@ BOOST_AUTO_TEST_CASE(test_0)
         mpz_add_ui(sqrt_N, sqrt_N, 1);
         
 
-        gmp_printf ("N=%Zd,\n",N);
+        gmp_printf ("N=%Zd,\n", N);
         gmp_printf ("sqrt_N=%Zd, rem=%Zd,\n",sqrt_N, rem);
 
         // selecting the size of the factor base
-        mpz_t B;
-        mpz_init(B);
+        mpz_t size_B;
+        mpz_init(size_B);
 
-        
-    //     size_B = exp (sqrt (log(N) * log(log(N))) );
-    //     size_B = pow(size_B , sqrt(2)/4);
-    //     DEBUG (2,"size of factor base size_B=%f\n", size_B);
+        get_smoothness_base(size_B, N); /* if N is too small, the program will surely fail, please consider a pen and paper instead */ 
+        gmp_printf ("Base %Zd,\n",size_B);
 
-    //     // selecting smooth primes 
-    //     std::vector<long> p_smooth;
-    //     DEBUG (2, "smooth numbers\n");
+        // selecting smooth primes 
+        std::vector<long long> p_smooth;
+        fprintf (stdout, "smooth numbers\n");
 
-    //     make_smooth_numbers(p_smooth, size_B, N);
+        make_smooth_numbers(p_smooth, size_B, N);
 
     //     if ((p_smooth.size() < size_B))
     //     {
@@ -185,5 +203,6 @@ BOOST_AUTO_TEST_CASE(test_0)
     // }
     // // break;
     // }
+        return 0;
 }
 

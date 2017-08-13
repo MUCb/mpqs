@@ -131,12 +131,12 @@ int delete_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter , int ma
     }
 
     DEBUG (3,"%s %d max_exponent_num %d\n", __func__, __LINE__, max_exponent_num);
-    DEBUG (3,"%s %d counter size %d\n", __func__, __LINE__, counter.size());
+    DEBUG (3,"%s %d counter size %lu\n", __func__, __LINE__, counter.size());
     if (max_exponent_num < counter.size())
     {
         for (int i = max_exponent_num; i < counter.size(); ++i) {
             counter[i]--;
-            DEBUG (3,"%d\t", counter[i]);
+            DEBUG (3,"%lu\t", counter[i]);
             
         }
         DEBUG (3,"\n");
@@ -358,13 +358,13 @@ int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp,
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, uint64_t N, uint32_t M)
 {
-        for (uint64_t i = M/2; i > 0; i = i - 1)
+        for (unsigned long long i = M/2; i > 0; i = i - 1)
         {
             X.push_back(sqrt_N - i);
             DEBUG (4, "X%llu =%llu\n",i, sqrt_N - i );
         }
 
-        for (uint64_t i = 0; i <= M/2; ++i)
+        for (unsigned long long i = 0; i <= M/2; ++i)
         {
             X.push_back(sqrt_N + i);
             DEBUG (4, "X%llu =%llu\n",i, sqrt_N + i );
@@ -387,18 +387,24 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, u
 
 }
 
+// uint64_t max value  10^19
+//  N max 10^9
+// p max 10^4
 void make_smooth_numbers(std::vector<long> &p_smooth, double size_B, uint64_t N)
 {
     //prime is 2 - special case 
     // Modulo 2, every integer is a quadratic residue.
     p_smooth.push_back(prime[2]);
+    DEBUG(2, "%llu\n", prime[2]);
 
     for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
         uint64_t tmp = N;
+        uint64_t N_mod = N % prime[i];
+        tmp %= prime[i];
         for (int j = 1; j < (prime[i]-1)/2; ++j)
         {
-            tmp = (tmp * N) % prime[i];
+            tmp = (tmp * N_mod) % prime[i];
         }
         tmp %= prime[i];
 
@@ -473,9 +479,9 @@ int find_solution (bin_matrix_t m2,
     if (null_line > -1)
     {
         // DEBUG(2, "collumn size %d\n", m1.collumn_size);
-        for (uint64_t col = 0; col <  m1.collumn_size; ++col)
+        for (long col = 0; col <  m1.collumn_size; ++col)
         {
-            DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m1.unit_matrix[null_line][col]);
+            DEBUG (2,"matrix[%d][%lu] = %ld\n",null_line,col, m1.unit_matrix[null_line][col]);
             if( m1.unit_matrix[null_line][col] > 0)
             {
                 DEBUG (2,"num = %d\t", smooth_num[col]);

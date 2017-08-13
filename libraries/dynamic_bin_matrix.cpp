@@ -69,7 +69,7 @@ int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
         return 1;
     }
     else {
-        ERROR("Size of vector = %d is different from matrix size = %d", 
+        ERROR("Size of vector = %lu is different from matrix size = %d", 
             row_v.size(), collumn_size);
         return 0;
     }

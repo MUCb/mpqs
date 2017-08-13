@@ -38,11 +38,13 @@ qs_test: quadratic_sieve
 				libraries/greatest_common_divisor.o 
 
 
-qs_gmp_test: quadratic_sieve
-	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/  -lgmp  -lmpfr 
-	# tests/qs_gmp_test.cpp -o tests/qs_gmp_test.out \
-				libraries/quadratic_sieve.o libraries/bin_matrix.o \
+qs_gmp_test: quadratic_sieve quadratic_sieve_remainder_gmp
+	g++ -std=c++11 -Iinclude/  \
+	 tests/qs_gmp_test.cpp -o tests/qs_gmp_test.out \
+	libraries/quadratic_sieve_remainder_gmp.o  libraries/dynamic_bin_matrix.o  -lmpfr -lgmp \
 				libraries/greatest_common_divisor.o 
+	 # -lboost_system 
+				# libraries/quadratic_sieve.o libraries/bin_matrix.o \
 
 				 
 
@@ -66,6 +68,16 @@ quadratic_sieve_remainder: dynamic_bin_matrix \
 				include/log.h
 	g++ -std=c++11 -Iinclude/ -c libraries/quadratic_sieve_remainder.cpp \
 				-o libraries/quadratic_sieve_remainder.o
+
+quadratic_sieve_remainder_gmp: dynamic_bin_matrix \
+				greatest_common_divisor \
+				libraries/quadratic_sieve_remainder_gmp.cpp \
+				include/quadratic_sieve_remainder_gmp.h \
+				include/dynamic_bin_matrix.h \
+				include/log.h
+	g++ -std=c++11 -Iinclude/ -c libraries/quadratic_sieve_remainder_gmp.cpp \
+				-o libraries/quadratic_sieve_remainder_gmp.o -lmpfr -lgmp 
+
 
 dynamic_bin_matrix: libraries/dynamic_bin_matrix.cpp include/dynamic_bin_matrix.h include/log.h
 	g++ -Iinclude/ -c libraries/dynamic_bin_matrix.cpp -o libraries/dynamic_bin_matrix.o
