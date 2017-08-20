@@ -38,7 +38,7 @@ void get_smoothness_base(mpz_t base, mpz_t n) {
     mpfr_div_ui(pow, pow, 4, MPFR_RNDU);
     // mpfr_printf ("%.128Rf\n", pow);
 
-    mpfr_sqrt(fN, fN, MPFR_RNDU);
+    // mpfr_sqrt(fN, fN, MPFR_RNDU);
 
     mpfr_set_z(fN, n, MPFR_RNDU);
     mpfr_log(lnN, fN, MPFR_RNDU);
@@ -58,6 +58,51 @@ void get_smoothness_base(mpz_t base, mpz_t n) {
     // mpfr_printf ("%.128Rf\n", fN);
     mpfr_clears(fN, lnN, lnlnN, pow, NULL);
 }
+
+void get_sieving_interval(mpz_t M, mpz_t N){
+
+        // // selecting the sieving interval
+        // uint32_t M;
+        // M = exp (sqrt (log(N) * log(log(N))) );
+        // M = pow(M , 3*sqrt(2)/4);
+        // DEBUG (2, "The sieving interval M=%" PRIu32 "\n", M);
+
+
+    mpfr_t fN, lnN, lnlnN, pow;
+    mpfr_init(fN), mpfr_init(lnN), mpfr_init(lnlnN), mpfr_init(pow);
+
+
+    mpfr_set_si(pow, 2, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", pow);
+    mpfr_sqrt(pow, pow, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", pow);
+    mpfr_div_ui(pow, pow, 4, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", pow);
+    mpfr_mul_ui(pow, pow, 3, MPFR_RNDU);
+
+    // mpfr_sqrt(fN, fN, MPFR_RNDU);
+
+    mpfr_set_z(fN, N, MPFR_RNDU);
+    mpfr_log(lnN, fN, MPFR_RNDU);
+        // mpfr_printf ("%.128Rf\n", fN);
+    mpfr_log(lnlnN, lnN, MPFR_RNDU);
+
+    mpfr_mul(fN, lnN, lnlnN, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
+    mpfr_sqrt(fN, fN, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
+    // mpfr_div_ui(fN, fN, 2, MPFR_RNDU);
+    mpfr_exp(fN, fN, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
+    mpfr_pow(fN, fN, pow, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
+    mpfr_get_z(M, fN, MPFR_RNDU);
+    // mpfr_printf ("%.128Rf\n", fN);
+    // gmp_printf ("The sieving interval M=%Zd\n", M);
+    mpfr_clears(fN, lnN, lnlnN, pow, NULL);
+
+}
+
 
 
 
@@ -107,28 +152,33 @@ int main ()
 
         make_smooth_numbers(p_smooth, size_B, N);
 
-    //     if ((p_smooth.size() < size_B))
-    //     {
-    //         ERROR ("to small primes \n");
-    //         DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
-    //         finish = clock();
-    //         DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-    //         continue;
-    //         // exit (0);
-    //     }
-    //     std::vector<long> p_smooth_copy = p_smooth;
-    //     // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
+        if (mpz_cmp_ui(size_B, p_smooth.size()) > 0)
+        // if ((p_smooth.size() < size_B))
+        {
+            ERROR ("to small primes \n");
+            // DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+            gmp_printf ( "Fail solution p=%Zd\tq=%Zd\t", p, q);
+            finish = clock();
+            DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+            // continue;
+            exit (0);
+        }
 
-    //     // selecting the sieving interval
-    //     uint32_t M;
-    //     M = exp (sqrt (log(N) * log(log(N))) );
-    //     M = pow(M , 3*sqrt(2)/4);
-    //     DEBUG (2, "The sieving interval M=%" PRIu32 "\n", M);
+        std::vector<long long> p_smooth_copy = p_smooth;
+        // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
 
-    //     // *** construct our sieve *** //
-    //     std::vector<long> X;
-    //     std::vector<long> Y;
-    //     construct_xy(X, Y, sqrt_N, N, M);
+        // selecting the sieving interval
+        mpz_t M;
+        mpz_init(M);
+        get_sieving_interval(M, N);
+        // M = exp (sqrt (log(N) * log(log(N))) );
+        // M = pow(M , 3*sqrt(2)/4);
+        gmp_printf ("The sieving interval M=%Zd\n", M);
+
+        // *** construct our sieve *** //
+        // std::vector<long> X;
+        // std::vector<long> Y;
+        // construct_xy(X, Y, sqrt_N, N, M);
 
 
     //     // simple sieve 
@@ -191,9 +241,9 @@ int main ()
     //     if(find_res >= 0)
     //     {
     //         DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t %d\t", iter, iter_1, p, q,find_res);
-    //     } else {
-    //         DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
-    //     }
+        // } else {
+            // DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+        // }
     //         finish = clock();
     //         DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
     //     // break;
