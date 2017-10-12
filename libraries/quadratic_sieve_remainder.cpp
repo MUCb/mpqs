@@ -358,31 +358,36 @@ int make_exp_array(bin_matrix_t m2, std::vector< std::vector<uint64_t> > &v_exp,
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, uint64_t sqrt_N, uint64_t N, uint32_t M)
 {
-        for (unsigned long long i = M/2; i > 0; i = i - 1)
-        {
-            X.push_back(sqrt_N - i);
-            DEBUG (4, "X%llu =%llu\n",i, sqrt_N - i );
-        }
+        // for (unsigned long long i = M/2; i > 0; i = i - 1)
+        // {
+        //     X.push_back(sqrt_N - i);
+        //     DEBUG (4, "X%llu =%llu\n",i, sqrt_N - i );
+        // }
 
-        for (unsigned long long i = 0; i <= M/2; ++i)
+        // for (unsigned long long i = 0; i <= M/2; ++i)
+        // {
+        //     X.push_back(sqrt_N + i);
+        //     DEBUG (4, "X%llu =%llu\n",i, sqrt_N + i );
+        // }
+        for (long  i = -M*7/10; i < M*3/10; i++)
+        // for (long  i = -M*3/10; i < M*7/10; i++)
         {
             X.push_back(sqrt_N + i);
-            DEBUG (4, "X%llu =%llu\n",i, sqrt_N + i );
-        }
-        
+            DEBUG (4, "X%lu =%lu\n",i, sqrt_N - i );
+        }       
 
         DEBUG (2,"\n");
         // fill in  (Xi)^2 - N 
         for (uint64_t i = 0; i < X.size(); ++i)
         {
-        //     DEBUG (2, "X = %llu\t",X[i]);
+            DEBUG (2, "X = %llu\t",X[i]);
             long long tmp = X[i]*X[i];
             if(X[i]*X[i] < N)
                 Y.push_back(tmp - N);
             else
                 Y.push_back(tmp % N);
-        //     DEBUG (2, "Y = %li\t",Y[i]);
-        //     DEBUG (2, "\n");
+            DEBUG (2, "Y = %li\t",Y[i]);
+            DEBUG (2, "\n");
         }
 
 }

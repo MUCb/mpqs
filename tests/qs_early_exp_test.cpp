@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         {
             p_smooth.push_back(prime[i]);
         }
-        DEBUG(2, "p_smooth size %d\n", p_smooth.size());
+        DEBUG(2, "p_smooth size %lu\n", p_smooth.size());
 
         // make_smooth_numbers(p_smooth, size_B, N);
 
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         {
             std::vector<long> X1;
             std::vector<long> Y1;
-            sqrt_Nk = trunc(sqrt(N * k)) + 1;
+            sqrt_Nk = trunc(sqrt(N * k)) + 1;      //  <====================================
             construct_xy(X1, Y1, sqrt_Nk, N, M);
             X.insert(X.end(), X1.begin(), X1.end());
             Y.insert(Y.end(), Y1.begin(), Y1.end());
@@ -194,19 +194,19 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         for (uint64_t i = 0; i < X.size(); ++i)
         {
-            DEBUG (2, "X = %llu\t",X[i]);
-            DEBUG (2, "Y = %li\t",Y[i]);
+            DEBUG (2, "X = %lu\t",X[i]);
+            DEBUG (2, "Y = %lu\t",Y[i]);
             DEBUG (2, "\n");
         }
         
-        DEBUG (2, "X size  = %d\n",X.size());
+        DEBUG (2, "X size  = %lu\n",X.size());
         // simple sieve 
         std::vector<long> solution_candidates_number;
         std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector< std::vector<uint64_t> > v_exp_copy(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
         std::vector<uint64_t> v_extra_exp(Y.size()) ;
         std::vector<int> smooth_num;
-        DEBUG (2, "v_exp size  = %d\n",v_exp.size());
+        DEBUG (2, "v_exp size  = %lu\n",v_exp.size());
 
         bin_matrix_t m_all(p_smooth.size() + 1);
         bin_matrix_t m_counter(p_smooth.size() + 1);
@@ -263,7 +263,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                 // modulo-2 division 
                 int null_flag = 1;
-                vec_mod2(v_exp[y_number], null_flag);
+                null_flag = zero_vector_mod2_check(v_exp[y_number]);
                 
                 DEBUG (3, "%ld\n", Y[y_number]);
                 // check if we alredy have null vector
@@ -327,7 +327,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     // DEBUG(2, "collumn size %d\n", m_all.collumn_size);
                                     for (uint64_t col = 0; col <  m_selected.filled; ++col)
                                     {
-                                        DEBUG (2,"matrix[%d][%d] = %ld\n",null_line,col, m_selected.unit_matrix[null_line][col]);
+                                        DEBUG (2,"matrix[%d][%lu] = %lu\n",null_line,col, m_selected.unit_matrix[null_line][col]);
                                         if( m_selected.unit_matrix[null_line][col] > 0)
                                         {
                                             DEBUG (2,"num = %d\t", smooth_num_selected[col]);
