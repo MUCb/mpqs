@@ -1,10 +1,10 @@
-#define BOOST_TEST_MODULE QS remainder Test
+#define BOOST_TEST_MODULE QS unit maytrix Test
 #include <boost/test/included/unit_test.hpp> 
 
 
 #include "dynamic_bin_matrix.h"
 // #include "primes.h"
-#include "quadratic_sieve_remainder.h"
+#include "quadratic_sieve.h"
 #include "log.h"
 
 #include "greatest_common_divisor.h"
@@ -15,14 +15,21 @@
 #include "primes.h"
 
  #include <math.h>
+#include <time.h>
 
 int showDebugMsg = 3;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
+    int iter = 0;
+    int iter_1 = 0;
 // for (int iter1 = 5; iter1 < 70 ; iter1++) {
     // for (int iter = iter1 + 1; iter < 70 ; iter++) 
     {
+
+        time_t start;
+        time_t finish;
+        start = clock();
         
         uint64_t p = prime[900]; // k = 3 p = 10
         uint64_t q = prime[500];
@@ -54,12 +61,13 @@ BOOST_AUTO_TEST_CASE(test_2)
         if ((p_smooth.size() < size_B))
         {
             ERROR ("to small primes \n");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
+            DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\t", iter, iter_1, p, q);
             finish = clock();
             DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-            continue;
-            // exit (0);
+            // continue;
+            exit (0);
         }
+        std::vector<long> p_smooth_copy = p_smooth;
 
 
         // selecting the sieving interval
@@ -99,7 +107,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
         int find_res = find_solution(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy,  X, Y, p, q, N);
-        BOOST_TEST(find_res   >= 0);
+        BOOST_CHECK(find_res   >= 0);
         if(find_res >= 0)
         {
             DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
@@ -110,26 +118,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                     finish = clock();
         DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         }
-        // exit(0);
-         
-        // m_all.show();
-        // m_counter.show();
-
-
-        // exit(0); ///DEBUG  ////////////////////////////////////////////////////////////////////
-
-        // if (make_exp_array(m_all, v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
-        // {
-        //     ERROR( "exit make_exp_array");
-        //     break; 
-        // }
-
-        // std::vector<int> smooth_num_back = smooth_num;
-
-        // BOOST_TEST( find_solution(m_all, smooth_num_back, smooth_num, v_exp, X, Y, p, q, N)  >= 0);
+        
     }
 }
-
-
-
-// }

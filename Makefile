@@ -55,6 +55,14 @@ qs_basic_condBsmooth_test: quadratic_sieve greatest_common_divisor bin_matrix
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
 				libraries/greatest_common_divisor.o  -lgmp
 
+
+qs_unit_matrix_test: quadratic_sieve dynamic_bin_matrix
+	g++ -std=c++11  -Iinclude/ -I../soft/boost_1_64_0/ -lm  -L../soft/boost_1_64_0/ \
+	tests/qs_unit_matrix_test.cpp  -o tests/qs_unit_matrix_test.out \
+				libraries/quadratic_sieve.o libraries/dynamic_bin_matrix.o \
+				libraries/greatest_common_divisor.o -lgmp -lboost_system
+
+
 #####################################################
 
 

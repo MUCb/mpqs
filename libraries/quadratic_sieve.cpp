@@ -416,7 +416,11 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long 
         for (uint64_t i = 0; i < X.size(); ++i)
         {
             DEBUG (2, "X = %lu\t",X[i]);
-            Y.push_back(X[i]*X[i] - N);
+            long long tmp = X[i]*X[i];
+            if(X[i]*X[i] < N)
+                Y.push_back(tmp - N);
+            else
+                Y.push_back(tmp % N);
             DEBUG (2, "Y = %li\t",Y[i]);
             DEBUG (2, "\n");
         }
