@@ -485,6 +485,76 @@ int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std
 }
 
 
+int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num)
+{
+    std::vector<uint64_t> tmp(counter.size());
+    // for (int i = exponent_num; i < v_exp[y_number].size(); ++i)
+    for (int i = exponent_num; i < counter.size(); ++i)
+    {
+        tmp[i] = 1;
+        counter[i]++;
+    }
+    m2.add_row(tmp);
+    // ERROR("added num %d\n", exponent_num);
+
+    int count_flag = 0;
+    for (exponent_num = 1; exponent_num < counter.size(); ++exponent_num)
+    {
+        DEBUG(2, "counter[%d]=%d\t", exponent_num, counter[exponent_num] ); 
+        if (counter[exponent_num] == exponent_num + 2)
+        {
+            DEBUG(2, "flag is set \n"); 
+            count_flag = 1;
+            break;
+        }
+    }
+        DEBUG(2, "\n"); 
+    if (count_flag)
+        return exponent_num;
+    else
+        return -1;
+}
+
+
+long prime_factorisation(long Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp)
+{
+    for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
+                        smooth_iter < p_smooth.size(); 
+                        smooth_iter++, exponent_num++)
+    {
+        long int tmp;
+        do{
+            tmp = Y % p_smooth[smooth_iter];
+            DEBUG (4, "y = %10li\t",Y);
+            DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
+            DEBUG (4, "tmp = %li\n",tmp);
+            if(tmp == 0){
+                Y = Y / p_smooth[smooth_iter];
+                v_exp[exponent_num] += 1; 
+            }
+        } while (tmp == 0);
+
+        if(Y == -1 || Y == 1)
+            break;
+    }
+    return Y;
+}
+
+int zero_vector_mod2_check(std::vector<uint64_t> v_exp) {
+    // modulo-2 division 
+    int null_flag = 1;
+    for (   int exponent_num = 0;
+                exponent_num < v_exp.size(); 
+                exponent_num++ )
+    {
+        DEBUG (3, "%ld\t", v_exp[exponent_num]);
+        v_exp[exponent_num] %= 2;
+        if (v_exp[exponent_num] != 0)
+            null_flag = 0;
+    }
+    return null_flag;
+}
+
 int find_solution (bin_matrix_t m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 

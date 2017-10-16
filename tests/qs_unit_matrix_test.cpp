@@ -23,16 +23,22 @@ BOOST_AUTO_TEST_CASE(test_2)
 {
     int iter = 0;
     int iter_1 = 0;
-// for (int iter1 = 5; iter1 < 70 ; iter1++) {
-    // for (int iter = iter1 + 1; iter < 70 ; iter++) 
+    // for (iter_1 = 200; iter_1 < 250 ; iter_1++)
+    // for (int iter = iter_1 + 1; iter < 260 ; iter++) 
     {
 
         time_t start;
         time_t finish;
         start = clock();
         
-        uint64_t p = prime[900]; // k = 3 p = 10
-        uint64_t q = prime[500];
+        uint64_t p = prime[200]; // k = 3 p = 10
+        // uint64_t p = prime[iter_1]; // k = 3 p = 10
+        // uint64_t q = prime[iter];
+        uint64_t q = prime[212];
+
+
+        // uint64_t p = prime[900]; // k = 3 p = 10
+        // uint64_t q = prime[500];
 
         // uint64_t p = prime[1200]; // k = 3 p = 10
         // uint64_t q = prime[1450];
@@ -71,37 +77,246 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 
         // selecting the sieving interval
-        uint32_t M;
+        long  M;
         M = exp (sqrt (log(N) * log(log(N))) );
         M = pow(M , 3*sqrt(2)/4);
 
-        DEBUG (2, "The sieving interval M=%" PRIu32 "\n", M);
+        DEBUG (2, "The sieving interval M=%li\n", M);
         
         // *** construct our sieve *** //
         std::vector<long> X;
         std::vector<long> Y;
-        construct_xy(X, Y, sqrt_N, N, M);
-
-
-        DEBUG (2, "X size  = %lu\n",X.size());
-        
+        std::vector<long> V;
 
         // simple sieve 
         std::vector<long> solution_candidates_number;
-        std::vector< std::vector<uint64_t> > v_exp(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
-        // std::vector< std::vector<uint64_t> > v_exp_copy(Y.size(), std::vector<uint64_t> (p_smooth.size() + 1)) ;
-        // std::vector<uint64_t> v_extra_exp(Y.size()) ;
+        std::vector< std::vector<uint64_t> > v_exp;
+        std::vector< std::vector<uint64_t> > v_exp_copy;
+        // std::vector<uint64_t> v_extra_exp;
         std::vector<int> smooth_num;
-        DEBUG (2, "v_exp size  = %lu\n",v_exp.size());
+        // bin_matrix_t m1(p_smooth.size() + 1);
+        std::vector< std::vector<uint64_t> > max_exp_count;
 
-        if (make_exp_array(v_exp, smooth_num, Y, p_smooth, size_B, M, solution_candidates_number) == 0)
+        bin_matrix_t m_all(p_smooth.size() + 1);
+        bin_matrix_t m_counter(p_smooth.size() + 1);
+        std::vector<uint64_t> counter(p_smooth.size() + 1);
+
+        // DEBUG (2, "%s %d\n", __func__, __LINE__);
+        for (long  j = -M/2, y_number = 0; j < M/2; j++, y_number++)
+        // for (long  i = -M*3/10; i < M*7/10; i++)
         {
-            // check the solution candidate 
-            // we skip this for now
-        }
+            // DEBUG (2, "%s %d\n", __func__, __LINE__);
+            X.push_back(sqrt_N + j);
+            DEBUG (4, "X%li =%lu\n",j, sqrt_N + j );
+            long long tmp = X[y_number]*X[y_number];
+            if(tmp < N)
+                Y.push_back(tmp - N);
+            else
+                Y.push_back(tmp % N);
+            DEBUG (2, "X = %li\t",X[y_number]);
+            DEBUG (2, "Y = %li\t",Y[y_number]);
+            DEBUG (2, "\n");
+            
+            #define NEGATIVE_SIGN    0 
+            #define FIRST_VALUE      1
+
+            v_exp.push_back(std::vector<uint64_t> (p_smooth.size() + 1));
+            v_exp_copy.push_back(std::vector<uint64_t> (p_smooth.size() + 1));;
+            V.push_back(Y[y_number]);
+
+            if(Y[y_number] < 0 )
+                v_exp[y_number][NEGATIVE_SIGN] = 1;
+
+            V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
+
+
+            v_exp_copy[y_number] = v_exp[y_number];
+
+            if(V[y_number] == -1 || V[y_number] == 1){
+
+
+                int null_flag = 1;
+                null_flag = zero_vector_mod2_check(v_exp[y_number]);
+
+                if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
+                    continue;
+                    //    will be added later  ##########################
+                    uint64_t found = 0;
+                    std::vector<int64_t> tmp;
+                    tmp.push_back(y_number);
+                    found = euclid_gcd( X, Y, tmp, p, q, N,v_exp_copy, p_smooth);
+                    // found = euclid_gcd( X, Y, tmp, p, q, N);
+                    if (found)
+                        break;
+                } else 
+                {
+                    smooth_num.push_back(y_number);
+                    DEBUG(3, "%s %d  try to add %li \n",__func__, __LINE__, y_number);
+
+
+                    if (m_all.add_row(v_exp[y_number]) == 1){
+                        int exponent_num = (v_exp[y_number].size() - 1);
+                        // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
+
+                        while (v_exp[y_number][exponent_num] == 0 && exponent_num >= 0){
+                            exponent_num--;
+                        }
+                        if (exponent_num >= 0)
+                        {
+                            int count_flag = 0;
+                            count_flag = add_counter_row(m_counter ,counter ,exponent_num);
+                            DEBUG(2, "count_flag |%d|\n",count_flag); 
+
+                            if (count_flag  >= 0 )
+                            {
+                                bin_matrix_t m_selected(p_smooth.size() + 1);
+                                bin_matrix_t m_selected_copy(p_smooth.size() + 1);
+                                std::vector<int> smooth_num_selected;
+                                std::vector<int> smooth_num_selected_iter;
+
+                                ERROR("find limit %d, p  = %d q = %d p_smooth = %d\n", exponent_num, p, q, p_smooth.size());
+                                DEBUG(2, "counter \n"); 
+                                for (int i = 0; i < counter.size(); ++i) {
+                                    DEBUG(2, "%d\t", counter[i] ); 
+                                }
+                                DEBUG(2, "\n counter \n"); 
+                                m_counter.show();
+                                m_all.show();
+                                for (int i = 0; i < m_counter.matrix.size(); ++i)
+                                {
+                                    if (m_counter.matrix[i][count_flag] == 1)
+                                    {
+                                        m_selected.add_row(m_all.matrix[i]);
+                                        smooth_num_selected.push_back(smooth_num[i]);
+                                        smooth_num_selected_iter.push_back(i);
+                                    }
+                                }
+                                m_selected.show();
+                                m_selected_copy= m_selected;
+                                int null_line = m_selected.make_upper_triangular();
+                                std::vector<int64_t> P11;
+
+                                if (null_line > -1)
+                                {
+                                    // DEBUG(2, "collumn size %d\n", m_all.collumn_size);
+                                    for (uint64_t col = 0; col <  m_selected.filled; ++col)
+                                    {
+                                        DEBUG (2,"matrix[%d][%lu] = %lu\n",null_line,col, m_selected.unit_matrix[null_line][col]);
+                                        if( m_selected.unit_matrix[null_line][col] > 0)
+                                        {
+                                            DEBUG (2,"num = %d\t", smooth_num_selected[col]);
+                                            DEBUG (2,"Y  = %ld\n", Y[smooth_num_selected[col]]);
+                                            P11.push_back(smooth_num_selected[col]);
+                                        }
+                                    }
+                                    DEBUG (2,"\n");
+
+                                    int found = 0;
+                                    // found = euclid_gcd( X, Y, P11, p, q, N);
+                                    found = euclid_gcd( X, Y, P11, p, q, N, v_exp_copy, p_smooth);
+                                    // printf("found %lu\n", found);
+                                    m_selected.show();
+                                    if (found) {
+                                        ERROR("find limit %d, p  = %d q = %d p_smooth = %d\n", exponent_num, p, q, p_smooth.size());
+                                        DEBUG(0, "counter \n"); 
+                                        for (int i = 0; i < counter.size(); ++i) {
+                                            DEBUG(0, "%d\t", counter[i] ); 
+                                        }
+                                        DEBUG(0, "\n counter \n"); 
+
+                                        break;
+                                        // exit( null_line);
+                                    } else {
+                                    }
+                                } 
+                                        int max_i = 0;
+                                        DEBUG (3," null_line %d\n",null_line );
+                                        m_selected_copy.show();
+                                        max_i = smooth_num_selected_iter.size() - 1;
+                                        // max_i = m_selected_copy.max_unit_num(m_selected.unit_matrix[null_line]);
+                                        DEBUG (3," iter %d\n",max_i );
+
+                                        DEBUG (3," line %d\n",smooth_num_selected_iter[max_i]);
+
+                                        DEBUG (3," delete before \n");
+                                        m_all.show();
+                                        m_all.delete_row( smooth_num_selected_iter[max_i] );
+                                        DEBUG (3," delete after \n");
+                                        m_all.show();
+                                        DEBUG (3," delete before \n");
+                                        m_counter.show();
+                                        m_counter.delete_row( smooth_num_selected_iter[max_i] );
+                                        DEBUG (3," delete after \n");
+                                        m_counter.show();
+
+                                        for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
+                                            counter[i]--;
+                                        }
+
+                                        smooth_num.erase(smooth_num.begin() + smooth_num_selected_iter[max_i]);
+                                    
+
+                                // exit(0);
+
+                            }
+
+                        }
+                        else{
+                            ERROR( "empty string \n");
+                            exit(0);
+                        }
+
+                    }
+                    else
+                    {
+                        ERROR("cant add aaaaa\n");
+                        exit(0);
+                    }
 
 
 
+                    // m1.add_row(v_exp[y_number]);
+                    // for (int f = 0; f < v_exp[y_number].size(); ++f)
+                    // {
+                    //     printf("[%d]%lu\t", f, v_exp[y_number][f]);
+                    // }
+                    // printf("------\n");
+
+                    // max_exp_count.push_back(std::vector<uint64_t> (p_smooth.size() + 1));
+                    // printf("size %d\n", v_exp[y_number].size());
+
+                    // for(int k = v_exp[y_number].size() - 1 ; k >= 0; k--){
+                    //     // DEBUG (2, "%s %d\n", __func__, k);
+                    //     // DEBUG (2, "%s %d\n", __func__, __LINE__);
+                    //     max_exp_count[max_exp_count.size() - 1][k] = 1;
+                    //     if(v_exp[y_number][k] != 0)
+                    //     {
+                    //         break;
+                    //     }
+                    // }
+                            // break;
+
+                    // for (int f = 0; f < max_exp_count.size(); ++f)
+                    // {
+                    //     for (int g = 0; g < max_exp_count[0].size(); ++g){
+                    //         printf("%lu\t", max_exp_count[f][g]);
+                    //     }
+                    //     printf("\n");
+                    // }
+                    // break;
+                    // m1.show();
+
+
+                }
+                DEBUG (3, "\n");
+                // break;
+            }
+            // exit (0);
+        }       
+//-------------------------------------
+  
+
+/*
         std::vector<int> smooth_num_back = smooth_num;
         bin_matrix_t m1(p_smooth.size() + 1);
 
@@ -118,6 +333,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                     finish = clock();
         DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         }
-        
+  */      
     }
 }

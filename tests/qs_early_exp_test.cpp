@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                             int count_flag = 0;
                             count_flag = add_counter_row(m_counter ,counter ,exponent_num);
 
-                            if (count_flag)
+                            if (count_flag  >= 0)
                             {
                                 bin_matrix_t m_selected(p_smooth.size() + 1);
                                 bin_matrix_t m_selected_copy(p_smooth.size() + 1);

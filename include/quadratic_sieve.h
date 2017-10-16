@@ -39,4 +39,8 @@ int make_exp_array_condBsmooth(std::vector< std::vector<uint64_t> > &v_exp, std:
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp);
 int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
     std::vector<long> &solution_candidates_number, std::vector<uint64_t> &v_extra_exp);
+
+int zero_vector_mod2_check(std::vector<uint64_t> v_exp);
+int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num);
+long prime_factorisation(long  Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp);
 #endif
