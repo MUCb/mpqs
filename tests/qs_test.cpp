@@ -12,7 +12,7 @@
 #include <inttypes.h>
 #include <time.h>
 // #include "primes.h"
-#include "primes_10_8.h"
+#include "primes.h"
 
 int showDebugMsg = 0;
 
@@ -302,17 +302,17 @@ BOOST_AUTO_TEST_CASE(test_5)
     // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
     // int iter_1 = 52000;
     // int iter_1 = 78000;
-    int iter_1 = 3;
-    while (iter_1 < 1000 ) 
+    int iter_1 = 199;
+    while (iter_1 < 500 ) 
     // while (iter_1 < 78400 ) 
     {
         iter_1 += 1;
         // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
-    int iter = 4000;
+    int iter = iter_1 + 597;
     // int iter = iter_1 + 1;
-    while (iter < 5000 )
+    while (iter < 1500 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -322,7 +322,7 @@ BOOST_AUTO_TEST_CASE(test_5)
     // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
     // for (int iter = 10; iter < 11 ; iter++) 
     {
-        iter += 1;
+        iter += 3;
         // iter += 10;
         // iter = ceil(it1* (double)iter);
         // if(first_flag)
@@ -422,13 +422,14 @@ BOOST_AUTO_TEST_CASE(test_5)
                 }
             }
             solution_candidates_number.clear();
-            if (found)
+            /*if (found)
             {
+                //DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
                 DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t", iter, iter_1, p, q);
                         finish = clock();
         DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
                 continue;
-            }
+            }*/
 
             ERROR( "exit make_exp_array");
             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
@@ -446,16 +447,17 @@ BOOST_AUTO_TEST_CASE(test_5)
 
         // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
         int find_res = find_solution(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy,  X, Y, p, q, N);
-        BOOST_TEST(find_res   >= 0);
+        BOOST_CHECK(find_res   >= 0);
         if(find_res >= 0)
         {
-            DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+            //DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+            DEBUG (0, "fiund %d\t%d\t%lu\n", p, q, m1.filled);
         finish = clock();
-        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+        DEBUG (1, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         } else {
             DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
                     finish = clock();
-        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+        DEBUG (1, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         }
         // exit(0);
 

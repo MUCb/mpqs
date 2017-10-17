@@ -6,9 +6,9 @@ extern long long  prime[];
 extern const int prime_size;
 
 
-int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std::vector<uint64_t> > &v_exp);
+int fill_matrix(bin_matrix_t & m1, std::vector<int> &smooth_num, std::vector< std::vector<uint64_t> > &v_exp);
 
-int find_solution (bin_matrix_t m2, 
+int find_solution (bin_matrix_t & m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,

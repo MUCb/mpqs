@@ -17,24 +17,24 @@
  #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 3;
+int showDebugMsg = 0;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     int iter = 0;
     int iter_1 = 0;
-    // for (iter_1 = 200; iter_1 < 250 ; iter_1++)
-    // for (int iter = iter_1 + 1; iter < 260 ; iter++) 
+    for (iter_1 = 200; iter_1 < 500 ; iter_1++)
+    for (iter = iter_1 + 600; iter < 1500 ; iter=iter+3) 
     {
 
         time_t start;
         time_t finish;
         start = clock();
         
-        uint64_t p = prime[200]; // k = 3 p = 10
-        // uint64_t p = prime[iter_1]; // k = 3 p = 10
-        // uint64_t q = prime[iter];
-        uint64_t q = prime[212];
+        //uint64_t p = prime[200]; // k = 3 p = 10
+        uint64_t p = prime[iter_1]; // k = 3 p = 10
+        uint64_t q = prime[iter];
+        //uint64_t q = prime[212];
 
 
         // uint64_t p = prime[900]; // k = 3 p = 10
@@ -70,8 +70,8 @@ BOOST_AUTO_TEST_CASE(test_2)
             DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\t", iter, iter_1, p, q);
             finish = clock();
             DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-            // continue;
-            exit (0);
+             continue;
+            //exit (0);
         }
         std::vector<long> p_smooth_copy = p_smooth;
 
@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                 std::vector<int> smooth_num_selected;
                                 std::vector<int> smooth_num_selected_iter;
 
-                                ERROR("find limit %d, p  = %d q = %d p_smooth = %d\n", exponent_num, p, q, p_smooth.size());
+                                //ERROR("find limit %d, p  = %d q = %d p_smooth = %d\n", exponent_num, p, q, p_smooth.size());
                                 DEBUG(2, "counter \n"); 
                                 for (int i = 0; i < counter.size(); ++i) {
                                     DEBUG(2, "%d\t", counter[i] ); 
@@ -217,12 +217,12 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found) {
-                                        ERROR("find limit %d, p  = %d q = %d p_smooth = %d\n", exponent_num, p, q, p_smooth.size());
-                                        DEBUG(0, "counter \n"); 
-                                        for (int i = 0; i < counter.size(); ++i) {
-                                            DEBUG(0, "%d\t", counter[i] ); 
-                                        }
-                                        DEBUG(0, "\n counter \n"); 
+                                        ERROR("find %d\t%d\t%d\n",p, q, m_selected.filled);
+                                        //DEBUG(0, "counter \n"); 
+                                        //for (int i = 0; i < counter.size(); ++i) {
+                                        //    DEBUG(0, "%d\t", counter[i] ); 
+                                        //}
+                                       // DEBUG(0, "\n counter \n"); 
 
                                         break;
                                         // exit( null_line);

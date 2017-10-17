@@ -397,7 +397,7 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long 
 {
         // for (long  i = 0; i < M; i++)
         // for (long  i = -M/2; i < M/2; i++)
-        for (long  i = -M*7/10; i < M*3/10; i++)
+        for (long  i = -M/2; i < M/2; i++)
         // for (long  i = -M*3/10; i < M*7/10; i++)
         {
             X.push_back(sqrt_N + i);
@@ -500,7 +500,7 @@ int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int expone
     int count_flag = 0;
     for (exponent_num = 1; exponent_num < counter.size(); ++exponent_num)
     {
-        DEBUG(2, "counter[%d]=%d\t", exponent_num, counter[exponent_num] ); 
+        DEBUG(2, "counter[%d]=%lu\t", exponent_num, counter[exponent_num] ); 
         if (counter[exponent_num] == exponent_num + 2)
         {
             DEBUG(2, "flag is set \n"); 
@@ -555,7 +555,7 @@ int zero_vector_mod2_check(std::vector<uint64_t> v_exp) {
     return null_flag;
 }
 
-int find_solution (bin_matrix_t m2, 
+int find_solution (bin_matrix_t & m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,

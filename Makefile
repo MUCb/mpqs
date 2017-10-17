@@ -35,7 +35,7 @@ qs_test: quadratic_sieve
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/  -lgmp \
 	tests/qs_test.cpp -o tests/qs_test.out \
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
-				libraries/greatest_common_divisor.o 
+				libraries/greatest_common_divisor.o -lgmp 
 
 
 qs_gmp_test: quadratic_sieve quadratic_sieve_remainder_gmp
