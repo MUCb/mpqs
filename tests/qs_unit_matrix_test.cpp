@@ -24,11 +24,35 @@ BOOST_AUTO_TEST_CASE(test_2)
     //int iter = 7000;
     //int iter_1 = 5000;
 
-    int iter = 0;
-    int iter_1 = 0;
-    for (iter_1 = 5000; iter_1 < 6000 ; iter_1++)
-    for (iter = 7000; iter < 9000 ; iter=iter+3) 
+    int iter_1 = 4999;
+    while (iter_1 < 6000 ) 
+    // while (iter_1 < 78400 ) 
     {
+        iter_1 += 1;
+        // iter_1 += 10;
+        // iter_1 = ceil(it1* (double)iter_1);
+        
+   // int iter = iter_1 + 597;
+    int iter = 6997;
+    while (iter < 9000 )
+
+    // for (int iter = 3; iter < 1000 ; iter++) 
+    // for (int iter = 3; iter < 4 ; iter++) 
+    // for (int iter = 10000; iter < 10200 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 10200 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 5760030 ; iter++) 
+    // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
+    // for (int iter = 10; iter < 11 ; iter++) 
+    {
+        iter += 3;
+ 
+
+
+//    int iter = 0;
+//    int iter_1 = 0;
+ //   for (iter_1 = 5000; iter_1 < 6000 ; iter_1++)
+ //   for (iter = 7000; iter < 9000 ; iter=iter+3) 
+  //  {
 
         time_t start;
         time_t finish;
