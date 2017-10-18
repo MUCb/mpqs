@@ -21,10 +21,13 @@ int showDebugMsg = 0;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
+    //int iter = 7000;
+    //int iter_1 = 5000;
+
     int iter = 0;
     int iter_1 = 0;
-    for (iter_1 = 200; iter_1 < 500 ; iter_1++)
-    for (iter = iter_1 + 600; iter < 1500 ; iter=iter+3) 
+    for (iter_1 = 5000; iter_1 < 6000 ; iter_1++)
+    for (iter = 7000; iter < 9000 ; iter=iter+3) 
     {
 
         time_t start;
@@ -66,11 +69,11 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         if ((p_smooth.size() < size_B))
         {
-            ERROR ("to small primes \n");
+            //ERROR ("to small primes \n");
             DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\t", iter, iter_1, p, q);
             finish = clock();
-            DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-             continue;
+            //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+            continue;
             //exit (0);
         }
         std::vector<long> p_smooth_copy = p_smooth;
@@ -101,6 +104,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);
 
+        int exit_flag = 0;
         // DEBUG (2, "%s %d\n", __func__, __LINE__);
         for (long  j = -M/2, y_number = 0; j < M/2; j++, y_number++)
         // for (long  i = -M*3/10; i < M*7/10; i++)
@@ -164,11 +168,12 @@ BOOST_AUTO_TEST_CASE(test_2)
                         if (exponent_num >= 0)
                         {
                             int count_flag = 0;
-                            count_flag = add_counter_row(m_counter ,counter ,exponent_num);
-                            DEBUG(2, "count_flag |%d|\n",count_flag); 
+                            add_counter_row(m_counter ,counter ,exponent_num);
 
-                            if (count_flag  >= 0 )
+                           DEBUG(2, "--count_flag |%d|\n",count_flag); 
+                            while ((count_flag = is_counter_full(counter)) >= 0 )
                             {
+                           DEBUG(2, "count_flag |%d|\n",count_flag); 
                                 bin_matrix_t m_selected(p_smooth.size() + 1);
                                 bin_matrix_t m_selected_copy(p_smooth.size() + 1);
                                 std::vector<int> smooth_num_selected;
@@ -217,18 +222,44 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found) {
-                                        ERROR("find %d\t%d\t%d\n",p, q, m_selected.filled);
+                                        ERROR("find %d\t%d\t%d",p, q, m_selected.filled);
                                         //DEBUG(0, "counter \n"); 
                                         //for (int i = 0; i < counter.size(); ++i) {
                                         //    DEBUG(0, "%d\t", counter[i] ); 
                                         //}
                                        // DEBUG(0, "\n counter \n"); 
-
+                                        exit_flag=1;
                                         break;
                                         // exit( null_line);
                                     } else {
+                                        int max_i = 0;
+                                        DEBUG (3," null_line %d\n",null_line );
+                                        m_selected_copy.show();
+                                        //max_i = smooth_num_selected_iter.size() - 1;
+                                        max_i = m_selected_copy.max_unit_num(m_selected.unit_matrix[null_line]);
+                                        DEBUG (3," iter %d\n",max_i );
+
+                                        DEBUG (3," line %d\n",smooth_num_selected_iter[max_i]);
+
+                                        //DEBUG (3," delete before \n");
+                                        //m_all.show();
+                                        //m_all.delete_row( smooth_num_selected_iter[max_i] );
+                                        //DEBUG (3," delete after \n");
+                                        //m_all.show();
+                                        DEBUG (3," delete before \n");
+                                        m_counter.show();
+                                        m_counter.matrix[ smooth_num_selected_iter[max_i]][count_flag] = 0;
+                                        DEBUG (3," delete after \n");
+                                        m_counter.show();
+
+                                        counter[count_flag]--;
+                                        //for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
+                                        //    counter[i]--;
+                                        //}
+
+                                        //smooth_num.erase(smooth_num.begin() + smooth_num_selected_iter[max_i]);
                                     }
-                                } 
+                                } else { 
                                         int max_i = 0;
                                         DEBUG (3," null_line %d\n",null_line );
                                         m_selected_copy.show();
@@ -238,27 +269,30 @@ BOOST_AUTO_TEST_CASE(test_2)
 
                                         DEBUG (3," line %d\n",smooth_num_selected_iter[max_i]);
 
-                                        DEBUG (3," delete before \n");
-                                        m_all.show();
-                                        m_all.delete_row( smooth_num_selected_iter[max_i] );
-                                        DEBUG (3," delete after \n");
-                                        m_all.show();
+                                        //DEBUG (3," delete before \n");
+                                        //m_all.show();
+                                        //m_all.delete_row( smooth_num_selected_iter[max_i] );
+                                        //DEBUG (3," delete after \n");
+                                        //m_all.show();
                                         DEBUG (3," delete before \n");
                                         m_counter.show();
-                                        m_counter.delete_row( smooth_num_selected_iter[max_i] );
+                                        m_counter.matrix[ smooth_num_selected_iter[max_i]][count_flag] = 0;
                                         DEBUG (3," delete after \n");
                                         m_counter.show();
 
-                                        for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
-                                            counter[i]--;
-                                        }
+                                        counter[count_flag]--;
+                                        //for (int i = exponent_num; i < v_exp[y_number].size(); ++i) {
+                                        //    counter[i]--;
+                                        //}
 
-                                        smooth_num.erase(smooth_num.begin() + smooth_num_selected_iter[max_i]);
-                                    
+                                        //smooth_num.erase(smooth_num.begin() + smooth_num_selected_iter[max_i]);
+                                }
 
                                 // exit(0);
 
                             }
+                            if (exit_flag)
+                                break;
 
                         }
                         else{
@@ -312,7 +346,11 @@ BOOST_AUTO_TEST_CASE(test_2)
                 // break;
             }
             // exit (0);
-        }       
+        }
+        if(!exit_flag)
+         DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\n", iter, iter_1, p, q);
+
+
 //-------------------------------------
   
 

@@ -4,7 +4,7 @@
 
 extern int showDebugMsg;
 
-#define ERROR(fmt, arg...)  fprintf(stdout, "ERROR: " fmt "\n", ##arg);
+#define ERROR(fmt, arg...)  fprintf(stderr, "ERROR: " fmt "\n", ##arg);
 
 #define DEBUG(level, fmt, arg...)                       \
     { if(showDebugMsg>=level) {                         \

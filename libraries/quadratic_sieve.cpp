@@ -115,7 +115,7 @@ int make_exp_array_condBsmooth(std::vector< std::vector<uint64_t> > &v_exp, std:
 
        if (smooth_num.size()  < size_B + 1)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            //ERROR( "to small number of smooth numbbers\n");
             return 0; 
         }
     return 1;
@@ -231,7 +231,7 @@ int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, st
 
        if (smooth_num.size()  < size_B + 1)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            //ERROR( "to small number of smooth numbbers\n");
             return 0; 
         }
     return 1;
@@ -387,7 +387,7 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
         
         if (smooth_num.size()  < size_B + 1)
         {
-            ERROR( "to small number of smooth numbbers\n");
+            //ERROR( "to small number of smooth numbbers\n");
             return 0; 
         }
     return 1;
@@ -485,7 +485,7 @@ int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std
 }
 
 
-int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num)
+void add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num)
 {
     std::vector<uint64_t> tmp(counter.size());
     // for (int i = exponent_num; i < v_exp[y_number].size(); ++i)
@@ -496,7 +496,7 @@ int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int expone
     }
     m2.add_row(tmp);
     // ERROR("added num %d\n", exponent_num);
-
+/*
     int count_flag = 0;
     for (exponent_num = 1; exponent_num < counter.size(); ++exponent_num)
     {
@@ -512,9 +512,30 @@ int add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int expone
     if (count_flag)
         return exponent_num;
     else
-        return -1;
+        return -1;*/
 }
 
+int is_counter_full(std::vector<uint64_t> &counter)
+{
+    int count_flag = 0;
+    int exponent_num;
+    for (exponent_num = 1; exponent_num < counter.size(); ++exponent_num)
+    {
+        DEBUG(2, "counter[%d]=%lu\t", exponent_num, counter[exponent_num] ); 
+        if (counter[exponent_num] == exponent_num + 2)
+        {
+            DEBUG(2, "flag is set \n"); 
+            count_flag = 1;
+            break;
+        }
+    }
+        DEBUG(2, "\n"); 
+    if (count_flag)
+        return exponent_num;
+    else
+        return -1;
+
+}
 
 long prime_factorisation(long Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp)
 {
@@ -729,7 +750,8 @@ int find_solution_condBsmooth (bin_matrix_t m2,
         else {
 
             int max_i = 0;
-            max_i = m2.max_unit_num(m1.unit_matrix[null_line]);
+            //max_i = m2.max_unit_num(m1.unit_matrix[null_line]); // temp need to return back
+            max_i = smooth_num_back.size() -1;
 
             DEBUG (3," iter %d\n",max_i );
             m2.show();

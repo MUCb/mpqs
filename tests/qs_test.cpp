@@ -301,18 +301,18 @@ BOOST_AUTO_TEST_CASE(test_5)
     // for (int iter_1 = 3; iter_1 < 1000 ; iter_1++) 
     // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
     // int iter_1 = 52000;
-    // int iter_1 = 78000;
-    int iter_1 = 199;
-    while (iter_1 < 500 ) 
+    int iter_1 = 4999;
+//    int iter_1 = 199;
+    while (iter_1 < 6000 ) 
     // while (iter_1 < 78400 ) 
     {
         iter_1 += 1;
         // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
-    int iter = iter_1 + 597;
-    // int iter = iter_1 + 1;
-    while (iter < 1500 )
+   // int iter = iter_1 + 597;
+    int iter = 6997;
+    while (iter < 9000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -370,11 +370,11 @@ BOOST_AUTO_TEST_CASE(test_5)
 
         if ((p_smooth.size() < size_B))
         {
-            ERROR ("to small primes \n");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+            //ERROR ("to small primes \n");
+            ERROR ("Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
                     finish = clock();
-        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-            // exit(0);
+        //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+      // exit(0);
             continue ;
             // exit (0);
         }
@@ -431,12 +431,12 @@ BOOST_AUTO_TEST_CASE(test_5)
                 continue;
             }*/
 
-            ERROR( "exit make_exp_array");
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
-                    finish = clock();
-        DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+            //ERROR( "exit make_exp_array");
+           // DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+            //        finish = clock();
+        //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
             // exit (0); 
-            continue;
+         //   continue;
         }
 
 
@@ -451,13 +451,13 @@ BOOST_AUTO_TEST_CASE(test_5)
         if(find_res >= 0)
         {
             //DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
-            DEBUG (0, "fiund %d\t%d\t%lu\n", p, q, m1.filled);
+             DEBUG (0,  "found %lu\t%lu\t%d\n", p, q, m1.filled);
         finish = clock();
         DEBUG (1, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         } else {
-            DEBUG (0, "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
+            ERROR ( "Fail solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
                     finish = clock();
-        DEBUG (1, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
+        //DEBUG (1, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         }
         // exit(0);
 
