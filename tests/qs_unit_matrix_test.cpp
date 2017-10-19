@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
    // int iter = iter_1 + 597;
     int iter = 6997;
-    while (iter < 9000 )
+    while (iter < 8000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -396,5 +396,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
         }
   */      
+ }
     }
 }

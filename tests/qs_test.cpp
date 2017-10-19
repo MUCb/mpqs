@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(test_5)
         
    // int iter = iter_1 + 597;
     int iter = 6997;
-    while (iter < 9000 )
+    while (iter < 8000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
