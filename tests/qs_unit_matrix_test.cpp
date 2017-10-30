@@ -130,12 +130,18 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         int exit_flag = 0;
         // DEBUG (2, "%s %d\n", __func__, __LINE__);
-        for (long  j = -M/2, y_number = 0; j < M/2; j++, y_number++)
-        // for (long  i = -M*3/10; i < M*7/10; i++)
+        for (long  j = 0, y_number = -1; j < M/2; j++){
+        for (int  d = 0; d < 2; d++)
         {
+		if(d == 1 && j == 0)
+			continue;
+		if(d == 0 )
+			X.push_back(sqrt_N - j);
+		else
+			X.push_back(sqrt_N + j);
+	    y_number++;
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
-            X.push_back(sqrt_N + j);
-            DEBUG (4, "X%li =%lu\n",j, sqrt_N + j );
+            DEBUG (4, "X%li =%lu\n",j, X[y_number] );
             long long tmp = X[y_number]*X[y_number];
             if(tmp < N)
                 Y.push_back(tmp - N);
@@ -371,6 +377,7 @@ BOOST_AUTO_TEST_CASE(test_2)
             }
             // exit (0);
         }
+	}
         if(!exit_flag)
          DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\n", iter, iter_1, p, q);
 
