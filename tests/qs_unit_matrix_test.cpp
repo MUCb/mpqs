@@ -97,8 +97,8 @@ BOOST_AUTO_TEST_CASE(test_2)
             DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\t", iter, iter_1, p, q);
             finish = clock();
             //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-            continue;
-            //exit (0);
+            //continue;
+            exit (0);
         }
         std::vector<long> p_smooth_copy = p_smooth;
 
@@ -377,6 +377,8 @@ BOOST_AUTO_TEST_CASE(test_2)
             }
             // exit (0);
         }
+	if (exit_flag)
+		break;
 	}
         if(!exit_flag)
          DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\n", iter, iter_1, p, q);
