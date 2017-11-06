@@ -62,6 +62,13 @@ qs_unit_matrix_test: quadratic_sieve dynamic_bin_matrix
 				libraries/quadratic_sieve.o libraries/dynamic_bin_matrix.o \
 				libraries/greatest_common_divisor.o -lgmp -lboost_system
 
+qs_unit_matrix_big_test: quadratic_sieve dynamic_bin_matrix big
+	g++ -std=c++11  -Iinclude/ -I../soft/boost_1_64_0/ -lm  -L../soft/boost_1_64_0/ \
+	tests/qs_unit_matrix_big_test.cpp  -o tests/qs_unit_matrix_big_test.out \
+				libraries/quadratic_sieve.o libraries/dynamic_bin_matrix.o libraries/big.o\
+				libraries/greatest_common_divisor.o -lgmp -lboost_system
+
+
 big_test: big
 	g++ -std=c++11  -Iinclude/ -lm  \
 	tests/big_test.cpp -o tests/big_tests.out \
