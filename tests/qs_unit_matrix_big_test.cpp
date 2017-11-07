@@ -15,10 +15,27 @@
 #include "primes.h"
 #include "big.h"
 
- #include <math.h>
+#include <math.h>
 #include <time.h>
 
 int showDebugMsg = 0;
+
+/*Returns the square root of n. Note that the function */
+int squareRoot(int n)
+{
+	/*We are using n itself as initial approximation
+	 *    This can definitely be improved */
+	int x = n;
+	int y = 1;
+	//float e = 0.000001; /* e decides the accuracy level*/
+	int e = 1; /* e decides the accuracy level*/
+	while(x - y > e)
+	{
+		x = (x + y)/2;
+		y = n/x;
+	}
+	return x;
+}
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
@@ -71,9 +88,10 @@ BOOST_AUTO_TEST_CASE(test_2)
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
 	std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
-#if 0
+	std::cout << "sqrt=" << squareRoot(234) <<  "\n";
         
-        DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
+#if 0
+        //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         sqrt_N = trunc(sqrt(N)) + 1;
 
         // selecting the size of the factor base

@@ -27,6 +27,23 @@ big::big(std::string _str) {
 	}
 }
 
+big::big(long long n) {
+	long long tmp;
+	if( n < 0) {
+		sign = 1;
+		tmp = -n;
+	} else {
+		sign = 0;
+		tmp = n;
+	}
+
+	for( int i = 0; tmp > 0; i++){
+		number[i] = tmp % 10;
+		tmp /= 10;
+		size++;
+	}
+}
+
 /* we use + operation only with numers with the same sign
  */
 big big::operator+(const big other) const
@@ -136,6 +153,59 @@ big big::operator*(const big other) const{
 	}
 	return tmp;
 }
+/*
+big big::operator/(const big other) const{
+
+}
+
+*/
+big big::operator%(const big other) const{
+	big divident = *this;
+	big divisor = other;
+	big tmp(1);
+	if ( divident < divisor)
+		return tmp;
+}
+
+bool big::operator<(const big other) const{
+	if (size < other.size)
+		return true;
+	else if ( size > other.size)
+		return false;
+	else {
+		for (int i = size - 1; i >= 0; i--) {
+			//std::cout << "number" << (int ) number[i] << " and " << (int)  other.number[i] << "\n";
+			if (number[i] < other.number[i]) {
+			//std::cout << "number1 " << (int ) number[i] << " and " << (int)  other.number[i] << "\n";
+				return true;
+			} else if (number[i] > other.number[i]) {
+				return false;
+			}
+		}
+	}
+	return false; 
+}
+
+bool big::operator>(const big other) const{
+	if (size > other.size)
+		return true;
+	else if ( size < other.size)
+		return false;
+	else {
+		for (int i = size - 1; i >= 0; i--) {
+			//std::cout << "number" << (int ) number[i] << " and " << (int)  other.number[i] << "\n";
+			if (number[i] > other.number[i]) {
+			//std::cout << "number1 " << (int ) number[i] << " and " << (int)  other.number[i] << "\n";
+				return true;
+			} else if (number[i] < other.number[i]) {
+				return false;
+			}
+		}
+	}
+	return false; 
+}
+
+
 std::ostream& operator<<(std::ostream& os, const big& obj){
 	if (obj.sign == 1)
 		os << "-";

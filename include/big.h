@@ -19,6 +19,7 @@ public:
 		size = 0;
 	}
 	big(std::string str);
+	big(long long n); 
 	big& operator=(const big other)
 	{
 		for (int i=0; i<BIG_SIZE; i++)
@@ -31,6 +32,10 @@ public:
 	big operator-(const big other) const;
 	friend std::ostream& operator<<(std::ostream& os, const big& obj);
 	big operator*(const big other) const;
+//	big operator/(const big other) const;
+	bool operator<(const big other) const;
+	bool operator>(const big other) const;
+	big operator%(const big other) const;
 };
 
 #endif

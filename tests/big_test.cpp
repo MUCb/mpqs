@@ -67,6 +67,34 @@ BOOST_AUTO_TEST_CASE(test_5)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_6) 
+{
+    big i("30234");
+    big g("30234");
+    std::cout << i << " < ";
+    std::cout << g << " = ";
+    if( i < g)
+    	std::cout << "less\n";
+    else 
+    	std::cout << "bigger\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_7) 
+{
+    big i(30234);
+//    big g("30234");
+    std::cout << "|" << i << "|\n";
+//    std::cout << g << " = ";
+//    if( i < g)
+//    	std::cout << "less\n";
+//    else 
+//    	std::cout << "bigger\n";
+
+}
+
+
+
 
 #if 0
 
