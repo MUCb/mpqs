@@ -83,15 +83,61 @@ BOOST_AUTO_TEST_CASE(test_6)
 BOOST_AUTO_TEST_CASE(test_7) 
 {
     big i(30234);
-//    big g("30234");
     std::cout << "|" << i << "|\n";
-//    std::cout << g << " = ";
-//    if( i < g)
-//    	std::cout << "less\n";
-//    else 
-//    	std::cout << "bigger\n";
 
 }
+
+BOOST_AUTO_TEST_CASE(test_8) 
+{
+    big i(30234);
+    std::cout << "size " << (int) i.size << "|\n";
+    i.pow10(1);
+    std::cout << "|" << i << "|\n";
+    std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_9) 
+{
+    big i(30234);
+    big j(30004);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = i - j;
+    std::cout << "f |" << f << "|\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_10) 
+{
+    big i(30234);
+    big j(30234);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = i - j;
+    std::cout << i << " - ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_11) 
+{
+    big i(30234);
+    big j(30004);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = i % j;
+    std::cout << i << " % ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+
 
 
 

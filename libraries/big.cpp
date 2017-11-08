@@ -28,6 +28,11 @@ big::big(std::string _str) {
 }
 
 big::big(long long n) {
+	size = 0;
+	for (int i=0; i<BIG_SIZE; i++){
+		number[i] = 0;
+	}
+
 	long long tmp;
 	if( n < 0) {
 		sign = 1;
@@ -37,11 +42,14 @@ big::big(long long n) {
 		tmp = n;
 	}
 
+	//std::cout << " conteructor " << n << "\n";
+	//std::cout << " tmp " << tmp << "\n";
 	for( int i = 0; tmp > 0; i++){
 		number[i] = tmp % 10;
 		tmp /= 10;
 		size++;
 	}
+	//std::cout << " size " << (int) size << "\n";
 }
 
 /* we use + operation only with numers with the same sign
@@ -110,7 +118,13 @@ big big::operator-(const big other) const{
 			//std::cout << "operator+ i " << (int)i << "\n";
 			//std::cout << "operator+ size " << (int)tmp.size<< "\n";
 			if( i+1 == tmp.size && tmp.number[i] == 0) {
-				tmp.size--;
+				for(int j = i ; j >= 0; j--) {
+					if ( tmp.number[j] != 0)
+						break;
+					tmp.size--;
+				}
+				if( tmp.size == 0)
+					tmp.sign = 0;
 			}
 			//std::cout << "operator+ size2 " <<(int) tmp.size<< "\n";
 		}
@@ -160,12 +174,43 @@ big big::operator/(const big other) const{
 
 */
 big big::operator%(const big other) const{
+	std::cout << " other |" << other << "|\n";
+	std::cout << " this |" << *this << "|\n";
 	big divident = *this;
 	big divisor = other;
+	big divisor10;
 	big tmp(1);
-	if ( divident < divisor)
-		return tmp;
+	if ( divident > divisor) {
+		int diff = divident.size - divisor.size - 1; 
+		std::cout << " divisor |" << divisor << "|\n";
+		std::cout << " other |" << other << "|\n";
+		if(diff  > 0 ) {
+			divisor10 = divisor;
+			divisor10.pow10(diff);
+
+			std::cout << " divisor10 |" << divisor10 << "|\n";
+			while ( divident > divisor10) {
+				divident = divident - divisor10;
+				std::cout << " divident10 |" << divident << "|\n";
+			}
+		}
+
+		while ( divident > divisor) {
+			divident = divident - divisor;
+			std::cout << " divident |" << divident << "|\n";
+		}
+	}
+	return divident;
 }
+
+void big::pow10(int power) {
+	for( int i = size - 1; i >= 0; i--) {
+		number[i+power] = number[i];
+		number[i] = 0;
+	}
+	size += power;
+}
+
 
 bool big::operator<(const big other) const{
 	if (size < other.size)
@@ -207,6 +252,9 @@ bool big::operator>(const big other) const{
 
 
 std::ostream& operator<<(std::ostream& os, const big& obj){
+	if ( obj.size == 0)
+		os << (int) 0;
+
 	if (obj.sign == 1)
 		os << "-";
 	for (int i = obj.size - 1; i>=0; i--){
