@@ -33,7 +33,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const big& obj);
 	void pow10(int power); 
 	big operator*(const big other) const;
-//	big operator/(const big other) const;
+	big operator/(const big other) const;
 	bool operator<(const big other) const;
 	bool operator>(const big other) const;
 	big operator%(const big other) const; 

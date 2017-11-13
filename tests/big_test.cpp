@@ -137,6 +137,48 @@ BOOST_AUTO_TEST_CASE(test_11)
 
 }
 
+BOOST_AUTO_TEST_CASE(test_12) 
+{
+    big i(304);
+    big j(4);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = i / j;
+    std::cout << i << " / ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_13) 
+{
+    big i(304);
+    big j(4);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = i % j;
+    std::cout << i << " % ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_14) 
+{
+    big i(304);
+    big j(3);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = i / j;
+    std::cout << i << " / ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
 
 
 
