@@ -4,7 +4,7 @@
 
 #include "dynamic_bin_matrix.h"
 // #include "primes.h"
-#include "quadratic_sieve.h"
+#include "quadratic_sieve_big.h"
 #include "log.h"
 
 #include "greatest_common_divisor.h"
@@ -18,24 +18,8 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 0;
+int showDebugMsg = 3;
 
-/*Returns the square root of n. Note that the function */
-int squareRoot(int n)
-{
-	/*We are using n itself as initial approximation
-	 *    This can definitely be improved */
-	int x = n;
-	int y = 1;
-	//float e = 0.000001; /* e decides the accuracy level*/
-	int e = 1; /* e decides the accuracy level*/
-	while(x - y > e)
-	{
-		x = (x + y)/2;
-		y = n/x;
-	}
-	return x;
-}
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
@@ -81,27 +65,27 @@ BOOST_AUTO_TEST_CASE(test_2)
  
         big p = str1;
         big q = str2;
+        big one = 1;
 
 
         big N = p * q;
-        uint64_t sqrt_N = 0;
+        big sqrt_N = 0;
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
 	std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
-	std::cout << "sqrt=" << squareRoot(234) <<  "\n";
         
-#if 0
         //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
-        sqrt_N = trunc(sqrt(N)) + 1;
+        sqrt_N = squareRoot(N);
 
+	std::cout << "sqrt=" << sqrt_N <<  "\n";
         // selecting the size of the factor base
         double size_B;
-        size_B = exp (sqrt (log(N) * log(log(N))) );
+        size_B = exp (sqrt (ln(N) * log(ln(N))) );
         size_B = pow(size_B , sqrt(2)/4);
         DEBUG (2,"size of factor base size_B=%f\n", size_B);
 
         // selecting smooth primes 
-        std::vector<long> p_smooth;
+        std::vector<long long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
         make_smooth_numbers(p_smooth, size_B, N);
@@ -115,20 +99,20 @@ BOOST_AUTO_TEST_CASE(test_2)
             //continue;
             exit (0);
         }
-        std::vector<long> p_smooth_copy = p_smooth;
+        std::vector<long long> p_smooth_copy = p_smooth;
 
 
         // selecting the sieving interval
-        long  M;
-        M = exp (sqrt (log(N) * log(log(N))) );
+        long long  M;
+        M = exp (sqrt (ln(N) * log(ln(N))) );
         M = pow(M , 3*sqrt(2)/4);
 
         DEBUG (2, "The sieving interval M=%li\n", M);
         
         // *** construct our sieve *** //
-        std::vector<long> X;
-        std::vector<long> Y;
-        std::vector<long> V;
+        std::vector<big> X;
+        std::vector<big> Y;
+        std::vector<big> V;
 
         // simple sieve 
         std::vector<long> solution_candidates_number;
@@ -139,6 +123,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         // bin_matrix_t m1(p_smooth.size() + 1);
         std::vector< std::vector<uint64_t> > max_exp_count;
 
+#if 0
         bin_matrix_t m_all(p_smooth.size() + 1);
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);

@@ -34,8 +34,12 @@ public:
 	void pow10(int power); 
 	big operator*(const big other) const;
 	big operator/(const big other) const;
+	friend big div(const big other);
+	friend double ln(const big n); 
 	bool operator<(const big other) const;
 	bool operator>(const big other) const;
 	big operator%(const big other) const; 
+	bool operator==(const big other) const;
 };
+big squareRoot(big n);
 #endif
