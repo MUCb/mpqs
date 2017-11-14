@@ -12,13 +12,13 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include "primes.h"
+#include "primes_10_8.h"
 #include "big.h"
 
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 3;
+int showDebugMsg = 4;
 
 
 BOOST_AUTO_TEST_CASE(test_2) 
@@ -60,12 +60,13 @@ BOOST_AUTO_TEST_CASE(test_2)
         time_t finish;
         start = clock();
         
-        string str1 = "7";
-        string str2 = "17";
+        big p(prime[13123]);
+        big q(prime[18123]);
  
-        big p = str1;
-        big q = str2;
+        //big p = str1;
+        //big q = str2;
         big one = 1;
+        big null = 0;
 
 
         big N = p * q;
@@ -77,19 +78,19 @@ BOOST_AUTO_TEST_CASE(test_2)
         //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         sqrt_N = squareRoot(N);
 
-	std::cout << "sqrt=" << sqrt_N <<  "\n";
+	std::cout << "n=" << N << "\tsqrt=" << sqrt_N <<  "\n";
         // selecting the size of the factor base
         double size_B;
         size_B = exp (sqrt (ln(N) * log(ln(N))) );
         size_B = pow(size_B , sqrt(2)/4);
         DEBUG (2,"size of factor base size_B=%f\n", size_B);
-
         // selecting smooth primes 
         std::vector<long long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
         make_smooth_numbers(p_smooth, size_B, N);
 
+exit(0);
         if ((p_smooth.size() < size_B))
         {
             //ERROR ("to small primes \n");
@@ -123,7 +124,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         // bin_matrix_t m1(p_smooth.size() + 1);
         std::vector< std::vector<uint64_t> > max_exp_count;
 
-#if 0
         bin_matrix_t m_all(p_smooth.size() + 1);
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);
@@ -141,15 +141,13 @@ BOOST_AUTO_TEST_CASE(test_2)
 			X.push_back(sqrt_N + j);
 	    y_number++;
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
-            DEBUG (4, "X%li =%lu\n",j, X[y_number] );
-            long long tmp = X[y_number]*X[y_number];
+	    std::cout <<   "X" << j << " =" << X[y_number] << "\n";
+            big tmp = X[y_number]*X[y_number];
             if(tmp < N)
                 Y.push_back(tmp - N);
             else
                 Y.push_back(tmp % N);
-            DEBUG (2, "X = %li\t",X[y_number]);
-            DEBUG (2, "Y = %li\t",Y[y_number]);
-            DEBUG (2, "\n");
+            std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
             
             #define NEGATIVE_SIGN    0 
             #define FIRST_VALUE      1
@@ -158,7 +156,8 @@ BOOST_AUTO_TEST_CASE(test_2)
             v_exp_copy.push_back(std::vector<uint64_t> (p_smooth.size() + 1));;
             V.push_back(Y[y_number]);
 
-            if(Y[y_number] < 0 )
+#if 0
+            if(Y[y_number] < null )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
 
             V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
@@ -376,13 +375,13 @@ BOOST_AUTO_TEST_CASE(test_2)
                 // break;
             }
             // exit (0);
+#endif
         }
 	if (exit_flag)
 		break;
 	}
         if(!exit_flag)
-         DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\n", iter, iter_1, p, q);
-#endif
+         std::cout << "Fail solution i=" << iter << "\tj=" << iter_1 << " p=" << p << "\tq=" << q << "\n";
 
 //-------------------------------------
   
