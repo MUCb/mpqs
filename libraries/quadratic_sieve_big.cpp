@@ -442,15 +442,19 @@ void make_smooth_numbers(std::vector<long long> &p_smooth, double size_B, big N)
     for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
         big tmp = N;
-        big one  = 1;
+        big one(1);
 	big tmp_p( prime[i]);
+	//std::cout << "N=" << N << " % ";
+	//std::cout << tmp_p << "\t";
         big N_mod = N % tmp_p;
-        tmp = tmp % tmp_p;
+	//std::cout << "=" << N_mod << "\n";
+        tmp = N_mod;
+	//std::cout << "tmp1=" << tmp << "\n";
         for (int j = 1; j < (prime[i]-1)/2; ++j)
         {
-            tmp = (tmp * N_mod) % prime[i];
+            tmp = (tmp * N_mod) % tmp_p;
         }
-        tmp = tmp % tmp_p;
+       // tmp = tmp % tmp_p;
 
         if( tmp == one)
         {

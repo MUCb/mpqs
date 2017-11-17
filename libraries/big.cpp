@@ -142,13 +142,31 @@ big big::operator-(const big other) const{
 
 big big::operator*(const big other) const{
 	big tmp;
+	if (size == 0)
+		return *this;
+	else if (other.size == 0)
+		return other;
+
 	tmp.size = size + other.size - 1;
 	int tmp_size = tmp.size;
 	if( sign == other.sign)
 		tmp.sign = 0; 
 	else  
 		tmp.sign = 1; 
-	
+/*	
+	if ( size == 1 && number[0] == 1){
+		int s = tmp.sign;
+		tmp = other;
+		tmp.sign = s;
+		return tmp;
+	}
+	if ( other.size == 1 && other.number[0]) {
+		int s = tmp.sign;
+		tmp = *this;
+		tmp.sign = s;
+		return tmp;
+	}
+*/
 	//std::cout << "operator * tmp_size "<< (int) tmp_size << "\n";
 	int offset = 0;
 	for (int i = 0; i < other.size; i++, offset++) {
@@ -195,12 +213,12 @@ big big::operator/(const big other) const{
 			divisor10.pow10(diff);
 			//tmp.pow10(diff);
 
-			std::cout << " divisor10 |" << divisor10 << "|\n";
+			//std::cout << " divisor10 |" << divisor10 << "|\n";
 			while ( divident > divisor10) {
 				divident = divident - divisor10;
-				std::cout << " divident10 |" << divident << "|\n";
+				//std::cout << " divident10 |" << divident << "|\n";
 				quotient = quotient + diff_big;
-				std::cout << " quotient10 |" << quotient << "|\n";
+				//std::cout << " quotient10 |" << quotient << "|\n";
 				//exit( 0);
 			}
 			diff = divident.size - divisor.size - 1; 
@@ -299,7 +317,11 @@ big big::operator%(const big other) const{
 	big divisor10;
 	big tmp(1);
 	if ( divident > divisor) {
-		int diff = divident.size - divisor.size - 1; 
+		int diff; 
+		if (  special_compare(divident, divisor))
+			diff = divident.size - divisor.size; 
+		else 
+			diff = divident.size - divisor.size - 1; 
 		//std::cout << " divisor |" << divisor << "|\n";
 		//std::cout << " other |" << other << "|\n";
 		while (diff  > 0 ) {
@@ -310,6 +332,7 @@ big big::operator%(const big other) const{
 			while ( divident > divisor10) {
 				divident = divident - divisor10;
 				//std::cout << " divident10 |" << divident << "|\n";
+				//exit (0);
 			}
 			diff = divident.size - divisor.size - 1; 
 		}
@@ -328,6 +351,21 @@ void big::pow10(int power) {
 		number[i] = 0;
 	}
 	size += power;
+}
+
+bool special_compare(const big one, const big other) {
+	//std::cout << "size curr |" << (int)size << "|\n";
+	//std::cout << "size other |" << (int)other.size << "|\n";
+	for (int i = one.size - 1, j = other.size -1 ; i >= 0 || j >= 0; i--, j--) {
+		//std::cout << "number" << (int ) number[i] << " and " << (int)  other.number[i] << "\n";
+		if (one.number[i] > other.number[j]) {
+		//std::cout << "number1 " << (int ) number[i] << " and " << (int)  other.number[i] << "\n";
+			return true;
+		} else if (one.number[i] < other.number[j]) {
+			return false;
+		}
+	}
+	return true; 
 }
 
 

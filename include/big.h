@@ -38,6 +38,7 @@ public:
 	friend double ln(const big n); 
 	bool operator<(const big other) const;
 	bool operator>(const big other) const;
+	friend bool special_compare(const big one, const big other);
 	big operator%(const big other) const; 
 	bool operator==(const big other) const;
 };

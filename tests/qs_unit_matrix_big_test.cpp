@@ -90,7 +90,6 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         make_smooth_numbers(p_smooth, size_B, N);
 
-exit(0);
         if ((p_smooth.size() < size_B))
         {
             //ERROR ("to small primes \n");
