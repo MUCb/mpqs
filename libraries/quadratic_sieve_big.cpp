@@ -557,7 +557,7 @@ big prime_factorisation(big Y, std::vector<long long> p_smooth, std::vector<uint
         do{
             tmp = Y % p_smooth[smooth_iter];
             //DEBUG (4, "y = %10li\t",Y);
-	    std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
+	    //std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
             //DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
             //DEBUG (4, "tmp = %li\n",tmp);
             if(tmp == null){

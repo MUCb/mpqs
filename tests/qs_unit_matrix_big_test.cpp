@@ -79,6 +79,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
         //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         sqrt_N = squareRoot(N);
+        sqrt_N = sqrt_N + one;
 
 	std::cout << "n=" << N << "\tsqrt=" << sqrt_N <<  "\n";
         // selecting the size of the factor base
@@ -129,7 +130,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);
 
-#if 0
         int exit_flag = 0;
         // DEBUG (2, "%s %d\n", __func__, __LINE__);
         for (long  j = 0, y_number = -1; j < M/2; j++){
@@ -145,12 +145,18 @@ BOOST_AUTO_TEST_CASE(test_2)
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
 	    //std::cout <<   "X" << j << " =" << X[y_number] << "\n";
             big tmp = X[y_number]*X[y_number];
-            if(tmp < N)
-                Y.push_back(tmp - N);
-            else
+	    //std::cout <<   "tmp " << tmp << "\n";
+            if(tmp < N) {
+		//std::cout <<   "tmp sign " << tmp << "\n";
+		//std::cout <<   "N sign " <<  N << "\n";
+		tmp = N - tmp ;
+		tmp.sign = 1;
+		//std::cout <<   "tmp1 " << tmp << "\n";
+                Y.push_back(tmp);
+                //Y.push_back(N-tmp);
+            } else
                 Y.push_back(tmp % N);
-            //std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
-            
+            std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
             #define NEGATIVE_SIGN    0 
             #define FIRST_VALUE      1
 
@@ -164,7 +170,7 @@ BOOST_AUTO_TEST_CASE(test_2)
             V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
 
 
-		//std::cout<< "y="<< Y[y_number] << "\tv=" << V[y_number] << "\n";
+		//std::cout<< "y="<< Y[y_number] << "\tx=" << X[y_number] << "\tv=" << V[y_number] << "\n";
             v_exp_copy[y_number] = v_exp[y_number];
 	    big one(1);
 	    big min_one(-1);
@@ -173,6 +179,8 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 		std::cout<< "one ------------------------\n";
                 int null_flag = 1;
+           //exit(0); 
+#if 0
                 null_flag = zero_vector_mod2_check(v_exp[y_number]);
 
                 if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
@@ -377,6 +385,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                 }
                 DEBUG (3, "\n");
                 // break;
+#endif
             }
             // exit (0);
         }
@@ -386,7 +395,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         if(!exit_flag)
          std::cout << "Fail solution i=" << iter << "\tj=" << iter_1 << " p=" << p << "\tq=" << q << "\n";
 
-#endif
 //-------------------------------------
   
 

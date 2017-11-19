@@ -202,6 +202,20 @@ big big::operator/(const big other) const{
 	//big tmp;
 	big one(1);
 	big ten(10);
+	int quot_size = 0;
+	if (divident.sign == divisor.sign) {
+		if ( divident.sign == 1) {
+			divident.sign = 0;
+			divisor.sign = 0;
+		}
+	} else {
+		if ( divident.sign == 1){
+			divident.sign = 0;
+		} else {
+			divisor.sign = 0;
+		}
+		quot_size = 0;
+	}
 	if ( divident > divisor) {
 		int diff = divident.size - divisor.size - 1; 
 		//std::cout << " divisor |" << divisor << "|\n";
@@ -295,16 +309,30 @@ big big::operator/(const long long  other) const{
 
 /* quotient is rounded to the next integer
  */
-big div(const big divident1, const big divisor) {
+big div(const big divident1, const big divisor1) {
 	//std::cout << " other |" << other << "|\n";
 	//std::cout << " this |" << *this << "|\n";
 	big divident = divident1;
-	//big divisor = divisor;
+	big divisor = divisor1;
 	big divisor10;
 	big quotient;
 	big tmp;
 	big one(1);
 	big ten(10);
+	int quot_size = 0;
+	if (divident.sign == divisor.sign) {
+		if ( divident.sign == 1) {
+			divident.sign = 0;
+			divisor.sign = 0;
+		}
+	} else {
+		if ( divident.sign == 1){
+			divident.sign = 0;
+		} else {
+			divisor.sign = 0;
+		}
+		quot_size = 0;
+	}
 	if ( divident > divisor) {
 		int diff = divident.size - divisor.size - 1; 
 		//std::cout << " divisor |" << divisor << "|\n";
@@ -404,7 +432,9 @@ big big::operator%(const long long other) const{
 	big divisor (other);
 	big divisor10;
 	big tmp(1);
-	if ( divident > divisor) {
+	divident.sign = 0;
+	divisor.sign = 0;
+	if (! ( divident < divisor)) {
 		int diff; 
 		if (  special_compare(divident, divisor))
 			diff = divident.size - divisor.size; 
@@ -429,7 +459,15 @@ big big::operator%(const long long other) const{
 			divident = divident - divisor;
 			//std::cout << " divident |" << divident << "|\n";
 		}
+		//std::cout << " divident1 |" << divident << "|\n";
+		if ((*this).sign ==1 && divident.size > 0) {
+			divident = divisor - divident;
+		}
+		//std::cout << " divident |" << divident << "|\n";
 	}
+	//if ( divident == divisor) {
+	//	divident = divident - divisor;
+	//}
 	return divident;
 }
 
