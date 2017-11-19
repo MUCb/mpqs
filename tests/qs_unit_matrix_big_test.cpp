@@ -194,7 +194,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                         break;
                 } else 
                 {
-#if 0
                     smooth_num.push_back(y_number);
                     DEBUG(3, "%s %d  try to add %li \n",__func__, __LINE__, y_number);
 
@@ -257,12 +256,12 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     }
                                     DEBUG (2,"\n");
 
-                                    int found = 0;
+                                    big found = 0;
                                     // found = euclid_gcd( X, Y, P11, p, q, N);
-                                    found = euclid_gcd( X, Y, P11, p, q, N, v_exp_copy, p_smooth);
+                                    found = euclid_gcd_big( X, Y, P11, p, q, N, v_exp_copy, p_smooth);
                                     // printf("found %lu\n", found);
                                     m_selected.show();
-                                    if (found) {
+                                    if (found.size != 0) {
                                         ERROR("find %d\t%d\t%d",p, q, m_selected.filled);
                                         //DEBUG(0, "counter \n"); 
                                         //for (int i = 0; i < counter.size(); ++i) {
@@ -382,7 +381,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                     // m1.show();
 
 
-#endif
                 }
                 DEBUG (3, "\n");
                 // break;
