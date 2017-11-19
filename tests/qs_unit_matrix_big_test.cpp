@@ -60,8 +60,10 @@ BOOST_AUTO_TEST_CASE(test_2)
         time_t finish;
         start = clock();
         
-        big p(prime[13123]);
-        big q(prime[18123]);
+        //big p(prime[13123]);
+        big p(prime[123]);
+        //big q(prime[18123]);
+        big q(prime[112]);
  
         //big p = str1;
         //big q = str2;
@@ -127,6 +129,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);
 
+#if 0
         int exit_flag = 0;
         // DEBUG (2, "%s %d\n", __func__, __LINE__);
         for (long  j = 0, y_number = -1; j < M/2; j++){
@@ -140,13 +143,13 @@ BOOST_AUTO_TEST_CASE(test_2)
 			X.push_back(sqrt_N + j);
 	    y_number++;
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
-	    std::cout <<   "X" << j << " =" << X[y_number] << "\n";
+	    //std::cout <<   "X" << j << " =" << X[y_number] << "\n";
             big tmp = X[y_number]*X[y_number];
             if(tmp < N)
                 Y.push_back(tmp - N);
             else
                 Y.push_back(tmp % N);
-            std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
+            //std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
             
             #define NEGATIVE_SIGN    0 
             #define FIRST_VALUE      1
@@ -155,18 +158,20 @@ BOOST_AUTO_TEST_CASE(test_2)
             v_exp_copy.push_back(std::vector<uint64_t> (p_smooth.size() + 1));;
             V.push_back(Y[y_number]);
 
-#if 0
             if(Y[y_number] < null )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
 
             V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
 
 
+		//std::cout<< "y="<< Y[y_number] << "\tv=" << V[y_number] << "\n";
             v_exp_copy[y_number] = v_exp[y_number];
+	    big one(1);
+	    big min_one(-1);
 
-            if(V[y_number] == -1 || V[y_number] == 1){
+            if(V[y_number] == min_one || V[y_number] == one){
 
-
+		std::cout<< "one ------------------------\n";
                 int null_flag = 1;
                 null_flag = zero_vector_mod2_check(v_exp[y_number]);
 
@@ -374,7 +379,6 @@ BOOST_AUTO_TEST_CASE(test_2)
                 // break;
             }
             // exit (0);
-#endif
         }
 	if (exit_flag)
 		break;
@@ -382,6 +386,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         if(!exit_flag)
          std::cout << "Fail solution i=" << iter << "\tj=" << iter_1 << " p=" << p << "\tq=" << q << "\n";
 
+#endif
 //-------------------------------------
   
 

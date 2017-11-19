@@ -225,7 +225,6 @@ BOOST_AUTO_TEST_CASE(test_17)
 
 }
 
-#endif
 
 BOOST_AUTO_TEST_CASE(test_18) 
 {
@@ -235,6 +234,25 @@ BOOST_AUTO_TEST_CASE(test_18)
     big f;
     f = i - j;
     std::cout << i << " - ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    //std::cout << i << " square root ";
+    //std::cout << " = ";
+    //std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+#endif
+
+BOOST_AUTO_TEST_CASE(test_19) 
+{
+    big i(673);
+    //std::cout << "j |" << j << "|\n";
+    big j(607);
+    big f;
+    f = i * j;
+    std::cout << i << " * ";
     std::cout << j << " = ";
     std::cout << f << "\n";
     //std::cout << i << " square root ";

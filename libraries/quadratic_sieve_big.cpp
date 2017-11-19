@@ -6,7 +6,7 @@
 #include "bin_matrix.h"
 #include "big.h"
 #include "greatest_common_divisor.h"
-#include "quadratic_sieve.h"
+#include "quadratic_sieve_big.h"
 
 
 
@@ -544,25 +544,29 @@ int is_counter_full(std::vector<uint64_t> &counter)
 
 }
 
-long prime_factorisation(long Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp)
+big prime_factorisation(big Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp)
 {
+	big null(0);
+	big one(1);
+	big min_one(-1);
     for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
                         smooth_iter < p_smooth.size(); 
                         smooth_iter++, exponent_num++)
     {
-        long int tmp;
+        big tmp;
         do{
             tmp = Y % p_smooth[smooth_iter];
-            DEBUG (4, "y = %10li\t",Y);
-            DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
-            DEBUG (4, "tmp = %li\n",tmp);
-            if(tmp == 0){
+            //DEBUG (4, "y = %10li\t",Y);
+	    std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
+            //DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
+            //DEBUG (4, "tmp = %li\n",tmp);
+            if(tmp == null){
                 Y = Y / p_smooth[smooth_iter];
                 v_exp[exponent_num] += 1; 
             }
-        } while (tmp == 0);
+        } while (tmp == null);
 
-        if(Y == -1 || Y == 1)
+        if(Y == one || Y == min_one)
             break;
     }
     return Y;

@@ -17,7 +17,7 @@ big::big(std::string _str) {
 	//std::cout << "contructor big: size" <<(int) size << "\n";
 	//std::cout << "condtructor big: strlen" <<(int) str.size() << "\n";
 	if (size >= BIG_SIZE) {
-		cout << " to big number " << str << "\n";
+		//cout << " to big number " << str << "\n";
 		throw "throw something";
 	}
 	for (int i=0, j = size - 1; i<BIG_SIZE; i++, j--){
@@ -179,7 +179,7 @@ big big::operator*(const big other) const{
 			if (tmp.number[j + offset] > 9){
 				int tmp_number = tmp.number[j + offset];
 				tmp.number[j + offset] =  tmp_number % 10;
-				tmp.number[j + offset + 1] = tmp_number / 10;
+				tmp.number[j + offset + 1] += tmp_number / 10;
 				//std::cout << "operator * tmp number++ "<< (int) tmp.number[j + offset +1] << "\n";
 				if( j + offset + 1 == tmp.size) {
 					tmp.size++;
@@ -191,10 +191,10 @@ big big::operator*(const big other) const{
 }
 
 big big::operator/(const big other) const{
-	std::cout << " other |" << other << "|\n";
-	std::cout << " other size |" << (int)other.size << "|\n";
-	std::cout << " this |" << *this << "|\n";
-	std::cout << " this size |" <<(int)  (*this).size << "|\n";
+	//std::cout << " other |" << other << "|\n";
+	//std::cout << " other size |" << (int)other.size << "|\n";
+	//std::cout << " this |" << *this << "|\n";
+	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
 	big divident = *this;
 	big divisor = other;
 	big divisor10;
@@ -240,6 +240,58 @@ big big::operator/(const big other) const{
 	}
 	return quotient;
 }
+/*
+big big::operator/(const long long  other) const{
+	std::cout << " other |" << other << "|\n";
+	std::cout << " other size |" << (int)other.size << "|\n";
+	std::cout << " this |" << *this << "|\n";
+	std::cout << " this size |" <<(int)  (*this).size << "|\n";
+	big divident = *this;
+	big divisor (other);
+	big divisor10;
+	big quotient;
+	//big tmp;
+	big one(1);
+	big ten(10);
+	if ( divident > divisor) {
+		int diff = divident.size - divisor.size - 1; 
+		//std::cout << " divisor |" << divisor << "|\n";
+		//std::cout << " other |" << other << "|\n";
+		while (diff  > 0 ) {
+			big diff_big(1);
+			diff_big.pow10(diff);
+			divisor10 = divisor;
+			divisor10.pow10(diff);
+			//tmp.pow10(diff);
+
+			//std::cout << " divisor10 |" << divisor10 << "|\n";
+			while ( divident > divisor10) {
+				divident = divident - divisor10;
+				//std::cout << " divident10 |" << divident << "|\n";
+				quotient = quotient + diff_big;
+				//std::cout << " quotient10 |" << quotient << "|\n";
+				//exit( 0);
+			}
+			diff = divident.size - divisor.size - 1; 
+		}
+		
+		while (! ( divident < divisor)) {
+			divident = divident - divisor;
+			//std::cout << " divident |" << divident << "|\n";
+			//std::cout << " divident size|" <<(int) divident.size << "|\n";
+			quotient = quotient + one;
+			//std::cout << " quotient |" << quotient << "|\n";
+			//std::cout << " quotient size|" << (int)quotient.size << "|\n";
+		}
+
+		//if (divident.size != 0)
+		//	quotient = quotient + one;
+	} else {
+		quotient = one;
+	}
+	return quotient;
+}
+*/
 
 /* quotient is rounded to the next integer
  */
@@ -344,6 +396,43 @@ big big::operator%(const big other) const{
 	}
 	return divident;
 }
+
+big big::operator%(const long long other) const{
+	//std::cout << " other |" << other << "|\n";
+	//std::cout << " this |" << *this << "|\n";
+	big divident = *this;
+	big divisor (other);
+	big divisor10;
+	big tmp(1);
+	if ( divident > divisor) {
+		int diff; 
+		if (  special_compare(divident, divisor))
+			diff = divident.size - divisor.size; 
+		else 
+			diff = divident.size - divisor.size - 1; 
+		//std::cout << " divisor |" << divisor << "|\n";
+		//std::cout << " other |" << other << "|\n";
+		while (diff  > 0 ) {
+			divisor10 = divisor;
+			divisor10.pow10(diff);
+
+			//std::cout << " divisor10 |" << divisor10 << "|\n";
+			while ( divident > divisor10) {
+				divident = divident - divisor10;
+				//std::cout << " divident10 |" << divident << "|\n";
+				//exit (0);
+			}
+			diff = divident.size - divisor.size - 1; 
+		}
+
+		while (! (divident < divisor)) {
+			divident = divident - divisor;
+			//std::cout << " divident |" << divident << "|\n";
+		}
+	}
+	return divident;
+}
+
 
 void big::pow10(int power) {
 	for( int i = size - 1; i >= 0; i--) {
@@ -457,11 +546,11 @@ big squareRoot(big n)
 	//std::cout << "x - y = " << x - y << "\n"; 
 	while(x - y > e)
 	{
-		std::cout << "bigger x" << x  << "\n"; 
-		std::cout << "bigger e" << e  << "\n"; 
-		std::cout << "bigger y" << y  << "\n"; 
+		//std::cout << "bigger x" << x  << "\n"; 
+		//std::cout << "bigger e" << e  << "\n"; 
+		//std::cout << "bigger y" << y  << "\n"; 
 		big tmp = x + y;
-		std::cout << "bigger tmp" << tmp  << "\n"; 
+		//std::cout << "bigger tmp" << tmp  << "\n"; 
 		//x = (x + y)/two;
 		x = (tmp)/two;
 		y = n/x;

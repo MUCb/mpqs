@@ -17,24 +17,24 @@
  #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 0;
+int showDebugMsg = 3;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     //int iter = 7000;
     //int iter_1 = 5000;
 
-    int iter_1 = 4999;
-    while (iter_1 < 6000 ) 
+    int iter_1 = 123;
+   // while (iter_1 < 6000 ) 
     // while (iter_1 < 78400 ) 
     {
-        iter_1 += 1;
+        //iter_1 += 1;
         // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
    // int iter = iter_1 + 597;
-    int iter = 6997;
-    while (iter < 8000 )
+    int iter = 112;
+   // while (iter < 8000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(test_2)
     // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
     // for (int iter = 10; iter < 11 ; iter++) 
     {
-        iter += 3;
+        //iter += 3;
  
 
 

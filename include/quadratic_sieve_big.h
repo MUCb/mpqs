@@ -44,5 +44,5 @@ int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, st
 int zero_vector_mod2_check(std::vector<uint64_t> v_exp);
 void add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num);
 int is_counter_full(std::vector<uint64_t> &counter);
-long prime_factorisation(long  Y, std::vector<long> p_smooth, std::vector<uint64_t> &v_exp);
+big prime_factorisation(big  Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp);
 #endif
