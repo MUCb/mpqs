@@ -396,14 +396,14 @@ big big::operator%(const big other) const{
 	big divisor = other;
 	big divisor10;
 	big tmp(1);
-	if ( divident > divisor) {
+	if ( ! (divident < divisor)){
 		int diff; 
 		if (  special_compare(divident, divisor))
 			diff = divident.size - divisor.size; 
 		else 
 			diff = divident.size - divisor.size - 1; 
-		//std::cout << " divisor |" << divisor << "|\n";
-		//std::cout << " other |" << other << "|\n";
+		std::cout << " divisor |" << divisor << "|\n";
+		std::cout << " other |" << other << "|\n";
 		while (diff  > 0 ) {
 			divisor10 = divisor;
 			divisor10.pow10(diff);

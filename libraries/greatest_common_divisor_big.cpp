@@ -55,7 +55,7 @@ big euclid_gcd_big(const std::vector<big>& X,
         for (int j = 0; j <  p_smooth.size(); ++j,  ++iter_exp)
         {
             //DEBUG(2, " %lu |%lu|\t", tmp_v[iter_exp], p_smooth[j]); 
-		std::cout << " " << tmp_v[iter_exp] << "|" << p_smooth[j] << "|\n"; 
+		std::cout << " " << tmp_v[iter_exp] << "|" << p_smooth[j] << "|\t"; 
             tmp_v[iter_exp] /= 2;
             // sumY *= (pow (p_smooth[j], tmp_v[iter_exp])) % N;
             for (int i = 0; i < tmp_v[iter_exp]; ++i)
@@ -69,7 +69,7 @@ big euclid_gcd_big(const std::vector<big>& X,
             // sumY %= N; 
             // DEBUG(2, "sumY mod  %lu \n", sumY); 
         }
-        DEBUG(2, " \n"); 
+	std::cout <<  " \n"; 
         // DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
         //DEBUG(2, "sqrt Y mod n %lu\n", sumY);
         //DEBUG(2, "sqrt X mod n %lu\n", sumX);
@@ -101,12 +101,13 @@ big euclid_gcd_big(const std::vector<big>& X,
             big tmp1;
             if (j == 0){ 
                 tmp1 = sumY + sumX;
-                //DEBUG (3, "firtst attept Y + X = %ld\n", tmp1);
+		std::cout <<  "firtst attept Y + X = " << tmp1 << "\n";
             }
             else{
                 tmp1 = sumY - sumX;// Fixme
                 //tmp1 = abs(sumY - sumX);
                 //DEBUG (3, "second attept Y - X = %ld\n", tmp1);
+		std::cout <<  "second attept Y - X = " << tmp1 << "\n";
             }
             big tmp2 = N;
             big tmp3 = 0;
@@ -115,7 +116,7 @@ big euclid_gcd_big(const std::vector<big>& X,
             while (!(tmp1 == 0) && !(tmp2 == 0))// FIXME
             {
                 tmp1 > tmp2 ? tmp1 = tmp1 % tmp2 : tmp2 = tmp2 % tmp1;
-                //DEBUG (3, "tmp1 %ld\ttmp2 %ld\n", tmp1, tmp2);
+		std::cout <<  "tmp1 ="<<  tmp1 << "\ttmp2="<< tmp2 << "\n";
             }
 
             if (tmp1 > 1 ){
