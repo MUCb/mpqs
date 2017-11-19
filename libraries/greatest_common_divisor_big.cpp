@@ -120,13 +120,14 @@ big euclid_gcd_big(const std::vector<big>& X,
             }
 
             if (tmp1 > 1 ){
-                //DEBUG(2, "solution candidate %ld\n", tmp1);
+		    std::cout << "solution candidate " << tmp1 << "\n";
                 if (tmp1 == p || tmp1 == q){
                     //DEBUG(1, "find p = %ld\n", tmp1);
                     return tmp1;
                 }
             } else if (tmp2 > 1 ) {
-                DEBUG(2, "solution candidate %ld\n", tmp2);
+		std::cout << "solution candidate " << tmp2 << "\n";
+                //DEBUG(2, "solution candidate %ld\n", tmp2);
                 if (tmp2 == p || tmp2 == q){
                     //DEBUG(1, "find p = %ld\n", tmp2);
                     return tmp2;

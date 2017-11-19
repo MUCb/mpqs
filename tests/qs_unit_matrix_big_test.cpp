@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found.size != 0) {
-                                        ERROR("find %d\t%d\t%d",p, q, m_selected.filled);
+					    std::cout << "find " << p << "\t" << q << "\t" << m_selected.filled<< "\n";
                                         //DEBUG(0, "counter \n"); 
                                         //for (int i = 0; i < counter.size(); ++i) {
                                         //    DEBUG(0, "%d\t", counter[i] ); 
