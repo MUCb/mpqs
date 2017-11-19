@@ -62,11 +62,11 @@ qs_unit_matrix_test: quadratic_sieve dynamic_bin_matrix
 				libraries/quadratic_sieve.o libraries/dynamic_bin_matrix.o \
 				libraries/greatest_common_divisor.o -lgmp -lboost_system
 
-qs_unit_matrix_big_test: quadratic_sieve_big dynamic_bin_matrix big
+qs_unit_matrix_big_test: quadratic_sieve_big dynamic_bin_matrix big greatest_common_divisor_big
 	g++ -std=c++11  -Iinclude/ -I../soft/boost_1_64_0/ -lm  -L../soft/boost_1_64_0/ \
 	tests/qs_unit_matrix_big_test.cpp  -o tests/qs_unit_matrix_big_test.out \
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o\
-				libraries/greatest_common_divisor.o -lgmp -lboost_system
+				libraries/greatest_common_divisor_big.o -lgmp -lboost_system
 
 
 big_test: big
@@ -126,6 +126,13 @@ greatest_common_divisor: libraries/greatest_common_divisor.cpp \
 						include/log.h
 	g++  -std=c++11 -Iinclude/ -c libraries/greatest_common_divisor.cpp \
 				-o libraries/greatest_common_divisor.o
+
+greatest_common_divisor_big: libraries/greatest_common_divisor_big.cpp \
+						include/greatest_common_divisor_big.h \
+						include/log.h
+	g++  -std=c++11 -Iinclude/ -c libraries/greatest_common_divisor_big.cpp \
+				-o libraries/greatest_common_divisor_big.o
+
 
 
 bin_matrix: libraries/bin_matrix.cpp include/bin_matrix.h include/log.h

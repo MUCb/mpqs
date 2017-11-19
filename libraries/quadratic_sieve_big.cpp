@@ -619,7 +619,7 @@ int find_solution (bin_matrix_t & m2,
     int null_line = m1.resolve_matrix();
     // m1.show();
     // return 0;
-
+#if 0
     WARN(1, "it should be -1 or greater. null =  %d\n", null_line);
 
     if (null_line > -1)
@@ -688,14 +688,14 @@ int find_solution (bin_matrix_t & m2,
             if (null_line == -1)
                 WARN(1, "failed\n");
     }
-
+#endif
     return null_line;
 }
 
 
 
 
-
+#if 0
 int find_solution_condBsmooth (bin_matrix_t m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
@@ -799,3 +799,4 @@ int find_solution_condBsmooth (bin_matrix_t m2,
 
     return null_line;
 }
+#endif

@@ -7,7 +7,7 @@
 #include "quadratic_sieve_big.h"
 #include "log.h"
 
-#include "greatest_common_divisor.h"
+#include "greatest_common_divisor_big.h"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -180,21 +180,21 @@ BOOST_AUTO_TEST_CASE(test_2)
 		std::cout<< "one ------------------------\n";
                 int null_flag = 1;
            //exit(0); 
-#if 0
                 null_flag = zero_vector_mod2_check(v_exp[y_number]);
 
                 if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
                     continue;
                     //    will be added later  ##########################
-                    uint64_t found = 0;
+                    big found = 0;
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
-                    found = euclid_gcd( X, Y, tmp, p, q, N,v_exp_copy, p_smooth);
+                    found = euclid_gcd_big( X, Y, tmp, p, q, N,v_exp_copy, p_smooth);
                     // found = euclid_gcd( X, Y, tmp, p, q, N);
-                    if (found)
+                    if (! (found == 0))
                         break;
                 } else 
                 {
+#if 0
                     smooth_num.push_back(y_number);
                     DEBUG(3, "%s %d  try to add %li \n",__func__, __LINE__, y_number);
 
@@ -382,10 +382,10 @@ BOOST_AUTO_TEST_CASE(test_2)
                     // m1.show();
 
 
+#endif
                 }
                 DEBUG (3, "\n");
                 // break;
-#endif
             }
             // exit (0);
         }

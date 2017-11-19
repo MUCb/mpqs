@@ -19,7 +19,7 @@ int find_solution (bin_matrix_t & m2,
                     const uint64_t &p,
                     const uint64_t &q,
                     const uint64_t &N);
-
+/*
 int find_solution_condBsmooth (bin_matrix_t m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
@@ -31,7 +31,7 @@ int find_solution_condBsmooth (bin_matrix_t m2,
                     const uint64_t &q,
                     const uint64_t &N,
                     std::vector<uint64_t> &v_extra_exp);
-
+*/
 void make_smooth_numbers(std::vector<long long > &p_smooth, double size_B, big N);
 
 void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long long N, long M);
