@@ -402,8 +402,8 @@ big big::operator%(const big other) const{
 			diff = divident.size - divisor.size; 
 		else 
 			diff = divident.size - divisor.size - 1; 
-		std::cout << " divisor |" << divisor << "|\n";
-		std::cout << " other |" << other << "|\n";
+		//std::cout << " divisor |" << divisor << "|\n";
+		//std::cout << " other |" << other << "|\n";
 		while (diff  > 0 ) {
 			divisor10 = divisor;
 			divisor10.pow10(diff);
@@ -499,6 +499,10 @@ bool special_compare(const big one, const big other) {
 bool big::operator<(const big other) const{
 	//std::cout << "size curr |" << (int)size << "|\n";
 	//std::cout << "size other |" << (int)other.size << "|\n";
+	if (sign == 1 && other.sign == 0)
+		return true;
+	else if (sign == 0 && other.sign == 1)
+		return false;
 	if (size < other.size) {
 		return true;
 	} else if ( size > other.size)
@@ -518,6 +522,11 @@ bool big::operator<(const big other) const{
 }
 
 bool big::operator>(const big other) const{
+	if (sign == 1 && other.sign == 0)
+		return true;
+	else if (sign == 0 && other.sign == 1)
+		return false;
+
 	if (size > other.size)
 		return true;
 	else if ( size < other.size)

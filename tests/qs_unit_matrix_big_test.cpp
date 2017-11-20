@@ -18,14 +18,12 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 4;
-
+int showDebugMsg = 1;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     //int iter = 7000;
     //int iter_1 = 5000;
-
     int iter_1 = 9;
     //while (iter_1 < 6000 ) 
     // while (iter_1 < 78400 ) 
@@ -75,13 +73,12 @@ BOOST_AUTO_TEST_CASE(test_2)
         big sqrt_N = 0;
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
-	std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
-        
+	LOG(1) std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
         //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         sqrt_N = squareRoot(N);
         sqrt_N = sqrt_N + one;
 
-	std::cout << "n=" << N << "\tsqrt=" << sqrt_N <<  "\n";
+	LOG(2) std::cout << "n=" << N << "\tsqrt=" << sqrt_N <<  "\n";
         // selecting the size of the factor base
         double size_B;
         size_B = exp (sqrt (ln(N) * log(ln(N))) );
@@ -156,7 +153,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                 //Y.push_back(N-tmp);
             } else
                 Y.push_back(tmp % N);
-            std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
+            LOG(2) std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
             #define NEGATIVE_SIGN    0 
             #define FIRST_VALUE      1
 
@@ -166,6 +163,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 
             if(Y[y_number] < null )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
+	    //std:: cout << "|" << v_exp[y_number][NEGATIVE_SIGN] << "|\n";
 
             V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
 
@@ -177,7 +175,6 @@ BOOST_AUTO_TEST_CASE(test_2)
 
             if(V[y_number] == min_one || V[y_number] == one){
 
-		std::cout<< "one ------------------------\n";
                 int null_flag = 1;
            //exit(0); 
                 null_flag = zero_vector_mod2_check(v_exp[y_number]);
@@ -262,7 +259,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     // printf("found %lu\n", found);
                                     m_selected.show();
                                     if (found.size != 0) {
-					    std::cout << "find " << p << "\t" << q << "\t" << m_selected.filled<< "\n";
+					LOG(0) std::cout << "find " << p << "\t" << q << "\t" << m_selected.filled<< "\n";
                                         //DEBUG(0, "counter \n"); 
                                         //for (int i = 0; i < counter.size(); ++i) {
                                         //    DEBUG(0, "%d\t", counter[i] ); 
@@ -391,7 +388,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 		break;
 	}
         if(!exit_flag)
-         std::cout << "Fail solution i=" << iter << "\tj=" << iter_1 << " p=" << p << "\tq=" << q << "\n";
+        LOG(0) std::cout << "Fail solution i=" << iter << "\tj=" << iter_1 << " p=" << p << "\tq=" << q << "\n";
 
 //-------------------------------------
   

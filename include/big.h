@@ -4,6 +4,7 @@
 #include <string.h>
 #include <iostream>  
 #include <stdexcept>
+#include "log.h"
 using namespace std;  
 #define BIG_SIZE 20
 
