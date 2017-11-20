@@ -385,7 +385,7 @@ double ln(const big n) {
 	if ( remain != 0) {
 		log_num += (log(10) * remain);
 	}
-	std::cout << "log num = " << log_num << "\n";
+	//std::cout << "log num = " << log_num << "\n";
 	return log_num;
 }
 

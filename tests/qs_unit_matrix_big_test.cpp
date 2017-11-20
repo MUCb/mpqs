@@ -1,6 +1,5 @@
-#define BOOST_TEST_MODULE QS unit maytrix Test
+#define BOOST_TEST_MODULE QS unit maytrix Test 
 #include <boost/test/included/unit_test.hpp> 
-
 
 #include "dynamic_bin_matrix.h"
 // #include "primes.h"
@@ -23,18 +22,18 @@ int showDebugMsg = 1;
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     //int iter = 7000;
-    //int iter_1 = 5000;
-    int iter_1 = 9;
-    //while (iter_1 < 6000 ) 
-    // while (iter_1 < 78400 ) 
+    int iter_1 = 5000;
+    //int iter_1 = 124;
+    //while (iter_1 < 5300 ) 
+    //while (iter_1 < 78400 ) 
     {
-        //iter_1 += 1;
+        iter_1 += 5;
         // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
-   // int iter = iter_1 + 597;
-    int iter = 17;
-    //while (iter < 8000 )
+    int iter = iter_1 + 597;
+    //int iter = 112;
+    //while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -44,7 +43,8 @@ BOOST_AUTO_TEST_CASE(test_2)
     // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
     // for (int iter = 10; iter < 11 ; iter++) 
     {
-        //iter += 3;
+        //iter += 9;
+        iter += 36;
  
 
 
@@ -59,9 +59,9 @@ BOOST_AUTO_TEST_CASE(test_2)
         start = clock();
         
         //big p(prime[13123]);
-        big p(prime[123]);
+        big p(prime[iter_1]);
         //big q(prime[18123]);
-        big q(prime[112]);
+        big q(prime[iter]);
  
         //big p = str1;
         //big q = str2;
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                         if( m_selected.unit_matrix[null_line][col] > 0)
                                         {
                                             DEBUG (2,"num = %d\t", smooth_num_selected[col]);
-                                            DEBUG (2,"Y  = %ld\n", Y[smooth_num_selected[col]]);
+                                            LOG(2) std::cout << "Y  = " << Y[smooth_num_selected[col]] << "\n";
                                             P11.push_back(smooth_num_selected[col]);
                                         }
                                     }

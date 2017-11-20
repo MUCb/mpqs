@@ -104,7 +104,10 @@ big euclid_gcd_big(const std::vector<big>& X,
 		LOG (3) std::cout <<  "firtst attept Y + X = " << tmp1 << "\n";
             }
             else{
-                tmp1 = sumY - sumX;// Fixme
+		if (sumY < sumX)
+			tmp1 = sumX - sumY;
+		else
+			tmp1 = sumY - sumX;// Fixme
                 //tmp1 = abs(sumY - sumX);
                 //DEBUG (3, "second attept Y - X = %ld\n", tmp1);
 		LOG(3) std::cout <<  "second attept Y - X = " << tmp1 << "\n";
@@ -116,7 +119,7 @@ big euclid_gcd_big(const std::vector<big>& X,
             while (!(tmp1 == 0) && !(tmp2 == 0))// FIXME
             {
                 tmp1 > tmp2 ? tmp1 = tmp1 % tmp2 : tmp2 = tmp2 % tmp1;
-		LOG(4) std::cout <<  "tmp1 ="<<  tmp1 << "\ttmp2="<< tmp2 << "\n";
+		LOG(3) std::cout <<  "tmp1 ="<<  tmp1 << "\ttmp2="<< tmp2 << "\n";
             }
 
             if (tmp1 > 1 ){
