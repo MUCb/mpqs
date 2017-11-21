@@ -1,5 +1,5 @@
-#define BOOST_TEST_MODULE QS unit maytrix Test 
-#include <boost/test/included/unit_test.hpp> 
+//#define BOOST_TEST_MODULE QS unit maytrix Test 
+//#include <boost/test/included/unit_test.hpp> 
 
 #include "dynamic_bin_matrix.h"
 // #include "primes.h"
@@ -19,7 +19,8 @@
 
 int showDebugMsg = 1;
 
-BOOST_AUTO_TEST_CASE(test_2) 
+//BOOST_AUTO_TEST_CASE(test_2) 
+int main(void )
 {
     //int iter = 7000;
     int iter_1 = 5000;
@@ -414,4 +415,5 @@ BOOST_AUTO_TEST_CASE(test_2)
   */      
  }
     }
+    return 0;
 }
