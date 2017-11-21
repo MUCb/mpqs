@@ -590,17 +590,28 @@ big squareRoot(big n)
 	big two = 2;
 	//float e = 0.000001; /* e decides the accuracy level*/
 	big e = 1; /* e decides the accuracy level*/
-	//std::cout << "x - y = " << x - y << "\n"; 
-	while(x - y > e)
+	LOG(5) std::cout << "x = " << x  << "\n"; 
+	LOG(5) std::cout << "y = " << y << "\n"; 
+	LOG(5) std::cout << "x - y = " << x - y << "\n"; 
+	int count = 0;
+	//while(x - y > e)
+	while(x > y )// is this a right approach ? 
 	{
-		//std::cout << "bigger x" << x  << "\n"; 
-		//std::cout << "bigger e" << e  << "\n"; 
-		//std::cout << "bigger y" << y  << "\n"; 
+		count++;
+	LOG(5) std::cout << "x - y = " << x - y << "\n"; 
+		LOG(5) std::cout << "while x" << x  << "\n"; 
+		LOG(5) std::cout << "while y" << y  << "\n"; 
 		big tmp = x + y;
+		LOG(5) std::cout << "while tmp" << tmp  << "\n"; 
 		//std::cout << "bigger tmp" << tmp  << "\n"; 
 		//x = (x + y)/two;
 		x = (tmp)/two;
 		y = n/x;
+		LOG(5) std::cout << "while1 x" << x  << "\n"; 
+		LOG(5) std::cout << "while1 y" << y  << "\n"; 
+		LOG(5) std::cout << "while1 tmp" << tmp  << "\n"; 
+		//if (count ==25)
+		//exit(0);
 	}
 	return x;
 }

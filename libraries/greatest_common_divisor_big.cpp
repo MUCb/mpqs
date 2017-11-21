@@ -115,7 +115,7 @@ big euclid_gcd_big(const std::vector<big>& X,
             big tmp2 = N;
             big tmp3 = 0;
 
-            //DEBUG (2, "tmp1 %ld\ttmp2 %ld\n", tmp1, tmp2);
+		LOG(3) std::cout <<  "tmp1 ="<<  tmp1 << "\ttmp2="<< tmp2 << "\n";
             while (!(tmp1 == 0) && !(tmp2 == 0))// FIXME
             {
                 tmp1 > tmp2 ? tmp1 = tmp1 % tmp2 : tmp2 = tmp2 % tmp1;

@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(test_2)
     //int iter = 7000;
     int iter_1 = 5000;
     //int iter_1 = 124;
-    //while (iter_1 < 5300 ) 
+    while (iter_1 < 5300 ) 
     //while (iter_1 < 78400 ) 
     {
         iter_1 += 5;
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
     int iter = iter_1 + 597;
     //int iter = 112;
-    //while (iter < 6000 )
+    while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -43,8 +43,8 @@ BOOST_AUTO_TEST_CASE(test_2)
     // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
     // for (int iter = 10; iter < 11 ; iter++) 
     {
-        //iter += 9;
-        iter += 36;
+        iter += 9;
+        //iter += 36;
  
 
 
@@ -76,9 +76,10 @@ BOOST_AUTO_TEST_CASE(test_2)
 	LOG(1) std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
         //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         sqrt_N = squareRoot(N);
-        sqrt_N = sqrt_N + one;
 
+        sqrt_N = sqrt_N + one;
 	LOG(2) std::cout << "n=" << N << "\tsqrt=" << sqrt_N <<  "\n";
+
         // selecting the size of the factor base
         double size_B;
         size_B = exp (sqrt (ln(N) * log(ln(N))) );
