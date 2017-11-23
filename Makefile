@@ -81,6 +81,11 @@ big_test: big
 	tests/big_test.cpp -o tests/big_tests.out \
 	libraries/big.o -lboost_system
 
+big_2_test: big
+	g++ -std=c++11  -Iinclude/ -lm  \
+	tests/big_2_test.cpp -o tests/big_2_tests.out \
+	libraries/big_2.o -lboost_system
+
 
 #####################################################
 
@@ -147,6 +152,9 @@ bin_matrix: libraries/bin_matrix.cpp include/bin_matrix.h include/log.h
 
 big: libraries/big.cpp include/big.h include/log.h
 	g++ -Iinclude/ -c libraries/big.cpp -o libraries/big.o
+
+big_2: libraries/big_2.cpp include/big_2.h include/log.h
+	g++ -Iinclude/ -c libraries/big_2.cpp -o libraries/big_2.o
 
 
 test_gmp:
