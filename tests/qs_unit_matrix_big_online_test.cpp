@@ -125,6 +125,7 @@ int main(void )
         // bin_matrix_t m1(p_smooth.size() + 1);
         std::vector< std::vector<uint64_t> > max_exp_count;
 
+        bin_matrix_t m_all_unchanged(p_smooth.size() + 1);
         bin_matrix_t m_all(p_smooth.size() + 1);
         bin_matrix_t m_counter(p_smooth.size() + 1);
         std::vector<uint64_t> counter(p_smooth.size() + 1);
@@ -189,15 +190,18 @@ int main(void )
                     tmp.push_back(y_number);
                     found = euclid_gcd_big( X, Y, tmp, p, q, N,v_exp_copy, p_smooth);
                     // found = euclid_gcd( X, Y, tmp, p, q, N);
-                    if (! (found == 0))
+                    if (! (found == 0)){
+                        exit_flag=1;
                         break;
+		    }
                 } else 
                 {
                     smooth_num.push_back(y_number);
                     DEBUG(3, "%s %d  try to add %li \n",__func__, __LINE__, y_number);
 
 
-                    if (m_all.add_row(v_exp[y_number]) == 1){
+                    if (m_all_unchanged.add_row(v_exp[y_number]) == 1){
+                        m_all.add_row(v_exp[y_number]);
                         int exponent_num = (v_exp[y_number].size() - 1);
                         // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
 
@@ -208,7 +212,67 @@ int main(void )
                         {
                             int count_flag = 0;
                             add_counter_row(m_counter ,counter ,exponent_num);
+// added
+                        // DEBUG (2,"size num = %d\t", smooth_num.size());
+                        int null_line = m_all.make_upper_triangular();
 
+                        if (null_line > -1)
+                        {
+                            std::vector<int64_t> XYiters;
+                            DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);
+                            for (uint64_t col = 0; col <  m_all.filled; ++col)
+                            {
+                                DEBUG (3,"matrix[%d][%d] = %ld\n",null_line,col, m_all.unit_matrix[null_line][col]);
+                                if( m_all.unit_matrix[null_line][col] > 0)
+                                {
+                                    DEBUG (3,"size num = %d\t", smooth_num.size());
+                                    DEBUG (3,"num = %d\t", smooth_num[col]);
+				    LOG(3) std::cout << "Y  = " <<  Y[smooth_num[col]] << "\n";
+                                    XYiters.push_back(smooth_num[col]);
+                                }
+                            }
+                            DEBUG (2,"\n");
+
+                            big found = 0;
+                            found = euclid_gcd_big( X, Y, XYiters, p, q, N, v_exp, p_smooth);
+                            // printf("found %lu\n", found);
+                            // m_all.show();
+                            if (found.size != 0) {
+                                DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\n", iter, iter_1, p, q);
+                                // exit( null_line);
+                                exit_flag=1;
+                                //break_flag = 1;
+                                break;
+                            } else {
+                                int max_i = 0;
+                                int ret = 0;
+                                DEBUG (3,"line %d null_line %d\n",__LINE__, null_line );
+
+                                max_i = m_all_unchanged.max_unit_num(m_all.unit_matrix[null_line]);
+                                DEBUG (3," iter %d\n",max_i );
+
+                                // DEBUG (3," smooth num %d\n",smooth_num[max_i]);
+                                // DEBUG (3," Y %d\n",Y[smooth_num[max_i]]);
+
+                                ret = clean_matrix(m_all_unchanged, m_all,smooth_num, max_i);
+                                if (!ret )
+                                {
+                                    ERROR("clean_matrix");
+                                    exit(0);
+                                }
+
+                                ret =  delete_counter_row(m_counter, v_counter, max_exponent_num, max_i);
+                                if (!ret )
+                                {
+                                    ERROR("delete_counter_row");
+                                    exit(0);
+                                }
+
+                                continue;
+                            }
+                        }
+                            // DEBUG(3, "%s %d\n", __func__, __LINE__);
+// added
                            DEBUG(2, "--count_flag |%d|\n",count_flag); 
                             while ((count_flag = is_counter_full(counter)) >= 0 )
                             {
@@ -225,12 +289,12 @@ int main(void )
                                 }
                                 DEBUG(2, "\n counter \n"); 
                                 m_counter.show();
-                                m_all.show();
+                                m_all_unchanged.show();
                                 for (int i = 0; i < m_counter.matrix.size(); ++i)
                                 {
                                     if (m_counter.matrix[i][count_flag] == 1)
                                     {
-                                        m_selected.add_row(m_all.matrix[i]);
+                                        m_selected.add_row(m_all_unchanged.matrix[i]);
                                         smooth_num_selected.push_back(smooth_num[i]);
                                         smooth_num_selected_iter.push_back(i);
                                     }
