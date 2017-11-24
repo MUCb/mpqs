@@ -21,14 +21,14 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 BOOST_AUTO_TEST_CASE(test_12) 
 {
-    big i("3203244");
-    //big j(4123);
+    big i(999913);
+    big j(93);
     //std::cout << "j |" << j << "|\n";
-    //big f;
-    //f = i / j;
-    std::cout << i << " / ";
-    //std::cout << j << " = ";
-    //std::cout << f << "\n";
+    big f;
+    f = i + j;
+    std::cout << i << " + ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
 }

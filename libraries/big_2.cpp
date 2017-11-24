@@ -78,8 +78,8 @@ big big::operator+(const big other) const
 				//std::cout << "number+ i " << (int) tmp.number[i] << "\n";
 				//std::cout << "number+ i " << (int) other.number[i] << "\n";
 				//std::cout << "number+ i " << (int) number[i] << "\n";
-			if(tmp.number[i] > 9){
-				tmp.number[i] -= 10;
+			if(tmp.number[i] > 999){
+				tmp.number[i] -= 1000;
 				tmp.number[i+1] += 1;
 				//std::cout << "operator+ i " << i << "\n";
 				//std::cout << "operator+ n " << (int) tmp.number[i+1] << "\n";
@@ -433,6 +433,12 @@ std::ostream& operator<<(std::ostream& os, const big& obj){
 		//if (obj.number[i] == -1)
 		//	continue;
 		//os <<"|" <<static_cast<unsigned int>(obj.number[i]);
+        if (i<obj.size-1){
+            if (obj.number[i]<10)
+                    os << 0;
+            if (obj.number[i]<100)
+                    os << 0;
+        }
 		os <<static_cast<unsigned int>(obj.number[i]);
 	    //os << "\t";  
 	}
