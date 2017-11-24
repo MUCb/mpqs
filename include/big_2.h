@@ -4,13 +4,17 @@
 #include <string.h>
 #include <iostream>  
 #include <stdexcept>
+#include <math.h>
 #include "log.h"
 using namespace std;  
 #define BIG_SIZE 20
+#define DIVISION_COUNT  3
+#define POSITIONAL_BASE 1000
+
 
 class big{
 public:
-	char number[BIG_SIZE];
+	int number[BIG_SIZE];
 	char sign;
 	char size;
 	big(){

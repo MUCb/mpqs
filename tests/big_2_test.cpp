@@ -3,16 +3,32 @@
 
 #include "big_2.h"
 #include <iostream>  
+int showDebugMsg = 1;
+BOOST_AUTO_TEST_CASE(test_1) 
+{
+    big i(3203244);
+    std::cout << i << "\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_2) 
+{
+    big i("3203244");
+    std::cout << i << "\n";
+}
+
+
+
 BOOST_AUTO_TEST_CASE(test_12) 
 {
-    big i(304);
-    big j(4);
+    big i("3203244");
+    //big j(4123);
     //std::cout << "j |" << j << "|\n";
-    big f;
-    f = i / j;
+    //big f;
+    //f = i / j;
     std::cout << i << " / ";
-    std::cout << j << " = ";
-    std::cout << f << "\n";
+    //std::cout << j << " = ";
+    //std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
 }

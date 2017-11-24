@@ -1,5 +1,5 @@
-#include "big.h"
-#include "math.h"
+#include "big_2.h"
+#include <math.h>
 
 big::big(std::string _str) {
 	std::string str;
@@ -13,18 +13,26 @@ big::big(std::string _str) {
 		str = _str;
 	}
 	//std::cout << "contructor big: sign" <<(int) sign << "\n";
-	size = str.size();
+	size = str.size() / 3;
+    if (str.size() % 3)
+        size++;
 	//std::cout << "contructor big: size" <<(int) size << "\n";
 	//std::cout << "condtructor big: strlen" <<(int) str.size() << "\n";
-	if (size >= BIG_SIZE) {
+	if (size >= (BIG_SIZE * 3)) {
 		//cout << " to big number " << str << "\n";
 		throw "throw something";
 	}
-	for (int i=0, j = size - 1; i<BIG_SIZE; i++, j--){
-		if (j >= 0)
-			number[i] = str[j] - '0';
-		else
-			number[i] = 0;
+	for (int i=0, j = str.size() - 1; i<BIG_SIZE ; i++){
+		number[i] = 0;
+        if (j >= 0){
+            for(int k=0;k<3 && j>=0 ;k++ ){
+                //std::cout << "char " << str[j] << "\n";
+                if (j >= 0)
+                    number[i] += (str[j] -'0') * pow(10,k);
+                //std::cout << "number " << number[i] << "\n";
+                j--;
+            } 
+        }
 	}
 }
 
@@ -46,8 +54,8 @@ big::big(long long n) {
 	//std::cout << " conteructor " << n << "\n";
 	//std::cout << " tmp " << tmp << "\n";
 	for( int i = 0; tmp > 0; i++){
-		number[i] = tmp % 10;
-		tmp /= 10;
+		number[i] = tmp % 1000;
+		tmp /= 1000;
 		size++;
 	}
 	//std::cout << " size " << (int) size << "\n";
@@ -191,16 +199,81 @@ big big::operator*(const big other) const{
 }
 
 big big::operator/(const big other) const{
-	//std::cout << " other |" << other << "|\n";
-	//std::cout << " other size |" << (int)other.size << "|\n";
-	//std::cout << " this |" << *this << "|\n";
-	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
+	std::cout << " other |" << other << "|\n";
+	std::cout << " other size |" << (int)other.size << "|\n";
+	std::cout << " this |" << *this << "|\n";
+	std::cout << " this size |" <<(int)  (*this).size << "|\n";
 	big divident = *this;
 	big divisor = other;
 	big divisor10;
 	big quotient;
+	//big tmp;
+	big one(1);
+	big ten(10);
+	int quot_size = 0;
+	if (divident.sign == divisor.sign) {
+		if ( divident.sign == 1) {
+			divident.sign = 0;
+			divisor.sign = 0;
+		}
+	} else {
+		if ( divident.sign == 1){
+			divident.sign = 0;
+		} else {
+			divisor.sign = 0;
+		}
+		quot_size = 0;
+	}
+
+
+	if ( divident > divisor) {
+		int diff = divident.size - divisor.size - 1; 
+		//std::cout << " divisor |" << divisor << "|\n";
+		//std::cout << " other |" << other << "|\n";
+
+		int part_divident = 0;
+		int part_divisor = 0;
+		int part_quotient = 0;
+		int part_quotient_count = 0;
+		//int part_divisor = 0;
+
+		int j;
+		int count = 0;
+		for(j = divisor.size - 1, count = 0; j >= 0, count < DIVISION_COUNT; j--, count++) {
+			part_divisor = part_divisor * POSITIONAL_BASE + divisor.number[j];
+		}
+
+		part_divisor++;
+        int align = 0;
+		for (int iter = 0; iter < divident.size - divisor.size + DIVISION_COUNT; iter++) {
+			int i;
+			for( i = divident.size - 1 - (iter * DIVISION_COUNT) - align , count = 0; i >= 0, count < DIVISION_COUNT; i--, count++) {
+				part_divident = part_divident * POSITIONAL_BASE + divident.number[i];
+			}
+			if (part_divident < part_divisor){
+                align++;
+				part_divident = part_divident * POSITIONAL_BASE + divident.number[i];
+            }
+
+			std::cout << "part_divident |" << part_divident << "|\n";
+			part_quotient = part_divident / part_divisor;
+			//part_quotient = (part_quotient * DIVISION_COUNT) + part_divident / part_divisor;
+			part_quotient_count = (part_quotient_count *( pow((double) POSITIONAL_BASE , DIVISION_COUNT) )) + part_quotient;
+			std::cout << "part_quotient |" << part_quotient << "|\n";
+			std::cout << "part_quotient_count |" << part_quotient_count << "|\n";
+
+		    part_divident = part_divident - (part_quotient * part_divisor);
+		    std::cout << "part_quotient res |" << part_divident << "|\n";
+		}
+
+		//if (divident.size != 0)
+		//	quotient = quotient + one;
+	} else {
+		quotient = one;
+	}
 	return quotient;
 }
+
 /* quotient is rounded to the next integer
  */
 big div(const big divident1, const big divisor1) {
@@ -361,6 +434,7 @@ std::ostream& operator<<(std::ostream& os, const big& obj){
 		//	continue;
 		//os <<"|" <<static_cast<unsigned int>(obj.number[i]);
 		os <<static_cast<unsigned int>(obj.number[i]);
+	    //os << "\t";  
 	}
 	//os << "\n";  
 	//os << "size " <<(int) obj.size <<"\n";  
