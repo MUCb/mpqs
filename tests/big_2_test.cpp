@@ -17,8 +17,42 @@ BOOST_AUTO_TEST_CASE(test_2)
     std::cout << i << "\n";
 }
 
+BOOST_AUTO_TEST_CASE(test_3) 
+{
+    big i("32123442");
+    big j(2393);
+    big f;
+    f = i - j;
+    std::cout << i << "-";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
+
+BOOST_AUTO_TEST_CASE(test_4) 
+{
+    big i("5322");
+    big j(232);
+    big f;
+    f = i * j;
+    std::cout << i << "*";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
+
+BOOST_AUTO_TEST_CASE(test_5) 
+{
+    big i("322");
+    big j(232);
+    big f;
+    f = i / j;
+    std::cout << i << "/";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
 
 
+
+#if 0
 BOOST_AUTO_TEST_CASE(test_12) 
 {
     big i(999913);
@@ -33,7 +67,6 @@ BOOST_AUTO_TEST_CASE(test_12)
 
 }
 
-#if 0
 BOOST_AUTO_TEST_CASE(test_13) 
 {
     big i(304);
