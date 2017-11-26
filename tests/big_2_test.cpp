@@ -50,6 +50,29 @@ BOOST_AUTO_TEST_CASE(test_5)
     std::cout << f << "\n";
 }
 
+BOOST_AUTO_TEST_CASE(test_6) 
+{
+    big i("232000001");
+    big j(232);
+    big f;
+    f = i / j;
+    std::cout << i << "/";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
+
+BOOST_AUTO_TEST_CASE(test_7) 
+{
+    big i("232000000");
+    big j(232);
+    big f;
+    f = i / j;
+    std::cout << i << "/";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
+
+
 
 
 #if 0

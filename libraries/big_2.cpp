@@ -251,13 +251,20 @@ big big::operator/(const big other) const{
 
             part_divident = divident.number[divident_iter];
             std::cout << "part_divident |" << part_divident << "|\n";
+            std::cout << "part_divisor |" << part_divisor << "|\n";
+
+            if( part_divident == 0){
+                part_quotient_count = part_quotient_count * 1000;
+                continue;
+            }
 
             if (part_divident < part_divisor){
                 divident_iter--;
                 std::cout << "divident_iter |" << divident_iter << "|\n";
                 if ( divident_iter < 0){
-                    std::cout << "error pertator/ divident less than divisor\n";
-                    return quotient;
+                    //std::cout << "error pertator/ divident less than divisor\n";
+                    //return quotient;
+                    //break;
                 } else {
                     part_divident = (part_divident * 1000) + divident.number[divident_iter];
                 }
@@ -267,7 +274,8 @@ big big::operator/(const big other) const{
             part_quotient_count = (part_quotient_count * 1000) + part_quotient;
 
             std::cout << "part_quotient |" << part_quotient << "|\n";
-            part_divisor =  part_divisor - (part_quotient * part_divident);
+            //part_divisor =  part_divisor - (part_quotient * part_divident);
+            part_divident =  part_divident - (part_quotient * part_divisor);
         }
 
 
