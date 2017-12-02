@@ -244,18 +244,64 @@ BOOST_AUTO_TEST_CASE(test_18)
 
 }
 
-#endif
 
 BOOST_AUTO_TEST_CASE(test_19) 
 {
-    big i("1200000000234432");
+    big i(1234567891);
+    //big i(6712341233);
     //std::cout << "j |" << j << "|\n";
     big j(45678);
+    //big j(642307);
     big f;
+    //for ( int u = 0 ; u < 10000; u++) 
+    {
     f = i / j;
     std::cout << i << " / ";
     std::cout << j << " = ";
     std::cout << f << "\n";
+    }
+    //std::cout << i << " square root ";
+    //std::cout << " = ";
+    //std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_20) 
+{
+    //big i(1234567891);
+    big i(6712341233);
+    //std::cout << "j |" << j << "|\n";
+    //big j(45678);
+    big j(642307);
+    big f;
+    //for ( int u = 0 ; u < 10000; u++) 
+    {
+    f = i / j;
+    std::cout << i << " / ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    }
+    //std::cout << i << " square root ";
+    //std::cout << " = ";
+    //std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+#endif
+BOOST_AUTO_TEST_CASE(test_21) 
+{
+    big i(123456789123456);
+    big j(45678);
+    big f;
+    for ( int u = 0 ; u < 10000; u++) 
+    {
+    f = i / j;
+    std::cout << i << " / ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    }
     //std::cout << i << " square root ";
     //std::cout << " = ";
     //std::cout << f << "\n";
