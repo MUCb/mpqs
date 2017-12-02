@@ -191,18 +191,16 @@ big big::operator*(const big other) const{
 }
 
 big big::operator/(const big other) const{
-	//std::cout << " other |" << other << "|\n";
+	std::cout << " other |" << other << "|\n";
 	//std::cout << " other size |" << (int)other.size << "|\n";
-	//std::cout << " this |" << *this << "|\n";
+	std::cout << " this |" << *this << "|\n";
 	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
 	big divident = *this;
 	big divisor = other;
-	big divisor10;
+    big recidue;
 	big quotient;
-	//big tmp;
 	big one(1);
-	big ten(10);
-	int quot_size = 0;
+    
 	if (divident.sign == divisor.sign) {
 		if ( divident.sign == 1) {
 			divident.sign = 0;
@@ -214,45 +212,77 @@ big big::operator/(const big other) const{
 		} else {
 			divisor.sign = 0;
 		}
-		quot_size = 0;
+		//quot_size = 0;
 	}
+    
 	if ( divident > divisor) {
-		int diff = divident.size - divisor.size - 1; 
-		//std::cout << " divisor |" << divisor << "|\n";
-		//std::cout << " other |" << other << "|\n";
-		while (diff  > 0 ) {
-			big diff_big(1);
-			diff_big.pow10(diff);
-			divisor10 = divisor;
-			divisor10.pow10(diff);
-			//tmp.pow10(diff);
+    int divident_iter = divident.size - 1; 
+    int recidue_iter;
+    while(divident_iter >= 0) {
+    recidue_iter = divisor.size - recidue.size;
+    std::cout << " recidue_iter |" << recidue_iter << "|\n";
+    
+    for(int i = recidue.size -1 , j = divisor.size; i >= 0; i--, j--) {
+        recidue.number[j] = recidue.number[i];
+        recidue.number[i] = 0;
+    }
+    recidue.size = divisor.size + 1;
+    std::cout << " recidue |" << recidue << "|\n";
+    for (; recidue_iter >= 0; recidue_iter--, divident_iter--) {
+        recidue.number[recidue_iter] = divident.number[divident_iter];
+        quotient.pow10(1);
+    }
+    std::cout << " divident |" << divident << "|\n";
+    std::cout << " divisor |" << divisor << "|\n";
+    std::cout << " recidue |" << recidue << "|\n";
+    int part_divisor = 0;
+    if( divisor.size > 3) {
+        for (int i = divisor.size - 1, count=3; count > 0; i--, count--) {
+            part_divisor = part_divisor * 10 + divisor.number[i];
+        }
+        
+        for (int i = divisor.size - 4; i >= 0; i--) {
+            if (divisor.number[i] > 0) {
+                part_divisor++;
+                break;
+            }
+        }
+    } else {
+        for (int i = divisor.size - 1; i >= 0; i--) {
+            part_divisor = part_divisor * 10 + divisor.number[i];
+        }
+    }
+    std::cout << " part_divisor |" << part_divisor << "|\n";
+    int part_recidue = 0;
+    if( recidue.size > 4) {
+        for (int i = recidue.size - 1, count=4; count > 0; i--, count--) {
+            part_recidue = part_recidue * 10 + recidue.number[i];
+        }
+    } else {
+        for (int i = recidue.size - 1; i >= 0; i--) {
+            part_recidue = part_recidue * 10 + recidue.number[i];
+        }
+    }
+    std::cout << " part_recidue |" << part_recidue << "|\n";
 
-			//std::cout << " divisor10 |" << divisor10 << "|\n";
-			while ( divident > divisor10) {
-				divident = divident - divisor10;
-				//std::cout << " divident10 |" << divident << "|\n";
-				quotient = quotient + diff_big;
-				//std::cout << " quotient10 |" << quotient << "|\n";
-				//exit( 0);
-			}
-			diff = divident.size - divisor.size - 1; 
-		}
-		
-		while (! ( divident < divisor)) {
-			divident = divident - divisor;
-			//std::cout << " divident |" << divident << "|\n";
-			//std::cout << " divident size|" <<(int) divident.size << "|\n";
-			quotient = quotient + one;
-			//std::cout << " quotient |" << quotient << "|\n";
-			//std::cout << " quotient size|" << (int)quotient.size << "|\n";
-		}
-
-		//if (divident.size != 0)
-		//	quotient = quotient + one;
+    int part_quotient;
+    part_quotient = part_recidue / part_divisor;
+    std::cout << " part_quotient |" << part_quotient << "|\n";
+    quotient = quotient + part_quotient;
+    std::cout << " quotient |" << quotient << "|\n";
+    big tmp;
+    tmp = divisor * part_quotient;
+    std::cout << " tmp |" << tmp << "|\n";
+    //big recidue;
+    recidue = recidue - tmp;
+    std::cout << " recidue |" << recidue << "|\n";
+    }
+    
 	} else {
 		quotient = one;
 	}
 	return quotient;
+
 }
 /*
 big big::operator/(const long long  other) const{
@@ -473,11 +503,13 @@ big big::operator%(const long long other) const{
 
 
 void big::pow10(int power) {
+    if( size != 0){
 	for( int i = size - 1; i >= 0; i--) {
 		number[i+power] = number[i];
 		number[i] = 0;
 	}
 	size += power;
+    }
 }
 
 bool special_compare(const big one, const big other) {

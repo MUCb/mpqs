@@ -203,8 +203,8 @@ big big::operator/(const big other) const{
 	std::cout << " other size |" << (int)other.size << "|\n";
 	std::cout << " this |" << *this << "|\n";
 	std::cout << " this size |" <<(int)  (*this).size << "|\n";
-	big divident = *this;
-	big divisor = other;
+    big divident = *this;
+    big divisor = other;
 	big divisor10;
 	big quotient;
 	//big tmp;
@@ -241,6 +241,12 @@ big big::operator/(const big other) const{
 		int count = 0;
 		part_divisor = divisor.number[divisor.size - 1];
         std::cout << "part_divisor |" << part_divisor << "|\n";
+        for( int divisor_iter = divisor.size - 2; divisor_iter >= 0; divisor_iter--) {
+            if( divisor.number[divisor_iter] > 0) {
+                part_divisor++;
+                break;
+            }
+        }
 		//for(j = divisor.size - 1, count = 0; j >= 0, count < DIVISION_COUNT; j--, count++) {
 		//	part_divisor = part_divisor * POSITIONAL_BASE + divisor.number[j];
 		//}
@@ -249,7 +255,10 @@ big big::operator/(const big other) const{
         for(int divident_iter = divident.size - 1; divident_iter >= (divisor.size -1); divident_iter--){ 
             //std::cout << "debug " << __func__ << " " << __LINE__ << "\n"; 
 
-            part_divident = divident.number[divident_iter];
+            if (part_divident > 0)
+                    part_divident = (part_divident * 1000);
+
+            part_divident += divident.number[divident_iter];
             std::cout << "part_divident |" << part_divident << "|\n";
             std::cout << "part_divisor |" << part_divisor << "|\n";
 
@@ -286,6 +295,7 @@ big big::operator/(const big other) const{
         std::cout << " divident |" << divident << "|\n";
         //divident = divident - part_quotient_count;
         std::cout << " quotient |" << quotient << "|\n";
+
         while( divisor < quotient){
             quotient = quotient - divisor;
             part_quotient_count = part_quotient_count + one;
@@ -383,14 +393,74 @@ big big::operator%(const long long other) const{
 	return divident;
 }
 
-
-void big::pow10(int power) {
+/*
+void big::pow1000(int power) {
 	for( int i = size - 1; i >= 0; i--) {
 		number[i+power] = number[i];
 		number[i] = 0;
 	}
 	size += power;
 }
+*/
+
+void big::pow10(int power) {
+    int power_recidue = power % 3;
+    int real_power = power / 3;
+    int shift = 0;
+    if ( power_recidue == 0) {
+        for( int i = size - 1; i >= 0; i--) {
+            number[i+real_power] = number[i];
+            number[i] = 0;
+        }
+        size += real_power;
+
+    } else {
+        //std::cout << "power_recidue = " << power_recidue << "\n";
+        if ( number[size-1] < 10) 
+            shift = 2;
+        else if ( number[size-1] < 100)
+            shift = 1;
+        else 
+            shift = 0;
+
+        //std::cout << "shift = " << shift << "\n";
+        int tmp_real = 0;
+        int tmp_recidue = 0;
+        if ( power_recidue > shift) {
+            for( int i = size - 1; i >= 0; i--) {
+                tmp_real = (tmp_recidue * pow(10, power_recidue )) + number[i] / pow(10, (3 - power_recidue )); 
+                //std::cout << "tmp_real " << tmp_real << "\n";
+                tmp_recidue = number[i] % (int ) pow(10, (3 - power_recidue )); 
+                //std::cout << "tmp_recidue " << tmp_recidue << "\n";
+                number[i + real_power + 1] = tmp_real;
+                if (real_power > 0)
+                    number[i] = 0;
+                number[i + real_power ] = tmp_recidue * pow(10, power_recidue);
+            }
+        } else {
+            for( int i = size - 1; i >= 0; i--) {
+                tmp_recidue = number[i] % (int ) pow(10, (3 - power_recidue )); 
+                //std::cout << "tmp_recidue " << tmp_recidue << "\n";
+                if (i == 0)
+                    tmp_real = tmp_recidue * pow(10, power_recidue); 
+                else
+                    tmp_real = tmp_recidue * pow(10, power_recidue) + number[i-1] / pow(10, 3-power_recidue); 
+                //std::cout << "tmp_real " << tmp_real << "\n";
+                number[i + real_power] = tmp_real;
+                if (real_power > 0)
+                    number[i] = 0;
+                //number[i + real_power - 1] = tmp_recidue * pow(10, power_recidue);
+            }
+        }
+        if ( power_recidue > shift) 
+            size += real_power + 1;
+        else
+            size += real_power;
+//	size += power;
+
+    } 
+}
+
 
 bool special_compare(const big one, const big other) {
 	//std::cout << "size curr |" << (int)size << "|\n";

@@ -4,6 +4,7 @@
 #include "big_2.h"
 #include <iostream>  
 int showDebugMsg = 1;
+#if 0
 BOOST_AUTO_TEST_CASE(test_1) 
 {
     big i(3203244);
@@ -72,10 +73,47 @@ BOOST_AUTO_TEST_CASE(test_7)
     std::cout << f << "\n";
 }
 
+BOOST_AUTO_TEST_CASE(test_8) 
+{
+    big i("23213412412");
+    big j(2323);
+    big f;
+    f = i / j;
+    std::cout << i << "/";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
+BOOST_AUTO_TEST_CASE(test_9) 
+{
+    //big i("232000100000000");
+    big j(12345678);
+    //big j(12345678);
+    std::cout << j << "\n";
+    std::cout << (int)j.size << " size\n";
+    for(int i = 1; i < 10; i++) {
+        j = 1234567;
+        j.pow10(i);
+        std::cout << (int)j.size << " size\n";
+        std::cout << j << " pow\n";
+    }
+}
 
+#endif 
+
+BOOST_AUTO_TEST_CASE(test_9) 
+{
+    big i("232000100000000");
+    big j(24233);
+    big f;
+    f = i / j;
+    std::cout << i << "/";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+}
 
 
 #if 0
+
 BOOST_AUTO_TEST_CASE(test_12) 
 {
     big i(999913);

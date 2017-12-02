@@ -3,6 +3,7 @@
 
 #include "big.h"
 #include <iostream>  
+int showDebugMsg = 1;
 #if 0
 BOOST_AUTO_TEST_CASE(first_test) 
 {
@@ -247,12 +248,12 @@ BOOST_AUTO_TEST_CASE(test_18)
 
 BOOST_AUTO_TEST_CASE(test_19) 
 {
-    big i(673);
+    big i("1200000000234432");
     //std::cout << "j |" << j << "|\n";
-    big j(607);
+    big j(45678);
     big f;
-    f = i * j;
-    std::cout << i << " * ";
+    f = i / j;
+    std::cout << i << " / ";
     std::cout << j << " = ";
     std::cout << f << "\n";
     //std::cout << i << " square root ";
