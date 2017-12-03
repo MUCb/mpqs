@@ -5,6 +5,7 @@
 #include <iostream>  
 #include <stdexcept>
 #include "log.h"
+#include "big_2.h"
 using namespace std;  
 #define BIG_SIZE 20
 #define DIVISION_COUNT  3
@@ -23,6 +24,7 @@ public:
 	}
 	big(std::string str);
 	big(long long n); 
+	big(big_ n); 
 	big& operator=(const big other)
 	{
 		for (int i=0; i<BIG_SIZE; i++)

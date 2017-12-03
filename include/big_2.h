@@ -11,21 +11,21 @@ using namespace std;
 #define DIVISION_COUNT  3
 #define POSITIONAL_BASE 1000
 
-
-class big{
+#include "big.h"
+class big_2{
 public:
 	int number[BIG_SIZE];
 	char sign;
 	char size;
-	big(){
+	big_2(){
 		for (int i=0; i<BIG_SIZE; i++)
 			number[i] = 0;
 		sign = 0;
 		size = 0;
 	}
-	big(std::string str);
-	big(long long n); 
-	big& operator=(const big other)
+	big_2(std::string str);
+	big_2(long long n); 
+	big_2& operator=(const big_2 other)
 	{
 		for (int i=0; i<BIG_SIZE; i++)
 			number[i] = other.number[i];
@@ -33,21 +33,21 @@ public:
 		size = other.size;
 		return *this;
 	}
-	big operator+(const big other) const;
-	big operator-(const big other) const;
-	friend std::ostream& operator<<(std::ostream& os, const big& obj);
+	big_2 operator+(const big_2 other) const;
+	big_2 operator-(const big_2 other) const;
+	friend std::ostream& operator<<(std::ostream& os, const big_2& obj);
 	void pow10(int power); 
-	big operator*(const big other) const;
-	big operator/(const big other) const;
-	friend big div(const big other);
-	friend double ln(const big n); 
-	bool operator<(const big other) const;
-	bool operator>(const big other) const;
-	friend bool special_compare(const big one, const big other);
-	big operator%(const big other) const; 
-	bool operator==(const big other) const;
-	big operator%(const long long other) const;
-//	big operator/(const long long  other) const{
+	big_2 operator*(const big_2 other) const;
+	big_2 operator/(const big_2 other) const;
+	friend big_2 div(const big_2 other);
+	friend double ln(const big_2 n); 
+	bool operator<(const big_2 other) const;
+	bool operator>(const big_2 other) const;
+	friend bool special_compare(const big_2 one, const big_2 other);
+	big_2 operator%(const big_2 other) const; 
+	bool operator==(const big_2 other) const;
+	big_2 operator%(const long long other) const;
+//	big_2 operator/(const long long  other) const{
 };
-big squareRoot(big n);
+big_2 squareRoot(big_2 n);
 #endif

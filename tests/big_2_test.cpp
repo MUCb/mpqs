@@ -102,9 +102,9 @@ BOOST_AUTO_TEST_CASE(test_9)
 
 BOOST_AUTO_TEST_CASE(test_9) 
 {
-    big i("232000100000000");
-    big j(24233);
-    big f;
+    big_2 i("232000100000000");
+    big_2 j(24233);
+    big_2 f;
     f = i / j;
     std::cout << i << "/";
     std::cout << j << " = ";

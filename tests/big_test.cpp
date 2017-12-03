@@ -295,7 +295,7 @@ BOOST_AUTO_TEST_CASE(test_21)
     big i(123456789123456);
     big j(45678);
     big f;
-    for ( int u = 0 ; u < 10000; u++) 
+    //for ( int u = 0 ; u < 10000; u++) 
     {
     f = i / j;
     std::cout << i << " / ";
