@@ -276,12 +276,19 @@ double ln(const big_2 n) {
 
 big_2 big_2::operator%(const big_2 other) const{
 	//std::cout << " other |" << other << "|\n";
+	//std::cout << " other size |" << (int)other.size << "|\n";
 	//std::cout << " this |" << *this << "|\n";
-	big_2 divident = *this;
-	big_2 divisor = other;
-	big_2 divisor10;
-	big_2 tmp(1);
-	return divident;
+	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
+    big divident(*this);
+    big divisor(other);
+	//std::cout << " divident |" << divident << "|\n";
+	//std::cout << " dividisor |" << divisor << "|\n";
+	big quotient;
+    quotient = divident % divisor; 
+	//std::cout << " quotient |" << quotient << "|\n";
+	big_2 quotient_2(quotient);
+	return quotient_2;
+
 }
 
 big_2 big_2::operator%(const long long other) const{
