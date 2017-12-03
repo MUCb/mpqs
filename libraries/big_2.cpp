@@ -48,8 +48,8 @@ big_2::big_2(big n) {
 
     for( int i = 0; i < n.size; i++) {
         number[size] += n.number[i] * count;
-        std::cout << "curr number " << number[size] << "\n";
-        std::cout << "n number " << n.number[i] << "\n";
+        //std::cout << "curr number " << number[size] << "\n";
+        //std::cout << "n number " << n.number[i] << "\n";
         count *= 10;
         if (count == 1000) {
             count = 1;
@@ -223,17 +223,17 @@ big_2 big_2::operator*(const big_2 other) const{
 }
 
 big_2 big_2::operator/(const big_2 other) const{
-	std::cout << " other |" << other << "|\n";
-	std::cout << " other size |" << (int)other.size << "|\n";
-	std::cout << " this |" << *this << "|\n";
-	std::cout << " this size |" <<(int)  (*this).size << "|\n";
+	//std::cout << " other |" << other << "|\n";
+	//std::cout << " other size |" << (int)other.size << "|\n";
+	//std::cout << " this |" << *this << "|\n";
+	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
     big divident(*this);
     big divisor(other);
-	std::cout << " divident |" << divident << "|\n";
-	std::cout << " dividisor |" << divisor << "|\n";
+	//std::cout << " divident |" << divident << "|\n";
+	//std::cout << " dividisor |" << divisor << "|\n";
 	big quotient;
     quotient = divident / divisor; 
-	std::cout << " quotient |" << quotient << "|\n";
+	//std::cout << " quotient |" << quotient << "|\n";
 	big_2 quotient_2(quotient);
 	return quotient_2;
 }

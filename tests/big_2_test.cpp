@@ -102,8 +102,8 @@ BOOST_AUTO_TEST_CASE(test_9)
 
 BOOST_AUTO_TEST_CASE(test_9) 
 {
-    big_2 i("123456789");
-    big_2 j(45678);
+    big_2 i("100032456789");
+    big_2 j(44392);
     //std::cout << i << " ii ";
     big_2 f;
     f = i / j;

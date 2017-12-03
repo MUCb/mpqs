@@ -30,6 +30,7 @@ big::big(std::string _str) {
 
 big::big(big_2 n){ 
     size = 0;
+    sign = 0;
 	for (int i=0; i<BIG_SIZE; i++){
 		number[i] = 0;
 	}
@@ -38,24 +39,23 @@ big::big(big_2 n){
     for(int i = 0; i < n.size; i++){
         //std::cout << "number " << tmp.number[i] << "\n";
         if ( i == n.size -1 ) {
-            if(tmp.number[i] % 10 > 0) {
-                number[size] = tmp.number[i] % 10;
-                size++;
-                tmp.number[i] /= 10;
+            number[size] = tmp.number[i] % 10;
+            size++;
+            tmp.number[i] /= 10;
+            
+            number[size] = tmp.number[i] % 10;
+            size++;
+            tmp.number[i] /= 10;
+            
+            number[size] = tmp.number[i] % 10;
+            size++;
 
-                if(tmp.number[i] % 10 > 0) {
-                    number[size] = tmp.number[i] % 10;
-                    size++;
-                    tmp.number[i] /= 10;
+            if (number[size-1] == 0) {
+                size--;
+                if (number[size-1])
+                   size--;
+            }
 
-                    if(tmp.number[i] % 10 > 0) {
-                        number[size] = tmp.number[i] % 10;
-                        size++;
-                        tmp.number[i] /= 10;
-                    }
-
-                }
-            } 
         } else {
                 number[size] = tmp.number[i] % 10;
                 //std::cout << "curr num " << number[size] << "\n";
