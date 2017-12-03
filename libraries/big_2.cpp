@@ -40,6 +40,7 @@ big_2::big_2(std::string _str) {
 big_2::big_2(big n) {
     int count = 1;
     size = 0;
+    sign = 0;
 	for (int i=0; i<BIG_SIZE; i++){
 		number[i] = 0;
 	}
@@ -55,6 +56,7 @@ big_2::big_2(big n) {
             size++;
         }
     }
+    size++;
 }
 
 
@@ -227,8 +229,13 @@ big_2 big_2::operator/(const big_2 other) const{
 	std::cout << " this size |" <<(int)  (*this).size << "|\n";
     big divident(*this);
     big divisor(other);
-	big_2 quotient;
-	return quotient;
+	std::cout << " divident |" << divident << "|\n";
+	std::cout << " dividisor |" << divisor << "|\n";
+	big quotient;
+    quotient = divident / divisor; 
+	std::cout << " quotient |" << quotient << "|\n";
+	big_2 quotient_2(quotient);
+	return quotient_2;
 }
 
 /* quotient is rounded to the next integer
