@@ -1,5 +1,5 @@
-#ifndef BIG
-#define BIG
+#ifndef BIG_2
+#define BIG_2
 
 #include <string.h>
 #include <iostream>  

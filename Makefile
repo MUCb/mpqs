@@ -76,10 +76,10 @@ qs_unit_matrix_big_online_test: quadratic_sieve_big dynamic_bin_matrix big great
 
 
 
-big_test: big
+big_test: big big_2
 	g++ -std=c++11  -Iinclude/ -lm  \
 	tests/big_test.cpp -o tests/big_tests.out \
-	libraries/big.o -lboost_system
+	libraries/big_2.o libraries/big.o -lboost_system
 
 big_2_test: big_2
 	g++ -std=c++11  -Iinclude/ -lm  \

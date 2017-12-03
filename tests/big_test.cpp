@@ -2,6 +2,7 @@
 #include <boost/test/included/unit_test.hpp> 
 
 #include "big.h"
+#include "big_2.h"
 #include <iostream>  
 int showDebugMsg = 1;
 #if 0
@@ -292,16 +293,14 @@ BOOST_AUTO_TEST_CASE(test_20)
 #endif
 BOOST_AUTO_TEST_CASE(test_21) 
 {
-    big i(123456789123456);
-    big j(45678);
-    big f;
+    big_2 i(123456789123456);
+    big j(i);
     //for ( int u = 0 ; u < 10000; u++) 
-    {
-    f = i / j;
-    std::cout << i << " / ";
+    //{
+    //std::cout << i << " / ";
     std::cout << j << " = ";
-    std::cout << f << "\n";
-    }
+    //std::cout << f << "\n";
+    //}
     //std::cout << i << " square root ";
     //std::cout << " = ";
     //std::cout << f << "\n";

@@ -8,9 +8,9 @@
 #include "big_2.h"
 using namespace std;  
 #define BIG_SIZE 20
-#define DIVISION_COUNT  3
-#define POSITIONAL_BASE 10
 
+
+class big_2;
 class big{
 public:
     int number[BIG_SIZE];
@@ -24,7 +24,7 @@ public:
 	}
 	big(std::string str);
 	big(long long n); 
-	big(big_ n); 
+	big(big_2 n); 
 	big& operator=(const big other)
 	{
 		for (int i=0; i<BIG_SIZE; i++)
