@@ -12,6 +12,7 @@ using namespace std;
 #define POSITIONAL_BASE 1000
 
 #include "big.h"
+class big;
 class big_2{
 public:
 	int number[BIG_SIZE];
@@ -25,6 +26,7 @@ public:
 	}
 	big_2(std::string str);
 	big_2(long long n); 
+	big_2(big n); 
 	big_2& operator=(const big_2 other)
 	{
 		for (int i=0; i<BIG_SIZE; i++)

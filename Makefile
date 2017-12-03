@@ -81,10 +81,10 @@ big_test: big big_2
 	tests/big_test.cpp -o tests/big_tests.out \
 	libraries/big_2.o libraries/big.o -lboost_system
 
-big_2_test: big_2
+big_2_test: big_2 big
 	g++ -std=c++11  -Iinclude/ -lm  \
 	tests/big_2_test.cpp -o tests/big_2_tests.out \
-	libraries/big_2.o -lboost_system
+	libraries/big_2.o libraries/big.o -lboost_system
 
 
 #####################################################

@@ -1,4 +1,5 @@
 #include "big_2.h"
+#include "big.h"
 #include <math.h>
 
 big_2::big_2(std::string _str) {
@@ -35,6 +36,27 @@ big_2::big_2(std::string _str) {
         }
 	}
 }
+
+big_2::big_2(big n) {
+    int count = 1;
+    size = 0;
+	for (int i=0; i<BIG_SIZE; i++){
+		number[i] = 0;
+	}
+
+
+    for( int i = 0; i < n.size; i++) {
+        number[size] += n.number[i] * count;
+        std::cout << "curr number " << number[size] << "\n";
+        std::cout << "n number " << n.number[i] << "\n";
+        count *= 10;
+        if (count == 1000) {
+            count = 1;
+            size++;
+        }
+    }
+}
+
 
 big_2::big_2(long long n) {
 	size = 0;
@@ -203,135 +225,9 @@ big_2 big_2::operator/(const big_2 other) const{
 	std::cout << " other size |" << (int)other.size << "|\n";
 	std::cout << " this |" << *this << "|\n";
 	std::cout << " this size |" <<(int)  (*this).size << "|\n";
-    big_2 divident = *this;
-    big_2 divisor = other;
-	big_2 divisor10;
+    big divident(*this);
+    big divisor(other);
 	big_2 quotient;
-	//big_2 tmp;
-	big_2 one(1);
-	big_2 ten(10);
-	int quot_size = 0;
-	if (divident.sign == divisor.sign) {
-		if ( divident.sign == 1) {
-			divident.sign = 0;
-			divisor.sign = 0;
-		}
-	} else {
-		if ( divident.sign == 1){
-			divident.sign = 0;
-		} else {
-			divisor.sign = 0;
-		}
-		quot_size = 0;
-	}
-
-
-	if ( divident > divisor) {
-		int diff = divident.size - divisor.size - 1; 
-		std::cout << " divisor |" << divisor << "|\n";
-		std::cout << " divident |" << divident << "|\n";
-
-		int part_divident = 0;
-		int part_divisor = 0;
-		int part_quotient = 0;
-		big_2 part_quotient_count = 0;
-		//int part_divisor = 0;
-
-		int j;
-		int count = 0;
-		part_divisor = divisor.number[divisor.size - 1];
-        std::cout << "part_divisor |" << part_divisor << "|\n";
-        for( int divisor_iter = divisor.size - 2; divisor_iter >= 0; divisor_iter--) {
-            if( divisor.number[divisor_iter] > 0) {
-                part_divisor++;
-                break;
-            }
-        }
-		//for(j = divisor.size - 1, count = 0; j >= 0, count < DIVISION_COUNT; j--, count++) {
-		//	part_divisor = part_divisor * POSITIONAL_BASE + divisor.number[j];
-		//}
-
-        //int divident_iter = divident.size - 1;
-        for(int divident_iter = divident.size - 1; divident_iter >= (divisor.size -1); divident_iter--){ 
-            //std::cout << "debug " << __func__ << " " << __LINE__ << "\n"; 
-
-            if (part_divident > 0)
-                    part_divident = (part_divident * 1000);
-
-            part_divident += divident.number[divident_iter];
-            std::cout << "part_divident |" << part_divident << "|\n";
-            std::cout << "part_divisor |" << part_divisor << "|\n";
-
-            if( part_divident == 0){
-                part_quotient_count = part_quotient_count * 1000;
-                continue;
-            }
-
-            if (part_divident < part_divisor){
-                divident_iter--;
-                std::cout << "divident_iter |" << divident_iter << "|\n";
-                if ( divident_iter < 0){
-                    //std::cout << "error pertator/ divident less than divisor\n";
-                    //return quotient;
-                    //break;
-                } else {
-                    part_divident = (part_divident * 1000) + divident.number[divident_iter];
-                }
-            }
-            //part_divident++; // need add check for equal numbers
-            part_quotient = part_divident / part_divisor;
-            part_quotient_count = (part_quotient_count * 1000) + part_quotient;
-
-            std::cout << "part_quotient |" << part_quotient << "|\n";
-            //part_divisor =  part_divisor - (part_quotient * part_divident);
-            part_divident =  part_divident - (part_quotient * part_divisor);
-        }
-
-
-        std::cout << "part_quotient_count |" << part_quotient_count << "|\n";
-        std::cout << "part_quotient_count1 |" << (part_quotient_count * divisor) << "|\n";
-        quotient = divident - (part_quotient_count * divisor);
-        std::cout << "part_quotient_count |" << part_quotient_count << "|\n";
-        std::cout << " divident |" << divident << "|\n";
-        //divident = divident - part_quotient_count;
-        std::cout << " quotient |" << quotient << "|\n";
-
-        while( divisor < quotient){
-            quotient = quotient - divisor;
-            part_quotient_count = part_quotient_count + one;
-        }
-        quotient = part_quotient_count;
-
-#if 0
-		part_divisor++;
-        int align = 0;
-		for (int iter = 0; iter < divident.size - divisor.size + DIVISION_COUNT; iter++) {
-			int i;
-			for( i = divident.size - 1 - (iter * DIVISION_COUNT) - align , count = 0; i >= 0, count < DIVISION_COUNT; i--, count++) {
-				part_divident = part_divident * POSITIONAL_BASE + divident.number[i];
-			}
-			if (part_divident < part_divisor){
-                align++;
-				part_divident = part_divident * POSITIONAL_BASE + divident.number[i];
-            }
-
-			std::cout << "part_divident |" << part_divident << "|\n";
-			part_quotient = part_divident / part_divisor;
-			//part_quotient = (part_quotient * DIVISION_COUNT) + part_divident / part_divisor;
-			part_quotient_count = (part_quotient_count *( pow((double) POSITIONAL_BASE , DIVISION_COUNT) )) + part_quotient;
-			std::cout << "part_quotient |" << part_quotient << "|\n";
-			std::cout << "part_quotient_count |" << part_quotient_count << "|\n";
-
-		    part_divident = part_divident - (part_quotient * part_divisor);
-		    std::cout << "part_quotient res |" << part_divident << "|\n";
-		}
-
-#endif
-		//if (divident.size != 0)
-		//	quotient = quotient + one;
-	} else {
-		quotient = one;
-	}
 	return quotient;
 }
 

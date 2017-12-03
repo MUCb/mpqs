@@ -30,6 +30,10 @@ big::big(std::string _str) {
 
 big::big(big_2 n){ 
     size = 0;
+	for (int i=0; i<BIG_SIZE; i++){
+		number[i] = 0;
+	}
+
     big_2 tmp = n;
     for(int i = 0; i < n.size; i++){
         //std::cout << "number " << tmp.number[i] << "\n";
