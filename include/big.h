@@ -7,7 +7,7 @@
 #include "log.h"
 #include "big_2.h"
 using namespace std;  
-#define BIG_SIZE 20
+#define BIG_SIZE 60
 
 
 class big_2;

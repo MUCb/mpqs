@@ -19,11 +19,11 @@ big_2::big_2(std::string _str) {
         size++;
 	//std::cout << "contructor big_2: size" <<(int) size << "\n";
 	//std::cout << "condtructor big_2: strlen" <<(int) str.size() << "\n";
-	if (size >= (BIG_SIZE * 3)) {
+	if (size >= (BIG_SIZE_2 * 3)) {
 		//cout << " to big_2 number " << str << "\n";
 		throw "throw something";
 	}
-	for (int i=0, j = str.size() - 1; i<BIG_SIZE ; i++){
+	for (int i=0, j = str.size() - 1; i<BIG_SIZE_2 ; i++){
 		number[i] = 0;
         if (j >= 0){
             for(int k=0;k<3 && j>=0 ;k++ ){
@@ -37,11 +37,11 @@ big_2::big_2(std::string _str) {
 	}
 }
 
-big_2::big_2(big n) {
+big_2::big_2(const big n) {
     int count = 1;
     size = 0;
     sign = 0;
-	for (int i=0; i<BIG_SIZE; i++){
+	for (int i=0; i<BIG_SIZE_2; i++){
 		number[i] = 0;
 	}
 
@@ -56,13 +56,14 @@ big_2::big_2(big n) {
             size++;
         }
     }
-    size++;
+    if (n.size % 3 > 0)
+        size++;
 }
 
 
 big_2::big_2(long long n) {
 	size = 0;
-	for (int i=0; i<BIG_SIZE; i++){
+	for (int i=0; i<BIG_SIZE_2; i++){
 		number[i] = 0;
 	}
 
@@ -240,7 +241,7 @@ big_2 big_2::operator/(const big_2 other) const{
 
 /* quotient is rounded to the next integer
  */
-big_2 div(const big_2 divident1, const big_2 divisor1) {
+/*big_2 div(const big_2 divident1, const big_2 divisor1) {
 	//std::cout << " other |" << other << "|\n";
 	//std::cout << " this |" << *this << "|\n";
 	big_2 divident = divident1;
@@ -253,22 +254,24 @@ big_2 div(const big_2 divident1, const big_2 divisor1) {
 	int quot_size = 0;
 	return quotient;
 }
-
+*/
 
 double ln(const big_2 n) {
 	long long num = 0;
 	double log_num = 0;
 	int remain = 0;
-	if ( n.size > 10 )
-		remain = n.size - 10;
+	if ( n.size > 3 )
+		remain = n.size - 3;
 
-	for (int i = n.size - 1; i >= ( n.size - 10) && i >= 0 ; i--) {
-		num *= 10;
+	for (int i = n.size - 1; i >= ( n.size - 3) && i >= 0 ; i--) {
+		num *= 1000;
 		num += n.number[i];
+	//std::cout << "num = " << num << "\n";
 	}
+	//std::cout << "num = " << num << "\n";
 	log_num = log(num );
 	if ( remain != 0) {
-		log_num += (log(10) * remain);
+		log_num += (log(10) * remain * 3);
 	}
 	//std::cout << "log num = " << log_num << "\n";
 	return log_num;
@@ -277,32 +280,41 @@ double ln(const big_2 n) {
 big_2 big_2::operator%(const big_2 other) const{
 	//std::cout << " other |" << other << "|\n";
 	//std::cout << " other size |" << (int)other.size << "|\n";
-	//std::cout << " this |" << *this << "|\n";
+	//std::cout << " this |" << *this << "|\n"/e;
 	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
     big divident(*this);
     big divisor(other);
 	//std::cout << " divident |" << divident << "|\n";
 	//std::cout << " dividisor |" << divisor << "|\n";
 	big quotient;
+	//std::cout << " divident1 |" << *this << "|\n";
     quotient = divident % divisor; 
 	//std::cout << " quotient |" << quotient << "|\n";
+	//std::cout << " divident1 |" << *this << "|\n";
 	big_2 quotient_2(quotient);
+	//std::cout << " quotient 2|" << quotient_2 << "|\n";
 	return quotient_2;
 
 }
 
 big_2 big_2::operator%(const long long other) const{
+
+
+    big divident(*this);
+    big divisor(other);
+    big quotient;
+
+	//std::cout << " dividisor |" << divisor << "|\n";
+	//std::cout << " divident |" << divident << "|\n";
+    quotient = divident % divisor; 
+
+	//std::cout << "quotient  |" << quotient << "|\n";
+	big_2 quotient_2(quotient);
+	//std::cout << "quotient_2  |" << quotient_2 << "|\n";
 	//std::cout << " other |" << other << "|\n";
 	//std::cout << " this |" << *this << "|\n";
-	big_2 divident = *this;
-	big_2 divisor (other);
-	big_2 divisor10;
-	big_2 tmp(1);
-	divident.sign = 0;
-	divisor.sign = 0;
-	return divident;
+	return quotient_2;
 }
-
 /*
 void big_2::pow1000(int power) {
 	for( int i = size - 1; i >= 0; i--) {
@@ -312,7 +324,7 @@ void big_2::pow1000(int power) {
 	size += power;
 }
 */
-
+/*
 void big_2::pow10(int power) {
     int power_recidue = power % 3;
     int real_power = power / 3;
@@ -370,8 +382,8 @@ void big_2::pow10(int power) {
 
     } 
 }
-
-
+*/
+/*
 bool special_compare(const big_2 one, const big_2 other) {
 	//std::cout << "size curr |" << (int)size << "|\n";
 	//std::cout << "size other |" << (int)other.size << "|\n";
@@ -386,7 +398,7 @@ bool special_compare(const big_2 one, const big_2 other) {
 	}
 	return true; 
 }
-
+*/
 
 bool big_2::operator<(const big_2 other) const{
 	//std::cout << "size curr |" << (int)size << "|\n";
@@ -484,35 +496,9 @@ big_2 squareRoot(big_2 n)
 {
 	/*We are using n itself as initial approximation
 	 *    This can definitely be improved */
-	big_2 x = n;
-	big_2 y = 1;
-	big_2 two = 2;
-	//float e = 0.000001; /* e decides the accuracy level*/
-	big_2 e = 1; /* e decides the accuracy level*/
-	LOG(5) std::cout << "x = " << x  << "\n"; 
-	LOG(5) std::cout << "y = " << y << "\n"; 
-	LOG(5) std::cout << "x - y = " << x - y << "\n"; 
-	int count = 0;
-	//while(x - y > e)
-	while(x > y )// is this a right approach ? 
-	{
-		count++;
-	LOG(5) std::cout << "x - y = " << x - y << "\n"; 
-		LOG(5) std::cout << "while x" << x  << "\n"; 
-		LOG(5) std::cout << "while y" << y  << "\n"; 
-		big_2 tmp = x + y;
-		LOG(5) std::cout << "while tmp" << tmp  << "\n"; 
-		//std::cout << "bigger tmp" << tmp  << "\n"; 
-		//x = (x + y)/two;
-		x = (tmp)/two;
-		y = n/x;
-		LOG(5) std::cout << "while1 x" << x  << "\n"; 
-		LOG(5) std::cout << "while1 y" << y  << "\n"; 
-		LOG(5) std::cout << "while1 tmp" << tmp  << "\n"; 
-		//if (count ==25)
-		//exit(0);
-	}
-	return x;
+	big x (n);
+    big y = squareRoot(x);
+	return y;
 }
 
 

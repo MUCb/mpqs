@@ -9,15 +9,15 @@
 
 #include "log.h"
 
-#include "big.h" 
+#include "big_2.h" 
 
 //Euclid's Algorithm, Greatest Common Divisor
-big euclid_gcd_big(const std::vector<big>& X,
-                    const std::vector<big>& Y,
+big_2 euclid_gcd_big(const std::vector<big_2>& X,
+                    const std::vector<big_2>& Y,
                     const std::vector<int64_t>& iterator,
-                    const big &p,
-                    const big &q,
-                    const big &N,
+                    const big_2 &p,
+                    const big_2 &q,
+                    const big_2 &N,
                     std::vector< std::vector<uint64_t> > v_exp,
                     std::vector<long long> p_smooth
                 )
@@ -26,8 +26,8 @@ big euclid_gcd_big(const std::vector<big>& X,
     {
         DEBUG(2, "Euclidean algorithm----\n");
 
-        big sumX (1);
-        big sumY (1);
+        big_2 sumX (1);
+        big_2 sumY (1);
         // uint64_t sumYY = 1;
         uint64_t sum;
 
@@ -98,7 +98,7 @@ big euclid_gcd_big(const std::vector<big>& X,
         // y + x and y - x 
         for (int j = 0; j < 2; ++j)
         {
-            big tmp1;
+            big_2 tmp1;
             if (j == 0){ 
                 tmp1 = sumY + sumX;
 		LOG (3) std::cout <<  "firtst attept Y + X = " << tmp1 << "\n";
@@ -112,8 +112,8 @@ big euclid_gcd_big(const std::vector<big>& X,
                 //DEBUG (3, "second attept Y - X = %ld\n", tmp1);
 		LOG(3) std::cout <<  "second attept Y - X = " << tmp1 << "\n";
             }
-            big tmp2 = N;
-            big tmp3 = 0;
+            big_2 tmp2 = N;
+            big_2 tmp3 = 0;
 
 		LOG(3) std::cout <<  "tmp1 ="<<  tmp1 << "\ttmp2="<< tmp2 << "\n";
             while (!(tmp1 == 0) && !(tmp2 == 0))// FIXME

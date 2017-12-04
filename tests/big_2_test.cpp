@@ -98,7 +98,6 @@ BOOST_AUTO_TEST_CASE(test_9)
     }
 }
 
-#endif 
 
 BOOST_AUTO_TEST_CASE(test_9) 
 {
@@ -113,22 +112,36 @@ BOOST_AUTO_TEST_CASE(test_9)
 }
 
 
-#if 0
-
-BOOST_AUTO_TEST_CASE(test_12) 
+BOOST_AUTO_TEST_CASE(test_16) 
 {
-    big i(999913);
-    big j(93);
-    //std::cout << "j |" << j << "|\n";
+    big i(300999900003);
+    std::cout << "j |" << i << "|\n";
     big f;
-    f = i + j;
-    std::cout << i << " + ";
-    std::cout << j << " = ";
+    f = ln(i);
+    //std::cout << i << " square root ";
+    //std::cout << " = ";
     std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
 }
 
+#endif 
+
+
+BOOST_AUTO_TEST_CASE(test_12) 
+{
+    big i(2433);
+    std::cout << "i |" << i << "|\n";
+    big_2 j;
+    j = i;
+    //std::cout << "j |" << j << "|\n";
+    std::cout << j << " = ";
+    //std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+}
+
+#if 0
 BOOST_AUTO_TEST_CASE(test_13) 
 {
     big i(304);

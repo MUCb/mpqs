@@ -4,7 +4,7 @@
 #include <math.h>
 
 #include "bin_matrix.h"
-#include "big.h"
+#include "big_2.h"
 #include "greatest_common_divisor.h"
 #include "quadratic_sieve_big.h"
 
@@ -432,7 +432,7 @@ void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long 
 // uint64_t max value  10^19
 //  N max 10^9
 // p max 10^4
-void make_smooth_numbers(std::vector<long long> &p_smooth, double size_B, big N)
+void make_smooth_numbers(std::vector<long long> &p_smooth, double size_B, const big_2 N)
 {
     //prime is 2 - special case 
     // Modulo 2, every integer is a quadratic residue.
@@ -441,26 +441,43 @@ void make_smooth_numbers(std::vector<long long> &p_smooth, double size_B, big N)
 
     for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
-        big tmp = N;
-        big one(1);
-	big tmp_p( prime[i]);
+        big_2 tmp;
+        tmp  = N;
+        big_2 one(1);
+	big_2 tmp_p( prime[i]);
 	//std::cout << "N=" << N << " % ";
+	//std::cout << "N=" << N << "\n";
 	//std::cout << tmp_p << "\t";
-        big N_mod = N % tmp_p;
+       big_2 N_mod;
+       N_mod = N % tmp_p;
+       //tmp.number[0] = 0;
+	//std::cout << "N1=" << N << "\n";
 	//std::cout << "=" << N_mod << "\n";
         tmp = N_mod;
 	//std::cout << "tmp1=" << tmp << "\n";
         for (int j = 1; j < (prime[i]-1)/2; ++j)
         {
+	//std::cout << "N2=" << N << "\n";
+            //tmp = tmp * N_mod;
+	//std::cout << "N23=" << N << "\n";
+	//std::cout << "N32=" << N.number[0] << "\n";
+            //tmp = tmp % tmp_p;
+            //tmp % tmp_p;
             tmp = (tmp * N_mod) % tmp_p;
+	//std::cout << "N3=" << N << "\n";
+	//std::cout << "N32=" << N.number[0] << "\n";
         }
+	//std::cout << "N7=" << N << "\n";
+        //exit(0);
        // tmp = tmp % tmp_p;
 
+	//std::cout << "N4=" << N << "\n";
         if( tmp == one)
         {
             p_smooth.push_back(prime[i]);
             DEBUG(2, "%llu\n", prime[i]);
         }
+	//std::cout << "N5=" << N << "\n";
     }
 }
 
@@ -544,20 +561,20 @@ int is_counter_full(std::vector<uint64_t> &counter)
 
 }
 
-big prime_factorisation(big Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp)
+big_2 prime_factorisation(big_2 Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp)
 {
-	big null(0);
-	big one(1);
-	big min_one(-1);
+	big_2 null(0);
+	big_2 one(1);
+	big_2 min_one(-1);
     for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
                         smooth_iter < p_smooth.size(); 
                         smooth_iter++, exponent_num++)
     {
-        big tmp;
+        big_2 tmp;
         do{
             tmp = Y % p_smooth[smooth_iter];
             //DEBUG (4, "y = %10li\t",Y);
-	    //std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
+            std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
             //DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
             //DEBUG (4, "tmp = %li\n",tmp);
             if(tmp == null){

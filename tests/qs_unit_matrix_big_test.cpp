@@ -12,19 +12,19 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include "primes_10_8.h"
-#include "big.h"
+#include "big_2.h"
 
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 4;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     //int iter = 7000;
     int iter_1 = 5000;
     //int iter_1 = 124;
-    while (iter_1 < 5300 ) 
+    //while (iter_1 < 5300 ) 
     //while (iter_1 < 78400 ) 
     {
         iter_1 += 5;
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
     int iter = iter_1 + 597;
     //int iter = 112;
-    while (iter < 6000 )
+    //while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -59,18 +59,18 @@ BOOST_AUTO_TEST_CASE(test_2)
         start = clock();
         
         //big p(prime[13123]);
-        big p(prime[iter_1]);
+        big_2 p(prime[iter_1]);
         //big q(prime[18123]);
-        big q(prime[iter]);
+        big_2 q(prime[iter]);
  
         //big p = str1;
         //big q = str2;
-        big one = 1;
-        big null = 0;
+        big_2 one = 1;
+        big_2 null = 0;
 
 
-        big N = p * q;
-        big sqrt_N = 0;
+        big_2 N = p * q;
+        big_2 sqrt_N = 0;
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
 	LOG(1) std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
@@ -82,6 +82,8 @@ BOOST_AUTO_TEST_CASE(test_2)
 
         // selecting the size of the factor base
         double size_B;
+        DEBUG (2,"log _B=%f\n", ln(N));
+     //exit(0);
         size_B = exp (sqrt (ln(N) * log(ln(N))) );
         size_B = pow(size_B , sqrt(2)/4);
         DEBUG (2,"size of factor base size_B=%f\n", size_B);
@@ -90,7 +92,6 @@ BOOST_AUTO_TEST_CASE(test_2)
         DEBUG (2, "smooth numbers\n");
 
         make_smooth_numbers(p_smooth, size_B, N);
-
         if ((p_smooth.size() < size_B))
         {
             //ERROR ("to small primes \n");
@@ -111,9 +112,9 @@ BOOST_AUTO_TEST_CASE(test_2)
         DEBUG (2, "The sieving interval M=%li\n", M);
         
         // *** construct our sieve *** //
-        std::vector<big> X;
-        std::vector<big> Y;
-        std::vector<big> V;
+        std::vector<big_2> X;
+        std::vector<big_2> Y;
+        std::vector<big_2> V;
 
         // simple sieve 
         std::vector<long> solution_candidates_number;
@@ -142,19 +143,22 @@ BOOST_AUTO_TEST_CASE(test_2)
 	    y_number++;
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
 	    //std::cout <<   "X" << j << " =" << X[y_number] << "\n";
-            big tmp = X[y_number]*X[y_number];
+            big_2 tmp = X[y_number]*X[y_number];
 	    //std::cout <<   "tmp " << tmp << "\n";
+		//std::cout <<   "N " << N << "\n";
             if(tmp < N) {
 		//std::cout <<   "tmp sign " << tmp << "\n";
 		//std::cout <<   "N sign " <<  N << "\n";
 		tmp = N - tmp ;
 		tmp.sign = 1;
 		//std::cout <<   "tmp1 " << tmp << "\n";
+		//std::cout <<   "N " << N << "\n";
                 Y.push_back(tmp);
                 //Y.push_back(N-tmp);
             } else
                 Y.push_back(tmp % N);
             LOG(2) std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
+            //exit(0);
             #define NEGATIVE_SIGN    0 
             #define FIRST_VALUE      1
 
@@ -171,8 +175,8 @@ BOOST_AUTO_TEST_CASE(test_2)
 
 		//std::cout<< "y="<< Y[y_number] << "\tx=" << X[y_number] << "\tv=" << V[y_number] << "\n";
             v_exp_copy[y_number] = v_exp[y_number];
-	    big one(1);
-	    big min_one(-1);
+	    big_2 one(1);
+	    big_2 min_one(-1);
 
             if(V[y_number] == min_one || V[y_number] == one){
 
@@ -183,7 +187,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                 if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
                     continue;
                     //    will be added later  ##########################
-                    big found = 0;
+                    big_2 found = 0;
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
                     found = euclid_gcd_big( X, Y, tmp, p, q, N,v_exp_copy, p_smooth);
@@ -254,7 +258,7 @@ BOOST_AUTO_TEST_CASE(test_2)
                                     }
                                     DEBUG (2,"\n");
 
-                                    big found = 0;
+                                    big_2 found = 0;
                                     // found = euclid_gcd( X, Y, P11, p, q, N);
                                     found = euclid_gcd_big( X, Y, P11, p, q, N, v_exp_copy, p_smooth);
                                     // printf("found %lu\n", found);

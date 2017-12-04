@@ -3,12 +3,12 @@
 
 
 //Euclid's Algorithm, Greatest Common Divisor
-big euclid_gcd_big(const std::vector<big>& X,
-                    const std::vector<big>& Y,
+big_2 euclid_gcd_big(const std::vector<big_2>& X,
+                    const std::vector<big_2>& Y,
                     const std::vector<int64_t>& iterator,
-                    const big &p,
-                    const big &q,
-                    const big &N,
+                    const big_2 &p,
+                    const big_2 &q,
+                    const big_2 &N,
                     std::vector< std::vector<uint64_t> > v_exp,
                     std::vector<long long> p_smooth
                 );

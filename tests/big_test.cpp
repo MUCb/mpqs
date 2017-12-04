@@ -268,13 +268,15 @@ BOOST_AUTO_TEST_CASE(test_19)
 
 }
 
+#endif
 BOOST_AUTO_TEST_CASE(test_20) 
 {
     //big i(1234567891);
-    big i(6712341233);
+    big i(-48);
     //std::cout << "j |" << j << "|\n";
-    //big j(45678);
-    big j(642307);
+    //big j(4);
+    big j(24);
+    //int j = 24;
     big f;
     //for ( int u = 0 ; u < 10000; u++) 
     {
@@ -290,7 +292,7 @@ BOOST_AUTO_TEST_CASE(test_20)
 
 }
 
-#endif
+#if 0
 BOOST_AUTO_TEST_CASE(test_21) 
 {
     big_2 i(123456789123456);
@@ -310,6 +312,5 @@ BOOST_AUTO_TEST_CASE(test_21)
 
 
 
-#if 0
 
 #endif
