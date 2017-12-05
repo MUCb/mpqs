@@ -271,26 +271,42 @@ BOOST_AUTO_TEST_CASE(test_19)
 #endif
 BOOST_AUTO_TEST_CASE(test_20) 
 {
-    //big i(1234567891);
-    big i(-48);
-    //std::cout << "j |" << j << "|\n";
-    //big j(4);
-    big j(24);
-    //int j = 24;
+    big i(2149700);
+    big null(0);
+    big j(2);
     big f;
-    //for ( int u = 0 ; u < 10000; u++) 
-    {
-    f = i / j;
-    std::cout << i << " / ";
+    f = i % j;
+    std::cout << i << " % ";
     std::cout << j << " = ";
     std::cout << f << "\n";
-    }
-    //std::cout << i << " square root ";
-    //std::cout << " = ";
-    //std::cout << f << "\n";
-    //std::cout << "size " << (int) i.size << "|\n";
-
+    BOOST_TEST(f == null);
 }
+BOOST_AUTO_TEST_CASE(test_21) 
+{
+    big i(48);
+    big null(0);
+    big j(24);
+    big f;
+    f = i % j;
+    std::cout << i << " % ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    BOOST_TEST(f == null);
+}
+BOOST_AUTO_TEST_CASE(test_22) 
+{
+    big i(-480000);
+    big null(0);
+    big j(24);
+    big f;
+    f = i % j;
+    std::cout << i << " % ";
+    std::cout << j << " = ";
+    std::cout << f << "\n";
+    BOOST_TEST(f == null);
+}
+
+
 
 #if 0
 BOOST_AUTO_TEST_CASE(test_21) 

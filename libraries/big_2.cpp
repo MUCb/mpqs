@@ -309,8 +309,10 @@ big_2 big_2::operator%(const long long other) const{
     quotient = divident % divisor; 
 
 	//std::cout << "quotient  |" << quotient << "|\n";
+	//std::cout << "quotient size |" << (int)quotient.size << "|\n";
 	big_2 quotient_2(quotient);
 	//std::cout << "quotient_2  |" << quotient_2 << "|\n";
+	//std::cout << "quotient_2 size |" << (int)quotient_2.size << "|\n";
 	//std::cout << " other |" << other << "|\n";
 	//std::cout << " this |" << *this << "|\n";
 	return quotient_2;

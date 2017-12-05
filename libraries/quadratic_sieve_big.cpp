@@ -574,11 +574,14 @@ big_2 prime_factorisation(big_2 Y, std::vector<long long> p_smooth, std::vector<
         do{
             tmp = Y % p_smooth[smooth_iter];
             //DEBUG (4, "y = %10li\t",Y);
-            std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
+            //std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
             //DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
             //DEBUG (4, "tmp = %li\n",tmp);
+            //std::cout << "tmp size " << (int)tmp.size << "\n";
+            //std::cout << "null size " <<(int) null.size << "\n";
             if(tmp == null){
                 Y = Y / p_smooth[smooth_iter];
+                //std::cout<< "Y = " << Y << "\n"; 
                 v_exp[exponent_num] += 1; 
             }
         } while (tmp == null);
