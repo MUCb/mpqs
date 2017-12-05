@@ -173,7 +173,7 @@ big big::operator-(const big other) const{
 				if( tmp.size == 0)
 					tmp.sign = 0;
 			}
-			//std::cout << "operator+ size2 " <<(int) tmp.size<< "\n";
+			//std::cout << "operator- size2 " <<(int) tmp.size<< "\n";
 		}
 	} else {
 		std::cout << " operation- different sign \n";
@@ -273,9 +273,11 @@ big big::operator/(const big other) const{
             //std::cout << " divident |" << divident << "|\n";
             while (recidue.size != (divisor.size +1) && divident_iter >= 0) {
                 recidue.pow10(1);
-                if(recidue.size == 0)
-                    recidue.size++;
-                recidue.number[0] = divident.number[divident_iter];
+                if (divident.number[divident_iter] != 0) {
+                    if(recidue.size == 0)
+                        recidue.size++;
+                    recidue.number[0] = divident.number[divident_iter];
+                }
                 //std::cout << " recidue |" << recidue << "|\n";
                 //std::cout << " divident_iter |" << divident_iter << "|\n";
                 //std::cout << " divident_ |" << divident.number[divident_iter]<< "|\n";
@@ -475,17 +477,19 @@ big big::operator%(const big other) const{
         int recidue_iter;
         recidue_iter = divisor.size - recidue.size;
         while(divident_iter >= 0) {
-            std::cout << " recidue_iter |" << recidue_iter << "|\n";
-            std::cout << " divident_iter |" << divident_iter << "|\n";
+            //std::cout << " recidue_iter |" << recidue_iter << "|\n";
+            //std::cout << " divident_iter |" << divident_iter << "|\n";
     
     
             //std::cout << " recidue |" << recidue << "|\n";
             //std::cout << " divident |" << divident << "|\n";
             while (recidue.size != (divisor.size +1) && divident_iter >= 0) {
                 recidue.pow10(1);
-                if(recidue.size == 0)
-                    recidue.size++;
-                recidue.number[0] = divident.number[divident_iter];
+                if (divident.number[divident_iter] != 0) {
+                    if(recidue.size == 0)
+                        recidue.size++;
+                    recidue.number[0] = divident.number[divident_iter];
+                }
                 //std::cout << " recidue |" << recidue << "|\n";
                 //std::cout << " divident_iter |" << divident_iter << "|\n";
                 //std::cout << " divident_ |" << divident.number[divident_iter]<< "|\n";
@@ -543,10 +547,13 @@ big big::operator%(const big other) const{
                         recidue = recidue - divisor;
                     quotient = quotient + one;
                 }
-                std::cout << " recidue |" << recidue << "|\n";
+                //std::cout << "recidue |" << recidue << "|\n";
+                //std::cout << "recidue size |" << (int)recidue.size << "|\n";
                 recidue_iter = divisor.size - recidue.size;
             }
         }
+        //std::cout << "1 recidue |" << recidue << "|\n";
+        //std::cout << "1 recidue size |" << (int)recidue.size << "|\n";
         quotient = recidue;
 	} else {
 		quotient = divident;
@@ -615,9 +622,11 @@ big big::operator%(const long long other) const{
         //std::cout << " divident |" << divident << "|\n";
         while (recidue.size != (divisor.size +1) && divident_iter >= 0) {
             recidue.pow10(1);
-            if(recidue.size == 0)
-                recidue.size++;
-            recidue.number[0] = divident.number[divident_iter];
+            if (divident.number[divident_iter] != 0) {
+                if(recidue.size == 0)
+                    recidue.size++;
+                recidue.number[0] = divident.number[divident_iter];
+            }
             //std::cout << " recidue |" << recidue << "|\n";
             //std::cout << " divident_iter |" << divident_iter << "|\n";
             //std::cout << " divident_ |" << divident.number[divident_iter]<< "|\n";
@@ -686,7 +695,7 @@ big big::operator%(const long long other) const{
 		quotient = divident;
 	}
     if (sign_flag && quotient > 0) {
-        std::cout << "sing flag worked\n";
+        //std::cout << "sing flag worked\n";
         quotient = divisor - quotient; 
     } 
 	return quotient;
