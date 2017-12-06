@@ -4,7 +4,7 @@
 #include "big.h"
 #include "big_2.h"
 #include <iostream>  
-int showDebugMsg = 1;
+int showDebugMsg = 6;
 #if 0
 BOOST_AUTO_TEST_CASE(first_test) 
 {
@@ -181,6 +181,7 @@ BOOST_AUTO_TEST_CASE(test_14)
 
 }
 
+#endif
 BOOST_AUTO_TEST_CASE(test_15) 
 {
     big i(304);
@@ -192,9 +193,39 @@ BOOST_AUTO_TEST_CASE(test_15)
     std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
+    BOOST_TEST(f == 17);
+}
+
+BOOST_AUTO_TEST_CASE(test_17) 
+{
+    big i(21904);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = squareRoot(i);
+    std::cout << i << " square root ";
+    std::cout << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+    BOOST_TEST(f == 148);
+}
+
+BOOST_AUTO_TEST_CASE(test_18) 
+{
+    big i(21230001904);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = squareRoot(i);
+    std::cout << i << " square root ";
+    std::cout << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+    BOOST_TEST(f == 145705);
 }
 
 
+#if 0
 
 BOOST_AUTO_TEST_CASE(test_16) 
 {
@@ -269,6 +300,7 @@ BOOST_AUTO_TEST_CASE(test_19)
 }
 
 #endif
+#if 0
 BOOST_AUTO_TEST_CASE(test_20) 
 {
     big i(2149700);
@@ -308,7 +340,6 @@ BOOST_AUTO_TEST_CASE(test_22)
 
 
 
-#if 0
 BOOST_AUTO_TEST_CASE(test_21) 
 {
     big_2 i(123456789123456);

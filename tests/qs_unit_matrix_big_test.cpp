@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         // iter_1 = ceil(it1* (double)iter_1);
         
     int iter = iter_1 + 597;
-    //int iter = 5710;
+    //int iter = 5719;
     while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 

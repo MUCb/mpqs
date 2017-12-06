@@ -50,4 +50,5 @@ public:
 //	big operator/(const long long  other) const{
 };
 big squareRoot(big n);
+big squareRoot2(big n);
 #endif

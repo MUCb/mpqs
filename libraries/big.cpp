@@ -797,7 +797,7 @@ std::ostream& operator<<(std::ostream& os, const big& obj){
 }
 
 /*Returns the square root of n. Note that the function */
-big squareRoot(big n)
+big squareRoot2(big n)
 {
 	/*We are using n itself as initial approximation
 	 *    This can definitely be improved */
@@ -807,30 +807,66 @@ big squareRoot(big n)
 	//float e = 0.000001; /* e decides the accuracy level*/
 	big e = 1; /* e decides the accuracy level*/
 	LOG(5) std::cout << "x = " << x  << "\n"; 
-	LOG(5) std::cout << "y = " << y << "\n"; 
+    if ((n.size % 2) == 0) {
+        y = 6;
+        y.pow10((n.size -2)/2);
+    } else {
+        y = 2;
+        y.pow10((n.size-1)/2);
+    
+    }
+	LOG(5) std::cout << "y1 = " << y << "\n"; 
 	LOG(5) std::cout << "x - y = " << x - y << "\n"; 
 	int count = 0;
 	//while(x - y > e)
 	while(x > y )// is this a right approach ? 
 	{
 		count++;
-	LOG(5) std::cout << "x - y = " << x - y << "\n"; 
-		LOG(5) std::cout << "while x" << x  << "\n"; 
-		LOG(5) std::cout << "while y" << y  << "\n"; 
+	    LOG(5) std::cout << "x - y = " << x - y << "\n"; 
+		LOG(5) std::cout << "while x " << x  << "\n"; 
+		LOG(5) std::cout << "while y " << y  << "\n"; 
 		big tmp = x + y;
-		LOG(5) std::cout << "while tmp" << tmp  << "\n"; 
+		LOG(5) std::cout << "while tmp " << tmp  << "\n"; 
 		//std::cout << "bigger tmp" << tmp  << "\n"; 
 		//x = (x + y)/two;
 		x = (tmp)/two;
-		LOG(5) std::cout << "while1 x" << x  << "\n"; 
+		LOG(5) std::cout << "while1 x " << x  << "\n"; 
         //exit(0);
 		y = n/x;
-		LOG(5) std::cout << "while1 y" << y  << "\n"; 
-		LOG(5) std::cout << "while1 tmp" << tmp  << "\n"; 
+		LOG(5) std::cout << "while1 y " << y  << "\n"; 
+		LOG(5) std::cout << "while1 tmp " << tmp  << "\n"; 
 		//if (count ==25)
 		//exit(0);
 	}
 	return x;
 }
 
+big squareRoot(big n)
+{
+	big x = n;
+	big x1 = n;
+	big two = 2;
 
+    if ((n.size % 2) == 0) {
+        x = 6;
+        x.pow10((n.size -2)/2);
+    } else {
+        x = 2;
+        x.pow10((n.size-1)/2);
+    
+    }
+	LOG(5) std::cout << "while x " << x  << "\n"; 
+	bool decreased = false;
+    for (;;) {
+        big nx = (x + n / x) / two;
+        if (x == nx || nx > x && decreased) {
+          //x = x1;
+            break;
+        }
+        decreased = nx < x;
+        //x1 = x;
+        x = nx;
+        LOG(5) std::cout << "while x " << x  << "\n"; 
+    }
+    return x;
+}
