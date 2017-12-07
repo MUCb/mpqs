@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(test_14)
 #endif
 BOOST_AUTO_TEST_CASE(test_15) 
 {
-    big i(304);
+    big i(30434);
     //std::cout << "j |" << j << "|\n";
     big f;
     f = squareRoot(i);
@@ -193,12 +193,12 @@ BOOST_AUTO_TEST_CASE(test_15)
     std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
-    BOOST_TEST(f == 17);
+    BOOST_TEST(f == 174);
 }
 
 BOOST_AUTO_TEST_CASE(test_17) 
 {
-    big i(21904);
+    big i(219042);
     //std::cout << "j |" << j << "|\n";
     big f;
     f = squareRoot(i);
@@ -207,10 +207,24 @@ BOOST_AUTO_TEST_CASE(test_17)
     std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
-    BOOST_TEST(f == 148);
+    BOOST_TEST(f == 468);
 }
 
 BOOST_AUTO_TEST_CASE(test_18) 
+{
+    big i(2119044);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = squareRoot(i);
+    std::cout << i << " square root ";
+    std::cout << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+    BOOST_TEST(f == 1455);
+}
+
+BOOST_AUTO_TEST_CASE(test_19) 
 {
     big i(21230001904);
     //std::cout << "j |" << j << "|\n";
@@ -221,7 +235,22 @@ BOOST_AUTO_TEST_CASE(test_18)
     std::cout << f << "\n";
     //std::cout << "size " << (int) i.size << "|\n";
 
-    BOOST_TEST(f == 145705);
+    BOOST_TEST(f == 145703);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_20) 
+{
+    big i(212300011234904);
+    //std::cout << "j |" << j << "|\n";
+    big f;
+    f = squareRoot(i);
+    std::cout << i << " square root ";
+    std::cout << " = ";
+    std::cout << f << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+
+    BOOST_TEST(f == 14570518);
 }
 
 

@@ -1,5 +1,5 @@
-//#define BOOST_TEST_MODULE QS unit maytrix Test 
-//#include <boost/test/included/unit_test.hpp> 
+#define BOOST_TEST_MODULE QS unit maytrix Test 
+#include <boost/test/included/unit_test.hpp> 
 
 #include "dynamic_bin_matrix.h"
 // #include "primes.h"
@@ -12,17 +12,16 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include "primes_10_8.h"
-#include "big.h"
+#include "big_2.h"
 
 #include <math.h>
 #include <time.h>
 
 int showDebugMsg = 1;
 
-//BOOST_AUTO_TEST_CASE(test_2) 
-int main(void )
+BOOST_AUTO_TEST_CASE(test_2) 
 {
-    //int iter = 7000;
+    //int iter_1 = 5005;
     int iter_1 = 5000;
     //int iter_1 = 124;
     while (iter_1 < 5300 ) 
@@ -33,7 +32,7 @@ int main(void )
         // iter_1 = ceil(it1* (double)iter_1);
         
     int iter = iter_1 + 597;
-    //int iter = 112;
+    //int iter = 5719;
     while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
@@ -60,21 +59,21 @@ int main(void )
         start = clock();
         
         //big p(prime[13123]);
-        big p(prime[iter_1]);
+        big_2 p(prime[iter_1]);
         //big q(prime[18123]);
-        big q(prime[iter]);
+        big_2 q(prime[iter]);
  
         //big p = str1;
         //big q = str2;
-        big one = 1;
-        big null = 0;
+        big_2 one = 1;
+        big_2 null = 0;
 
 
-        big N = p * q;
-        big sqrt_N = 0;
+        big_2 N = p * q;
+        big_2 sqrt_N = 0;
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
-	LOG(1) std::cout << "p=" << p << "\tq=" << q << "\tN=" << N << "\n";
+	LOG(1) std::cout << "iter = " << iter << "\titer_1 " << iter_1 << "\tp=" << p << "\tq=" << q << "\tN=" << N << "\n";
         //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
         sqrt_N = squareRoot(N);
 
@@ -83,6 +82,8 @@ int main(void )
 
         // selecting the size of the factor base
         double size_B;
+        DEBUG (2,"log _B=%f\n", ln(N));
+     //exit(0);
         size_B = exp (sqrt (ln(N) * log(ln(N))) );
         size_B = pow(size_B , sqrt(2)/4);
         DEBUG (2,"size of factor base size_B=%f\n", size_B);
@@ -91,7 +92,6 @@ int main(void )
         DEBUG (2, "smooth numbers\n");
 
         make_smooth_numbers(p_smooth, size_B, N);
-
         if ((p_smooth.size() < size_B))
         {
             //ERROR ("to small primes \n");
@@ -112,9 +112,9 @@ int main(void )
         DEBUG (2, "The sieving interval M=%li\n", M);
         
         // *** construct our sieve *** //
-        std::vector<big> X;
-        std::vector<big> Y;
-        std::vector<big> V;
+        std::vector<big_2> X;
+        std::vector<big_2> Y;
+        std::vector<big_2> V;
 
         // simple sieve 
         std::vector<long> solution_candidates_number;
@@ -144,19 +144,22 @@ int main(void )
 	    y_number++;
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
 	    //std::cout <<   "X" << j << " =" << X[y_number] << "\n";
-            big tmp = X[y_number]*X[y_number];
+            big_2 tmp = X[y_number]*X[y_number];
 	    //std::cout <<   "tmp " << tmp << "\n";
+		//std::cout <<   "N " << N << "\n";
             if(tmp < N) {
 		//std::cout <<   "tmp sign " << tmp << "\n";
 		//std::cout <<   "N sign " <<  N << "\n";
 		tmp = N - tmp ;
 		tmp.sign = 1;
 		//std::cout <<   "tmp1 " << tmp << "\n";
+		//std::cout <<   "N " << N << "\n";
                 Y.push_back(tmp);
                 //Y.push_back(N-tmp);
             } else
                 Y.push_back(tmp % N);
             LOG(2) std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
+            //exit(0);
             #define NEGATIVE_SIGN    0 
             #define FIRST_VALUE      1
 
@@ -173,8 +176,8 @@ int main(void )
 
 		//std::cout<< "y="<< Y[y_number] << "\tx=" << X[y_number] << "\tv=" << V[y_number] << "\n";
             v_exp_copy[y_number] = v_exp[y_number];
-	    big one(1);
-	    big min_one(-1);
+	    big_2 one(1);
+	    big_2 min_one(-1);
 
             if(V[y_number] == min_one || V[y_number] == one){
 
@@ -185,23 +188,20 @@ int main(void )
                 if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
                     continue;
                     //    will be added later  ##########################
-                    big found = 0;
+                    big_2 found = 0;
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
                     found = euclid_gcd_big( X, Y, tmp, p, q, N,v_exp_copy, p_smooth);
                     // found = euclid_gcd( X, Y, tmp, p, q, N);
-                    if (! (found == 0)){
-                        exit_flag=1;
+                    if (! (found == 0))
                         break;
-		    }
                 } else 
                 {
                     smooth_num.push_back(y_number);
                     DEBUG(3, "%s %d  try to add %li \n",__func__, __LINE__, y_number);
 
 
-                    if (m_all_unchanged.add_row(v_exp[y_number]) == 1){
-                        m_all.add_row(v_exp[y_number]);
+                    if (m_all.add_row(v_exp[y_number]) == 1){
                         int exponent_num = (v_exp[y_number].size() - 1);
                         // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
 
@@ -271,8 +271,9 @@ int main(void )
                                 continue;
                             }
                         }
-                            // DEBUG(3, "%s %d\n", __func__, __LINE__);
+                        // DEBUG(3, "%s %d\n", __func__, __LINE__);
 // added
+
                            DEBUG(2, "--count_flag |%d|\n",count_flag); 
                             while ((count_flag = is_counter_full(counter)) >= 0 )
                             {
@@ -289,12 +290,12 @@ int main(void )
                                 }
                                 DEBUG(2, "\n counter \n"); 
                                 m_counter.show();
-                                m_all_unchanged.show();
+                                m_all.show();
                                 for (int i = 0; i < m_counter.matrix.size(); ++i)
                                 {
                                     if (m_counter.matrix[i][count_flag] == 1)
                                     {
-                                        m_selected.add_row(m_all_unchanged.matrix[i]);
+                                        m_selected.add_row(m_all.matrix[i]);
                                         smooth_num_selected.push_back(smooth_num[i]);
                                         smooth_num_selected_iter.push_back(i);
                                     }
@@ -319,7 +320,7 @@ int main(void )
                                     }
                                     DEBUG (2,"\n");
 
-                                    big found = 0;
+                                    big_2 found = 0;
                                     // found = euclid_gcd( X, Y, P11, p, q, N);
                                     found = euclid_gcd_big( X, Y, P11, p, q, N, v_exp_copy, p_smooth);
                                     // printf("found %lu\n", found);
@@ -479,5 +480,4 @@ int main(void )
   */      
  }
     }
-    return 0;
 }

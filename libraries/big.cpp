@@ -847,6 +847,18 @@ big squareRoot(big n)
 	big x1 = n;
 	big two = 2;
 
+    if (n.size < 6) {
+        std::cout << "size < 6\n";
+        double numb = 0;
+        for (int i = n.size - 0; i >= 0; i--) {
+            numb *= 10;
+            numb += n.number[i];
+        }
+        numb = sqrt(numb);
+        x = numb;
+        return x;
+    }
+
     if ((n.size % 2) == 0) {
         x = 6;
         x.pow10((n.size -2)/2);
@@ -870,3 +882,5 @@ big squareRoot(big n)
     }
     return x;
 }
+
+
