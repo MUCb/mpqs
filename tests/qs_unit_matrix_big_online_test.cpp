@@ -219,7 +219,7 @@ BOOST_AUTO_TEST_CASE(test_2)
 // added
                                 // DEBUG (2,"size num = %d\t", smooth_num.size());
                                 m_all.show();
-                                int null_line = m_all.make_upper_triangular();
+                                int null_line = m_all.make_upper_triangular_static();
 
                                 if (null_line > -1) {
                                     std::vector<int64_t> XYiters;

@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <unistd.h>
 
+#include <iostream>
+
 #include "dynamic_bin_matrix.h"
 
 bin_matrix_t::bin_matrix_t(){
@@ -13,6 +15,8 @@ bin_matrix_t::bin_matrix_t(){
 }
 
 bin_matrix_t::bin_matrix_t(int size) : collumn_size(size), filled(0) {
+    for (int i = 0; i < size; i++)
+        triangular_v.push_back(-1);
 }
 
 // int bin_matrix_t::m_size(void)
@@ -44,6 +48,7 @@ int bin_matrix_t::add_row(std::vector<uint64_t> row_v)
     if (row_v.size() == collumn_size){
 
         matrix.push_back(std::vector<uint64_t>() );
+        //triangular_v.push_back(-1);
         matrix[filled].insert(matrix[filled].end(), row_v.begin(), row_v.end());
 
         // ERROR("%s %d\n", __func__, __LINE__);
@@ -107,6 +112,8 @@ int bin_matrix_t::delete_row(unsigned int row_number)
         DEBUG(3, "%s %d row_number: %d filled: %d\n",__func__, __LINE__, row_number, filled);
         matrix.erase(matrix.begin() + row_number);
         unit_matrix.erase(unit_matrix.begin() + (unit_matrix.size() - 1));
+        if (filled < collumn_size)
+            triangular_v[filled] = -1;
         filled--;
         return 1;
         
@@ -211,6 +218,65 @@ int  bin_matrix_t::make_upper_triangular(void)
     show();
     return null_line;
 }
+
+int  bin_matrix_t::make_upper_triangular_static(void)
+{
+    int current_col = 0;
+    int current_row = 0;
+    int null_line = -1;
+    if (filled == 0 )
+        return null_line;
+
+    // for (int i = 0; i < filled ; ++i)
+    int row_nonnull;
+
+    while (1){
+        
+        for (current_col = 0; current_col < collumn_size; ++current_col) {
+            if (matrix[filled - 1][current_col] == 1)
+                break;
+        }
+
+        if (triangular_v[current_col] == -1){
+            std::cout << "triangular fill col " << current_col << " filled " << filled-1 << "\n"; 
+            triangular_v[current_col] = filled - 1;
+            break;
+        }
+
+
+        for (int col = 0; col < collumn_size; ++col) {
+            // DEBUG(3, "matrix r = %d c=%d m=%ld\n", r, c, matrix[row][col]);
+            matrix[filled-1][col] += matrix[triangular_v[current_col]][col];
+            matrix[filled-1][col] %= 2;
+            DEBUG(4, "matrix row = %d col=%d m=%ld\n", filled-1, col, matrix[filled-1][col]);
+
+        }
+        for (int col = 0; col < filled; ++col) {
+            unit_matrix[filled-1][col] += unit_matrix[triangular_v[current_col]][col];
+            unit_matrix[filled-1][col] %= 2; // remove unnecessary moves
+                                    // if we use two the same lines they remove each other.
+        }
+        
+        if ( std::find(matrix[filled-1].begin(), matrix[filled-1].end(), 1) == matrix[filled-1].end() ) {
+                DEBUG (1,"nULLL upper j=%d coll=%d\n", filled-1, current_col);
+                // DEBUG (3," smooth_num \n");
+                null_line = filled-1;
+                break;
+        }
+    
+    }
+ 
+        //if (null_line != -1)
+        //    break;
+
+        //show();
+        //current_col++;
+        //current_row++;
+    //}
+    show();
+    return null_line;
+}
+
 
 void bin_matrix_t::count_unit_num( void )
 {
