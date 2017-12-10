@@ -37,13 +37,17 @@ big_2 euclid_gcd_big(const std::vector<big_2>& X,
         {
             for (int i = 0; i < tmp_v.size(); ++i)
             {
+		    //LOG (4) std::cout << " |" << v_exp[iterator[j]][i] << "|" << "|\n"; 
                 tmp_v[i] = tmp_v[i] + v_exp[iterator[j]][i];
             }
 	    LOG (2) std::cout << "X " << X[iterator[j]] << "\tY " << Y[iterator[j]] << "\n"; 
             sumX = sumX * X[iterator[j]]; // do we need mod N ?????????????????????????????????????????????????
+            //std::cout << "X iter " << X[iterator[j]] << "\n";
+            //std::cout << "sum X before" << sumX << "\n";
             // sumYY *= Y[iterator[j]];
 
             sumX = sumX % N; 
+            //std::cout << "sum X " << sumX << "\n";
             // sumYY %= N;
             // if(sumYY < 0 )
             //     sumYY += N;
@@ -55,13 +59,17 @@ big_2 euclid_gcd_big(const std::vector<big_2>& X,
         for (int j = 0; j <  p_smooth.size(); ++j,  ++iter_exp)
         {
             //DEBUG(2, " %lu |%lu|\t", tmp_v[iter_exp], p_smooth[j]); 
-		LOG (4) std::cout << " " << tmp_v[iter_exp] << "|" << p_smooth[j] << "|\t"; 
+		//LOG (4) std::cout << " " << tmp_v[iter_exp] << "|" << p_smooth[j] << "|\t"; 
             tmp_v[iter_exp] /= 2;
             // sumY *= (pow (p_smooth[j], tmp_v[iter_exp])) % N;
             for (int i = 0; i < tmp_v[iter_exp]; ++i)
             {
+                //std::cout << "iter i " << i  << "\n";
+                //std::cout << "sum y before" << sumY << "\n";
                 sumY = sumY * p_smooth[j];
+                //std::cout << "p_smooth " << p_smooth[j] << "\n";
                 sumY = sumY % N; 
+                //std::cout << "sum y " << sumY << "\n";
                 // DEBUG(2, "sumY mod  %lu \n", sumY); 
             }
             // sumY *= (pow (p_smooth[j], tmp_v[iter_exp])) % N;
