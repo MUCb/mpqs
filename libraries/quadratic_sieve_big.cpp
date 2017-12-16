@@ -5,7 +5,7 @@
 
 #include "bin_matrix.h"
 #include "big_2.h"
-#include "greatest_common_divisor.h"
+#include "greatest_common_divisor_big.h"
 #include "quadratic_sieve_big.h"
 
 
@@ -238,154 +238,43 @@ int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, st
     return 1;
 }
 
-int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
-    std::vector<long> &solution_candidates_number)
+int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<big_2> Y, std::vector<long long> &p_smooth, double size_B, long long  M,
+    std::vector<long long > &solution_candidates_number)
 {
 
-        std::vector<long> V;
+        std::vector<big_2> V;
         V = Y;
+	big_2 null = 0;
         // add sign to exponent matrix
         #define NEGATIVE_SIGN    0 
         #define FIRST_VALUE    1
         // v_exp[i].size()-1
+        big_2 one(1);
+        big_2 min_one(-1);
+
 
         for (int y_number = 0; y_number < v_exp.size(); ++y_number)
         {
-            if(V[y_number] < 0 )
+            if(V[y_number] < null )
                 v_exp[y_number][NEGATIVE_SIGN] = 1;
+    
+            V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
 
-            for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
-                    smooth_iter < p_smooth.size(); 
-                    smooth_iter++, exponent_num++)
-            {
-                long int tmp;
-                do{
-                    tmp = V[y_number] % p_smooth[smooth_iter];
-                    DEBUG (4, "v = %10li\t",V[y_number]);
-                    DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
-                    DEBUG (4, "tmp = %li\n",tmp);
-                    if(tmp == 0){
-                        V[y_number] = V[y_number] / p_smooth[smooth_iter];
-                        v_exp[y_number][exponent_num] += 1; 
-                    }
-                } while (tmp == 0);
+            if(V[y_number] == min_one || V[y_number] == one){
 
-                if(V[y_number] == -1 || V[y_number] == 1){
-                    int null_flag = 1;
-                    // printf("V = %" PRIu64 "\t",V[i]);
-                    for (   int exp_num = 0;
-                                exp_num < v_exp[y_number].size(); 
-                                exp_num++ )
-                    {
-                        DEBUG (3, "%ld\t", v_exp[y_number][exp_num]);
-                        if ((v_exp[y_number][exp_num] % 2 )!= 0)
-                            null_flag = 0;
-                    }
-                    DEBUG (3, "%ld\n", Y[y_number]);
-                    // skip negative value !!!!
-                    if (null_flag && V[y_number] > 0) {
-                        solution_candidates_number.push_back(y_number);
-                    } else {
+                 int null_flag = 1;
+                 null_flag = zero_vector_mod2_check(v_exp[y_number]);
+
+                 if (null_flag && V[y_number] > 0) {
+                 	solution_candidates_number.push_back(y_number);
+                 } else {
                         smooth_num.push_back(y_number);
-                    }
-                    DEBUG (3, "\n");
+                 }
 
-                    break;
-                }
             }
+
         }
 
-
-        // for (int y_number = 0; y_number < v_exp.size(); ++y_number)
-        // {
-        //     if(V[y_number] < 0 )
-        //         v_exp[y_number][NEGATIVE_SIGN] = 1;
-        // }
-
-        // for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
-        //             smooth_iter < p_smooth.size(); 
-        //             smooth_iter++, exponent_num++)
-        // {
-        //     for (int y_num = 0; y_num < M; ++y_num)
-        //     {
-        //         if(V[y_num] == -1 || V[y_num] == 1)
-        //             continue;
-
-        //         long int tmp;
-        //         do{
-        //             tmp = V[y_num] % p_smooth[smooth_iter];
-        //             DEBUG (4, "v = %10li\t",V[y_num]);
-        //             DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
-        //             DEBUG (4, "tmp = %li\n",tmp);
-        //             if(tmp == 0){
-        //                 V[y_num] = V[y_num] / p_smooth[smooth_iter];
-        //                 v_exp[y_num][exponent_num] += 1; 
-        //             }
-        //         } while (tmp == 0);
-        //     }
-        //     // break;
-        // }
-
-        // std::vector<int> smooth_num;
-        // std::vector<long> solution_candidates_number;
-        // std::vector<uint64_t> P11;
-        // for (int y_num = 0; y_num < V.size(); ++y_num)
-        // {
-        //     int null_flag = 1;
-        //     // printf("V = %" PRIu64 "\t",V[i]);
-        //     if(V[y_num] == 1 || V[y_num] == -1)
-        //     {
-        //         for (   int exponent_num = 0;
-        //                     exponent_num < v_exp[y_num].size(); 
-        //                     exponent_num++ )
-        //         {
-        //             DEBUG (3, "%ld\t", v_exp[y_num][exponent_num]);
-        //             if ((v_exp[y_num][exponent_num] % 2 )!= 0)
-        //                 null_flag = 0;
-        //         }
-        //         DEBUG (3, "%ld\n", Y[y_num]);
-        //         // skip negative value !!!!
-        //         if (null_flag && V[y_num] > 0) {
-        //             solution_candidates_number.push_back(y_num);
-        //         } else {
-        //             smooth_num.push_back(y_num);
-        //         }
-        //     }
-        // }
-        // DEBUG (3, "\n");
-
-
-        //######################### removing null exponent #####################
-        // std::vector<int> deleted;
-        // for (   int exponent_num = 1;
-        //         exponent_num < v_exp[0].size(); 
-        //         exponent_num++ )
-        // {
-        //     int null_flag = 1;
-        //     for (int i = 0; i < smooth_num.size(); ++i)
-        //     {
-        //         if ((v_exp[smooth_num[i]][exponent_num] % 2 )!= 0)
-        //             null_flag = 0;
-        //     }
-
-        //     if (null_flag)
-        //     {
-        //         deleted.push_back(exponent_num);
-        //     }
-        // }
-
-        // for (int i = deleted.size() - 1 ; i >= 0 ; --i)
-        // // for (int i = 0; i < deleted.size(); ++i)
-        // {
-        //     for (int j = 0; j < smooth_num.size(); ++j)
-        //     {
-        //         v_exp[smooth_num[j]].erase(v_exp[smooth_num[j]].begin() + deleted[i]);
-        //     }
-        //     if (deleted[i] > 0)
-        //         p_smooth.erase(p_smooth.begin()+ deleted[i] - 1);
-        // }
-        //######################################################################
-        
         if (smooth_num.size()  < size_B + 1)
         {
             //ERROR( "to small number of smooth numbbers\n");
@@ -394,38 +283,37 @@ int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int>
     return 1;
 }
 
-void construct_xy(std::vector<long> &X, std::vector<long> &Y, long sqrt_N, long long N, long M)
+void construct_xy(std::vector<big_2> &X, std::vector<big_2> &Y, big_2 sqrt_N, big_2 N, long long  M)
 {
-        // for (long  i = 0; i < M; i++)
-        // for (long  i = -M/2; i < M/2; i++)
-        for (long  i = -M/2; i < M/2; i++)
-        // for (long  i = -M*3/10; i < M*7/10; i++)
-        {
-            X.push_back(sqrt_N + i);
-            DEBUG (4, "X%lu =%lu\n",i, sqrt_N - i );
-        }
+	long y_number = 0;
+	for (long  j = 0 ; j < M/2; j++){
+		for (int  d = 0; d < 2; d++){
+			if(d == 1 && j == 0)
+				continue;
+			if(d == 0 )
+				X.push_back(sqrt_N - j);
+			else
+				X.push_back(sqrt_N + j);
 
-        // for (uint64_t i = 0; i <= M/2; ++i)
-        // {
-        //     X.push_back(sqrt_N + i);
-        //     DEBUG (4, "X%llu =%llu\n",i, sqrt_N + i );
-        // }
-        
-
-        DEBUG (2,"\n");
-        // fill in  (Xi)^2 - N 
-        for (uint64_t i = 0; i < X.size(); ++i)
-        {
-            DEBUG (2, "X = %lu\t",X[i]);
-            long long tmp = X[i]*X[i];
-            if(X[i]*X[i] < N)
-                Y.push_back(tmp - N);
-            else
-                Y.push_back(tmp % N);
-            DEBUG (2, "Y = %li\t",Y[i]);
-            DEBUG (2, "\n");
-        }
-
+			big_2 tmp = X[y_number]*X[y_number];
+			//std::cout <<   "tmp " << tmp << "\n";
+			//std::cout <<   "N " << N << "\n";
+			if(tmp < N) {
+				//std::cout <<   "tmp sign " << tmp << "\n";
+				//std::cout <<   "N sign " <<  N << "\n";
+				tmp = N - tmp ;
+				tmp.sign = 1;
+				//std::cout <<   "tmp1 " << tmp << "\n";
+				//std::cout <<   "N " << N << "\n";
+				Y.push_back(tmp);
+				//Y.push_back(N-tmp);
+			} else
+				Y.push_back(tmp % N);
+			LOG(2) std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
+			y_number++;
+			//exit(0);
+		}
+	}
 }
 
 
@@ -604,19 +492,20 @@ int zero_vector_mod2_check(std::vector<uint64_t> v_exp) {
         if (v_exp[exponent_num] != 0)
             null_flag = 0;
     }
+    DEBUG (3, "\n");
     return null_flag;
 }
 
-int find_solution (bin_matrix_t & m2, 
+int find_solution_big (bin_matrix_t & m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
                     std::vector< std::vector<uint64_t> > &v_exp,
-                    std::vector<long> p_smooth,
-                    const std::vector<long>& X,
-                    const std::vector<long>& Y,
-                    const uint64_t &p,
-                    const uint64_t &q,
-                    const uint64_t &N)
+                    std::vector<long long> p_smooth,
+                    const std::vector<big_2>& X,
+                    const std::vector<big_2>& Y,
+                    const big_2 &p,
+                    const big_2 &q,
+                    const big_2 &N)
 {
 
     std::vector<int64_t> P11;
@@ -639,7 +528,6 @@ int find_solution (bin_matrix_t & m2,
     int null_line = m1.resolve_matrix();
     // m1.show();
     // return 0;
-#if 0
     WARN(1, "it should be -1 or greater. null =  %d\n", null_line);
 
     if (null_line > -1)
@@ -664,11 +552,11 @@ int find_solution (bin_matrix_t & m2,
         }
         DEBUG (2,"\n");
 
-        int found = 0;
-        found = euclid_gcd( X, Y, P11, p, q, N, v_exp, p_smooth);
+        big_2 found = 0;
+        found = euclid_gcd_big( X, Y, P11, p, q, N, v_exp, p_smooth);
         // printf("found %lu\n", found);
         m1.show();
-        if (found) {
+        if (! (found == 0)) {
             return null_line;
         }
         else {
@@ -686,7 +574,7 @@ int find_solution (bin_matrix_t & m2,
 
 
             // return find_solution(m2, smooth_num_back);
-            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N);
+            null_line = find_solution_big(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N);
             // DEBUG(3, "finish %d\n", null_line);
             if (null_line == -1)
                 WARN(1, "failed\n");
@@ -703,12 +591,11 @@ int find_solution (bin_matrix_t & m2,
 
 
             // return find_solution(m2, smooth_num_back);
-            null_line = find_solution(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N);
+            null_line = find_solution_big(m2, smooth_num_back, smooth_num, v_exp, p_smooth, X, Y, p, q, N);
             // DEBUG(3, "finish %d\n", null_line);
             if (null_line == -1)
                 WARN(1, "failed\n");
     }
-#endif
     return null_line;
 }
 

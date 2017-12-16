@@ -37,6 +37,12 @@ qs_test: quadratic_sieve bin_matrix
 				libraries/quadratic_sieve.o libraries/bin_matrix.o \
 				libraries/greatest_common_divisor.o  
 
+qs_test_big: quadratic_sieve_big bin_matrix big big_2 greatest_common_divisor_big
+	g++ -std=c++11  -Iinclude/ \
+	tests/qs_test_big.cpp -o tests/qs_test_big.out \
+				libraries/quadratic_sieve_big.o libraries/bin_matrix.o \
+				libraries/greatest_common_divisor_big.o  libraries/big.o libraries/big_2.o
+
 
 qs_gmp_test: quadratic_sieve quadratic_sieve_remainder_gmp
 	g++ -std=c++11 -Iinclude/  \
