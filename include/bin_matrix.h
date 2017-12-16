@@ -2,6 +2,7 @@
 #define BIN_MATRIX
 
 #include "log.h"
+#include <vector>
 
 class bin_matrix_t {
 public: 

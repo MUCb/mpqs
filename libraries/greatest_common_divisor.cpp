@@ -9,7 +9,7 @@
 
 #include "log.h"
 
-#include <gmp.h>
+//#include <gmp.h>
 
 //Euclid's Algorithm, Greatest Common Divisor
 uint64_t euclid_gcd(const std::vector<long>& X,
@@ -140,7 +140,7 @@ uint64_t euclid_gcd(const std::vector<long>& X,
     }
 }
 
-
+/*
 
 // uint64_t max value  10^19
 // since we need to (x*x mod n ) *x mod N 
@@ -287,7 +287,7 @@ uint64_t euclid_gcd_m_big(const std::vector<long>& X,
         return 0;
     }
 }
-
+*/
 
 
 

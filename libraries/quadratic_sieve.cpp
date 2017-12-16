@@ -741,7 +741,8 @@ int find_solution_condBsmooth (bin_matrix_t m2,
         DEBUG (2,"\n");
 
         int found = 0;
-        found = euclid_gcd_m_big( X, Y, P11, p, q, N, v_exp, p_smooth, v_extra_exp);
+        //found = euclid_gcd_m_big( X, Y, P11, p, q, N, v_exp, p_smooth, v_extra_exp);
+        found = euclid_gcd_m( X, Y, P11, p, q, N, v_exp, p_smooth, v_extra_exp);
         // printf("found %lu\n", found);
         m1.show();
         if (found) {

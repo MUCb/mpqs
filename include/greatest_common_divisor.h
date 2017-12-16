@@ -23,7 +23,7 @@ uint64_t euclid_gcd_m(const std::vector<long>& X,
                     std::vector<long> p_smooth,
                     std::vector<uint64_t> v_extra_exp
                 );
-
+/*
 uint64_t euclid_gcd_m_big(const std::vector<long>& X,
                     const std::vector<long>& Y,
                     const std::vector<int64_t>& iterator,
@@ -34,4 +34,5 @@ uint64_t euclid_gcd_m_big(const std::vector<long>& X,
                     std::vector<long> p_smooth,
                     std::vector<uint64_t> v_extra_exp
                 );
+		*/
 #endif

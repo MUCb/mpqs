@@ -1,7 +1,7 @@
-#define BOOST_TEST_MODULE QS Test
-#include <boost/test/included/unit_test.hpp> 
+//#define BOOST_TEST_MODULE QS Test
+//#include <boost/test/included/unit_test.hpp> 
 
-
+#include <iostream> 
 #include "bin_matrix.h"
 #include "quadratic_sieve.h"
 #include "greatest_common_divisor.h"
@@ -11,9 +11,10 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <time.h>
+#include <math.h>
 // #include "primes.h"
 #include "primes.h"
-
+using namespace std;
 int showDebugMsg = 0;
 
 // BOOST_AUTO_TEST_CASE(test_1) 
@@ -289,8 +290,8 @@ int showDebugMsg = 0;
 //     }
 // }
 
-
-BOOST_AUTO_TEST_CASE(test_5) 
+int main (void )
+//BOOST_AUTO_TEST_CASE(test_5) 
 {
 
     int first_flag = 1;
@@ -375,8 +376,8 @@ BOOST_AUTO_TEST_CASE(test_5)
                     finish = clock();
         //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
       // exit(0);
-            continue ;
-            // exit (0);
+            //continue ;
+             exit (0);
         }
         std::vector<long> p_smooth_copy = p_smooth;
         // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
@@ -447,7 +448,7 @@ BOOST_AUTO_TEST_CASE(test_5)
 
         // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
         int find_res = find_solution(m1, smooth_num_back, smooth_num, v_exp, p_smooth_copy,  X, Y, p, q, N);
-        BOOST_CHECK(find_res   >= 0);
+        //BOOST_CHECK(find_res   >= 0);
         if(find_res >= 0)
         {
             //DEBUG (0, "Found solution i=%d\tj=%d p=%" PRIu64 "\tq=%" PRIu64 "\t \t", iter, iter_1, p, q);
