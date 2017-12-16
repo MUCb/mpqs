@@ -303,7 +303,7 @@ BOOST_AUTO_TEST_CASE(test_5)
     // int iter_1 = 52000;
     int iter_1 = 4999;
 //    int iter_1 = 199;
-    while (iter_1 < 6000 ) 
+    //while (iter_1 < 6000 ) 
     // while (iter_1 < 78400 ) 
     {
         iter_1 += 1;
@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(test_5)
         
    // int iter = iter_1 + 597;
     int iter = 6997;
-    while (iter < 8000 )
+    //while (iter < 8000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 

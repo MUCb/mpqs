@@ -15,7 +15,7 @@ class big{
 public:
     int number[BIG_SIZE];
 	char sign;
-	char size;
+	int  size;
 	big(){
 		for (int i=0; i<BIG_SIZE; i++)
 			number[i] = 0;

@@ -238,7 +238,7 @@ int  bin_matrix_t::make_upper_triangular_static(void)
         }
 
         if (triangular_v[current_col] == -1){
-            std::cout << "triangular fill col " << current_col << " filled " << filled-1 << "\n"; 
+            //std::cout << "triangular fill col " << current_col << " filled " << filled-1 << "\n"; 
             triangular_v[current_col] = filled - 1;
             break;
         }

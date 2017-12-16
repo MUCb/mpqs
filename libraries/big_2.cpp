@@ -15,8 +15,11 @@ big_2::big_2(std::string _str) {
 	}
 	//std::cout << "contructor big_2: sign" <<(int) sign << "\n";
 	size = str.size() / 3;
-    if (str.size() % 3)
-        size++;
+	//std::cout << "size string " << str.size() << "\n";
+	//std::cout << "size string real " << str.size()/3 << "\n";
+	if (str.size() % 3)
+		size++;
+	//std::cout << "size " << size  << "\n";
 	//std::cout << "contructor big_2: size" <<(int) size << "\n";
 	//std::cout << "condtructor big_2: strlen" <<(int) str.size() << "\n";
 	if (size >= (BIG_SIZE_2 * 3)) {
@@ -28,6 +31,7 @@ big_2::big_2(std::string _str) {
         if (j >= 0){
             for(int k=0;k<3 && j>=0 ;k++ ){
                 //std::cout << "char " << str[j] << "\n";
+                //std::cout << "j " << j << "\n";
                 if (j >= 0)
                     number[i] += (str[j] -'0') * pow(10,k);
                 //std::cout << "number " << number[i] << "\n";

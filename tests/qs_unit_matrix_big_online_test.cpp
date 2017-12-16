@@ -1,6 +1,6 @@
-#define BOOST_TEST_MODULE QS unit maytrix Test 
-#include <boost/test/included/unit_test.hpp> 
-
+//#define BOOST_TEST_MODULE QS unit maytrix Test 
+//#include <boost/test/included/unit_test.hpp> 
+#include <iostream>
 #include "dynamic_bin_matrix.h"
 // #include "primes.h"
 #include "quadratic_sieve_big.h"
@@ -19,21 +19,23 @@
 
 int showDebugMsg = 4;
 
-BOOST_AUTO_TEST_CASE(test_2) 
+//BOOST_AUTO_TEST_CASE(test_2) 
+int main (void)
 {
     //int iter_1 = 5005;
-    int iter_1 = 5000;
+    //int iter_1 = 5000;
+    int iter_1 = 5122300;
     //int iter_1 = 23;
     //int iter_1 = 124;
     //while (iter_1 < 5300 ) 
     //while (iter_1 < 78400 ) 
     {
-        iter_1 += 5;
+        //iter_1 += 5;
         // iter_1 += 10;
         // iter_1 = ceil(it1* (double)iter_1);
         
-        int iter = iter_1 + 597;
-        //int iter = 44;
+        //int iter = iter_1 + 597;
+        int iter = 5561457;
         //while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
@@ -59,10 +61,51 @@ BOOST_AUTO_TEST_CASE(test_2)
             time_t finish;
             start = clock();
         
+            FILE * pFile;
+            char mystring [100];
+            pFile = fopen ("prime_1","r");
+            if (pFile == NULL) perror ("Error opening file");
+            else {
+                if ( fgets (mystring , 100 , pFile) != NULL ) {
+                    //puts (mystring);
+                } else {
+                    std::cout << "error read prime numbers 1\n";
+                    return 1;
+                }
+                fclose (pFile);
+            }
+
+            // remove new line character
+            char *pos;
+            if ((pos=strchr(mystring, '\n')) != NULL)
+                    *pos = '\0';
+            
+            big_2 p(mystring);
+
+            std::cout << "p " << p << "\n";
+
+            pFile = fopen ("prime_2","r");
+            if (pFile == NULL) perror ("Error opening file");
+            else {
+                if ( fgets (mystring , 100 , pFile) != NULL ) {
+                    //puts (mystring);
+                } else {
+                    std::cout << "error read prime numbers 2\n";
+                    return 1;
+                }
+                fclose (pFile);
+            }
+            
+            // remove new line character
+            if ((pos=strchr(mystring, '\n')) != NULL)
+                    *pos = '\0';
+        
+            big_2 q(mystring);
+            std:cout << "q " << q << "\n";
+            //return 0;
             //big p(prime[13123]);
-            big_2 p(prime[iter_1]);
+            //big_2 p(prime[iter_1]);
             //big q(prime[18123]);
-            big_2 q(prime[iter]);
  
             //big p = str1;
             //big q = str2;
@@ -488,5 +531,5 @@ BOOST_AUTO_TEST_CASE(test_2)
   */      
  }
     }
-    //return 0;
+    return 0;
 }
