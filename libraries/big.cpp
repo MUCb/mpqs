@@ -848,7 +848,7 @@ big squareRoot(big n)
 	big two = 2;
 
     if (n.size < 6) {
-        std::cout << "size < 6\n";
+        //std::cout << "size < 6\n";
         double numb = 0;
         for (int i = n.size - 0; i >= 0; i--) {
             numb *= 10;

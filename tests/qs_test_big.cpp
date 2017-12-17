@@ -23,7 +23,7 @@ int main (void )
     //int iter_1 = 4999;
     int iter_1 = 5000;
     //int iter_1 = 53;
-    while (iter_1 < 5300 ) 
+    //while (iter_1 < 5300 ) 
     {
         iter_1 += 5;
         
@@ -31,7 +31,7 @@ int main (void )
     int iter = iter_1 + 597;
     //int iter = 75;
 
-    while (iter < 6000 )
+    //while (iter < 6000 )
     {
         iter += 9;
 
@@ -39,8 +39,53 @@ int main (void )
         time_t finish;
         start = clock();
 
-        big_2 p(prime[iter_1]);
-        big_2 q(prime[iter]);
+        //big_2 p(prime[iter_1]);
+        //big_2 q(prime[iter]);
+
+            FILE * pFile;
+            char mystring [100];
+            pFile = fopen ("prime_1","r");
+            if (pFile == NULL) perror ("Error opening file");
+            else {
+                if ( fgets (mystring , 100 , pFile) != NULL ) {
+                    //puts (mystring);
+                } else {
+                    std::cout << "error read prime numbers 1\n";
+                    return 1;
+                }
+                fclose (pFile);
+            }
+
+            // remove new line character
+            char *pos;
+            if ((pos=strchr(mystring, '\n')) != NULL)
+                    *pos = '\0';
+            
+            big_2 p(mystring);
+
+            //std::cout << "p " << p << "\n";
+
+            pFile = fopen ("prime_2","r");
+            if (pFile == NULL) perror ("Error opening file");
+            else {
+                if ( fgets (mystring , 100 , pFile) != NULL ) {
+                    //puts (mystring);
+                } else {
+                    std::cout << "error read prime numbers 2\n";
+                    return 1;
+                }
+                fclose (pFile);
+            }
+            
+            // remove new line character
+            if ((pos=strchr(mystring, '\n')) != NULL)
+                    *pos = '\0';
+        
+            big_2 q(mystring);
+            //std:cout << "q " << q << "\n";
+ 
+
+
 
         big_2 one = 1;
         big_2 N = p * q; //  10^19
@@ -79,7 +124,8 @@ int main (void )
                     finish = clock();
         //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
             //continue ;
-             exit (0);
+                    return 0;
+             //exit (0);
         }
         std::vector<long long> p_smooth_copy = p_smooth;
         // DEBUG (2, "================ p_smooth=%d\n", p_smooth.size());
@@ -112,7 +158,7 @@ int main (void )
             if (solution_candidates_number.size() > 0)
             {
                 // to check functionality use  ./qs_3.out 27 10
-                DEBUG (3,"%s:%d\n", __func__, __LINE__);
+                //DEBUG (3,"%s:%d\n", __func__, __LINE__);
                 for (int i = 0; i <  solution_candidates_number.size(); ++i)
                 {
                     LOG(3) std::cout <<"check " << Y[solution_candidates_number[i]] << "\n";
@@ -124,6 +170,7 @@ int main (void )
                         found = euclid_gcd_big( X, Y, tmp, p, q, N ,v_exp, p_smooth);
                         if (! (found == 0))
                             return 0;
+                            //continue;
                     }
                 }
             }

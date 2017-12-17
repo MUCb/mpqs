@@ -17,14 +17,14 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 4;
+int showDebugMsg = 1;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     //int iter_1 = 5005;
     int iter_1 = 5000;
     //int iter_1 = 124;
-    //while (iter_1 < 5300 ) 
+    while (iter_1 < 5300 ) 
     //while (iter_1 < 78400 ) 
     {
         iter_1 += 5;
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
     int iter = iter_1 + 597;
     //int iter = 5719;
-    //while (iter < 6000 )
+    while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 

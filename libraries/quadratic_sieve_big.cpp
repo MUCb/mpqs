@@ -528,7 +528,7 @@ int find_solution_big (bin_matrix_t & m2,
     int null_line = m1.resolve_matrix();
     // m1.show();
     // return 0;
-    WARN(1, "it should be -1 or greater. null =  %d\n", null_line);
+    //WARN(1, "it should be -1 or greater. null =  %d\n", null_line);
 
     if (null_line > -1)
     {

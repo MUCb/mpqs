@@ -82,7 +82,7 @@ int main (void)
             
             big_2 p(mystring);
 
-            std::cout << "p " << p << "\n";
+            //std::cout << "p " << p << "\n";
 
             pFile = fopen ("prime_2","r");
             if (pFile == NULL) perror ("Error opening file");
@@ -101,7 +101,7 @@ int main (void)
                     *pos = '\0';
         
             big_2 q(mystring);
-            std:cout << "q " << q << "\n";
+            //std:cout << "q " << q << "\n";
             //return 0;
             //big p(prime[13123]);
             //big_2 p(prime[iter_1]);
