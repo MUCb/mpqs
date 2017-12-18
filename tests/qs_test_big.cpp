@@ -11,7 +11,7 @@
 #include <math.h>
 #include "big_2.h"
 // #include "primes.h"
-#include "primes.h"
+#include "primes_10_8.h"
 using namespace std;
 int showDebugMsg = 1;
 
