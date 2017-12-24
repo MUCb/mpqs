@@ -5,7 +5,6 @@
 #include "big_2.h"
 #include <iostream>  
 int showDebugMsg = 6;
-#if 0
 BOOST_AUTO_TEST_CASE(first_test) 
 {
     std::string str1("123");
@@ -181,7 +180,6 @@ BOOST_AUTO_TEST_CASE(test_14)
 
 }
 
-#endif
 BOOST_AUTO_TEST_CASE(test_15) 
 {
     big i(30434);
@@ -251,6 +249,177 @@ BOOST_AUTO_TEST_CASE(test_20)
     //std::cout << "size " << (int) i.size << "|\n";
 
     BOOST_TEST(f == 14570518);
+}
+
+BOOST_AUTO_TEST_CASE(test_21) 
+{
+    big N("-7357940320521467587");
+    big p("4483");
+    big res("-1641298309284289");
+    big tmp;
+    //N_mod = 454;
+    tmp = N / p;
+   std::cout << "N_mod |" << tmp << "|\n";
+    BOOST_TEST(tmp == res);
+    //std::cout << "size " << (int) i.size << "|\n";
+   //std::cout << "N7=" << N << "\n";
+    //exit(0);
+    // tmp = tmp % tmp_p;
+
+}
+
+BOOST_AUTO_TEST_CASE(test_22) 
+{
+    big N("-7357940320521467587");
+    big p("4483");
+    big res(0);
+    big tmp;
+    //N_mod = 454;
+    tmp = N % p;
+   std::cout << "N_mod |" << tmp << "|\n";
+    BOOST_TEST(tmp == res);
+    //std::cout << "size " << (int) i.size << "|\n";
+   //std::cout << "N7=" << N << "\n";
+    //exit(0);
+    // tmp = tmp % tmp_p;
+
+}
+
+BOOST_AUTO_TEST_CASE(test_23) 
+{
+    big N("1522605027922533360535618378132637429718068114961380688657908494580122963258952897654000350692006139");
+    double res=0;
+    double  tmp;
+    tmp = ln(N);
+    //N_mod = 454;
+   std::cout << "log n |" << tmp << "|\n";
+   std::cout << sqrt(log(tmp) *ln(N)) << "\n";
+   std::cout << (long long ) exp(0.5 *sqrt(log(tmp) *ln(N))) << "\n";
+    //std::cout << "size " << (int) i.size << "|\n";
+   //std::cout << "N7=" << N << "\n";
+    //exit(0);
+    // tmp = tmp % tmp_p;
+
+}
+
+BOOST_AUTO_TEST_CASE(test_24) 
+{
+    big N("392344232342342423423");
+    big res("167310973280316598");
+    long long p = 2345;
+    big quotient;
+    long long  reminder;
+
+    div_rem_l(N, p, quotient, reminder);
+    BOOST_TEST(reminder == 1113);
+    BOOST_TEST(quotient == res);
+    std::cout << N <<  "/" << p << "|\n";
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
+}
+
+BOOST_AUTO_TEST_CASE(test_25) 
+{
+    big N("392344232342342423423234234234545453563553453");
+    big res("167310973280316598474726752338825353332005");
+    long long p = 2345;
+    big quotient;
+    long long  reminder;
+
+    div_rem_l(N, p, quotient, reminder);
+    std::cout << N <<  "/" << p << "|\n";
+    BOOST_TEST(reminder == 1728);
+    BOOST_TEST(quotient == res);
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
+}
+
+BOOST_AUTO_TEST_CASE(test_26) 
+{
+    big N("-7357940320521467587");
+    long long  p = 4483;
+    big quotient;
+    long long  reminder;
+
+    big res("-1641298309284289");
+    //N_mod = 454;
+    div_rem_l(N, p, quotient, reminder);
+    BOOST_TEST(reminder == 0);
+    BOOST_TEST(quotient == res);
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_27) 
+{
+    big N(304);
+    long long  p = 3;
+    big quotient;
+    long long  reminder;
+
+    big res("101");
+   //std::cout << "j |" << j << "|\n";
+    big f;
+    div_rem_l(N, p, quotient, reminder);
+    BOOST_TEST(reminder == 1);
+    BOOST_TEST(quotient == res);
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_28) 
+{
+
+    big N(304);
+    long long  p = 4;
+    big quotient;
+    long long  reminder;
+
+    big res("76");
+   //std::cout << "j |" << j << "|\n";
+    div_rem_l(N, p, quotient, reminder);
+    BOOST_TEST(reminder == 0);
+    BOOST_TEST(quotient == res);
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
+
+}
+
+BOOST_AUTO_TEST_CASE(test_29) 
+{
+
+    big N(-304);
+    long long  p = 4;
+    big quotient;
+    long long  reminder;
+
+    big res("-76");
+   //std::cout << "j |" << j << "|\n";
+    div_rem_l(N, p, quotient, reminder);
+    BOOST_TEST(reminder == 0);
+    BOOST_TEST(quotient == res);
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
+
+}
+
+
+BOOST_AUTO_TEST_CASE(test_30) 
+{
+    big N(30234);
+    long long  p = 30004;
+    big quotient;
+    long long  reminder;
+
+    big res("1");
+   //std::cout << "j |" << j << "|\n";
+    div_rem_l(N, p, quotient, reminder);
+    BOOST_TEST(reminder == 230);
+    BOOST_TEST(quotient == res);
+    std::cout << "quotient |" << quotient << "|\n";
+    std::cout << "reminder |" << reminder << "|\n";
 }
 
 

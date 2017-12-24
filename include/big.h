@@ -7,7 +7,7 @@
 #include "log.h"
 #include "big_2.h"
 using namespace std;  
-#define BIG_SIZE 60
+#define BIG_SIZE 120
 
 
 class big_2;
@@ -34,6 +34,7 @@ public:
 		return *this;
 	}
 	big operator+(const big other) const;
+    long long to_long(void);
 	big operator-(const big other) const;
 	friend std::ostream& operator<<(std::ostream& os, const big& obj);
 	void pow10(int power); 
@@ -41,6 +42,7 @@ public:
 	big operator/(const big other) const;
 	friend big div(const big other);
 	friend double ln(const big n); 
+    friend void div_rem_l(big number, long long denom_l, big &quotient, long long  &reminder);
 	bool operator<(const big other) const;
 	bool operator>(const big other) const;
 	friend bool special_compare(const big one, const big other);

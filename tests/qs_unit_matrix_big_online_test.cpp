@@ -6,18 +6,20 @@
 #include "quadratic_sieve_big.h"
 #include "log.h"
 
+#include <fstream>
 #include "greatest_common_divisor_big.h"
 
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include "primes_10_8.h"
+//#include "primes.h"
 #include "big_2.h"
 
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 2;
 
 //BOOST_AUTO_TEST_CASE(test_2) 
 int main (void)
@@ -28,7 +30,6 @@ int main (void)
  
     time_t start;
     time_t finish;
-    start = clock();
     
     FILE * pFile;
     char mystring [100];
@@ -49,7 +50,7 @@ int main (void)
     if ((pos=strchr(mystring, '\n')) != NULL)
             *pos = '\0';
     
-    big_2 p(mystring);
+    big p(mystring);
 
     //std::cout << "p " << p << "\n";
 
@@ -69,15 +70,15 @@ int main (void)
     if ((pos=strchr(mystring, '\n')) != NULL)
             *pos = '\0';
 
-    big_2 q(mystring);
+    big q(mystring);
     //std:cout << "q " << q << "\n";
 
-    big_2 one = 1;
-    big_2 null = 0;
+    big one = 1;
+    big null = 0;
 
 
-    big_2 N = p * q;
-    big_2 sqrt_N = 0;
+    big N = p * q;
+    big sqrt_N = 0;
     LOG(1) std::cout << "iter = " << iter 
                     << "\titer_1 " << iter_1 
                     << "\tp=" << p 
@@ -92,14 +93,42 @@ int main (void)
     // selecting the size of the factor base
     double size_B;
     //DEBUG (2,"log _B=%f\n", ln(N));
-    size_B = exp (sqrt (ln(N) * log(ln(N))) );
-    size_B = pow(size_B , sqrt(2)/4);
+    size_B = exp (0.5 * sqrt (ln(N) * log(ln(N))) );
+    //DEBUG (2,"size of factor base size_B=%f\n", ln(N));
+    //DEBUG (2,"size of factor base size_B=%f\n", log(ln(N)));
+    //DEBUG (2,"size of factor base size_B=%f\n", ln(N) * log(ln(N)));
+    //DEBUG (2,"size of factor base size_B=%f\n",sqrt(ln(N) * log(ln(N))));
+    //DEBUG (2,"size of factor base size_B=%f\n", size_B);
+    //size_B = pow(size_B , sqrt(2)/4);
+    //size_B = pow(size_B , sqrt(2)/4);
     DEBUG (2,"size of factor base size_B=%f\n", size_B);
-
+//return 0;
     // selecting smooth primes 
-    std::vector<long long> p_smooth;
+    std::vector<long long > p_smooth;
     DEBUG (2, "smooth numbers\n");
-    make_smooth_numbers(p_smooth, size_B, N);
+    make_smooth_numbers_1(p_smooth, size_B, N);
+
+/*    ofstream myfile;
+    myfile.open ("primes.txt");
+    for ( int i = 0; i < p_smooth.size(); i++) {
+        myfile << p_smooth[i] <<  "\n";
+    }
+    myfile.close();
+
+    return 0;
+    */
+    /*
+    ifstream in_stream;
+    string line;
+    in_stream.open("primes.txt");
+
+    while(!in_stream.eof())
+    {
+        in_stream >> line;
+        p_smooth.push_back(std::stoll(line));
+        std::cout<< "|" << p_smooth[p_smooth.size() -1 ] << "|\n";
+    }
+*/
     if ((p_smooth.size() < size_B))
     {
         //ERROR ("to small primes \n");
@@ -110,8 +139,6 @@ int main (void)
         //exit (0);
         return 1;
     }
-
-
     // selecting the sieving interval
     long long  M;
     M = exp (sqrt (ln(N) * log(ln(N))) );
@@ -121,75 +148,90 @@ int main (void)
         
     // *** construct our sieve *** //
     std::vector<big_2> X;
-    std::vector<big_2> X_sm;
+    //std::vector<big_2> X_sm;
     std::vector<big_2> Y;
-    std::vector<big_2> Y_sm;
+    //std::vector<big_2> Y_sm;
     std::vector<big_2> V;
 
     // simple sieve 
     std::vector<long> solution_candidates_number;
     std::vector< std::vector<uint64_t> > v_exp;
     std::vector< std::vector<uint64_t> > v_exp_sm;
-    std::vector<int> smooth_num;
+    //std::vector<int> smooth_num;
 
     bin_matrix_t m_all(p_smooth.size() + 1);
 
     int exit_flag = 0;
+    start = clock();
     for (long  j = 0, y_number = -1; j < M/2; j++){
         for (int  d = 0; d < 2; d++){
-
+            big_2 tmp_x;
             if(d == 1 && j == 0)
                 continue;
             if(d == 0 )
-                X.push_back(sqrt_N - j);
+                tmp_x = sqrt_N -j;
+                //X.push_back(sqrt_N - j);
             else
-                X.push_back(sqrt_N + j);
+                //X.push_back(sqrt_N + j);
+                tmp_x = sqrt_N + j;
+
             
             y_number++;
             // DEBUG (2, "%s %d\n", __func__, __LINE__);
             //std::cout <<   "X" << j << " =" << X[y_number] << "\n";
-            big_2 tmp = X[y_number]*X[y_number];
+            big_2 tmp_y = tmp_x*tmp_x;
+            big_2 tmp_v;
             //std::cout <<   "tmp " << tmp << "\n";
             //std::cout <<   "N " << N << "\n";
-            if(tmp < N) {
+            if(tmp_y < N) {
                 //std::cout <<   "tmp sign " << tmp << "\n";
                 //std::cout <<   "N sign " <<  N << "\n";
-                tmp = N - tmp ;
-                tmp.sign = 1;
+                tmp_y = N - tmp_y;
+                tmp_y.sign = 1;
                 //std::cout <<   "tmp1 " << tmp << "\n";
                 //std::cout <<   "N " << N << "\n";
-                Y.push_back(tmp);
-                //Y.push_back(N-tmp);
+                
+                //Y.push_back(tmp);
+                
+                ////Y.push_back(N-tmp);
             } else
-                Y.push_back(tmp % N);
+                tmp_y = tmp_y % N;
+                //Y.push_back(tmp % N);
 
-            LOG(2) std::cout << "X = " << X[y_number] << "\tY = " << Y[y_number] << "\n";
 
 #define NEGATIVE_SIGN    0 
 #define FIRST_VALUE      1
 
-            v_exp.push_back(std::vector<uint64_t> (p_smooth.size() + 1));
-            V.push_back(Y[y_number]);
+            //v_exp.push_back(std::vector<uint64_t> (p_smooth.size() + 1));
+            std::vector<uint64_t> v_exp_tmp(p_smooth.size() + 1);
+            //V.push_back(Y[y_number]);
 
-            if(Y[y_number] < null )
-                v_exp[y_number][NEGATIVE_SIGN] = 1;
-            //std:: cout << "|" << v_exp[y_number][NEGATIVE_SIGN] << "|\n";
+            if(tmp_y < null )
+                v_exp_tmp[NEGATIVE_SIGN] = 1;
+            LOG(3) std:: cout << "|" << v_exp_tmp[NEGATIVE_SIGN] << "|\n";
 
-            V[y_number] = prime_factorisation(Y[y_number], p_smooth, v_exp[y_number]);
+            //big tmp_y1 ("-28512018742020686899625");
+            //tmp_v = prime_factorisation(tmp_y1, p_smooth, v_exp_tmp);
+            tmp_v = prime_factorisation(tmp_y, p_smooth, v_exp_tmp);
 
 
-            //std::cout<< "y="<< Y[y_number] << "\tx=" << X[y_number] << "\tv=" << V[y_number] << "\n";
+            //LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y1 << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
+            LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
+
+            //return 0;
+            //LOG(3) std::cout<< "y="<< tmp_y << "\tx=" << tmp_x << "\tv=" << tmp_v << "\n";
             big_2 one(1);
             big_2 min_one(-1);
 
-            if(V[y_number] == min_one || V[y_number] == one){
+            if(tmp_v == min_one || tmp_v == one){
 
                 int null_flag = 1;
                 //exit(0); 
-                null_flag = zero_vector_mod2_check(v_exp[y_number]);
+                null_flag = zero_vector_mod2_check(v_exp_tmp);
 
-                if (null_flag && V[y_number] > 0) { // sign check is extra !!!!
-                    //continue;
+                    DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
+                if (null_flag && tmp_v > 0) { // sign check is extra !!!!
+                    continue;
                     big_2 found = 0;
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
@@ -199,12 +241,22 @@ int main (void)
                         break;
                     }
                 } else {
-                    smooth_num.push_back(y_number);
-                    DEBUG(3, "%s %d  try to add %li \n",__func__, __LINE__, y_number);
+                    Y.push_back(tmp_y);
+                    X.push_back(tmp_x);
+                    v_exp.push_back(v_exp_tmp);
+
+                    finish = clock();
+                    ofstream myfile;
+                    myfile.open ("example.txt", ios::app);
+                    myfile << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
+                    myfile.close();
+                    start = clock();
+                    //smooth_num.push_back(y_number);
+                    DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
 
 
-                    if (m_all.add_row(v_exp[y_number]) == 1){
-                        int exponent_num = (v_exp[y_number].size() - 1);
+                    if (m_all.add_row(v_exp_tmp) == 1){
+                        int exponent_num = (v_exp_tmp.size() - 1);
                         // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
                         int count_flag = 0;
                         //add_counter_row(m_counter ,counter ,exponent_num);
@@ -218,10 +270,9 @@ int main (void)
                             for (uint64_t col = 0; col <  m_all.filled; ++col) {
                                 DEBUG (3,"matrix[%d][%d] = %ld\n",null_line,col, m_all.unit_matrix[null_line][col]);
                                 if( m_all.unit_matrix[null_line][col] > 0) {
-                                    DEBUG (3,"size num = %d\t", smooth_num.size());
-                                    DEBUG (3,"num = %d\t", smooth_num[col]);
-                                    LOG(3) std::cout << "Y  = " <<  Y[smooth_num[col]] << "\n";
-                                    XYiters.push_back(smooth_num[col]);
+                                    DEBUG (3,"num = %d\t",col);
+                                    LOG(3) std::cout << "Y  = " <<  Y[col] << "\n";
+                                    XYiters.push_back(col);
                                 }
                             }
                             DEBUG (2,"\n");
@@ -240,7 +291,10 @@ int main (void)
                                 m_all.delete_row(m_all.filled -1);
                                 DEBUG (3,"delete matrix raw %d\n",__LINE__ );
                                 m_all.show();
-                                smooth_num.pop_back();
+                                //smooth_num.pop_back();
+                                Y.pop_back();
+                                X.pop_back();
+                                v_exp.pop_back();
                             }
                         }
 
@@ -260,7 +314,6 @@ int main (void)
     }
     if(!exit_flag)
         LOG(0) std::cout << "Fail solution i=" << iter << "\tj=" << iter_1 << " p=" << p << "\tq=" << q << "\n";
-
 
     return 0;
 }

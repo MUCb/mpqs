@@ -97,6 +97,23 @@ big::big(long long n) {
 	//std::cout << " size " << (int) size << "\n";
 }
 
+long long big::to_long(void) {
+	long long tmp = 0;
+
+
+	//std::cout << " conteructor " << n << "\n";
+	//std::cout << " tmp " << tmp << "\n";
+	for( int i = size-1; i  >= 0; i--){
+		tmp = (tmp*10)+number[i];
+	}
+
+    if( sign == 1) {
+		tmp *= -1;
+	}//std::cout << " size " << (int) size << "\n";
+    return tmp;
+}
+
+
 /* we use + operation only with numers with the same sign
  */
 big big::operator+(const big other) const
@@ -233,6 +250,105 @@ big big::operator*(const big other) const{
 	return tmp;
 }
 
+/* denom_l must upper than 0 *
+   */
+void div_rem_l(big number, long long denom_l, big &quotient, long long  &reminder){
+	//std::cout << " other |" << other << "|\n";
+	//std::cout << " other size |" << (int)other.size << "|\n";
+	//std::cout << " this |" << *this << "|\n";
+	//std::cout << " this size |" <<(int)  (*this).size << "|\n";
+    int sign_flag = 0;
+    
+	if ((number.sign == 1 && denom_l < 0) || (number.sign == 0 && denom_l >= 0)) {
+		if ( number.sign == 1) {
+			number.sign = 0;
+			denom_l *= -1;
+		}
+	} else {
+        sign_flag = 1;
+        //quot_size = 0;
+	}
+
+    long long num_l = 0;
+    if (denom_l >= 90000000000000000){
+        std::cout << "denominator to big\n";
+    } else {
+        if( number.size <= 18 ) {
+            for(int i = number.size; i >= 0; i--) {
+                num_l = num_l * 10 + number.number[i]; 
+            }
+            big tmp(num_l/denom_l);
+            quotient = tmp;
+            reminder = num_l%denom_l;
+
+            if ( number.sign == 1 && reminder > 0){
+                reminder = denom_l - reminder;
+            } 
+            if (sign_flag == 1)
+                quotient.sign = 1;
+ 
+        } else {
+            int position = number.size - 1;
+            while(position >= 0) {
+                //num_l = 0;
+                //std::cout << "number " << number << "\n";
+                //std::cout << "position " << position << "\n";
+                //std::cout << "num_l 1 " << num_l << "\n";
+                
+                long long tmp = num_l;
+                int number_of_digits = 0; 
+                do {
+                    ++number_of_digits; 
+                    tmp /= 10;
+                } while (tmp);
+
+                for( int count = 0;  position >= 0 && count < (18-number_of_digits); position--, count++) {
+                    num_l = num_l * 10 + number.number[position]; 
+                    //std::cout << "number " << number.number[position] << "\n"; 
+                    //std::cout << "num_l " << num_l << "\n";
+                    //std::cout << "count " << count << "\n";
+                }
+                //std::cout << "num_l " << num_l << "\n";
+                long long  quot_l = num_l / denom_l; 
+                tmp = quot_l; 
+                while( tmp >  0) {
+                    tmp /= 10;
+                    if(quotient.size == 0)
+                        quotient.size = 1;
+                    else
+                        quotient.pow10(1);
+                }
+                tmp = quot_l; 
+
+                int i = 0;
+                while( tmp >  0) {
+                    //std::cout << "tmp " << tmp << "\n";
+                    quotient.number[i] = tmp % 10;
+                    //quotient.size++;
+                    i++;
+                    tmp /= 10;
+                }
+                //std::cout << "quotient " << quotient << "\n";
+                num_l = num_l % denom_l; 
+            }
+            big denom(denom_l);
+            //big tmp = quotient * denom;
+            //std::cout << "tmp " << tmp << "\n";
+            
+            if ( number.sign == 1 && num_l > 0){
+                reminder = denom_l - num_l;
+            } else
+                reminder = num_l;
+            if (sign_flag == 1)
+                quotient.sign = 1;
+            //std::cout << "reminder " << reminder << "\n";
+        } 
+    }
+}
+
+
+
+
 big big::operator/(const big other) const{
 	//std::cout << " other |" << other << "|\n";
 	//std::cout << " other size |" << (int)other.size << "|\n";
@@ -342,6 +458,9 @@ big big::operator/(const big other) const{
             }
         }
     
+        if (!(recidue < divisor)) {
+              quotient = quotient + one;
+        }
         //quotient = recidue;
         if (sign_flag)
             quotient.sign = 1;

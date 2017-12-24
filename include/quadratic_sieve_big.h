@@ -9,6 +9,9 @@ extern const int prime_size;
 
 int fill_matrix(bin_matrix_t & m1, std::vector<int> &smooth_num, std::vector< std::vector<uint64_t> > &v_exp);
 
+long long  mp_legendre_1(long long   a, long long  p);
+
+void make_smooth_numbers_1(std::vector<long long > &p_smooth, double size_B, const big N);
 int find_solution_big (bin_matrix_t & m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
@@ -32,7 +35,7 @@ int find_solution_condBsmooth (bin_matrix_t m2,
                     const uint64_t &N,
                     std::vector<uint64_t> &v_extra_exp);
 */
-void make_smooth_numbers(std::vector<long long > &p_smooth, double size_B,const big_2 N);
+void make_smooth_numbers(std::vector<long long  > &p_smooth, double size_B,const big N);
 
 void construct_xy(std::vector<big_2> &X, std::vector<big_2> &Y, big_2 sqrt_N, big_2 N, long long M);
 int make_exp_array(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<big_2> V, std::vector<long long> &p_smooth, double size_B, long long  M,  std::vector<long long> &solution_candidates_number);
@@ -44,5 +47,5 @@ int make_exp_array_condBsmooth_1(std::vector< std::vector<uint64_t> > &v_exp, st
 int zero_vector_mod2_check(std::vector<uint64_t> v_exp);
 void add_counter_row(bin_matrix_t &m2 ,std::vector<uint64_t> &counter ,int exponent_num);
 int is_counter_full(std::vector<uint64_t> &counter);
-big_2 prime_factorisation(big_2  Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp);
+big prime_factorisation(big  Y, std::vector<long long > p_smooth, std::vector<uint64_t> &v_exp);
 #endif

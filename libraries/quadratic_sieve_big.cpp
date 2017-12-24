@@ -320,7 +320,7 @@ void construct_xy(std::vector<big_2> &X, std::vector<big_2> &Y, big_2 sqrt_N, bi
 // uint64_t max value  10^19
 //  N max 10^9
 // p max 10^4
-void make_smooth_numbers(std::vector<long long> &p_smooth, double size_B, const big_2 N)
+void make_smooth_numbers(std::vector<big> &p_smooth, double size_B, const big N)
 {
     //prime is 2 - special case 
     // Modulo 2, every integer is a quadratic residue.
@@ -329,44 +329,115 @@ void make_smooth_numbers(std::vector<long long> &p_smooth, double size_B, const 
 
     for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
-        big_2 tmp;
-        tmp  = N;
-        big_2 one(1);
-	big_2 tmp_p( prime[i]);
+        long long  tmp;
+        //tmp  = N;
+        big one(1);
+	big tmp_p( prime[i]);
 	//std::cout << "N=" << N << " % ";
 	//std::cout << "N=" << N << "\n";
-	//std::cout << tmp_p << "\t";
-       big_2 N_mod;
+	//std::cout << tmp_p << "\n";
+       big N_mod;
        N_mod = N % tmp_p;
+        long long N_mod_l = N_mod.to_long();
        //tmp.number[0] = 0;
 	//std::cout << "N1=" << N << "\n";
 	//std::cout << "=" << N_mod << "\n";
-        tmp = N_mod;
+        tmp = N_mod_l;
 	//std::cout << "tmp1=" << tmp << "\n";
         for (int j = 1; j < (prime[i]-1)/2; ++j)
         {
+        tmp = tmp * N_mod_l;
+        //std::cout << "tmp1= " << tmp << "\t";
+        //std::cout << "N23=" << N << "\n";
+        //std::cout << "N32=" << N.number[0] << "\n";
+        //tmp = tmp % tmp_p;
+        tmp = tmp % prime[i];
+        //std::cout << "tmp2= " << tmp << "\n";
+ 
 	//std::cout << "N2=" << N << "\n";
             //tmp = tmp * N_mod;
 	//std::cout << "N23=" << N << "\n";
 	//std::cout << "N32=" << N.number[0] << "\n";
             //tmp = tmp % tmp_p;
             //tmp % tmp_p;
-            tmp = (tmp * N_mod) % tmp_p;
+            //tmp = (tmp * N_mod) % tmp_p;
 	//std::cout << "N3=" << N << "\n";
-	//std::cout << "N32=" << N.number[0] << "\n";
+	//std::cout << "tmp=" << tmp << "\n";
         }
 	//std::cout << "N7=" << N << "\n";
         //exit(0);
        // tmp = tmp % tmp_p;
 
 	//std::cout << "N4=" << N << "\n";
-        if( tmp == one)
+        //if( tmp == one)
+        if( tmp == 1)
         {
-            p_smooth.push_back(prime[i]);
+            p_smooth.push_back(tmp_p);
+            //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
             DEBUG(2, "%llu\n", prime[i]);
         }
 	//std::cout << "N5=" << N << "\n";
     }
+}
+
+void make_smooth_numbers_1(std::vector<long long > &p_smooth, double size_B, const big N)
+{
+    //prime is 2 - special case 
+    // Modulo 2, every integer is a quadratic residue.
+    p_smooth.push_back(prime[2]);
+    DEBUG(2, "%llu\n", prime[2]);
+
+    for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
+    {
+        long long  tmp;
+        //tmp  = N;
+        big one(1);
+	big tmp_p( prime[i]);
+       big N_mod;
+       N_mod = N % tmp_p;
+       long long N_mod_l = N_mod.to_long();
+        tmp = N_mod_l;
+
+        if(mp_legendre_1(N_mod_l, prime[i]) == 1) 
+        //if( tmp == one)
+        //if( tmp == 1)
+        {
+            p_smooth.push_back(prime[i]);
+            //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
+            DEBUG(2, "%llu\n", prime[i]);
+        }
+	//std::cout << "N5=" << N << "\n";
+    }
+}
+
+
+/*---------------------------------------------------------------*/
+long long  mp_legendre_1(long long   a, long long  p) {
+
+    long long  x, y, tmp;
+    long long  out = 1;
+
+    x = a;
+    y = p;
+    while (x) {
+        while ((x & 1) == 0) {
+            x = x / 2;
+            if ( (y & 7) == 3 || (y & 7) == 5 )
+                out = -out;
+        }
+
+        tmp = x;
+        x = y;
+        y = tmp;
+
+        if ( (x & 3) == 3 && (y & 3) == 3 )
+            out = -out;
+
+        x = x % y;
+    }
+    if (y == 1)
+        return out;
+    return 0;
 }
 
 int fill_matrix(bin_matrix_t &m1, std::vector<int> &smooth_num, std::vector< std::vector<uint64_t> > &v_exp)
@@ -449,30 +520,37 @@ int is_counter_full(std::vector<uint64_t> &counter)
 
 }
 
-big_2 prime_factorisation(big_2 Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp)
+big prime_factorisation(big Y, std::vector<long long> p_smooth, std::vector<uint64_t> &v_exp)
 {
-	big_2 null(0);
-	big_2 one(1);
-	big_2 min_one(-1);
+	big null(0);
+	big one(1);
+	big min_one(-1);
     for (   int smooth_iter = 0, exponent_num = FIRST_VALUE ; 
                         smooth_iter < p_smooth.size(); 
                         smooth_iter++, exponent_num++)
     {
-        big_2 tmp;
+        big tmp;
+        long long  reminder;
         do{
-            tmp = Y % p_smooth[smooth_iter];
+            big quotient;
+
+           
+            div_rem_l(Y, p_smooth[smooth_iter], quotient, reminder);
+            //tmp = Y % p_smooth[smooth_iter];
             //DEBUG (4, "y = %10li\t",Y);
-            //std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth" <<  p_smooth[smooth_iter] << " \n";
+            //std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth " <<  p_smooth[smooth_iter] << " \n";
             //DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
             //DEBUG (4, "tmp = %li\n",tmp);
             //std::cout << "tmp size " << (int)tmp.size << "\n";
             //std::cout << "null size " <<(int) null.size << "\n";
-            if(tmp == null){
-                Y = Y / p_smooth[smooth_iter];
+            if(reminder == 0){
+                //Y = Y / p_smooth[smooth_iter];
+                Y = quotient;
+                //std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth " <<  p_smooth[smooth_iter] << " \n";
                 //std::cout<< "Y = " << Y << "\n"; 
                 v_exp[exponent_num] += 1; 
             }
-        } while (tmp == null);
+        } while (reminder == 0);
 
         if(Y == one || Y == min_one)
             break;
