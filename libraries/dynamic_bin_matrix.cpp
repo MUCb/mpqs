@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <unistd.h>
 
+#include <fstream>
 #include <iostream>
 
 #include "dynamic_bin_matrix.h"
@@ -87,7 +88,8 @@ void bin_matrix_t::show(void){
     {
         for (int col = 0; col < collumn_size; ++col)
         {
-            DEBUG (3,"%lu\t", matrix[row][col]);
+            //DEBUG (3,"%lu\t", matrix[row][col]);
+            DEBUG (3,"%lu", matrix[row][col]);
         }
         DEBUG(3, "\n");
     }
@@ -98,7 +100,8 @@ void bin_matrix_t::show(void){
     {
         for (uint64_t col = 0; col <  filled; ++col)
         {
-            DEBUG (3,"%"PRIu64"\t", unit_matrix[row][col]);
+            //DEBUG (3,"%"PRIu64"\t", unit_matrix[row][col]);
+            DEBUG (3,"%"PRIu64"", unit_matrix[row][col]);
         }
         DEBUG (3,"\n");
     }
@@ -112,8 +115,8 @@ int bin_matrix_t::delete_row(unsigned int row_number)
         DEBUG(3, "%s %d row_number: %d filled: %d\n",__func__, __LINE__, row_number, filled);
         matrix.erase(matrix.begin() + row_number);
         unit_matrix.erase(unit_matrix.begin() + (unit_matrix.size() - 1));
-        if (filled < collumn_size)
-            triangular_v[filled] = -1;
+        //if (filled < collumn_size)
+        //    triangular_v[filled] = -1;
         filled--;
         return 1;
         
@@ -238,7 +241,13 @@ int  bin_matrix_t::make_upper_triangular_static(void)
         }
 
         if (triangular_v[current_col] == -1){
-            //std::cout << "triangular fill col " << current_col << " filled " << filled-1 << "\n"; 
+                ofstream myfile1;
+                myfile1.open ("triangular.txt", ios::app);
+    myfile1         << "triangular fill col " << current_col << " filled " << filled-1 << "\n"; 
+   myfile1.close();
+
+
+            LOG(2) std::cout << "triangular fill col " << current_col << " filled " << filled-1 << "\n"; 
             triangular_v[current_col] = filled - 1;
             break;
         }
@@ -273,7 +282,7 @@ int  bin_matrix_t::make_upper_triangular_static(void)
         //current_col++;
         //current_row++;
     //}
-    show();
+    //show();
     return null_line;
 }
 

@@ -7,14 +7,22 @@
 // #define PRIMES_SIZE 999999
 
 int main (){
+	mpz_t m;
+	mpz_t m1;
+	mpz_init(m);
+	mpz_init(m1);
+	mpz_set_str (m,  "56335973443135245", 10);
+	//mpz_set_str (m,  "58372837485639274836", 10);
+    mpz_nextprime(m1,m);
 	// const unsigned int sumX = 999999;
+	gmp_printf ("prime %Zd,\n",m1);
+    return 0;
+    /*
 	// mpz_t primes[sumX];
 	mpz_t prime;
 	// mpz_class A[sumX];
 	// primes = (mpz_t *) malloc(sizeof(mpz_t) * PRIMES_SIZE);
 
-	mpz_t m;
-	mpz_t m1;
 	mpz_init(prime);
 	mpz_init(m1);
 	mpz_init(m);
@@ -87,5 +95,5 @@ int main (){
 			// gmp_printf ("not prime %Zd,\n",m);
 		}
 	}
-		
+	*/	
 }

@@ -565,12 +565,12 @@ int zero_vector_mod2_check(std::vector<uint64_t> v_exp) {
                 exponent_num < v_exp.size(); 
                 exponent_num++ )
     {
-        DEBUG (3, "%ld\t", v_exp[exponent_num]);
+        DEBUG (4, "%ld\t", v_exp[exponent_num]);
         v_exp[exponent_num] %= 2;
         if (v_exp[exponent_num] != 0)
             null_flag = 0;
     }
-    DEBUG (3, "\n");
+    DEBUG (4, "\n");
     return null_flag;
 }
 

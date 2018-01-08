@@ -19,7 +19,7 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 2;
+int showDebugMsg = 3;
 
 //BOOST_AUTO_TEST_CASE(test_2) 
 int main (void)
@@ -94,6 +94,7 @@ int main (void)
     double size_B;
     //DEBUG (2,"log _B=%f\n", ln(N));
     size_B = exp (0.5 * sqrt (ln(N) * log(ln(N))) );
+    //size_B = exp (sqrt (ln(N) * log(ln(N))) );
     //DEBUG (2,"size of factor base size_B=%f\n", ln(N));
     //DEBUG (2,"size of factor base size_B=%f\n", log(ln(N)));
     //DEBUG (2,"size of factor base size_B=%f\n", ln(N) * log(ln(N)));
@@ -145,7 +146,17 @@ int main (void)
     M = pow(M , 3*sqrt(2)/4);
 
     DEBUG (2, "The sieving interval M=%li\n", M);
-        
+    ofstream myfile1;
+    myfile1.open ("general.txt", ios::app);
+    myfile1         << "\tp=" << p 
+                    << "\tq=" << q 
+                    << "\tN=" << N 
+                    << "\tM=" <<  M
+                    << "\tsize_B=" << size_B
+                    << "\n";
+ 
+   myfile1.close();
+
     // *** construct our sieve *** //
     std::vector<big_2> X;
     //std::vector<big_2> X_sm;
@@ -160,6 +171,7 @@ int main (void)
     //std::vector<int> smooth_num;
 
     bin_matrix_t m_all(p_smooth.size() + 1);
+    bin_matrix_t m(p_smooth.size() + 1);
 
     int exit_flag = 0;
     start = clock();
@@ -208,7 +220,7 @@ int main (void)
 
             if(tmp_y < null )
                 v_exp_tmp[NEGATIVE_SIGN] = 1;
-            LOG(3) std:: cout << "|" << v_exp_tmp[NEGATIVE_SIGN] << "|\n";
+            //LOG(3) std:: cout << "|" << v_exp_tmp[NEGATIVE_SIGN] << "|\n";
 
             //big tmp_y1 ("-28512018742020686899625");
             //tmp_v = prime_factorisation(tmp_y1, p_smooth, v_exp_tmp);
@@ -216,7 +228,7 @@ int main (void)
 
 
             //LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y1 << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
-            LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
+            //LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
 
             //return 0;
             //LOG(3) std::cout<< "y="<< tmp_y << "\tx=" << tmp_x << "\tv=" << tmp_v << "\n";
@@ -229,9 +241,9 @@ int main (void)
                 //exit(0); 
                 null_flag = zero_vector_mod2_check(v_exp_tmp);
 
-                    DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
+                    //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
                 if (null_flag && tmp_v > 0) { // sign check is extra !!!!
-                    continue;
+                    continue; // special case need to work
                     big_2 found = 0;
                     std::vector<int64_t> tmp;
                     tmp.push_back(y_number);
@@ -249,19 +261,23 @@ int main (void)
                     ofstream myfile;
                     myfile.open ("example.txt", ios::app);
                     myfile << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
+                    for (int h = 0; h < v_exp_tmp.size(); h++)
+                        myfile << v_exp_tmp[h];
+                    myfile << "\n";
                     myfile.close();
                     start = clock();
                     //smooth_num.push_back(y_number);
-                    DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
+                    //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
 
 
                     if (m_all.add_row(v_exp_tmp) == 1){
+                        m.add_row(v_exp_tmp);
                         int exponent_num = (v_exp_tmp.size() - 1);
                         // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
                         int count_flag = 0;
                         //add_counter_row(m_counter ,counter ,exponent_num);
                         // DEBUG (2,"size num = %d\t", smooth_num.size());
-                        m_all.show();
+                        //m_all.show();
                         int null_line = m_all.make_upper_triangular_static();
 
                         if (null_line > -1) {
@@ -288,13 +304,30 @@ int main (void)
                                 //break_flag = 1;
                                 break;
                             } else {
-                                m_all.delete_row(m_all.filled -1);
-                                DEBUG (3,"delete matrix raw %d\n",__LINE__ );
-                                m_all.show();
+                                //m_all.delete_row(m_all.filled -1);
+                                //m.show();
+                                LOG(2) std::cout << "filled =" << m_all.filled <<  "\n";
+                                if (m_all.filled > m_all.collumn_size) {
+                                    m_all.show();
+                                    LOG(2) std::cout << "trunagular size " << m_all.triangular_v.size() << "\n";
+                                    for (int j = 0; j < m_all.triangular_v.size(); j++)
+                                        LOG(2) std::cout << m_all.triangular_v[j] << "\n";
+                                    LOG(2) std::cout << "\n";
+                                }
+                                m_all.delete_row(m_all.filled - 1 );
+                                m.delete_row(m_all.filled - 1 );
+                                LOG(2) std::cout << "filled1 =" << m_all.filled <<  "\n";
+                                if (m_all.filled > m_all.collumn_size) {
+                                    m_all.show();
+                                    exit(0);
+                                }
+                                //DEBUG (3,"delete matrix raw %d\n",__LINE__ );
+                                //m_all.show();
                                 //smooth_num.pop_back();
                                 Y.pop_back();
                                 X.pop_back();
                                 v_exp.pop_back();
+                                //exit(0);
                             }
                         }
 

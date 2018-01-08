@@ -55,6 +55,7 @@ big_2 euclid_gcd_big(const std::vector<big_2>& X,
 
         // in this way we can lost additional exp
         // sumY = 1;
+	    //LOG (2) std::cout << "func  " << __func__ << "\tline " << __LINE__ << "\n"; 
         int iter_exp = 1;
         for (int j = 0; j <  p_smooth.size(); ++j,  ++iter_exp)
         {
@@ -78,6 +79,7 @@ big_2 euclid_gcd_big(const std::vector<big_2>& X,
             // DEBUG(2, "sumY mod  %lu \n", sumY); 
         }
 	LOG (4) std::cout <<  " \n"; 
+	    //LOG (2) std::cout << "func  " << __func__ << "\tline " << __LINE__ << "\n"; 
         // DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
         //DEBUG(2, "sqrt Y mod n %lu\n", sumY);
         //DEBUG(2, "sqrt X mod n %lu\n", sumX);

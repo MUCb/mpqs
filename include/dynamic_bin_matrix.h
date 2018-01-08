@@ -14,7 +14,7 @@ public:
     int add_row(std::vector<uint64_t> v1);
     std::vector< std::vector<uint64_t> > matrix;
     std::vector< std::vector<uint64_t> > unit_matrix;
-    std::vector<uint64_t> triangular_v;
+    std::vector<long int> triangular_v;
 
     int  make_upper_triangular(void);
     int  make_upper_triangular_static(void);
