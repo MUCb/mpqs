@@ -93,14 +93,14 @@ int main (void)
     // selecting the size of the factor base
     double size_B;
     //DEBUG (2,"log _B=%f\n", ln(N));
-    size_B = exp (0.5 * sqrt (ln(N) * log(ln(N))) );
-    //size_B = exp (sqrt (ln(N) * log(ln(N))) );
+    //size_B = exp (0.5 * sqrt (ln(N) * log(ln(N))) );
+    size_B = exp (sqrt (ln(N) * log(ln(N))) );
     //DEBUG (2,"size of factor base size_B=%f\n", ln(N));
     //DEBUG (2,"size of factor base size_B=%f\n", log(ln(N)));
     //DEBUG (2,"size of factor base size_B=%f\n", ln(N) * log(ln(N)));
     //DEBUG (2,"size of factor base size_B=%f\n",sqrt(ln(N) * log(ln(N))));
     //DEBUG (2,"size of factor base size_B=%f\n", size_B);
-    //size_B = pow(size_B , sqrt(2)/4);
+    size_B = pow(size_B , sqrt(2)/4);
     //size_B = pow(size_B , sqrt(2)/4);
     DEBUG (2,"size of factor base size_B=%f\n", size_B);
 //return 0;
