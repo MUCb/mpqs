@@ -116,7 +116,7 @@ int main (void)
         myfile << p_smooth[i] <<  "\n";
     }
     myfile.close();
-
+//
     return 0;
     */
     /*
@@ -286,58 +286,85 @@ int main (void)
                         //add_counter_row(m_counter ,counter ,exponent_num);
                         // DEBUG (2,"size num = %d\t", smooth_num.size());
                         //m_all.show();
-                        int null_line = m_all.make_upper_triangular_static();
+                        DEBUG(2, "filled  %d  collumn %d\n",m_all.filled , m_all.collumn_size);
+                        if(m_all.filled >= m_all.collumn_size)
+                        {
+                            int null_line = m_all.make_upper_triangular();
+                            //int null_line = -1;
+                            //while((null_line = m_all.make_upper_triangular()) && null_line  > -1 && exit_flag != 1) {
 
-                        if (null_line > -1) {
-                            std::vector<int64_t> XYiters;
-                            DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);
-                            for (uint64_t col = 0; col <  m_all.filled; ++col) {
-                                DEBUG (3,"matrix[%d][%d] = %ld\n",null_line,col, m_all.unit_matrix[null_line][col]);
-                                if( m_all.unit_matrix[null_line][col] > 0) {
-                                    DEBUG (3,"num = %d\t",col);
-                                    LOG(3) std::cout << "Y  = " <<  Y[col] << "\n";
-                                    XYiters.push_back(col);
+                            if (null_line > -1) {
+                                std::vector<int64_t> XYiters;
+                                DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);
+                                for (uint64_t col = 0; col <  m_all.filled; ++col) {
+                                    DEBUG (3,"matrix[%d][%d] = %ld\n",null_line,col, m_all.unit_matrix[null_line][col]);
+                                    if( m_all.unit_matrix[null_line][col] > 0) {
+                                        DEBUG (3,"num = %d\t",col);
+                                        LOG(3) std::cout << "Y  = " <<  Y[col] << "\n";
+                                        XYiters.push_back(col);
+                                    }
+                                }
+                                DEBUG (2,"\n");
+
+                                eucl_count++;
+                                big found = 0;
+                                found = euclid_gcd_big( X, Y, XYiters, p, q, N, v_exp, p_smooth);
+                                // printf("found %lu\n", found);
+                                //m_all.show();
+                                if (found.size != 0) {
+                                    std::cout << "Found solution i=" << iter << "\tj=" << iter_1 << " p=" << p << " q=" << q << "\n";
+                                    // exit( null_line);
+                                    exit_flag=1;
+                                    //break_flag = 1;
+                                    break;
+                                } else {
+                                    int max_i = 0;
+                                    max_i = m.max_unit_num(m_all.unit_matrix[null_line]);
+
+                                    DEBUG (3," iter %d\n",null_line );
+                                    //m2.show();
+                                        //m_all.show();
+                                    //m_all.delete_row(null_line);
+                                    m.delete_row(max_i);
+                                        m_all=m;
+                                    //DEBUG (4,"===== %d \n", smooth_num_back[max_i]);
+                                    //smooth_num_back.erase(smooth_num_back.begin() + max_i);
+                                    //smooth_num.erase(smooth_num.begin() + max_i);
+                                    //m2.show();
+
+                                    //m_all.delete_row(m_all.filled -1);
+                                    //m.show();
+                                    LOG(2) std::cout << "filled =" << m_all.filled <<  "\n";
+                                    /*if (m_all.filled > m_all.collumn_size) {
+                                        m_all.show();
+                                        LOG(2) std::cout << "trunagular size " << m_all.triangular_v.size() << "\n";
+                                        for (int j = 0; j < m_all.triangular_v.size(); j++)
+                                            LOG(2) std::cout << m_all.triangular_v[j] << "\n";
+                                        LOG(2) std::cout << "\n";
+                                    }
+                                    m_all.delete_row(m_all.filled - 1 );
+                                    //m.delete_row(m_all.filled - 1 );
+                                    LOG(2) std::cout << "filled1 =" << m_all.filled <<  "\n";
+                                    */
+                                    if (m_all.filled > m_all.collumn_size) {
+                                        m_all.show();
+                                        ERROR("matrix to big aaaaa\n");
+                                        exit(0);
+                                    }
+                                    //DEBUG (3,"delete matrix raw %d\n",__LINE__ );
+                                    //m_all.show();
+                                    //smooth_num.pop_back();
+                                    Y.erase(Y.begin() + max_i);
+                                    X.erase(X.begin() + max_i);
+                                    v_exp.erase(v_exp.begin() + max_i);
+                                    //exit(0);
                                 }
                             }
-                            DEBUG (2,"\n");
-
-                            eucl_count++;
-                            big found = 0;
-                            found = euclid_gcd_big( X, Y, XYiters, p, q, N, v_exp, p_smooth);
-                            // printf("found %lu\n", found);
-                            // m_all.show();
-                            if (found.size != 0) {
-                                std::cout << "Found solution i=" << iter << "\tj=" << iter_1 << " p=" << p << " q=" << q << "\n";
-                                // exit( null_line);
-                                exit_flag=1;
-                                //break_flag = 1;
-                                break;
-                            } else {
-                                //m_all.delete_row(m_all.filled -1);
-                                //m.show();
-                                LOG(2) std::cout << "filled =" << m_all.filled <<  "\n";
-                                if (m_all.filled > m_all.collumn_size) {
-                                    m_all.show();
-                                    LOG(2) std::cout << "trunagular size " << m_all.triangular_v.size() << "\n";
-                                    for (int j = 0; j < m_all.triangular_v.size(); j++)
-                                        LOG(2) std::cout << m_all.triangular_v[j] << "\n";
-                                    LOG(2) std::cout << "\n";
-                                }
-                                m_all.delete_row(m_all.filled - 1 );
-                                m.delete_row(m_all.filled - 1 );
-                                LOG(2) std::cout << "filled1 =" << m_all.filled <<  "\n";
-                                if (m_all.filled > m_all.collumn_size) {
-                                    m_all.show();
-                                    ERROR("matrix to big aaaaa\n");
-                                    exit(0);
-                                }
-                                //DEBUG (3,"delete matrix raw %d\n",__LINE__ );
-                                //m_all.show();
-                                //smooth_num.pop_back();
-                                Y.pop_back();
-                                X.pop_back();
-                                v_exp.pop_back();
-                                //exit(0);
+                            else {
+                            m_all.show();
+                            ERROR("cant find null aaaaa\n");
+                            exit(0);
+                            //break;
                             }
                         }
 

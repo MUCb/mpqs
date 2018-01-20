@@ -9,13 +9,22 @@
 int main (){
 	mpz_t m;
 	mpz_t m1;
+	mpz_t iter;
 	mpz_init(m);
 	mpz_init(m1);
-	mpz_set_str (m,  "56335973443135245", 10);
+	mpz_init(iter);
+	mpz_set_str (m,  "7", 10);
+	mpz_set_str (iter,  "100", 10);
+    for (int i = 0; i < 1000; i++) {
+        mpz_add(m, m, iter);
+        mpz_nextprime(m1,m);
+	    gmp_printf ("%Zd\n",m1);
+    }
+	//mpz_set_str (m,  "3563359734431362578", 10);
 	//mpz_set_str (m,  "58372837485639274836", 10);
-    mpz_nextprime(m1,m);
+    //mpz_nextprime(m1,m);
 	// const unsigned int sumX = 999999;
-	gmp_printf ("prime %Zd,\n",m1);
+	//gmp_printf ("prime %Zd,\n",m1);
     return 0;
     /*
 	// mpz_t primes[sumX];

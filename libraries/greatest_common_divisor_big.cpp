@@ -40,7 +40,7 @@ big_2 euclid_gcd_big(const std::vector<big_2>& X,
 		    //LOG (4) std::cout << " |" << v_exp[iterator[j]][i] << "|" << "|\n"; 
                 tmp_v[i] = tmp_v[i] + v_exp[iterator[j]][i];
             }
-	    LOG (2) std::cout << "X " << X[iterator[j]] << "\tY " << Y[iterator[j]] << "\n"; 
+	    LOG (3) std::cout << "X " << X[iterator[j]] << "\tY " << Y[iterator[j]] << "\n"; 
             sumX = sumX * X[iterator[j]]; // do we need mod N ?????????????????????????????????????????????????
             //std::cout << "X iter " << X[iterator[j]] << "\n";
             //std::cout << "sum X before" << sumX << "\n";

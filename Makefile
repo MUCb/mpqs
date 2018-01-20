@@ -80,6 +80,12 @@ qs_unit_matrix_big_online_test: quadratic_sieve_big dynamic_bin_matrix big big_2
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
 				libraries/greatest_common_divisor_big.o 
 
+qs_unit_matrix_big_standart_test: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big
+	g++ -std=c++11  -Iinclude/ -lm  \
+	tests/qs_unit_matrix_big_standart_test.cpp  -o tests/qs_unit_matrix_big_standart_test.out \
+				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
+				libraries/greatest_common_divisor_big.o 
+
 
 
 big_test: big big_2
