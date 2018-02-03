@@ -13,10 +13,22 @@ int main (){
 	mpz_init(m);
 	mpz_init(m1);
 	mpz_init(iter);
-	mpz_set_str (m,  "7", 10);
-	mpz_set_str (iter,  "100", 10);
-    for (int i = 0; i < 1000; i++) {
+
+    mpf_t f;
+    mpf_init (f);
+	mpz_set_str (m,  "31423", 10);
+	mpz_set_str (iter,  "237", 10);
+    mpf_set_z (f, iter);
+    int count = 0;
+    for (int i = 0; i < 100; i++) {
+        count ++;
         mpz_add(m, m, iter);
+        //mpz_mul_ui(m, m, 13);
+        //mpz_mdiv_ui(m, m, 10);
+        if(count > 5) {
+            mpz_mul_ui(iter,iter, 2);
+            count = 0;
+        }
         mpz_nextprime(m1,m);
 	    gmp_printf ("%Zd\n",m1);
     }

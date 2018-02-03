@@ -234,7 +234,7 @@ int main (void)
 
 
             //LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y1 << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
-            //LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
+            LOG(3) std::cout << "X = " << tmp_x << "\tY = " << tmp_y << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
 
             //return 0;
             //LOG(3) std::cout<< "y="<< tmp_y << "\tx=" << tmp_x << "\tv=" << tmp_v << "\n";
@@ -247,7 +247,7 @@ int main (void)
                 //exit(0); 
                 null_flag = zero_vector_mod2_check(v_exp_tmp);
 
-                    //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
+                    DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
                 if (null_flag && tmp_v > 0) { // sign check is extra !!!!
                     continue; // special case need to work
                     big_2 found = 0;
@@ -285,7 +285,7 @@ int main (void)
                         int count_flag = 0;
                         //add_counter_row(m_counter ,counter ,exponent_num);
                         // DEBUG (2,"size num = %d\t", smooth_num.size());
-                        //m_all.show();
+                        m_all.show();
                         int null_line = m_all.make_upper_triangular_static();
 
                         if (null_line > -1) {

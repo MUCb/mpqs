@@ -13,18 +13,19 @@
 #include <inttypes.h>
 #include "primes_10_8.h"
 #include "big_2.h"
+#include "big.h"
 
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 4;
 
 BOOST_AUTO_TEST_CASE(test_2) 
 {
     //int iter_1 = 5005;
     int iter_1 = 5000;
     //int iter_1 = 124;
-    while (iter_1 < 5300 ) 
+    //while (iter_1 < 5300 ) 
     //while (iter_1 < 78400 ) 
     {
         iter_1 += 5;
@@ -33,7 +34,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         
     int iter = iter_1 + 597;
     //int iter = 5719;
-    while (iter < 6000 )
+    //while (iter < 6000 )
 
     // for (int iter = 3; iter < 1000 ; iter++) 
     // for (int iter = 3; iter < 4 ; iter++) 
@@ -58,10 +59,53 @@ BOOST_AUTO_TEST_CASE(test_2)
         time_t finish;
         start = clock();
         
+     FILE * pFile;
+    char mystring [100];
+    pFile = fopen ("prime_1","r");
+    if (pFile == NULL) perror ("Error opening file");
+    else {
+        if ( fgets (mystring , 100 , pFile) != NULL ) {
+            //puts (mystring);
+        } else {
+            std::cout << "error read prime numbers 1\n";
+            exit(0);
+            //return 1;
+        }
+        fclose (pFile);
+    }
+
+    // remove new line character
+    char *pos;
+    if ((pos=strchr(mystring, '\n')) != NULL)
+            *pos = '\0';
+    
+    big p(mystring);
+
+    //std::cout << "p " << p << "\n";
+
+    pFile = fopen ("prime_2","r");
+    if (pFile == NULL) perror ("Error opening file");
+    else {
+        if ( fgets (mystring , 100 , pFile) != NULL ) {
+            //puts (mystring);
+        } else {
+            std::cout << "error read prime numbers 2\n";
+            exit(0);
+            //return 1;
+        }
+        fclose (pFile);
+    }
+    
+    // remove new line character
+    if ((pos=strchr(mystring, '\n')) != NULL)
+            *pos = '\0';
+
+    big q(mystring);
+        
         //big p(prime[13123]);
-        big_2 p(prime[iter_1]);
+        //big_2 p(prime[iter_1]);
         //big q(prime[18123]);
-        big_2 q(prime[iter]);
+        //big_2 q(prime[iter]);
  
         //big p = str1;
         //big q = str2;
@@ -69,7 +113,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         big_2 null = 0;
 
 
-        big_2 N = p * q;
+        big N = p * q;
         big_2 sqrt_N = 0;
         uint64_t sqrt_Nk = 0;
         uint64_t k = 1;
@@ -91,7 +135,7 @@ BOOST_AUTO_TEST_CASE(test_2)
         std::vector<long long> p_smooth;
         DEBUG (2, "smooth numbers\n");
 
-        make_smooth_numbers(p_smooth, size_B, N);
+        make_smooth_numbers_1(p_smooth, size_B, N);
         if ((p_smooth.size() < size_B))
         {
             //ERROR ("to small primes \n");

@@ -16,23 +16,23 @@
 
 #include "primes_10_8.h"
 
-int showDebugMsg = 0;
+int showDebugMsg = 4;
 
 
 BOOST_AUTO_TEST_CASE(test_1) 
 {
-    // for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
-    for (int iter_1 = 1000; iter_1 < 1200 ; iter_1++) 
+    for (int iter_1 = 3; iter_1 < 4 ; iter_1++) 
+//    for (int iter_1 = 1000; iter_1 < 1200 ; iter_1++) 
     // for (int iter_1 = 3; iter_1 < 1000 ; iter_1++) 
     // for (int iter_1 = 5760000; iter_1 < 5760030 ; iter_1++) 
     {
 
     // for (int iter = iter_1 + 1 - 5753000; iter < 7030 ; iter++) 
     // for (int iter = iter_1 + 1; iter < 1000 ; iter++) 
-    for (int iter = 10000; iter < 10200 ; iter++) 
+ //   for (int iter = 10000; iter < 10200 ; iter++) 
     // for (int iter = iter_1 + 1; iter < 10200 ; iter++) 
     // for (int iter = iter_1 + 1; iter < 5760030 ; iter++) 
-    // for (int iter = 3; iter < 4 ; iter++) 
+     for (int iter = 3; iter < 4 ; iter++) 
     {
         time_t start;
         time_t finish;
@@ -53,9 +53,51 @@ BOOST_AUTO_TEST_CASE(test_1)
 
         // iter = 100;
         // iter_1 = 50;
+    FILE * pFile;
+    char mystring [100];
+    pFile = fopen ("prime_1","r");
+    if (pFile == NULL) perror ("Error opening file");
+    else {
+        if ( fgets (mystring , 100 , pFile) != NULL ) {
+            //puts (mystring);
+        } else {
+            std::cout << "error read prime numbers 1\n";
+            exit(0);
+            //return 1;
+        }
+        fclose (pFile);
+    }
 
-        uint64_t p = prime[iter_1];  // 10^8
-        uint64_t q = prime[iter];
+    // remove new line character
+    char *pos;
+    if ((pos=strchr(mystring, '\n')) != NULL)
+            *pos = '\0';
+    
+
+        uint64_t p = stol(mystring); // k = 3 p = 10
+    //std::cout << "p " << p << "\n";
+
+    pFile = fopen ("prime_2","r");
+    if (pFile == NULL) perror ("Error opening file");
+    else {
+        if ( fgets (mystring , 100 , pFile) != NULL ) {
+            //puts (mystring);
+        } else {
+            std::cout << "error read prime numbers 2\n";
+            exit(0);
+            //return 1;
+        }
+        fclose (pFile);
+    }
+    
+    // remove new line character
+    if ((pos=strchr(mystring, '\n')) != NULL)
+            *pos = '\0';
+
+        uint64_t q = stol(mystring);
+ 
+//        uint64_t p = prime[iter_1];  // 10^8
+ //       uint64_t q = prime[iter];
 
 
         uint64_t N = p * q;

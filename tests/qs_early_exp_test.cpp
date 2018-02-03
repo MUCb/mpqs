@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include "primes.h"
+#include "primes_10_8.h"
 
  #include <math.h>
 
@@ -125,10 +125,55 @@ BOOST_AUTO_TEST_CASE(test_2)
         // uint64_t p = prime[30]; // k = 3 p = 10
         // uint64_t q = prime[31];
 
+    FILE * pFile;
+    char mystring [100];
+    pFile = fopen ("prime_1","r");
+    if (pFile == NULL) perror ("Error opening file");
+    else {
+        if ( fgets (mystring , 100 , pFile) != NULL ) {
+            //puts (mystring);
+        } else {
+            std::cout << "error read prime numbers 1\n";
+            exit(0);
+            //return 1;
+        }
+        fclose (pFile);
+    }
+
+    // remove new line character
+    char *pos;
+    if ((pos=strchr(mystring, '\n')) != NULL)
+            *pos = '\0';
+    
+
+        uint64_t p = stol(mystring); // k = 3 p = 10
+    //std::cout << "p " << p << "\n";
+
+    pFile = fopen ("prime_2","r");
+    if (pFile == NULL) perror ("Error opening file");
+    else {
+        if ( fgets (mystring , 100 , pFile) != NULL ) {
+            //puts (mystring);
+        } else {
+            std::cout << "error read prime numbers 2\n";
+            exit(0);
+            //return 1;
+        }
+        fclose (pFile);
+    }
+    
+    // remove new line character
+    if ((pos=strchr(mystring, '\n')) != NULL)
+            *pos = '\0';
+
+        uint64_t q = stol(mystring);
+    //big q(mystring);
+    //std:cout << "q " << q << "\n";
 
 
-        uint64_t p = prime[900]; // k = 3 p = 10
-        uint64_t q = prime[500];
+
+        //uint64_t p = prime[512710]; // k = 3 p = 10
+        //uint64_t q = prime[500];
 
         // uint64_t p = prime[1200]; // k = 3 p = 10
         // uint64_t q = prime[1450];
