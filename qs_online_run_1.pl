@@ -49,8 +49,9 @@ while(  $e1=shift(@data_1))
     print $fh_1 "$e2\n";
    close $fh_1;
 
-    system("./tests/qs_unit_matrix_big_online_test.out");
-    #system("./tests/qs_unit_matrix_big_standart_test.out");
+   #print "$e1 $e2\n"
+   #system("./tests/qs_unit_matrix_big_online_test.out");
+   system("./tests/qs_unit_matrix_big_standart_test.out");
 
 
 

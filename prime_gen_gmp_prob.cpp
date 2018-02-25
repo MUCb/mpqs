@@ -10,27 +10,176 @@ int main (){
 	mpz_t m;
 	mpz_t m1;
 	mpz_t iter;
+	mpz_t iter_2;
 	mpz_init(m);
 	mpz_init(m1);
 	mpz_init(iter);
+	mpz_init(iter_2);
 
     mpf_t f;
     mpf_init (f);
-	mpz_set_str (m,  "31423", 10);
-	mpz_set_str (iter,  "237", 10);
+    /* 10^14 */
+    /*
+	mpz_set_str (m,       "10000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	mpz_set_str (m,       "1000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+*/
+
+
+    /*
+	mpz_set_str (m,       "100000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "100000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	
+*/
+
+    /*
+	mpz_set_str (m,       "1700000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "10000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	
+*/
+
+
+    /*
+	mpz_set_str (m,       "13010000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	mpz_set_str (iter_2,  "100000", 10);
+	
+	mpz_set_str (m,       "10010000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	mpz_set_str (iter_2,  "100000", 10);
+	
+
+*/
+    /*
+	mpz_set_str (m,       "10000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	//mpz_set_str (iter_2,  "100000", 10);
+	
+	mpz_set_str (m,       "10000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	mpz_set_str (iter_2,  "100000", 10);
+	
+*/
+
+    /* 10^16 */
+    /*
+	mpz_set_str (m,       "100000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "160000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+
+*/
+    /*
+	mpz_set_str (m,       "1700000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "1000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "10300000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+
+*/
+    /* 10^20 */
+    /*
+	mpz_set_str (m,       "1000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+    /*
+	mpz_set_str (m,       "100000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	mpz_set_str (m,       "100000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+    /*
+	mpz_set_str (m,       "1000000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	mpz_set_str (m,       "10000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+    /* 10^18 */
+
+	mpz_set_str (m,       "373000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+    /*
+	mpz_set_str (m,       "1635000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+    /*
+	mpz_set_str (m,       "10000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "10000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+
+    /*
+	mpz_set_str (m,       "1000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+	mpz_set_str (m,       "100000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+
+    /* 10^22 */
+    /*
+	mpz_set_str (m,       "100000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	
+    mpz_set_str (m,       "10000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+     /*
+	mpz_set_str (m,       "1000000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	
+    mpz_set_str (m,       "1000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+      /*
+	mpz_set_str (m,       "10000000000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+	
+    mpz_set_str (m,       "100000000", 10);
+	mpz_set_str (iter,  "2000", 10);
+
+*/
+ 
     mpf_set_z (f, iter);
     int count = 0;
-    for (int i = 0; i < 100; i++) {
-        count ++;
-        mpz_add(m, m, iter);
-        //mpz_mul_ui(m, m, 13);
-        //mpz_mdiv_ui(m, m, 10);
-        if(count > 5) {
-            mpz_mul_ui(iter,iter, 2);
-            count = 0;
+    for (int i = 0; i < 10; i++) {
+        //mpz_add(m, m, iter_2);
+        for (int i = 0; i < 20; i++) {
+            count ++;
+            mpz_add(m, m, iter);
+            //mpz_mul_ui(m, m, 13);
+            //mpz_mdiv_ui(m, m, 10);
+            //if(count > 5) {
+            //    mpz_mul_ui(iter,iter, 2);
+            //    count = 0;
+            //}
+            mpz_nextprime(m1,m);
+            gmp_printf ("%Zd\n",m1);
         }
-        mpz_nextprime(m1,m);
-	    gmp_printf ("%Zd\n",m1);
     }
 	//mpz_set_str (m,  "3563359734431362578", 10);
 	//mpz_set_str (m,  "58372837485639274836", 10);
