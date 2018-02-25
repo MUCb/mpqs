@@ -392,21 +392,21 @@ void make_smooth_numbers_1(std::vector<long long > &p_smooth, double size_B, con
         long long  tmp;
         //tmp  = N;
         big one(1);
-	big tmp_p( prime[i]);
-       big N_mod;
-       N_mod = N % tmp_p;
-       long long N_mod_l = N_mod.to_long();
+        big tmp_p( prime[i]);
+        big N_mod;
+        N_mod = N % tmp_p;
+        long long N_mod_l = N_mod.to_long();
         tmp = N_mod_l;
 
         if(mp_legendre_1(N_mod_l, prime[i]) == 1) 
-        //if( tmp == one)
-        //if( tmp == 1)
+            //if( tmp == one)
+            //if( tmp == 1)
         {
             p_smooth.push_back(prime[i]);
             //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
             DEBUG(2, "%llu\n", prime[i]);
         }
-	//std::cout << "N5=" << N << "\n";
+        //std::cout << "N5=" << N << "\n";
     }
 }
 
