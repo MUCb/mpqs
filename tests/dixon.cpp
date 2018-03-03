@@ -71,9 +71,7 @@ int main (void)
     big sqrt_Nk = 0;
     big k_big = 1;
     int k = 0;
-    LOG(1) std::cout << "iter = " << iter 
-                    << "\titer_1 " << iter_1 
-                    << "\tp=" << p 
+    LOG(1) std::cout<< "p=" << p 
                     << "\tq=" << q 
                     << "\tN=" << N << "\n";
     //DEBUG (1, "p=%" PRIu64 "\tq=%" PRIu64 "\tp*q=N=%" PRIu64 "\n", p, q, N);
@@ -94,7 +92,7 @@ int main (void)
     //DEBUG (2,"size of factor base size_B=%f\n", size_B);
     size_B = pow(size_B , sqrt(2)/4);
     //size_B = pow(size_B , sqrt(2)/4);
-    DEBUG (2,"size of factor base size_B=%f\n", size_B);
+    DEBUG (1,"size of factor base size_B=%f\n", size_B);
 //return 0;
     // selecting smooth primes 
     std::vector<long long > p_smooth;
@@ -155,23 +153,25 @@ int main (void)
     int exit_flag = 0;
     start = clock();
     start_gen = clock();
-    for (k = 1; k < 3; ++k)
-    {
-        k_big = k_big + one;
-        sqrt_Nk = squareRoot(N * k_big);
 
 
     for (long  j = 0, y_number = -1; j < M/2; j++){
         for (int  d = 0; d < 2; d++){
+
+    for (k = 0; k < (size_B+20); ++k)
+    {
+        k_big = numbers_dixon[k];
+        sqrt_Nk = squareRoot(N * k_big);
+
             big_2 tmp_x;
             if(d == 1 && j == 0)
                 continue;
             if(d == 0 )
-                tmp_x = sqrt_N -j;
+                tmp_x = sqrt_Nk -j;
                 //X.push_back(sqrt_N - j);
             else
                 //X.push_back(sqrt_N + j);
-                tmp_x = sqrt_N + j;
+                tmp_x = sqrt_Nk + j;
 
             
             y_number++;
@@ -248,12 +248,12 @@ int main (void)
                     finish = clock();
                     ofstream myfile;
                     LOG(1) std::cout << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
-                    //myfile.open ("example.txt", ios::app);
-                    //myfile << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
-                    //for (int h = 0; h < v_exp_tmp.size(); h++)
-                     //   myfile << v_exp_tmp[h];
-                    //myfile << "\n";
-                    //myfile.close();
+                    myfile.open ("example.txt", ios::app);
+                    myfile << k_big  << "\t" << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
+                    for (int h = 0; h < v_exp_tmp.size(); h++)
+                       myfile << v_exp_tmp[h];
+                    myfile << "\n";
+                    myfile.close();
                     start = clock();
                     //smooth_num.push_back(y_number);
                     //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);

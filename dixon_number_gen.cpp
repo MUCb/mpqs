@@ -8,7 +8,7 @@ int main () {
 	number.push_back(3);
 	int count = 1;
 
-	for(int i = 4; i < 999; i++) {
+	for(int i = 4; i < 9999; i++) {
 		int res = 0;
 		int flag = 0;
 		for (int j = 0; j < number.size(); ++j) {
