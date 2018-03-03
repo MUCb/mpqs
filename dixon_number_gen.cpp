@@ -6,8 +6,9 @@ int main () {
 	std::vector<long long> number;
 	number.push_back(2);
 	number.push_back(3);
+	int count = 1;
 
-	for(int i = 4; i < 99; i++) {
+	for(int i = 4; i < 999; i++) {
 		int res = 0;
 		int flag = 0;
 		for (int j = 0; j < number.size(); ++j) {
@@ -23,7 +24,12 @@ int main () {
 		}
 		if (!flag) {
 			number.push_back(i);
-			std::cout << i << std::endl;
+			std::cout << i << ",\t";
+			count++;
+		}
+		if (!(count % 11)){
+			std::cout << std::endl;
+			count = 1;
 		}
 
 	}

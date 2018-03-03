@@ -14,6 +14,7 @@
 #include <inttypes.h>
 //#include "primes_10_8.h"
 #include "primes.h"
+#include "numbers_dixon.h"
 #include "big_2.h"
 
 #include <math.h>
