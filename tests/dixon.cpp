@@ -71,6 +71,7 @@ int main (void)
     big sqrt_Nk = 0;
     big k_big = 1;
     int k = 0;
+    int count_dixon[10000] = {0};
     LOG(1) std::cout<< "p=" << p 
                     << "\tq=" << q 
                     << "\tN=" << N << "\n";
@@ -91,6 +92,7 @@ int main (void)
     //DEBUG (2,"size of factor base size_B=%f\n",sqrt(ln(N) * log(ln(N))));
     //DEBUG (2,"size of factor base size_B=%f\n", size_B);
     size_B = pow(size_B , sqrt(2)/4);
+    //size_B *= 2;
     //size_B = pow(size_B , sqrt(2)/4);
     DEBUG (1,"size of factor base size_B=%f\n", size_B);
 //return 0;
@@ -158,7 +160,7 @@ int main (void)
     for (long  j = 0, y_number = -1; j < M/2; j++){
         for (int  d = 0; d < 2; d++){
 
-    for (k = 0; k < (size_B+20); ++k)
+    for (k = 0; k < (size_B); ++k)
     {
         k_big = numbers_dixon[k];
         sqrt_Nk = squareRoot(N * k_big);
@@ -246,14 +248,15 @@ int main (void)
                     smooth_count++;
 
                     finish = clock();
+                    count_dixon[k]++;
                     ofstream myfile;
                     LOG(1) std::cout << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
-                    myfile.open ("example.txt", ios::app);
-                    myfile << k_big  << "\t" << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
-                    for (int h = 0; h < v_exp_tmp.size(); h++)
-                       myfile << v_exp_tmp[h];
-                    myfile << "\n";
-                    myfile.close();
+                    // myfile.open ("example.txt", ios::app);
+                    // myfile << k_big  << "\t" << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
+                    // for (int h = 0; h < v_exp_tmp.size(); h++)
+                    //    myfile << v_exp_tmp[h];
+                    // myfile << "\n";
+                    // myfile.close();
                     start = clock();
                     //smooth_num.push_back(y_number);
                     //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
@@ -357,7 +360,6 @@ int main (void)
                     << "\t" << eucl_count 
                     << "\t" << (double)(finish - start_gen) / CLOCKS_PER_SEC 
                     << "\n";
-
     /*myfile         << "res=" << exit_flag 
                     << "\tp=" << p 
                     << "\tq=" << q 
@@ -374,6 +376,16 @@ int main (void)
                      //   myfile << v_exp_tmp[h];
                     //myfile << "\n";
                     myfile.close();
+
+                     myfile.open ("dixon_count.txt", ios::app);
+                     for (int i = 0; i < size_B; ++i)
+                     {
+                        myfile << "\t" << count_dixon[i];
+                     }
+                    myfile << "\n";
+                    myfile.close();
+                   
+
  
     return 0;
 }

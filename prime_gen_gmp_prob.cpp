@@ -18,6 +18,8 @@ int main (){
 
     mpf_t f;
     mpf_init (f);
+    mpz_set_str (m,       "6000", 10);
+	mpz_set_str (iter,  "200", 10);
     /* 10^14 */
     /*
 	mpz_set_str (m,       "10000000", 10);
@@ -112,10 +114,10 @@ int main (){
 */
     /* 10^18 */
 
+    /*
 	mpz_set_str (m,       "373000000", 10);
 	mpz_set_str (iter,  "2000", 10);
 
-    /*
 	mpz_set_str (m,       "1635000000", 10);
 	mpz_set_str (iter,  "2000", 10);
 
