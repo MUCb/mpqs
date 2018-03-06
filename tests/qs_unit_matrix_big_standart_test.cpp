@@ -267,12 +267,12 @@ int main (void)
                     finish = clock();
                     ofstream myfile;
                     LOG(1) std::cout << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
-                    //myfile.open ("example.txt", ios::app);
-                    //myfile << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
-                    //for (int h = 0; h < v_exp_tmp.size(); h++)
-                     //   myfile << v_exp_tmp[h];
-                    //myfile << "\n";
-                    //myfile.close();
+                    myfile.open ("example.txt", ios::app);
+                    myfile << tmp_x << "\t" << tmp_y  << "\t" << (double)(finish - start) / CLOCKS_PER_SEC << "\n";
+                    for (int h = 0; h < v_exp_tmp.size(); h++)
+                       myfile << v_exp_tmp[h];
+                    myfile << "\n";
+                    myfile.close();
                     start = clock();
                     //smooth_num.push_back(y_number);
                     //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);

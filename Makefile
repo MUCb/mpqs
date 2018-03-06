@@ -87,11 +87,14 @@ qs_unit_matrix_big_standart_test: quadratic_sieve_big dynamic_bin_matrix big big
 				libraries/greatest_common_divisor_big.o 
 
 dixon: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big
-	g++ -std=c++11  -Iinclude/ -lm  \
+		g++ -std=c++11  -Iinclude/ -lm  \
 	tests/dixon.cpp  -o tests/dixon.out \
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
 				libraries/greatest_common_divisor_big.o 
 
+dixon_number_gen:
+	g++ -std=c++11  -Iinclude/ -lm  \
+	dixon_number_gen.cpp  -o dixon_number_gen.out 
 
 
 big_test: big big_2
