@@ -12,14 +12,14 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-//#include "primes_10_8.h"
-#include "primes.h"
+#include "primes_10_8.h"
+//#include "primes.h"
 #include "big_2.h"
 
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 2;
 
 int fread_number(const char * file_name, char * mystring) {
     FILE * pFile;
@@ -91,6 +91,7 @@ int main (void)
     //DEBUG (2,"size of factor base size_B=%f\n", ln(N) * log(ln(N)));
     //DEBUG (2,"size of factor base size_B=%f\n",sqrt(ln(N) * log(ln(N))));
     //DEBUG (2,"size of factor base size_B=%f\n", size_B);
+    size_B = size_B / 2;
     //size_B = pow(size_B , sqrt(2)/4);
     //size_B = pow(size_B , sqrt(2)/4);
     DEBUG (2,"size of factor base size_B=%f\n", size_B);
@@ -105,16 +106,6 @@ int main (void)
         DEBUG(2, "%llu\n", prime[i]);
     }
 
-   if ((p_smooth.size() < size_B))
-    {
-        //ERROR ("to small primes \n");
-        DEBUG (0, "Fail solution i=%d\tj=%d p=%lu\tq=%lu\t", iter, iter_1, p, q);
-        finish = clock();
-        //DEBUG (0, "time %f\n", (double)(finish - start) / CLOCKS_PER_SEC);
-        //continue;
-        //exit (0);
-        return 1;
-    }
     // selecting the sieving interval
     long long  M;
     M = exp (sqrt (ln(N) * log(ln(N))) );
@@ -154,23 +145,28 @@ int main (void)
     int exit_flag = 0;
     start = clock();
     start_gen = clock();
-    for (k = 1; k < 3; ++k)
-    {
-        k_big = k_big + one;
-        sqrt_Nk = squareRoot(N * k_big);
-
 
     for (long  j = 0, y_number = -1; j < M/2; j++){
         for (int  d = 0; d < 2; d++){
             big_2 tmp_x;
+            
+    k_big = 0;
+    for (k = 0; k < 3; ++k)
+    {
+        k_big = k_big + one;
+        sqrt_Nk = squareRoot(N * k_big);
+
+        //std::cout << "square root " << sqrt_Nk << "\n";
+        //continue;
+
             if(d == 1 && j == 0)
                 continue;
             if(d == 0 )
-                tmp_x = sqrt_N -j;
+                tmp_x = sqrt_Nk -j;
                 //X.push_back(sqrt_N - j);
             else
                 //X.push_back(sqrt_N + j);
-                tmp_x = sqrt_N + j;
+                tmp_x = sqrt_Nk + j;
 
             
             y_number++;
@@ -331,10 +327,12 @@ int main (void)
                 }
                 DEBUG (3, "\n");
             }
-        }
-        if (exit_flag)
+            if (exit_flag)
             break;
-    }
+        }
+    if (exit_flag)
+            break;
+            }
     if (exit_flag)
             break;
  
