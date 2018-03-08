@@ -69,7 +69,7 @@ int main (void)
 
     big N = p * q;
     big sqrt_N = 0;
-    big sqrt_Nk = 0;
+    //big sqrt_Nk = 0;
     big k_big = 1;
     int k = 0;
     int count_dixon[10000] = {0};
@@ -93,7 +93,7 @@ int main (void)
     //DEBUG (2,"size of factor base size_B=%f\n",sqrt(ln(N) * log(ln(N))));
     //DEBUG (2,"size of factor base size_B=%f\n", size_B);
     size_B = pow(size_B , sqrt(2)/4);
-    //size_B *= 2;
+    size_B *= 3;
     //size_B = pow(size_B , sqrt(2)/4);
     DEBUG (1,"size of factor base size_B=%f\n", size_B);
 //return 0;
@@ -147,23 +147,29 @@ int main (void)
     start = clock();
     start_gen = clock();
 
+    std::vector<big> sqrt_Nk;
+    for (k = 0; k < (size_B); ++k) {
+        k_big = numbers_dixon[k];
+        sqrt_Nk.push_back(squareRoot(N * k_big));
+    }
+
     for (long  j = 0, y_number = -1; j < M/2; j++){
         for (int  d = 0; d < 2; d++){
 
     for (k = 0; k < (size_B); ++k)
     {
-        k_big = numbers_dixon[k];
-        sqrt_Nk = squareRoot(N * k_big);
+        //k_big = numbers_dixon[k];
+        //sqrt_Nk = squareRoot(N * k_big);
 
             big_2 tmp_x;
             if(d == 1 && j == 0)
                 continue;
             if(d == 0 )
-                tmp_x = sqrt_Nk -j;
+                tmp_x = sqrt_Nk[k] -j;
                 //X.push_back(sqrt_N - j);
             else
                 //X.push_back(sqrt_N + j);
-                tmp_x = sqrt_Nk + j;
+                tmp_x = sqrt_Nk[k] + j;
 
             
             y_number++;

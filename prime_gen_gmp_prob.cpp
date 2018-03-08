@@ -18,7 +18,8 @@ int main (){
 
     mpf_t f;
     mpf_init (f);
-    mpz_set_str (m,       "6000", 10);
+    mpz_set_str (m,       "1000", 10);
+    mpz_set_str (m1,       "1000", 10);
 	mpz_set_str (iter,  "200", 10);
     /* 10^14 */
     /*
@@ -170,9 +171,10 @@ int main (){
     int count = 0;
     for (int i = 0; i < 10; i++) {
         //mpz_add(m, m, iter_2);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 40; i++) {
             count ++;
-            mpz_add(m, m, iter);
+            //mpz_add(m, m, iter);
+            mpz_set(m, m1);
             //mpz_mul_ui(m, m, 13);
             //mpz_mdiv_ui(m, m, 10);
             //if(count > 5) {
