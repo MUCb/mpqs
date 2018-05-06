@@ -19,7 +19,7 @@ long prime_factorisation(long  Y, std::vector<long> p_smooth, std::vector<uint64
         long int tmp;
         do{
             tmp = Y % p_smooth[smooth_iter];
-            DEBUG (4, "y = %10li\t",Y);
+            DEBUG (4, "1y = %10li\t",Y);
             DEBUG (4, "p_smooth = %li\t",p_smooth[smooth_iter]);
             DEBUG (4, "tmp = %li\n",tmp);
             if(tmp == 0){

@@ -546,7 +546,8 @@ big prime_factorisation(big Y, std::vector<long long> p_smooth, std::vector<uint
             if(reminder == 0){
                 //Y = Y / p_smooth[smooth_iter];
                 Y = quotient;
-                LOG(3) std::cout << "y = " << Y << "\ttmp = " << tmp << "\tp_smooth " <<  p_smooth[smooth_iter] << " \n";
+                LOG(3) std::cout << "1y = " << Y << "\ttmp = " << tmp << "\tp_smooth " <<  p_smooth[smooth_iter] << " \n";
+                LOG(3) std::cout << "expon num " << exponent_num <<" \n";
                 //std::cout<< "Y = " << Y << "\n"; 
                 v_exp[exponent_num] += 1; 
             }

@@ -149,8 +149,8 @@ int main (void)
 		sqrt_Nk.push_back(squareRoot(N * k_big));
 	}
 */
-	bin_matrix_t m_all(size_B);
-	bin_matrix_t m(size_B);
+	bin_matrix_t m_all(size_B+1);
+	//bin_matrix_t m(size_B+1);
 	for (k = 0; k < (size_B); ++k)
 	{
 		// selecting smooth primes 
@@ -270,14 +270,15 @@ int main (void)
 					start = clock();
 					v_exp_ext[NEGATIVE_SIGN] = v_exp_tmp[NEGATIVE_SIGN];
 					for(int g = 1; g < p_smooth_pos.size(); g++) {
-						v_exp_ext[p_smooth_pos[g]] = v_exp_tmp[g];
+						v_exp_ext[p_smooth_pos[g-1]] = v_exp_tmp[g];
+						LOG(1) std::cout << p_smooth_pos[g] << "\t" << v_exp_tmp[g] << "\n";
 					}
 					//smooth_num.push_back(y_number);
 					//DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
 
 
 					if (m_all.add_row(v_exp_ext) == 1){
-						m.add_row(v_exp_tmp);
+						//m.add_row(v_exp_tmp);
 						//int exponent_num = (v_exp_tmp.size() - 1);
 						// ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
 						int count_flag = 0;
@@ -323,7 +324,7 @@ int main (void)
 									LOG(2) std::cout << "\n";
 								}
 								m_all.delete_row(m_all.filled - 1 );
-								m.delete_row(m_all.filled - 1 );
+								//m.delete_row(m_all.filled - 1 );
 								LOG(2) std::cout << "filled1 =" << m_all.filled <<	"\n";
 								if (m_all.filled > m_all.collumn_size) {
 									m_all.show();
