@@ -8,7 +8,9 @@
 #include <inttypes.h> /* for print UINT64*/
 
 #include "log.h"
+//#include "primes.h"
 
+ extern long long  prime[];
 #include "big_2.h" 
 
 //Euclid's Algorithm, Greatest Common Divisor
@@ -19,7 +21,8 @@ big_2 dixon_euclid_gcd_big(const std::vector<big_2>& X,
                     const big_2 &q,
                     const big_2 &N,
                     std::vector< std::vector<uint64_t> > v_exp,
-                    std::vector<long long> p_smooth
+                    std::vector<long long> p_smooth,
+					double size_B
                 )
 {
     if (iterator.size() > 0)
@@ -37,9 +40,11 @@ big_2 dixon_euclid_gcd_big(const std::vector<big_2>& X,
         {
             for (int i = 0; i < tmp_v.size(); ++i)
             {
-		    //LOG (4) std::cout << " |" << v_exp[iterator[j]][i] << "|" << "|\n"; 
+		    LOG (4) std::cout << v_exp[iterator[j]][i] ; 
                 tmp_v[i] = tmp_v[i] + v_exp[iterator[j]][i];
+	    //LOG (3) std::cout << "tmp_v " << tmp_v[i]<<  "\n"; 
             }
+		    LOG (4) std::cout << "\n"; 
 	    LOG (3) std::cout << "X " << X[iterator[j]] << "\tY " << Y[iterator[j]] << "\n"; 
             sumX = sumX * X[iterator[j]]; // do we need mod N ?????????????????????????????????????????????????
             //std::cout << "X iter " << X[iterator[j]] << "\n";
@@ -47,7 +52,7 @@ big_2 dixon_euclid_gcd_big(const std::vector<big_2>& X,
             // sumYY *= Y[iterator[j]];
 
             sumX = sumX % N; 
-            //std::cout << "sum X " << sumX << "\n";
+            std::cout << "sum X " << sumX << "\n";
             // sumYY %= N;
             // if(sumYY < 0 )
             //     sumYY += N;
@@ -57,20 +62,20 @@ big_2 dixon_euclid_gcd_big(const std::vector<big_2>& X,
         // sumY = 1;
 	    //LOG (2) std::cout << "func  " << __func__ << "\tline " << __LINE__ << "\n"; 
         int iter_exp = 1;
-        for (int j = 0; j <  p_smooth.size(); ++j,  ++iter_exp)
+        for (int j = 0; j <  size_B-1; ++j,  ++iter_exp)
         {
             //DEBUG(2, " %lu |%lu|\t", tmp_v[iter_exp], p_smooth[j]); 
-		//LOG (4) std::cout << " " << tmp_v[iter_exp] << "|" << p_smooth[j] << "|\t"; 
+		LOG (4) std::cout << " " << tmp_v[iter_exp] << "|" << prime[j+2] << "|\t"; 
             tmp_v[iter_exp] /= 2;
             // sumY *= (pow (p_smooth[j], tmp_v[iter_exp])) % N;
             for (int i = 0; i < tmp_v[iter_exp]; ++i)
             {
                 //std::cout << "iter i " << i  << "\n";
                 //std::cout << "sum y before" << sumY << "\n";
-                sumY = sumY * p_smooth[j];
-                //std::cout << "p_smooth " << p_smooth[j] << "\n";
+                sumY = sumY * prime[j+2];
+                //LOG (4) std::cout << "prime " << prime[j+2] << "\n";
                 sumY = sumY % N; 
-                //std::cout << "sum y " << sumY << "\n";
+                LOG (4) std::cout << "sum y " << sumY << "\n";
                 // DEBUG(2, "sumY mod  %lu \n", sumY); 
             }
             // sumY *= (pow (p_smooth[j], tmp_v[iter_exp])) % N;
@@ -81,14 +86,13 @@ big_2 dixon_euclid_gcd_big(const std::vector<big_2>& X,
 	LOG (4) std::cout <<  " \n"; 
 	    //LOG (2) std::cout << "func  " << __func__ << "\tline " << __LINE__ << "\n"; 
         // DEBUG(2, "sqrt Y %" PRIu32 "\n", sumY);
-        //DEBUG(2, "sqrt Y mod n %lu\n", sumY);
-        //DEBUG(2, "sqrt X mod n %lu\n", sumX);
+                LOG (4) std::cout << "sqrt Y mod n " << sumY << "\n";
+                LOG (4) std::cout << "sqrt X mod n " << sumX << "\n";
         if(sumX == sumY)
         {
             WARN (1, "Fail solution\n")
             return 0;
         }
-
 
 
 

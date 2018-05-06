@@ -575,6 +575,7 @@ int zero_vector_mod2_check(std::vector<uint64_t> v_exp) {
     return null_flag;
 }
 
+#if 0
 int find_solution_big (bin_matrix_t & m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 
@@ -681,7 +682,6 @@ int find_solution_big (bin_matrix_t & m2,
 
 
 
-#if 0
 int find_solution_condBsmooth (bin_matrix_t m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 

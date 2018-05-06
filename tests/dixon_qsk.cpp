@@ -246,7 +246,7 @@ int main (void)
 					big_2 found = 0;
 					std::vector<int64_t> tmp;
 					tmp.push_back(y_number);
-					found = dixon_euclid_gcd_big( X, Y, tmp, p, q, N,v_exp, p_smooth);
+					found = dixon_euclid_gcd_big( X, Y, tmp, p, q, N,v_exp, p_smooth, size_B);
 					if (! (found == 0)) {
 						exit_flag = 1;
 						break;
@@ -254,8 +254,6 @@ int main (void)
 				} else {
 					Y.push_back(tmp_y);
 					X.push_back(tmp_x);
-					v_exp.push_back(v_exp_tmp);
-					smooth_count++;
 
 					finish = clock();
 					count_dixon[k]++;
@@ -268,13 +266,16 @@ int main (void)
 					// myfile << "\n";
 					// myfile.close();
 					start = clock();
-					v_exp_ext[NEGATIVE_SIGN] = v_exp_tmp[NEGATIVE_SIGN];
+					v_exp_ext[NEGATIVE_SIGN] = v_exp_ext[NEGATIVE_SIGN];
 					for(int g = 1; g < p_smooth_pos.size(); g++) {
 						v_exp_ext[p_smooth_pos[g-1]] = v_exp_tmp[g];
 						LOG(1) std::cout << p_smooth_pos[g] << "\t" << v_exp_tmp[g] << "\n";
 					}
 					//smooth_num.push_back(y_number);
 					//DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
+					v_exp.push_back(v_exp_ext);
+					smooth_count++;
+
 
 
 					if (m_all.add_row(v_exp_ext) == 1){
@@ -287,7 +288,7 @@ int main (void)
 						m_all.show();
 						int null_line = m_all.make_upper_triangular_static();
 
-		return 0;
+		//return 0;
 						if (null_line > -1) {
 							std::vector<int64_t> XYiters;
 							DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);
@@ -303,7 +304,7 @@ int main (void)
 
 							eucl_count++;
 							big found = 0;
-							found = euclid_gcd_big( X, Y, XYiters, p, q, N, v_exp, p_smooth);
+							found = dixon_euclid_gcd_big( X, Y, XYiters, p, q, N, v_exp, p_smooth, size_B);
 							// printf("found %lu\n", found);
 							// m_all.show();
 							if (found.size != 0) {
