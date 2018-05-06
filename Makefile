@@ -92,11 +92,11 @@ dixon: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
 				libraries/greatest_common_divisor_big.o 
 
-dixon_qsk: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big dixon_big_lib
+dixon_qsk: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big_dixon dixon_big_lib
 		g++ -std=c++11  -Iinclude/ -lm  \
 	tests/dixon_qsk.cpp  -o tests/dixon_qsk.out \
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
-				libraries/greatest_common_divisor_big.o libraries/dixon_big_lib.o
+				libraries/dixon_greatest_common_divisor_big.o libraries/dixon_big_lib.o
 
 
 dixon_number_gen:
@@ -172,6 +172,12 @@ greatest_common_divisor_big: libraries/greatest_common_divisor_big.cpp \
 						include/log.h
 	g++  -std=c++11 -Iinclude/ -c libraries/greatest_common_divisor_big.cpp \
 				-o libraries/greatest_common_divisor_big.o
+
+greatest_common_divisor_big_dixon: libraries/dixon_greatest_common_divisor_big.cpp \
+						include/dixon_greatest_common_divisor_big.h \
+						include/log.h
+	g++  -std=c++11 -Iinclude/ -c libraries/dixon_greatest_common_divisor_big.cpp \
+				-o libraries/dixon_greatest_common_divisor_big.o
 
 
 

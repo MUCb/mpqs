@@ -7,7 +7,7 @@
 #include "log.h"
 
 #include <fstream>
-#include "greatest_common_divisor_big.h"
+#include "dixon_greatest_common_divisor_big.h"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -246,7 +246,7 @@ int main (void)
 					big_2 found = 0;
 					std::vector<int64_t> tmp;
 					tmp.push_back(y_number);
-					found = euclid_gcd_big( X, Y, tmp, p, q, N,v_exp, p_smooth);
+					found = dixon_euclid_gcd_big( X, Y, tmp, p, q, N,v_exp, p_smooth);
 					if (! (found == 0)) {
 						exit_flag = 1;
 						break;
