@@ -13,15 +13,16 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include "primes_10_8.h"
+#include "dixon_big_lib.h"
 //#include "primes.h"
-#include "primes.h"
+//#include "primes.h"
 #include "numbers_dixon.h"
 #include "big_2.h"
 
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 2;
+int showDebugMsg = 4;
 
 int fread_number(const char * file_name, char * mystring) {
     FILE * pFile;
@@ -69,7 +70,7 @@ int main (void)
 
     big N = p * q;
     big sqrt_N = 0;
-    //big sqrt_Nk = 0;
+    big sqrt_Nk = 0;
     big k_big = 1;
     int k = 0;
     int count_dixon[10000] = {0};
@@ -97,21 +98,19 @@ int main (void)
     //size_B = pow(size_B , sqrt(2)/4);
     DEBUG (1,"size of factor base size_B=%f\n", size_B);
 //return 0;
-    // selecting smooth primes 
-    std::vector<long long > p_smooth;
-    DEBUG (2, "smooth numbers\n");
-    //make_smooth_numbers_1(p_smooth, size_B, N);
+  /*
     for (uint64_t i = 2; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
         p_smooth.push_back(prime[i]);
         DEBUG(2, "%llu\n", prime[i]);
     }
-
+*/
     // selecting the sieving interval
     long long  M;
-    M = exp (sqrt (ln(N) * log(ln(N))) );
+    /*M = exp (sqrt (ln(N) * log(ln(N))) );
     M = pow(M , 3*sqrt(2)/4);
-
+    */
+    M = size_B;
     DEBUG (2, "The sieving interval M=%li\n", M);
 /*(    ofstream myfile1;
     myfile1.open ("general.txt", ios::app);
@@ -137,9 +136,6 @@ int main (void)
     std::vector< std::vector<uint64_t> > v_exp_sm;
     //std::vector<int> smooth_num;
 
-    bin_matrix_t m_all(p_smooth.size() + 1);
-    bin_matrix_t m(p_smooth.size() + 1);
-
     long long x_count = 0;
     long long smooth_count = 0;
     long long eucl_count = 0;
@@ -147,29 +143,43 @@ int main (void)
     start = clock();
     start_gen = clock();
 
-    std::vector<big> sqrt_Nk;
+/*    std::vector<big> sqrt_Nk;
     for (k = 0; k < (size_B); ++k) {
         k_big = numbers_dixon[k];
         sqrt_Nk.push_back(squareRoot(N * k_big));
     }
+*/
+    bin_matrix_t m_all(size_B);
+    bin_matrix_t m(size_B);
+    for (k = 0; k < (size_B); ++k)
+    {
+        // selecting smooth primes 
+        std::vector<long long > p_smooth;
+        std::vector<long long > p_smooth_pos;
+
+        DEBUG (2, "smooth numbers\n");
+        long p_size = dixon_make_smooth_numbers(p_smooth, p_smooth_pos, size_B, N);
+        DEBUG (2, "smooth size %d\n",p_size);
+
+        k_big = numbers_dixon[k];
+        sqrt_Nk = squareRoot(N * k_big);
+        
+
+
+    //make_smooth_numbers_1(p_smooth, size_B, N);
 
     for (long  j = 0, y_number = -1; j < M/2; j++){
         for (int  d = 0; d < 2; d++){
-
-    for (k = 0; k < (size_B); ++k)
-    {
-        //k_big = numbers_dixon[k];
-        //sqrt_Nk = squareRoot(N * k_big);
 
             big_2 tmp_x;
             if(d == 1 && j == 0)
                 continue;
             if(d == 0 )
-                tmp_x = sqrt_Nk[k] -j;
+                tmp_x = sqrt_Nk -j;
                 //X.push_back(sqrt_N - j);
             else
                 //X.push_back(sqrt_N + j);
-                tmp_x = sqrt_Nk[k] + j;
+                tmp_x = sqrt_Nk + j;
 
             
             y_number++;
@@ -200,7 +210,8 @@ int main (void)
 #define FIRST_VALUE      1
 
             //v_exp.push_back(std::vector<uint64_t> (p_smooth.size() + 1));
-            std::vector<uint64_t> v_exp_tmp(p_smooth.size() + 1);
+            std::vector<uint64_t> v_exp_tmp(p_size + 1);
+            std::vector<uint64_t> v_exp_ext(size_B + 1);
             //V.push_back(Y[y_number]);
 
             if(tmp_y < null )
@@ -213,7 +224,10 @@ int main (void)
 
 
             //LOG(2) std::cout << "X = " << tmp_x << "\tY = " << tmp_y1 << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
-            LOG(3) std::cout << "X = " << tmp_x << "\tY = " << tmp_y << " tmp_v " << tmp_v << " pers " << (j * 100) / (M/2) << "\n";
+            LOG(3) std::cout << "X = " << tmp_x << "\tY = " << tmp_y 
+					<< " tmp_v " << tmp_v 
+					<< " pers " << (j * 100) / (M/2) 
+					<< "\n";
 
             //return 0;
             //LOG(3) std::cout<< "y="<< tmp_y << "\tx=" << tmp_x << "\tv=" << tmp_v << "\n";
@@ -253,14 +267,18 @@ int main (void)
                     //    myfile << v_exp_tmp[h];
                     // myfile << "\n";
                     // myfile.close();
-                    start = clock();
+					start = clock();
+					v_exp_ext[NEGATIVE_SIGN] = v_exp_tmp[NEGATIVE_SIGN];
+					for(int g = 1; g < p_smooth_pos.size(); g++) {
+						v_exp_ext[p_smooth_pos[g]] = v_exp_tmp[g];
+					}
                     //smooth_num.push_back(y_number);
                     //DEBUG(3, "%s %d  try to add \n",__func__, __LINE__);
 
 
-                    if (m_all.add_row(v_exp_tmp) == 1){
+                    if (m_all.add_row(v_exp_ext) == 1){
                         m.add_row(v_exp_tmp);
-                        int exponent_num = (v_exp_tmp.size() - 1);
+                        //int exponent_num = (v_exp_tmp.size() - 1);
                         // ERROR("exp %d exp_num %d\n", v_exp[y_number][exponent_num], exponent_num);
                         int count_flag = 0;
                         //add_counter_row(m_counter ,counter ,exponent_num);
@@ -268,6 +286,7 @@ int main (void)
                         m_all.show();
                         int null_line = m_all.make_upper_triangular_static();
 
+		return 0;
                         if (null_line > -1) {
                             std::vector<int64_t> XYiters;
                             DEBUG(3, "line %d NUll line  %d=============", __LINE__ , null_line);

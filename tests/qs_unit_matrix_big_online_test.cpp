@@ -19,7 +19,7 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 4;
 
 //BOOST_AUTO_TEST_CASE(test_2) 
 int main (void)
