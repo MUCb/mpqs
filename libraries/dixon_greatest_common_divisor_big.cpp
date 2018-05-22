@@ -52,7 +52,7 @@ big_2 dixon_euclid_gcd_big(const std::vector<big_2>& X,
             // sumYY *= Y[iterator[j]];
 
             sumX = sumX % N; 
-            std::cout << "sum X " << sumX << "\n";
+            LOG (3) std::cout << "sum X " << sumX << "\n";
             // sumYY %= N;
             // if(sumYY < 0 )
             //     sumYY += N;

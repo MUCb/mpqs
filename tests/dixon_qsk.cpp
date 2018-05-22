@@ -22,7 +22,7 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 4;
+int showDebugMsg = 0;
 
 int fread_number(const char * file_name, char * mystring) {
 	FILE * pFile;
@@ -71,9 +71,10 @@ int main (void)
 	big N = p * q;
 	big sqrt_N = 0;
 	big sqrt_Nk = 0;
+	big Nk = 0;
 	big k_big = 1;
 	int k = 0;
-	int count_dixon[10000] = {0};
+	//int count_dixon[999999] = {0};
 	LOG(1) std::cout<< "p=" << p 
 					<< "\tq=" << q 
 					<< "\tN=" << N << "\n";
@@ -85,8 +86,10 @@ int main (void)
 
 	// selecting the size of the factor base
 	double size_B;
+	double L_B;
 	//DEBUG (2,"log _B=%f\n", ln(N));
 	//size_B = exp (0.5 * sqrt (ln(N) * log(ln(N))) );
+	LOG(0) std::cout << "ln n=" << ln(N) << "\n";
 	size_B = exp (sqrt (ln(N) * log(ln(N))) );
 	//DEBUG (2,"size of factor base size_B=%f\n", ln(N));
 	//DEBUG (2,"size of factor base size_B=%f\n", log(ln(N)));
@@ -94,7 +97,11 @@ int main (void)
 	//DEBUG (2,"size of factor base size_B=%f\n",sqrt(ln(N) * log(ln(N))));
 	//DEBUG (2,"size of factor base size_B=%f\n", size_B);
 	size_B = pow(size_B , sqrt(2)/4);
-	size_B *= 3;
+	L_B = size_B;
+	LOG(0) std::cout << "size n=" << size_B << "\n";
+	size_B *= 2;
+	//size_B *= 3;
+	LOG(0) std::cout << "size1n=" << size_B << "\n";
 	//size_B = pow(size_B , sqrt(2)/4);
 	DEBUG (1,"size of factor base size_B=%f\n", size_B);
 //return 0;
@@ -106,12 +113,17 @@ int main (void)
 	}
 */
 	// selecting the sieving interval
-	long long  M;
+	double  M;
+	double  M_orig;
 	/*M = exp (sqrt (ln(N) * log(ln(N))) );
 	M = pow(M , 3*sqrt(2)/4);
 	*/
-	M = size_B;
-	DEBUG (2, "The sieving interval M=%li\n", M);
+	//M = 2*size_B;
+	M = L_B*L_B;
+	//M = L_B*L_B*L_B;
+	M_orig = M;
+	//M = L_B;
+	DEBUG (2, "The sieving interval M=%f\n", M);
 /*(    ofstream myfile1;
 	myfile1.open ("general.txt", ios::app);
 	myfile1			<< "\tp=" << p 
@@ -151,24 +163,56 @@ int main (void)
 */
 	bin_matrix_t m_all(size_B+1);
 	//bin_matrix_t m(size_B+1);
-	for (k = 0; k < (size_B); ++k)
+	//for (k = 0; k < (4*size_B); ++k)
+	int size_K = L_B*L_B*L_B;
+	//int size_K = L_B*L_B;
+	std::vector<int> count_dixon(size_K);
+		LOG(3) std::cout << "size K = " << size_K << "\n";
+		//exit(0);
+	//for (k = 0; k < 6090; ++k)
+	for (k = 1; k < 6090; k++)
+	//for (int k1 = 0; k1 < 6090; k1=k1+10)
+	//for (k = 1; k < size_K; ++k)
 	{
+		//k = k1;
+	//for (int k2 = 0; k2 < 10; k2=k2+1)
+	{
+	//	k += 1;
+		//if(k==3) k=31;
+
 		// selecting smooth primes 
 		std::vector<long long > p_smooth;
 		std::vector<long long > p_smooth_pos;
+		k_big = k;
+		LOG(0) std::cout << "K_big = " << k_big << "\n";
+		//k_big = numbers_dixon[k];
+		Nk = N*k_big;
 
+		LOG(3) std::cout << "NK = " << Nk << "\n";
 		DEBUG (2, "smooth numbers\n");
-		long p_size = dixon_make_smooth_numbers(p_smooth, p_smooth_pos, size_B, N);
-		DEBUG (2, "smooth size %d\n",p_size);
-
-		k_big = numbers_dixon[k];
-		sqrt_Nk = squareRoot(N * k_big);
+		long p_size = dixon_make_smooth_numbers(p_smooth, p_smooth_pos, size_B, Nk);
+		LOG (2) std:: cout << "smooth size " << p_size << "\n";
+		//LOG (0) std:: cout << "smooth size " << size_B << "\n";
+		sqrt_Nk = squareRoot(Nk);
 		
+
+		LOG(3) std::cout << "K = " << k_big << "\n";
+		LOG(3) std::cout << "sqrt NK = " << sqrt_Nk << "\n";
+
 
 
 	//make_smooth_numbers_1(p_smooth, size_B, N);
+	double fa;
+	//LOG (2) std::cout << "The sieving interval M=" << fa << "\n";
+	//M *= 4*fa*0.001; // need to check
+	fa = (4*p_size*p_size)/size_B/size_B; // need to check
+	//fa = p_size/size_B; // need to check
+	//fa *= fa;
+	M = M_orig * fa; // need to check
+	//LOG (0) std::cout << "The sieving interval fa=" << fa << "\n";
+	LOG (2) std::cout << "The sieving interval M=" << M << "\n";
 
-	for (long  j = 0, y_number = -1; j < M/2; j++){
+	for (long  j = 0, y_number = -1; j < M; j++){
 		for (int  d = 0; d < 2; d++){
 
 			big_2 tmp_x;
@@ -188,22 +232,25 @@ int main (void)
 			//std::cout <<	 "X" << j << " =" << X[y_number] << "\n";
 			big_2 tmp_y = tmp_x*tmp_x;
 			big_2 tmp_v;
-			//std::cout <<	 "tmp " << tmp << "\n";
+			LOG (4) std::cout <<	 "tmp_y " << tmp_y << "\n";
 			//std::cout <<	 "N " << N << "\n";
 			if(tmp_y < N) {
 				//std::cout <<	 "tmp sign " << tmp << "\n";
 				//std::cout <<	 "N sign " <<  N << "\n";
 				tmp_y = N - tmp_y;
 				tmp_y.sign = 1;
+			LOG (4) std::cout <<	 "tmp_y " << tmp_y << "\n";
 				//std::cout <<	 "tmp1 " << tmp << "\n";
 				//std::cout <<	 "N " << N << "\n";
 				
 				//Y.push_back(tmp);
 				
 				////Y.push_back(N-tmp);
-			} else
+			} else {
 				tmp_y = tmp_y % N;
+			LOG (4) std::cout <<	 "tmp_y " << tmp_y << "\n";
 				//Y.push_back(tmp % N);
+			}
 
 
 #define NEGATIVE_SIGN	 0 
@@ -266,7 +313,7 @@ int main (void)
 					// myfile << "\n";
 					// myfile.close();
 					start = clock();
-					v_exp_ext[NEGATIVE_SIGN] = v_exp_ext[NEGATIVE_SIGN];
+					v_exp_ext[NEGATIVE_SIGN] = v_exp_tmp[NEGATIVE_SIGN];
 					for(int g = 1; g < p_smooth_pos.size(); g++) {
 						v_exp_ext[p_smooth_pos[g-1]] = v_exp_tmp[g];
 						LOG(1) std::cout << p_smooth_pos[g] << "\t" << v_exp_tmp[g] << "\n";
@@ -358,8 +405,15 @@ int main (void)
 	if (exit_flag)
 			break;
 			}
+	LOG(0) std::cout << "dixon count " << count_dixon[k] << "\n";
+	//if(count_dixon[k] < 2)
+	//		break;
 	if (exit_flag)
 			break;
+ 
+	}
+	//if (exit_flag)
+	//		break;
  
 	}
 	if(!exit_flag)
@@ -376,6 +430,7 @@ int main (void)
 					<< "\t" << size_B
 					<< "\t" << x_count 
 					<< "\t" << smooth_count 
+					<< "\t" << k 
 					<< "\t" << eucl_count 
 					<< "\t" << (double)(finish - start_gen) / CLOCKS_PER_SEC 
 					<< "\n";
@@ -397,7 +452,7 @@ int main (void)
 					myfile.close();
 
 					 myfile.open ("dixon_count.txt", ios::app);
-					 for (int i = 0; i < size_B; ++i)
+					 for (int i = 0; i < size_K; ++i)
 					 {
 						myfile << "\t" << count_dixon[i];
 					 }

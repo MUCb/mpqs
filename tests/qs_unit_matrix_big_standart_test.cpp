@@ -19,7 +19,7 @@
 #include <math.h>
 #include <time.h>
 
-int showDebugMsg = 1;
+int showDebugMsg = 0;
 
 //BOOST_AUTO_TEST_CASE(test_2) 
 int main (void)
@@ -180,7 +180,7 @@ int main (void)
     int exit_flag = 0;
     start = clock();
     start_gen = clock();
-    for (long  j = 0, y_number = -1; j < M/2; j++){
+    for (long  j = 0, y_number = -1; j < M; j++){
         for (int  d = 0; d < 2; d++){
             big_2 tmp_x;
             if(d == 1 && j == 0)

@@ -18,12 +18,14 @@ int main (){
 
     mpf_t f;
     mpf_init (f);
+    /*
     mpz_set_str (m,       "1000", 10);
     mpz_set_str (m1,       "1000", 10);
 	mpz_set_str (iter,  "200", 10);
+*/
     /* 10^14 */
     /*
-	mpz_set_str (m,       "10000000", 10);
+	mpz_set_str (m,       "7373030", 10);
 	mpz_set_str (iter,  "2000", 10);
 	mpz_set_str (m,       "1000000", 10);
 	mpz_set_str (iter,  "2000", 10);
@@ -40,7 +42,7 @@ int main (){
 */
 
     /*
-	mpz_set_str (m,       "1700000000", 10);
+	mpz_set_str (m,       "4779830000", 10);
 	mpz_set_str (iter,  "2000", 10);
 
 	mpz_set_str (m,       "10000", 10);
@@ -106,9 +108,9 @@ int main (){
 	mpz_set_str (iter,  "2000", 10);
 
 */
-    /*
 	mpz_set_str (m,       "1000000000000", 10);
 	mpz_set_str (iter,  "2000", 10);
+    /*
 	mpz_set_str (m,       "10000000", 10);
 	mpz_set_str (iter,  "2000", 10);
 
@@ -168,13 +170,14 @@ int main (){
 */
  
     mpf_set_z (f, iter);
+            mpz_set(m1, m);
     int count = 0;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 2; i++) {
         //mpz_add(m, m, iter_2);
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i <  5; i++) {
             count ++;
-            //mpz_add(m, m, iter);
-            mpz_set(m, m1);
+            mpz_add(m, m, iter);
+            //mpz_set(m, m1);
             //mpz_mul_ui(m, m, 13);
             //mpz_mdiv_ui(m, m, 10);
             //if(count > 5) {

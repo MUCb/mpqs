@@ -28,7 +28,7 @@ my @data_1 = <FILE>;
 
 close(FILE);
 
-open(FILE, "results_1.txt") or die("Unable to open file");
+open(FILE, "results_2.txt") or die("Unable to open file");
 
 my @data_2 = <FILE>;
 
@@ -49,9 +49,11 @@ while(  $e2=shift(@data_2))
     print $fh_1 "$e2\n";
    close $fh_1;
 
+    print "$e2\n";
    #print "$e1 $e2\n"
    #system("./tests/qs_unit_matrix_big_online_test.out");
-   system("./tests/dixon.out");
+   #system("./tests/qs_unit_matrix_big_standart_test.out");
+   system("./tests/dixon_qsk.out");
 
 
 

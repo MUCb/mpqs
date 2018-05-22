@@ -47,7 +47,6 @@ long dixon_make_smooth_numbers(std::vector<long long > &p_smooth, std::vector<lo
     // Modulo 2, every integer is a quadratic residue.
     p_smooth.push_back(prime[2]);
     p_smooth_pos.push_back(2 -1);
-    DEBUG(2, "%llu\n", prime[2]);
 	long count = 1;
 
     for (long i = 3; i < size_B && (i < prime_size); ++i)
@@ -56,6 +55,7 @@ long dixon_make_smooth_numbers(std::vector<long long > &p_smooth, std::vector<lo
         //tmp  = N;
         big one(1);
         big tmp_p( prime[i]);
+    //DEBUG(2, "%s %d prime %d\n", __func__,__LINE__,prime[i]);
         big N_mod;
         N_mod = N % tmp_p;
         long long N_mod_l = N_mod.to_long();
@@ -68,7 +68,7 @@ long dixon_make_smooth_numbers(std::vector<long long > &p_smooth, std::vector<lo
             p_smooth.push_back(prime[i]);
 			p_smooth_pos.push_back(i-1);
             //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
-            DEBUG(2, "%llu pos %d\n", prime[i], i-1);
+            //DEBUG(2, "%llu pos %d\n", prime[i], i-1);
 			count++;
         }
         //std::cout << "N5=" << N << "\n";
