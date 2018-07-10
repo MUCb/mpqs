@@ -273,10 +273,12 @@ void div_rem_l(big number, long long denom_l, big &quotient, long long  &reminde
     if (denom_l >= 90000000000000000){
         std::cout << "denominator to big\n";
     } else {
-        if( number.size <= 18 ) {
+        if( number.size <= 16 ) {
+				//std::cout << __func__ << __LINE__<< "\n";
             for(int i = number.size; i >= 0; i--) {
                 num_l = num_l * 10 + number.number[i]; 
             }
+				//std::cout <<" num_l " << num_l << "\n";
             big tmp(num_l/denom_l);
             quotient = tmp;
             reminder = num_l%denom_l;
@@ -829,6 +831,16 @@ void big::pow10(int power) {
        }
        size += power;
     }
+}
+
+big big::pow(int power) {
+	big res = *this;
+    if( size != 0){
+       for( int i = 1; i < power; i++) {
+			   res = res * *this;
+       }
+    }
+	return res;
 }
 
 bool big::operator<(const big other) const{

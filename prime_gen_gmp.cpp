@@ -12,8 +12,33 @@ int main (){
 	mpz_t prime;
 	// mpz_class A[sumX];
 	// primes = (mpz_t *) malloc(sizeof(mpz_t) * PRIMES_SIZE);
-
+    
+    FILE * pFile;
+    char mystring [100];
+	mpz_t p;
 	mpz_t m;
+	mpz_t s;
+	mpz_init(m);
+	mpz_init(s);
+	mpz_init(p);
+    pFile = fopen ("primes","r");
+    if (pFile == NULL) 
+	perror ("Error opening file");
+    else {
+        while ( fgets (mystring , 100 , pFile) != NULL ) {
+		printf("%s",  mystring );
+		mpz_set_str(p,mystring, 10);
+		mpz_set_str(m,mystring, 10);
+		for(int i = 0; i< 5; i++) {
+			mpz_nextprime(p,p);
+		mpz_sub(s, p, m);
+			gmp_printf ("%Zd\n",s);
+		}
+        } 
+        fclose (pFile);
+    }
+
+return 1; 
 	mpz_t m1;
 	mpz_init(prime);
 	mpz_init(m1);

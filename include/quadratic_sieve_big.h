@@ -12,6 +12,7 @@ int fill_matrix(bin_matrix_t & m1, std::vector<int> &smooth_num, std::vector< st
 long long  mp_legendre_1(long long   a, long long  p);
 
 void make_smooth_numbers_1(std::vector<long long > &p_smooth, double size_B, const big N);
+void make_smooth_numbers_2(std::vector<long long > &p_smooth, double size_B, const big N);
 int find_solution_big (bin_matrix_t & m2, 
                     std::vector<int> &smooth_num_back, 
                     std::vector<int> &smooth_num, 

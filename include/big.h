@@ -38,6 +38,7 @@ public:
 	big operator-(const big other) const;
 	friend std::ostream& operator<<(std::ostream& os, const big& obj);
 	void pow10(int power); 
+	big pow(int power); 
 	big operator*(const big other) const;
 	big operator/(const big other) const;
 	friend big div(const big other);

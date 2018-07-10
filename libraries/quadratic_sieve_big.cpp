@@ -8,6 +8,9 @@
 #include "greatest_common_divisor_big.h"
 #include "quadratic_sieve_big.h"
 
+#include <gmp.h>
+#include <gmpxx.h>
+
 
 
 int make_exp_array_condBsmooth(std::vector< std::vector<uint64_t> > &v_exp, std::vector<int> &smooth_num, std::vector<long> Y, std::vector<long> &p_smooth, double size_B, uint32_t M,
@@ -320,6 +323,7 @@ void construct_xy(std::vector<big_2> &X, std::vector<big_2> &Y, big_2 sqrt_N, bi
 // uint64_t max value  10^19
 //  N max 10^9
 // p max 10^4
+/*
 void make_smooth_numbers(std::vector<big> &p_smooth, double size_B, const big N)
 {
     //prime is 2 - special case 
@@ -379,13 +383,14 @@ void make_smooth_numbers(std::vector<big> &p_smooth, double size_B, const big N)
 	//std::cout << "N5=" << N << "\n";
     }
 }
+*/
 
 void make_smooth_numbers_1(std::vector<long long > &p_smooth, double size_B, const big N)
 {
     //prime is 2 - special case 
     // Modulo 2, every integer is a quadratic residue.
-    p_smooth.push_back(prime[2]);
-    DEBUG(2, "%llu\n", prime[2]);
+    p_smooth.push_back(2);
+    DEBUG(2, "%llu\n", 2);
 
     for (uint64_t i = 3; (p_smooth.size() < size_B) && (i < prime_size); ++i)
     {
@@ -405,6 +410,45 @@ void make_smooth_numbers_1(std::vector<long long > &p_smooth, double size_B, con
             p_smooth.push_back(prime[i]);
             //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
             DEBUG(2, "%llu\n", prime[i]);
+        }
+        //std::cout << "N5=" << N << "\n";
+    }
+}
+
+void make_smooth_numbers_2(std::vector<long long > &p_smooth, double size_B, const big N)
+{
+    //prime is 2 - special case 
+    // Modulo 2, every integer is a quadratic residue.
+    p_smooth.push_back(2);
+    DEBUG(2, "%llu\n", 2);
+	mpz_t prime;
+	long int p;
+	mpz_t prime_next;
+	mpz_init(prime);
+	mpz_init(prime_next);
+	mpz_set_ui (prime, 2);
+
+    for (uint64_t i = 3; (p_smooth.size() < size_B) ; ++i)
+    {
+        long long  tmp;
+        //tmp  = N;
+        big one(1);
+        mpz_nextprime(prime, prime);
+        gmp_printf ("%Zd\n",prime);
+        p = mpz_get_si(prime);
+        big tmp_p( p);
+        big N_mod;
+        N_mod = N % tmp_p;
+        long long N_mod_l = N_mod.to_long();
+        tmp = N_mod_l;
+
+        if(mp_legendre_1(N_mod_l, p) == 1) 
+            //if( tmp == one)
+            //if( tmp == 1)
+        {
+            p_smooth.push_back(p);
+            //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
+            DEBUG(2, "%llu\n", p);
         }
         //std::cout << "N5=" << N << "\n";
     }
@@ -551,10 +595,12 @@ big prime_factorisation(big Y, std::vector<long long> p_smooth, std::vector<uint
                 //std::cout<< "Y = " << Y << "\n"; 
                 v_exp[exponent_num] += 1; 
             }
+			//exit(0);
         } while (reminder == 0);
 
-        if(Y == one || Y == min_one)
+        if(Y == one || Y == min_one){
             break;
+		}
     }
     return Y;
 }

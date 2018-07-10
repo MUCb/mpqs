@@ -4,7 +4,7 @@
 dynamic_bin_matrix_test: dynamic_bin_matrix
 	g++ -std=c++11 -Iinclude/ -I../soft/boost_1_64_0/  -L../soft/boost_1_64_0/ \
 				libraries/dynamic_bin_matrix.o tests/dynamic_bin_matrix_test.cpp \
-				-o tests/dynamic_bin_matrix_test.out
+ta		-o tests/dynamic_bin_matrix_test.out
 
 
 qs_remainder_test: quadratic_sieve_remainder dynamic_bin_matrix
@@ -84,7 +84,7 @@ qs_unit_matrix_big_standart_test: quadratic_sieve_big dynamic_bin_matrix big big
 	g++ -std=c++11  -Iinclude/ -lm  \
 	tests/qs_unit_matrix_big_standart_test.cpp  -o tests/qs_unit_matrix_big_standart_test.out \
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
-				libraries/greatest_common_divisor_big.o 
+				libraries/greatest_common_divisor_big.o  -lgmp
 
 dixon: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big
 		g++ -std=c++11  -Iinclude/ -lm  \
@@ -96,7 +96,20 @@ dixon_qsk: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divi
 		g++ -std=c++11  -Iinclude/ -lm  \
 	tests/dixon_qsk.cpp  -o tests/dixon_qsk.out \
 				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
-				libraries/dixon_greatest_common_divisor_big.o libraries/dixon_big_lib.o
+				libraries/dixon_greatest_common_divisor_big.o libraries/dixon_big_lib.o -lgmp
+
+mpqs: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big_dixon dixon_big_lib
+		g++ -std=c++11  -Iinclude/ -lm  \
+	tests/mpqs.cpp  -o tests/mpqs.out \
+				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
+				libraries/dixon_greatest_common_divisor_big.o libraries/dixon_big_lib.o -lgmp
+
+
+mpqs1: quadratic_sieve_big dynamic_bin_matrix big big_2 greatest_common_divisor_big
+	g++ -std=c++11  -Iinclude/ -lm  \
+	tests/mpqs.cpp  -o tests/mpqs.out \
+				libraries/quadratic_sieve_big.o libraries/dynamic_bin_matrix.o libraries/big.o libraries/big_2.o\
+				libraries/greatest_common_divisor_big.o -lgmp
 
 
 dixon_number_gen:

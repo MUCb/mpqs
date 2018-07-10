@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <math.h>
 
+#include <gmp.h>
+#include <gmpxx.h>
+
 
 #include "big_2.h"
 extern long long  prime[];
@@ -40,6 +43,44 @@ long long  dixon_legendre(long long   a, long long  p) {
     return 0;
 }
 
+void dixon_make_smooth_numbers_2(std::vector<long long > &p_smooth, double size_B, const big N)
+{
+    //prime is 2 - special case 
+    // Modulo 2, every integer is a quadratic residue.
+    p_smooth.push_back(2);
+    DEBUG(2, "%llu\n", 2);
+	mpz_t prime;
+	long int p;
+	mpz_t prime_next;
+	mpz_init(prime);
+	mpz_init(prime_next);
+	mpz_set_ui (prime, 2);
+
+    for (uint64_t i = 3; (p_smooth.size() < size_B) ; ++i)
+    {
+        long long  tmp;
+        //tmp  = N;
+        big one(1);
+        mpz_nextprime(prime, prime);
+        //gmp_printf ("%Zd\n",prime);
+        p = mpz_get_si(prime);
+        big tmp_p( p);
+        big N_mod;
+        N_mod = N % tmp_p;
+        long long N_mod_l = N_mod.to_long();
+        tmp = N_mod_l;
+
+        if(dixon_legendre(N_mod_l, p) == 1) 
+            //if( tmp == one)
+            //if( tmp == 1)
+        {
+            p_smooth.push_back(p);
+            //std::cout << "tmp " << tmp << "added " << tmp_p << "\n";
+            DEBUG(2, "%llu\n", p);
+        }
+        //std::cout << "N5=" << N << "\n";
+    }
+}
 
 long dixon_make_smooth_numbers(std::vector<long long > &p_smooth, std::vector<long long > &p_smooth_pos, double size_B, const big N)
 {
@@ -75,6 +116,5 @@ long dixon_make_smooth_numbers(std::vector<long long > &p_smooth, std::vector<lo
     }
 	return count; 
 }
-
 
 
