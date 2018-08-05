@@ -261,7 +261,10 @@ uint64_t euclid_gcd_m(const std::vector<long>& X,
                 DEBUG (3, "firtst attept Y + X = %ld\n", tmp1);
             }
             else{
-                tmp1 = abs(sumY - sumX);
+                //tmp1 = abs(sumY - sumX);
+                tmp1 = sumY - sumX;
+		if (tmp1 < 0)
+			tmp1 *= -1;
                 DEBUG (3, "second attept Y - X = %ld\n", tmp1);
             }
             uint64_t tmp2 = N;

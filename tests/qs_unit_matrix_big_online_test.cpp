@@ -46,6 +46,7 @@ int main (void)
         fclose (pFile);
     }
 
+    exit;
     // remove new line character
     char *pos;
     if ((pos=strchr(mystring, '\n')) != NULL)
